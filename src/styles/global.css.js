@@ -22,7 +22,7 @@ article, aside, dialog, figcaption, figure, footer, header, hgroup, main, nav, s
 }
 body {
   margin: 0; /* 1 */
-  font-family: 'Ubuntu', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 1rem;
   font-weight: normal;
   line-height: 1.5;

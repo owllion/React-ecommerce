@@ -3,7 +3,6 @@ import React from "react";
 import styled from "styled-components";
 import cl from "../constants/color/color";
 
-import { ImSearch } from "react-icons/im";
 import { IoMdCart } from "react-icons/io";
 
 const Navbar = () => {
@@ -11,15 +10,8 @@ const Navbar = () => {
     <Container>
       <Wrapper>
         <Left>
-          <Language>EN</Language>
-          <SearchContainer>
-            <Input />
-            <ImSearch />
-          </SearchContainer>
-        </Left>
-        <Center>
           <Logo>Koh.</Logo>
-        </Center>
+        </Left>
         <Right>
           <MenuItem>REGISTER</MenuItem>
           <MenuItem>SIGN IN</MenuItem>
@@ -38,50 +30,33 @@ const Navbar = () => {
 };
 
 const Container = styled.div`
-  height: 60px;
+  height: 80px;
+  position: fixed;
+  top: 30px;
+  left: 0;
+  /* background: ${cl.gray}; */
+  width: 100%;
+  z-index: 50;
 `;
 const Wrapper = styled.div`
-  padding: 10px 20px;
+  padding: 10px 80px;
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 `;
-const Left = styled.div`
-  flex: 1;
-  display: flex;
-  align-items: center;
-`;
-const Language = styled.span`
-  font-size: 0.9rem;
-  cursor: pointer;
-`;
-const SearchContainer = styled.div`
-  border: 0.5px solid ${cl.gray};
-  display: flex;
-  align-items: center;
-  margin-left: 1.2rem;
-  padding: 0.5rem;
-`;
-const Input = styled.input`
-  border: none;
-`;
-const Center = styled.div`
-  flex: 1;
-  text-align: center;
-`;
+const Left = styled.div``;
 const Logo = styled.h1`
   font-weight: bold;
   font-size: 3rem;
 `;
 const Right = styled.ul`
-  flex: 1;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
 `;
 const MenuItem = styled.li`
   font-size: 0.9rem;
+  font-weight: bold;
   padding-right: 2rem;
   cursor: pointer;
   list-style: none;

@@ -9,7 +9,8 @@ const COLORS = {
   orange: "#FE7161",
   darkGrey: "#4D5061",
   transparent: "rgba(0,0,0,0)",
-  green: "#109648",
+  green: "#008080",
+  arrowBg: "#fff7f7",
 };
 
 export default COLORS;
