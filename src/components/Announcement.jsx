@@ -8,7 +8,7 @@ const Announcement = () => {
 };
 const Container = styled.div`
   height: 30px;
-  background-color: ${cl.green};
+  background-color: ${cl.dark};
   color: ${cl.white};
   display: flex;
   align-items: center;
