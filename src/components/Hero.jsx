@@ -87,7 +87,7 @@ const BtnContainer = styled.div`
   padding-top: 1.5rem;
 `;
 
-const ShopBtn = styled.button`
+export const ShopBtn = styled.button`
   border: none;
   cursor: pointer;
   padding: 0.5rem 1rem;
