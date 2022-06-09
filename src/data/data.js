@@ -26,17 +26,17 @@ export const categories = [
   {
     id: 1,
     img: "https://images.unsplash.com/photo-1571513722275-4b41940f54b8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
-    title: "  LIGHT JACKETS",
+    title: "LIGHT BLAZER",
   },
   {
     id: 2,
     img: "https://images.unsplash.com/photo-1548272181-1a2542ad6879?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=688&q=80",
-    title: "DUFFLE LOVE",
+    title: "WOLLEN LOVE",
   },
   {
     id: 3,
     img: "https://images.pexels.com/photos/5886041/pexels-photo-5886041.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
-    title: "SHIRT STYLE!",
+    title: "SHIRT STYLE",
   },
 ];
 
@@ -47,7 +47,7 @@ export const popularProducts = [
   },
   {
     id: 2,
-    img: "https://cdn.shopify.com/s/files/1/0101/4832/products/Angela_Natural_Tee.png?v=1606780388",
+    img: "https://i.pinimg.com/564x/20/13/7f/20137fd814ca511eb35894488e240687--black-coats-long-black.jpg",
   },
   {
     id: 3,
@@ -55,7 +55,7 @@ export const popularProducts = [
   },
   {
     id: 4,
-    img: "https://www.burdastyle.com/pub/media/catalog/product/cache/7bd3727382ce0a860b68816435d76e26/107/BUS-PAT-BURTE-1320516/1170x1470_BS_2016_05_132_front.png",
+    img: "https://img.mytheresa.com/2176/2176/90/jpeg/catalog/product/47/P00651869.jpg",
   },
   {
     id: 5,
@@ -65,12 +65,14 @@ export const popularProducts = [
     id: 6,
     img: "https://d3o2e4jr3mxnm3.cloudfront.net/Rocket-Vintage-Chill-Cap_66374_1_lg.png",
   },
+
   {
     id: 7,
-    img: "https://www.vintageindustries.nl/download_front/qympzk1762/2217_Arrow_Jacket_Forest.png",
+    img: "https://www.uniqlo.com/tw/collection/masterpiece/21ss/img/product-044.jpg",
   },
   {
     id: 8,
-    img: "https://www.pngarts.com/files/3/Women-Jacket-PNG-High-Quality-Image.png",
+    img: "https://images.flannels.com/images/imgzoom/55/55760503_xxl.jpg",
   },
+  //PRADA Nylon Short Sleeve Shirt
 ];
