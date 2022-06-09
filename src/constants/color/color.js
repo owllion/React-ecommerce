@@ -11,6 +11,7 @@ const COLORS = {
   transparent: "rgba(0,0,0,0)",
   green: "#008080",
   arrowBg: "#fff7f7",
+  darkenGray: "#868e96",
 };
 
 export default COLORS;

@@ -7,8 +7,10 @@ import { IoIosSend } from "react-icons/io";
 const Newsletter = () => {
   return (
     <Container>
-      <Title>Newsletter</Title>
-      <Desc>Get timely updates from your favorite products.</Desc>
+      <DescContainer>
+        <Title>Newsletter</Title>
+        <Desc>Get e-mail updates about our latest shop and special offers</Desc>
+      </DescContainer>
       <InputContainer>
         <Input placeholder="Your email" />
         <SendBtn>
@@ -20,28 +22,32 @@ const Newsletter = () => {
 };
 
 const Container = styled.div`
-  height: 60vh;
-  margin-top: 5rem;
-  background-color: #dfd3b4;
   display: flex;
   align-items: center;
-  justify-content: center;
-  flex-direction: column;
+  justify-content: space-around;
+  height: 20vh;
+  padding: 0.3rem 3rem;
+  margin-top: 5rem;
+  background-color: rgba(209, 145, 60, 0.5);
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    justify-content: center;
+    height: 50vh;
+    text-align: center;
+  }
   @media (max-width: 450px) {
     padding: 0 2rem;
   }
 `;
+const DescContainer = styled.div``;
 const Title = styled.h1`
-  font-size: 4.5rem;
-  margin-bottom: 20px;
-  @media (max-width: 450px) {
-    font-size: 2.5rem;
-  }
+  font-size: 1.7rem; ;
 `;
 const Desc = styled.div`
-  font-size: 24px;
-  font-weight: 300;
+  font-size: 1.2rem;
   margin-bottom: 20px;
+
   @media (max-width: 768px) {
     text-align: center;
   }
@@ -50,14 +56,25 @@ const Desc = styled.div`
   }
 `;
 const InputContainer = styled.div`
-  height: 40px;
+  width: 30%;
+  height: 60px;
   background-color: white;
   display: flex;
   justify-content: space-between;
+  display: flex;
   border-radius: 0 5px 5px 0;
+  @media (max-width: 820px) {
+    width: 80%;
+  }
+  @media (max-width: 375px) {
+    width: auto;
+  }
 `;
 const Input = styled.input`
   border: none;
+  flex: 8;
+  border-radius: 4px;
+  width: 100%;
   padding-left: 1.2rem;
   &:focus {
     outline: none;
@@ -68,9 +85,10 @@ const SendBtn = styled.button`
   cursor: pointer;
   background-color: teal;
   color: white;
+  font-size: 2rem;
   display: flex;
   align-items: center;
-  padding: 1rem;
+  padding: 1rem 2rem;
   border-radius: 0 5px 5px 0;
   transition: all 0.5s ease-in;
   &:focus {
