@@ -74,7 +74,9 @@ const Footer = () => {
           ))}
           <PaymentContainer>
             <span>Secured Payment Gateways</span>
-            <CardImg src="https://i.ibb.co/Qfvn4z6/payment.png" />
+            <CardImgContainer>
+              <CardImg src="https://i.ibb.co/Qfvn4z6/payment.png" />
+            </CardImgContainer>
           </PaymentContainer>
         </Right>
       </Container>
@@ -171,8 +173,12 @@ const PaymentContainer = styled.div`
     padding-bottom: 0.9rem;
   }
 `;
+const CardImgContainer = styled.div`
+  width: 300px;
+`;
 const CardImg = styled.img`
   width: 100%;
+  object-fit: contain;
 `;
 const Copyright = styled.div`
   display: flex;
