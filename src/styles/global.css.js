@@ -306,5 +306,11 @@ template {
 [hidden] {
   display: none !important;
 }
+
+//swiper remove default navigation
+.swiper-button-next::after,
+.swiper-button-prev::after{ 
+ content: ""
+}
 }
 `;

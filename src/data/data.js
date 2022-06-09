@@ -47,32 +47,31 @@ export const popularProducts = [
   },
   {
     id: 2,
-    img: "https://i.pinimg.com/564x/20/13/7f/20137fd814ca511eb35894488e240687--black-coats-long-black.jpg",
+    img: "https://i.imgur.com/3wijbOO.png",
   },
   {
     id: 3,
-    img: "https://www.prada.com/content/dam/pradanux_products/U/UCS/UCS319/1YOTF010O/UCS319_1YOT_F010O_S_182_SLF.png",
+    img: "https://i.imgur.com/lurWEa7.png",
   },
   {
     id: 4,
-    img: "https://img.mytheresa.com/2176/2176/90/jpeg/catalog/product/47/P00651869.jpg",
+    img: "https://i.imgur.com/3Mo3pcs.png",
   },
   {
     id: 5,
-    img: "https://images.ctfassets.net/5gvckmvm9289/3BlDoZxSSjqAvv1jBJP7TH/65f9a95484117730ace42abf64e89572/Noissue-x-Creatsy-Tote-Bag-Mockup-Bundle-_4_-2.png",
+    img: "https://i.imgur.com/xpCmD1O.png",
   },
   {
     id: 6,
-    img: "https://d3o2e4jr3mxnm3.cloudfront.net/Rocket-Vintage-Chill-Cap_66374_1_lg.png",
+    img: "  https://i.imgur.com/zci3EEh.png",
   },
 
   {
     id: 7,
-    img: "https://www.uniqlo.com/tw/collection/masterpiece/21ss/img/product-044.jpg",
+    img: "https://i.imgur.com/EQoqhds.png",
   },
   {
     id: 8,
-    img: "https://images.flannels.com/images/imgzoom/55/55760503_xxl.jpg",
+    img: "https://i.imgur.com/BSDsZcH.png",
   },
-  //PRADA Nylon Short Sleeve Shirt
 ];

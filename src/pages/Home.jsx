@@ -4,6 +4,7 @@ import Announcement from "../components/Announcement";
 import Hero from "../components/Hero";
 import Categories from "../components/Categories";
 import Products from "../components/Products";
+import Newsletter from "../components/Newsletter";
 
 const Home = () => {
   return (
@@ -13,6 +14,7 @@ const Home = () => {
       <Hero />
       <Categories />
       <Products />
+      <Newsletter />
     </>
   );
 };
