@@ -21,14 +21,14 @@ const Newsletter = () => {
   );
 };
 
-const Container = styled.div`
+const Container = styled.section`
   display: flex;
   align-items: center;
   justify-content: space-around;
   height: 20vh;
   padding: 0.3rem 3rem;
   margin-top: 5rem;
-  background-color: rgba(209, 145, 60, 0.5);
+  background-color: ${cl.mainGray};
 
   @media (max-width: 768px) {
     flex-direction: column;

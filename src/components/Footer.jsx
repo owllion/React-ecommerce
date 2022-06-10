@@ -5,6 +5,9 @@ import cl from "../constants/color/color";
 import { ImPhone, ImLocation } from "react-icons/im";
 import { IoMdMail } from "react-icons/io";
 
+import store1 from "../assets/footer/store/footerstore1.png";
+import store2 from "../assets/footer/store/footerstore2.png";
+
 const contact = [
   {
     el: <ImLocation />,
@@ -24,61 +27,65 @@ const Footer = () => {
   return (
     <>
       <Container>
-        <Left>
-          <Logo>Koh.</Logo>
-          <Desc>
-            There are many variations of passages of Lorem Ipsum available, but
-            the majority have suffered alteration in some form, by injected
-            humour, or randomised words which don’t look even slightly
-            believable.
-          </Desc>
-          <h3>Follow Us</h3>
-          <SocialContainer>
-            {["fb", "twitter", "ig"].map((item, index) => {
-              const url = require(`../assets/social/${item}.svg`);
-              return (
-                <SocialIcon key={index}>
-                  <Img src={url} />
-                </SocialIcon>
-              );
-            })}
-          </SocialContainer>
-        </Left>
+        <Wrapper>
+          <Left>
+            <Logo>Koh.</Logo>
+            <Desc>Products Store</Desc>
+            <StoreImgBox>
+              <StoreImg src={store1}></StoreImg>
+              <StoreImg src={store2}></StoreImg>
+            </StoreImgBox>
 
-        <Center1>
-          <Title>About</Title>
-          <List>
-            <ListItem>About us</ListItem>
-            <ListItem>Delivery Information</ListItem>
-            <ListItem>Privacy Policy</ListItem>
-            <ListItem>Terms & Conditions</ListItem>
-          </List>
-        </Center1>
-        <Center2>
-          <Title>Useful Links</Title>
-          <List>
-            <ListItem>My Account</ListItem>
-            <ListItem>View Cart</ListItem>
-            <ListItem>Wishlist</ListItem>
-            <ListItem>Help</ListItem>
-          </List>
-        </Center2>
+            <LeftDown>
+              <h3>Follow Us</h3>
+              <SocialContainer>
+                {["fb", "twitter", "ig"].map((item, index) => {
+                  const url = require(`../assets/footer/social/${item}.svg`);
+                  return (
+                    <SocialIcon key={index}>
+                      <Img src={url} />
+                    </SocialIcon>
+                  );
+                })}
+              </SocialContainer>
+            </LeftDown>
+          </Left>
 
-        <Right>
-          <Title>Contact</Title>
-          {contact.map((item, index) => (
-            <ContactItem key={index}>
-              <ContactIcon>{item.el}</ContactIcon>
-              <ContactInfo>{item.info}</ContactInfo>
-            </ContactItem>
-          ))}
-          <PaymentContainer>
-            <span>Secured Payment Gateways</span>
-            <CardImgContainer>
-              <CardImg src="https://i.ibb.co/Qfvn4z6/payment.png" />
-            </CardImgContainer>
-          </PaymentContainer>
-        </Right>
+          <Center1>
+            <Title>About</Title>
+            <List>
+              <ListItem>About us</ListItem>
+              <ListItem>Delivery Information</ListItem>
+              <ListItem>Privacy Policy</ListItem>
+              <ListItem>Terms & Conditions</ListItem>
+            </List>
+          </Center1>
+          <Center2>
+            <Title>Useful Links</Title>
+            <List>
+              <ListItem>My Account</ListItem>
+              <ListItem>View Cart</ListItem>
+              <ListItem>Wishlist</ListItem>
+              <ListItem>Help</ListItem>
+            </List>
+          </Center2>
+
+          <Right>
+            <Title>Contact</Title>
+            {contact.map((item, index) => (
+              <ContactItem key={index}>
+                <ContactIcon>{item.el}</ContactIcon>
+                <ContactInfo>{item.info}</ContactInfo>
+              </ContactItem>
+            ))}
+            <PaymentContainer>
+              <span>Secured Payment Gateways</span>
+              <CardImgContainer>
+                <CardImg src="https://i.ibb.co/Qfvn4z6/payment.png" />
+              </CardImgContainer>
+            </PaymentContainer>
+          </Right>
+        </Wrapper>
       </Container>
 
       <Copyright>&copy; Koh. 2022</Copyright>
@@ -86,9 +93,16 @@ const Footer = () => {
   );
 };
 
-const Container = styled.div`
-  display: flex;
+const Container = styled.section`
   padding: 4.5rem 3rem 1rem 3rem;
+  @media screen and (max-width: 768px) {
+    padding-left: 0;
+  }
+`;
+const Wrapper = styled.div`
+  max-width: 1250px;
+  margin: 0 auto;
+  display: flex;
   @media (max-width: 768px) {
     flex-direction: column;
     padding-left: 1rem;
@@ -107,10 +121,24 @@ const Left = styled.div`
 `;
 const Logo = styled.h1``;
 const Desc = styled.p`
-  margin: 1.2rem 0px;
+  margin: 0;
+  color: ${cl.darkenGray};
+  padding-bottom: 0.4rem;
+`;
+
+const StoreImgBox = styled.div`
+  width: 100px;
+  display: flex;
+`;
+const StoreImg = styled.img`
+  width: 100%;
+  margin-right: 1rem;
 `;
 const SocialContainer = styled.div`
   display: flex;
+`;
+const LeftDown = styled.div`
+  margin-top: 2rem;
 `;
 const SocialIcon = styled.div`
   width: 40px;
@@ -177,7 +205,7 @@ const CardImgContainer = styled.div`
   width: 300px;
 `;
 const CardImg = styled.img`
-  width: 100%;
+  width: 80%;
   object-fit: contain;
 `;
 const Copyright = styled.div`

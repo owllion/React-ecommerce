@@ -29,7 +29,7 @@ const Navbar = () => {
   );
 };
 
-const Container = styled.div`
+const Container = styled.nav`
   height: 80px;
   position: fixed;
   top: 30px;

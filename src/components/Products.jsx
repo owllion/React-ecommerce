@@ -11,7 +11,7 @@ const Products = () => {
   );
 };
 
-const Container = styled.div`
+const Container = styled.section`
   display: flex;
   padding: 1.2rem 2.4rem;
   flex-wrap: wrap;

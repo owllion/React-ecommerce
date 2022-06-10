@@ -13,7 +13,7 @@ const Categories = () => {
   );
 };
 
-const Container = styled.div`
+const Container = styled.section`
   display: flex;
   padding: 2rem;
   @media (max-width: 980px) {
