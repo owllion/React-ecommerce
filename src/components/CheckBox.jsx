@@ -1,11 +1,19 @@
 import React from "react";
 import "../styles/filter.css";
 import styled, { keyframes } from "styled-components";
+import { MdPriceChange } from "react-icons/md";
 
-const CheckBox = ({ item }) => {
+const CheckBox = ({ item, current, handle, checkVal, disabled }) => {
   return (
     <Container>
-      <CheckBoxItem type="checkbox" value={item} id={item} />
+      <CheckBoxItem
+        type={current !== "Price" ? "checkbox" : "radio"}
+        name={current !== "Price" ? item : "singleAns"}
+        value={item}
+        id={item}
+        disabled={disabled}
+        onChange={handle}
+      />
       <Label for={item}>{item}</Label>
     </Container>
   );

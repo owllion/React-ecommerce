@@ -1,9 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import cl from "../constants/color/color";
 
 import { IoMdCart } from "react-icons/io";
-import { FiHeart, FiSearch } from "react-icons/fi";
+import { FiHeart } from "react-icons/fi";
 
 const SingleProduct = ({ item: { img, name, price } }) => {
   return (
@@ -13,9 +12,6 @@ const SingleProduct = ({ item: { img, name, price } }) => {
         <Info>
           <Icon>
             <IoMdCart />
-          </Icon>
-          <Icon>
-            <FiSearch />
           </Icon>
           <Icon>
             <FiHeart />
@@ -82,5 +78,4 @@ const Icon = styled.div`
     transform: scale(1.1);
   }
 `;
-const ProductNameContainer = styled.h4``;
 export default SingleProduct;

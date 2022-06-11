@@ -13,7 +13,9 @@ const Navbar = () => {
       <Wrapper>
         <Left>
           <div className="logo">
-            <Logo>Koh.</Logo>
+            <Link to={"/"}>
+              <Logo>Koh.</Logo>
+            </Link>
           </div>
           <div className="menu">
             <IoIosMenu />

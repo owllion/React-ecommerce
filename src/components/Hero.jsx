@@ -89,6 +89,7 @@ const BtnContainer = styled.div`
 
 export const ShopBtn = styled.button`
   border: none;
+  background: ${cl.white};
   cursor: pointer;
   padding: 0.5rem 1rem;
   font-size: 0.9rem;

@@ -111,14 +111,14 @@ sup {
 }
 
 a {
-  color: #007bff;
+  color: #000;
   text-decoration: none;
   background-color: transparent; 
   -webkit-text-decoration-skip: objects; 
 }
 a:hover {
-  color: #0056b3;
-  text-decoration: underline;
+  color: #000;
+  text-decoration: none;
 }
 
 a:not([href]):not([tabindex]) {
@@ -199,11 +199,13 @@ label {
 
 button {
   border-radius: 0;
+  background: none;
+  border:none;
 }
 
 button:focus {
-  outline: 1px dotted;
-  outline: 5px auto -webkit-focus-ring-color;
+  outline: none
+ 
 }
 input,
 button,
