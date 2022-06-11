@@ -50,7 +50,7 @@ const Container = styled.div`
 const Wrapper = styled.div`
   margin: 0 auto;
   max-width: 1400px;
-  background: coral;
+  /* background: coral; */
 `;
 const Top = styled.div`
   display: flex;
@@ -60,7 +60,7 @@ const Top = styled.div`
   justify-content: space-between;
   align-items: center;
   max-width: 1150px;
-  background: red;
+  /* background: red; */
   margin: 0 auto 2rem auto;
   padding: 2rem;
 `;

@@ -6,19 +6,12 @@ import CheckBox from "./CheckBox";
 import { apparelBrand } from "../data/apparelBrand";
 
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
-const priceOption = [
-  "$10 to $15",
-  "$100 to $200",
-  "$200-300$",
-  "400 to $500",
-  "$500 above",
-];
+
 const FilterOptionList = ({ title, itemList }) => {
   const [range, setRange] = useState(7);
   const [listState, setListState] = useState("more");
   const [checkVal, setCheckVal] = useState("");
   const handleSetCheckVal = (val) => {
-    console.log({ val });
     const {
       target: { value },
     } = val;
@@ -34,7 +27,6 @@ const FilterOptionList = ({ title, itemList }) => {
     <>
       <Container>
         <h3>{title}</h3>
-        <p>{priceOption.indexOf(checkVal)}</p>
         {itemList.slice(0, range).map((a, index) => (
           <CheckBox
             item={a}
@@ -44,11 +36,6 @@ const FilterOptionList = ({ title, itemList }) => {
             checkVal={checkVal}
           />
         ))}
-        {/* disabled={
-              title === "Price" &&
-              checkVal &&
-              priceOption.indexOf(checkVal) !== index
-            } */}
 
         {itemList.length > 7 && (
           <SeeMore>

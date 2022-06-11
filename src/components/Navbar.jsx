@@ -6,7 +6,6 @@ import cl from "../constants/color/color";
 
 import { IoMdCart, IoIosMenu } from "react-icons/io";
 import { MdAccountCircle } from "react-icons/md";
-
 const Navbar = () => {
   return (
     <Container>

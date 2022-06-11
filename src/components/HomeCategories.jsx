@@ -2,10 +2,17 @@ import React from "react";
 import styled from "styled-components";
 import { categories } from "../data/data";
 import HomeCategoryItem from "./HomeCategoryItem";
+import { motion } from "framer-motion";
 
 const HomeCategories = () => {
   return (
-    <Container>
+    <Container
+      as={motion.div}
+      viewport={{ once: true }}
+      initial={{ opacity: 0, y: 80 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: 0.2 }}
+    >
       {categories.map((item) => (
         <HomeCategoryItem key={item.id} item={item} />
       ))}
