@@ -8,18 +8,29 @@ import Select from "../components/Select";
 import Filter from "../components/Filter";
 
 const ProductList = () => {
-  const [active, setActive] = useState(false);
-  const handleActive = () => {
-    setActive(!active);
+  const [activeSort, setActiveSort] = useState(false);
+  const [activeFilter, setActiveFilter] = useState(false);
+
+  const handleActiveSort = () => {
+    if (activeFilter) setActiveFilter(false);
+    setActiveSort(!activeSort);
+  };
+  const handleActiveFilter = () => {
+    if (activeSort) setActiveSort(false);
+    setActiveFilter(!activeFilter);
+  };
+  const closeActive = () => {
+    if (activeFilter) return setActiveFilter(false);
+    if (activeSort) return setActiveSort(false);
   };
   return (
-    <Container onClick={() => setActive(!active)}>
+    <Container onClick={() => closeActive()}>
       <Wrapper>
         <Top>
           <PageTitle>All Products</PageTitle>
           <Func>
-            <Select active={active} handleActive={handleActive} />
-            <Filter></Filter>
+            <Filter active={activeFilter} handleActive={handleActiveFilter} />
+            <Select active={activeSort} handleActive={handleActiveSort} />
           </Func>
         </Top>
         <ItemContainer>
@@ -46,7 +57,7 @@ const Wrapper = styled.div`
 `;
 const Top = styled.div`
   display: flex;
-  @media (max-width: 700px) {
+  @media (max-width: 950px) {
     display: block;
   }
   justify-content: space-between;
@@ -62,6 +73,9 @@ const PageTitle = styled.h1`
 `;
 const Func = styled.div`
   display: flex;
+  @media (max-width: 950px) {
+    display: block;
+  }
 `;
 
 const ItemContainer = styled.div`

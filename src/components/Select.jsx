@@ -37,8 +37,8 @@ from {
   }
 `;
 const Container = styled.div`
-  width: 330px;
-  @media (max-width: 700px) {
+  width: 300px;
+  @media (max-width: 950px) {
     width: 100%;
   }
   position: relative;

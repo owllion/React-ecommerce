@@ -1,29 +1,39 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled, { css, keyframes } from "styled-components";
 
 import { sortOptions } from "../data/sortOptions";
-
+import "../styles/filter.css";
 import { TiArrowSortedUp, TiArrowSortedDown } from "react-icons/ti";
 
 const Filter = ({ active, handleActive }) => {
+  useEffect(() => {
+    console.log("現在active的值->", active);
+  }, [active]);
   return (
     <Container>
       <SelectBtn onClick={() => handleActive()}>
         <SelectBtnText>
-          Sort {active}
+          Filter
           {active ? <TiArrowSortedDown /> : <TiArrowSortedUp />}
         </SelectBtnText>
       </SelectBtn>
-      {active && (
-        <Options active={active}>
-          {sortOptions.map((item, index) => (
-            <Option className="option" key={index}>
-              <OptionIcon>{item.icon}</OptionIcon>
-              <OptionText className="option-text">{item.name}</OptionText>
-            </Option>
-          ))}
-        </Options>
-      )}
+
+      <Options active={active}>
+        <input
+          className="inp-cbx"
+          id="cbx"
+          type="checkbox"
+          style={{ display: "none" }}
+        />
+        <label className="cbx" for="cbx">
+          <span>
+            <svg width="12px" height="9px" viewbox="0 0 12 9">
+              <polyline points="1 5 4 8 11 1"></polyline>
+            </svg>
+          </span>
+          <span></span>
+        </label>
+      </Options>
     </Container>
   );
 };
@@ -37,9 +47,13 @@ from {
   }
 `;
 const Container = styled.div`
-  width: 330px;
-  @media (max-width: 700px) {
+  width: 300px;
+  @media (min-width: 1000px) {
+    margin-right: 2rem;
+  }
+  @media (max-width: 950px) {
     width: 100%;
+    margin-bottom: 1.5rem;
   }
   position: relative;
 `;
