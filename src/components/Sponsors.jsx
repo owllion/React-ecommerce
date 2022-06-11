@@ -22,7 +22,7 @@ const Sponsors = () => {
 };
 
 const Container = styled.section`
-  padding-top: 5rem;
+  padding: 5rem 0;
 `;
 const Wrapper = styled.div`
   display: flex;

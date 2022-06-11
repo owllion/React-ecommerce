@@ -1,13 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import { categories } from "../data/data";
-import CategoryItem from "./CategoryItem";
+import HomeCategoryItem from "./HomeCategoryItem";
 
-const Categories = () => {
+const HomeCategories = () => {
   return (
     <Container>
       {categories.map((item) => (
-        <CategoryItem key={item.id} item={item} />
+        <HomeCategoryItem key={item.id} item={item} />
       ))}
     </Container>
   );
@@ -23,4 +23,4 @@ const Container = styled.section`
     padding: 0;
   }
 `;
-export default Categories;
+export default HomeCategories;

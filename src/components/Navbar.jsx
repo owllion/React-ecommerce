@@ -63,7 +63,7 @@ const Container = styled.nav`
   position: fixed;
   top: 0;
   left: 0;
-  background: ${cl.darkenGray};
+  /* background: ${cl.darkenGray}; */
   width: 100%;
   z-index: 50;
 `;

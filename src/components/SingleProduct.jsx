@@ -5,22 +5,27 @@ import cl from "../constants/color/color";
 import { IoMdCart } from "react-icons/io";
 import { FiHeart, FiSearch } from "react-icons/fi";
 
-const SingleProduct = ({ item: { img } }) => {
+const SingleProduct = ({ item: { img, name, price } }) => {
   return (
-    <Container>
-      <Image src={img} alt="product" />
-      <Info>
-        <Icon>
-          <IoMdCart />
-        </Icon>
-        <Icon>
-          <FiSearch />
-        </Icon>
-        <Icon>
-          <FiHeart />
-        </Icon>
-      </Info>
-    </Container>
+    <>
+      <Container>
+        <Image src={img} alt="product" />
+        <Info>
+          <Icon>
+            <IoMdCart />
+          </Icon>
+          <Icon>
+            <FiSearch />
+          </Icon>
+          <Icon>
+            <FiHeart />
+          </Icon>
+        </Info>
+      </Container>
+
+      <p>{name}</p>
+      <p>{price}</p>
+    </>
   );
 };
 const Info = styled.div`
@@ -77,5 +82,5 @@ const Icon = styled.div`
     transform: scale(1.1);
   }
 `;
-
+const ProductNameContainer = styled.h4``;
 export default SingleProduct;

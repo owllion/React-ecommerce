@@ -3,7 +3,7 @@ import styled from "styled-components";
 import cl from "../constants/color/color";
 import { ShopBtn } from "./Hero";
 
-const CategoryItem = ({ item }) => {
+const HomeCategoryItem = ({ item }) => {
   const { title, img } = item;
   return (
     <Container>
@@ -58,4 +58,4 @@ const Title = styled.h1`
   margin-bottom: 1.2rem;
 `;
 
-export default CategoryItem;
+export default HomeCategoryItem;

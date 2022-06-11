@@ -44,34 +44,50 @@ export const popularProducts = [
   {
     id: 1,
     img: "https://d3o2e4jr3mxnm3.cloudfront.net/Mens-Jake-Guitar-Vintage-Crusher-Tee_68382_1_lg.png",
+    name: "Vintage Crusher Tee",
+    price: "$12.99",
   },
   {
     id: 2,
     img: "https://i.imgur.com/3wijbOO.png",
+    name: "Duffle",
+    price: "$105",
   },
   {
     id: 3,
     img: "https://i.imgur.com/lurWEa7.png",
+    name: "Vintage Hat",
+    price: "$10.99",
   },
   {
     id: 4,
     img: "https://i.imgur.com/3Mo3pcs.png",
+    name: "White Blazer",
+    price: "$205",
   },
   {
     id: 5,
     img: "https://i.imgur.com/xpCmD1O.png",
+    name: "Brown Shirt",
+    price: "$14",
   },
   {
     id: 6,
     img: "  https://i.imgur.com/zci3EEh.png",
+    name: "Woolen Coat",
+    price: "$500.87",
   },
 
   {
     id: 7,
     img: "https://i.imgur.com/EQoqhds.png",
+    name: "Magic T-shirt",
+    price: "$320.99",
   },
   {
     id: 8,
     img: "https://i.imgur.com/BSDsZcH.png",
+    name: "Cool Black Shirt",
+    price: "$165.99",
   },
 ];

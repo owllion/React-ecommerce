@@ -25,8 +25,8 @@ const contact = [
 
 const Footer = () => {
   return (
-    <>
-      <Container>
+    <Container>
+      <InnerContainer>
         <Wrapper>
           <Left>
             <Logo>Koh.</Logo>
@@ -79,21 +79,24 @@ const Footer = () => {
               </ContactItem>
             ))}
             <PaymentContainer>
-              <span>Secured Payment Gateways</span>
+              <span>Payment Options</span>
               <CardImgContainer>
                 <CardImg src="https://i.ibb.co/Qfvn4z6/payment.png" />
               </CardImgContainer>
             </PaymentContainer>
           </Right>
         </Wrapper>
-      </Container>
+      </InnerContainer>
 
       <Copyright>&copy; 2022 Koh. All Rights Reserved</Copyright>
-    </>
+    </Container>
   );
 };
 
-const Container = styled.section`
+const Container = styled.div`
+  background-color: #f5f5f5;
+`;
+const InnerContainer = styled.section`
   padding: 4.5rem 3rem 1rem 3rem;
   @media screen and (max-width: 768px) {
     padding-left: 0;
