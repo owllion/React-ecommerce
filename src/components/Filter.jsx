@@ -1,39 +1,38 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled, { css, keyframes } from "styled-components";
+import cl from "../constants/color/color";
 
-import { sortOptions } from "../data/sortOptions";
-import "../styles/filter.css";
+import FilterOptionList from "./FilterOptionList";
+import { apparelBrand } from "../data/apparelBrand";
+
 import { TiArrowSortedUp, TiArrowSortedDown } from "react-icons/ti";
 
+const priceOption = [
+  "$10 to $15",
+  "$100 to $200",
+  "$200-300$",
+  "400 to $500",
+  "$500 above",
+];
+
 const Filter = ({ active, handleActive }) => {
-  useEffect(() => {
-    console.log("現在active的值->", active);
-  }, [active]);
   return (
     <Container>
-      <SelectBtn onClick={() => handleActive()}>
+      <SelectBtn onClick={(e) => handleActive(e)}>
         <SelectBtnText>
-          Filter
+          <span>Filter</span>
           {active ? <TiArrowSortedDown /> : <TiArrowSortedUp />}
         </SelectBtnText>
       </SelectBtn>
-
-      <Options active={active}>
-        <input
-          className="inp-cbx"
-          id="cbx"
-          type="checkbox"
-          style={{ display: "none" }}
-        />
-        <label className="cbx" for="cbx">
-          <span>
-            <svg width="12px" height="9px" viewbox="0 0 12 9">
-              <polyline points="1 5 4 8 11 1"></polyline>
-            </svg>
-          </span>
-          <span></span>
-        </label>
-      </Options>
+      {active && (
+        <>
+          <Options active={active}>
+            <FilterOptionList title="Brand" itemList={apparelBrand} />
+            <FilterOptionList title="Price" itemList={priceOption} />
+            <SearchBtn>Go</SearchBtn>
+          </Options>
+        </>
+      )}
     </Container>
   );
 };
@@ -70,7 +69,13 @@ const SelectBtn = styled.div`
   justify-content: space-between;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 `;
-const SelectBtnText = styled.span``;
+const SelectBtnText = styled.div`
+  display: flex;
+  align-items: center;
+  span {
+    padding-right: 0.6rem;
+  }
+`;
 
 const Options = styled.ul`
   position: absolute;
@@ -95,24 +100,16 @@ const Options = styled.ul`
     }
   }}
 `;
-const Option = styled.li`
-  display: flex;
-  height: 55px;
-  cursor: pointer;
-  padding: 0 1rem;
+const SearchBtn = styled.button`
+  border: none;
+  width: 100%;
   border-radius: 8px;
-  align-items: center;
-  background: #fff;
-  &:hover {
-    background: #f2f2f2;
+  padding: 0.8rem;
+  font-weight: bold;
+  color: ${cl.white};
+  background: ${cl.primary};
+  &:focus {
+    outline: none;
   }
-`;
-const OptionIcon = styled.div`
-  font-size: 1.2rem;
-  margin-right: 0.8rem;
-`;
-const OptionText = styled.span`
-  font-size: 1.2rem;
-  color: #333;
 `;
 export default Filter;

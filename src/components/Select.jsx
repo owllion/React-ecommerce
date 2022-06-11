@@ -10,16 +10,16 @@ const Select = ({ active, handleActive }) => {
     <Container>
       <SelectBtn onClick={() => handleActive()}>
         <SelectBtnText>
-          Sort {active}
+          <span>Sort</span>
           {active ? <TiArrowSortedDown /> : <TiArrowSortedUp />}
         </SelectBtnText>
       </SelectBtn>
       {active && (
         <Options active={active}>
           {sortOptions.map((item, index) => (
-            <Option className="option" key={index}>
+            <Option key={index} onClick={() => handleActive()}>
               <OptionIcon>{item.icon}</OptionIcon>
-              <OptionText className="option-text">{item.name}</OptionText>
+              <OptionText>{item.name}</OptionText>
             </Option>
           ))}
         </Options>
@@ -56,7 +56,13 @@ const SelectBtn = styled.div`
   justify-content: space-between;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 `;
-const SelectBtnText = styled.span``;
+const SelectBtnText = styled.div`
+  display: flex;
+  align-items: center;
+  span {
+    padding-right: 0.6rem;
+  }
+`;
 
 const Options = styled.ul`
   position: absolute;
@@ -83,6 +89,7 @@ const Options = styled.ul`
 `;
 const Option = styled.li`
   display: flex;
+  align-items: center;
   height: 55px;
   cursor: pointer;
   padding: 0 1rem;
@@ -94,6 +101,7 @@ const Option = styled.li`
   }
 `;
 const OptionIcon = styled.div`
+  display: flex;
   font-size: 1.2rem;
   margin-right: 0.8rem;
 `;

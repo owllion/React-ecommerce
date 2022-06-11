@@ -1,0 +1,15 @@
+export const apparelBrand = [
+  "Louis Vuitton",
+  "GUCCI",
+  "Chanel",
+  "Hermès",
+  "Cartier",
+  "UNIQLO",
+  "Dior",
+  "COACH",
+  "Nike",
+  "Anta",
+  "Lululemon",
+  "Givenchy",
+  "Saint Laurent",
+];

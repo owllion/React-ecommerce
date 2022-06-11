@@ -15,16 +15,13 @@ const ProductList = () => {
     if (activeFilter) setActiveFilter(false);
     setActiveSort(!activeSort);
   };
-  const handleActiveFilter = () => {
+  const handleActiveFilter = (e) => {
     if (activeSort) setActiveSort(false);
     setActiveFilter(!activeFilter);
   };
-  const closeActive = () => {
-    if (activeFilter) return setActiveFilter(false);
-    if (activeSort) return setActiveSort(false);
-  };
+
   return (
-    <Container onClick={() => closeActive()}>
+    <Container>
       <Wrapper>
         <Top>
           <PageTitle>All Products</PageTitle>
