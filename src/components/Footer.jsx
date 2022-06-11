@@ -88,7 +88,7 @@ const Footer = () => {
         </Wrapper>
       </Container>
 
-      <Copyright>&copy; Koh. 2022</Copyright>
+      <Copyright>&copy; 2022 Koh. All Rights Reserved</Copyright>
     </>
   );
 };
@@ -212,6 +212,6 @@ const Copyright = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-bottom: 2rem;
+  padding: 4rem 0;
 `;
 export default Footer;

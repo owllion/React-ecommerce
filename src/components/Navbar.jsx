@@ -1,28 +1,54 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import styled from "styled-components";
 import cl from "../constants/color/color";
 
-import { IoMdCart } from "react-icons/io";
+import { IoMdCart, IoIosMenu } from "react-icons/io";
+import { MdAccountCircle } from "react-icons/md";
 
 const Navbar = () => {
   return (
     <Container>
       <Wrapper>
         <Left>
-          <Logo>Koh.</Logo>
+          <div className="logo">
+            <Logo>Koh.</Logo>
+          </div>
+          <div className="menu">
+            <IoIosMenu />
+          </div>
         </Left>
+
+        <Center>
+          <Logo>Koh.</Logo>
+        </Center>
         <Right>
-          <MenuItem>REGISTER</MenuItem>
-          <MenuItem>SIGN IN</MenuItem>
-          <MenuItem>
-            <CartContainer>
-              <IoMdCart />
-              <Badge>
-                <span>5</span>
-              </Badge>
-            </CartContainer>
-          </MenuItem>
+          <RightInner>
+            <LinkBox>
+              <MenuItem>
+                <Link to={"/"}>HOME</Link>
+              </MenuItem>
+              <MenuItem>
+                <Link to={"/productList"}>PRODUCTS</Link>
+              </MenuItem>
+              <MenuItem>REGISTER</MenuItem>
+              <MenuItem>SIGN IN</MenuItem>
+            </LinkBox>
+            <MenuItem>
+              <div>
+                <MdAccountCircle />
+              </div>
+            </MenuItem>
+            <MenuItem>
+              <CartContainer>
+                <IoMdCart />
+                <Badge>
+                  <span>5</span>
+                </Badge>
+              </CartContainer>
+            </MenuItem>
+          </RightInner>
         </Right>
       </Wrapper>
     </Container>
@@ -30,11 +56,14 @@ const Navbar = () => {
 };
 
 const Container = styled.nav`
-  height: 80px;
+  height: 70px;
+  @media (max-width: 800px) {
+    height: 50px;
+  }
   position: fixed;
-  top: 30px;
+  top: 0;
   left: 0;
-  /* background: ${cl.gray}; */
+  background: ${cl.darkenGray};
   width: 100%;
   z-index: 50;
 `;
@@ -44,15 +73,50 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  @media (max-width: 800px) {
+    height: 50px;
+    padding: 10px 20px;
+  }
 `;
-const Left = styled.div``;
+const Left = styled.div`
+  .logo {
+    @media (max-width: 800px) {
+      display: none;
+    }
+  }
+  .menu {
+    display: none;
+    @media (max-width: 800px) {
+      cursor: pointer;
+      display: block;
+    }
+  }
+`;
+
 const Logo = styled.h1`
   font-weight: bold;
   font-size: 3rem;
+  cursor: pointer;
+  @media (max-width: 800px) {
+    font-size: 1.5rem;
+  }
 `;
-const Right = styled.ul`
+const Center = styled.div`
+  display: none;
+  @media (max-width: 800px) {
+    display: block;
+  }
+`;
+const Right = styled.div``;
+const RightInner = styled.ul`
   display: flex;
   align-items: center;
+`;
+const LinkBox = styled.div`
+  display: flex;
+  @media (max-width: 800px) {
+    display: none;
+  }
 `;
 const MenuItem = styled.li`
   font-size: 0.9rem;
