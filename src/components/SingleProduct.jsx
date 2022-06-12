@@ -18,9 +18,8 @@ const SingleProduct = ({ item: { img, name, price } }) => {
           </Icon>
         </Info>
       </Container>
-
-      <p>{name}</p>
-      <p>{price}</p>
+      <Name>{name}</Name>
+      <Price>{price}</Price>
     </>
   );
 };
@@ -77,5 +76,11 @@ const Icon = styled.div`
     background-color: #e9f5f5;
     transform: scale(1.1);
   }
+`;
+const Name = styled.h3`
+  padding: 0.5rem 0 0 0.7rem;
+`;
+const Price = styled.p`
+  padding-left: 0.7rem;
 `;
 export default SingleProduct;

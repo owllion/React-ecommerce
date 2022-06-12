@@ -8,17 +8,11 @@ import hero2 from "../assets/category/hero2.jpg";
 
 import { FiArrowRight } from "react-icons/fi";
 import { motion } from "framer-motion";
+import { heroMotion } from "../lib/motion";
 
 const Hero = () => {
   return (
-    <Container
-      hero={hero}
-      as={motion.div}
-      initial={{ y: -250 }}
-      transition={{ type: "spring", stiffness: 100 }}
-      whileInView={{ y: 0 }}
-      viewport={{ once: true }}
-    >
+    <Container hero={hero} as={motion.div} {...heroMotion}>
       <Left>
         <ImgContainer>
           <Img src={hero2} alt="" />

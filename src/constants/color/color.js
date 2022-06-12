@@ -11,6 +11,7 @@ const COLORS = {
   red: "#A50104",
   transparent: "rgba(0,0,0,0)",
   green: "#008080",
+  blue: "#79a6ff", //sideNav input
 };
 
 export default COLORS;

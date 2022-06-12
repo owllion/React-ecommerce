@@ -3,16 +3,11 @@ import styled from "styled-components";
 import cl from "../constants/color/color";
 import { ShopBtn } from "./Hero";
 import { motion } from "framer-motion";
+import { homeCategoryItemMotion } from "../lib/motion";
 
 const HomeCategoryItem = ({ item: { title, img }, index }) => {
   return (
-    <Container
-      as={motion.div}
-      viewport={{ once: true }}
-      initial={{ opacity: 0, y: index * 120 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: 0.2 }}
-    >
+    <Container as={motion.div} {...homeCategoryItemMotion(index)}>
       <Bg url={img} />
       <Info>
         <Title>{title}</Title>

@@ -1,13 +1,19 @@
 import { useRoutes } from "react-router-dom";
 import ProductList from "../pages/ProductList.jsx";
 import Home from "../pages/Home";
+import Cart from "../pages/Cart";
+import Account from "../pages/Account";
+import ProductDetail from "../pages/ProductDetail.jsx";
+import NotFound from "../pages/NotFound.jsx";
 
 export const RouteConfig = () => {
   let element = useRoutes([
-    //{ path: "dashboard", element: <Dashboard /> },
     { path: "/", element: <Home /> },
     { path: "/productList", element: <ProductList /> },
-    // { path: "*", element: <NotFound /> },
+    { path: "/productDetail/:id", element: <ProductDetail /> },
+    { path: "/cart", element: <Cart /> },
+    { path: "/account", element: <Account /> },
+    { path: "*", element: <NotFound /> },
   ]);
 
   return element;

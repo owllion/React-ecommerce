@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-
+import { AnimatePresence } from "framer-motion";
 import styled from "styled-components";
 import cl from "../constants/color/color";
 
-import { IoMdCart, IoIosMenu } from "react-icons/io";
+import { IoMdCart, IoIosMenu, IoIosSearch } from "react-icons/io";
 import { MdAccountCircle } from "react-icons/md";
 
 import SideNav from "./SideNav";
@@ -12,8 +12,10 @@ import SideNav from "./SideNav";
 const Navbar = () => {
   const [showSideNav, setShowSideNav] = useState(false);
   const [isLoggedIn, setLog] = useState(true);
+
   const handleShowSideNav = (e) => {
-    const target = ["backdrop", "close", "closeIcon"];
+    console.log(e.target.id);
+    const target = ["backdrop", "close", "closeIcon", "navLink"];
     if (target.includes(e.target.id)) {
       setShowSideNav(false);
     }
@@ -21,7 +23,9 @@ const Navbar = () => {
 
   return (
     <>
-      {showSideNav && <SideNav handleShowSideNav={handleShowSideNav} />}
+      <AnimatePresence>
+        {showSideNav && <SideNav handleShowSideNav={handleShowSideNav} />}
+      </AnimatePresence>
       <Container>
         <Wrapper>
           <Left>
@@ -49,29 +53,30 @@ const Navbar = () => {
                 <MenuItem>
                   <Link to={"/productList"}>PRODUCTS</Link>
                 </MenuItem>
-
-                {isLoggedIn ? (
-                  <MenuItem>
-                    <AccountIcon>
-                      <MdAccountCircle />
-                    </AccountIcon>
-                  </MenuItem>
-                ) : (
-                  <>
-                    <MenuItem>REGISTER</MenuItem>
-                    <MenuItem>SIGN IN</MenuItem>
-                  </>
-                )}
               </LinkBox>
               <MenuItem>
-                <CartContainer>
-                  <CartInnerContainer>
-                    <IoMdCart />
-                    <Badge>
-                      <span>5</span>
-                    </Badge>
-                  </CartInnerContainer>
-                </CartContainer>
+                <SearchIcon>
+                  <IoIosSearch />
+                </SearchIcon>
+              </MenuItem>
+              <MenuItem>
+                <Link to={"/account"}>
+                  <AccountIcon>
+                    <MdAccountCircle />
+                  </AccountIcon>
+                </Link>
+              </MenuItem>
+              <MenuItem>
+                <Link to={"/cart"}>
+                  <CartContainer>
+                    <CartInnerContainer>
+                      <IoMdCart />
+                      <Badge>
+                        <span>5</span>
+                      </Badge>
+                    </CartInnerContainer>
+                  </CartContainer>
+                </Link>
               </MenuItem>
             </RightInner>
           </Right>
@@ -155,13 +160,24 @@ const MenuItem = styled.li`
   font-size: 0.9rem;
   font-weight: bold;
   padding-right: 2rem;
-  @media (max-width: 500px) {
-    padding-right: 0.2rem;
+  @media (max-width: 700px) {
+    padding-right: 0;
   }
   cursor: pointer;
   list-style: none;
 `;
-const AccountIcon = styled.div``;
+const SearchIcon = styled.div`
+  font-size: 1.5rem;
+  @media (max-width: 700px) {
+    display: none;
+  }
+`;
+const AccountIcon = styled.div`
+  font-size: 1.5rem;
+  @media (max-width: 700px) {
+    display: none;
+  }
+`;
 const CartContainer = styled.div`
   display: inline-block;
   position: relative;

@@ -1,5 +1,16 @@
 import { createGlobalStyle } from "styled-components";
 
+//Link is from react-router-dom
+// const A = styled(Link)`
+//   font-size: 25px;
+//   background-color: rgb(68, 109, 246);
+//   color: #fff;
+//   border: none;
+//   padding: 10px;
+//   border-radius: 8px;
+//   cursor: pointer;
+// `;
+
 export default createGlobalStyle`
 *,
 *::before,
@@ -176,6 +187,13 @@ textarea {
   -ms-touch-action: manipulation;
       touch-action: manipulation;
 }
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
 
 table {
   border-collapse: collapse; 

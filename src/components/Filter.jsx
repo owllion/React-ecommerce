@@ -15,6 +15,15 @@ const priceOption = [
   "$500 above",
 ];
 
+const CategoryOption = [
+  "Blazers",
+  "Shirts",
+  "Knitwear",
+  "T-shirts",
+  "Leather clothing",
+  "Jackets and Coats",
+];
+
 const Filter = ({ active, handleActive }) => {
   return (
     <Container>
@@ -27,6 +36,7 @@ const Filter = ({ active, handleActive }) => {
       {active && (
         <>
           <Options active={active}>
+            <FilterOptionList title="Category" itemList={CategoryOption} />
             <FilterOptionList title="Brand" itemList={apparelBrand} />
             <FilterOptionList title="Price" itemList={priceOption} />
             <SearchBtn>Go</SearchBtn>
