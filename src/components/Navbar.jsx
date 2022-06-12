@@ -53,6 +53,12 @@ const Navbar = () => {
                 <MenuItem>
                   <Link to={"/productList"}>PRODUCTS</Link>
                 </MenuItem>
+                <MenuItem>
+                  <Link to={"/productDetail/1"}>Detail</Link>
+                </MenuItem>
+                <MenuItem>
+                  <Link to={"/f"}>Notfound</Link>
+                </MenuItem>
               </LinkBox>
               <MenuItem>
                 <SearchIcon>
