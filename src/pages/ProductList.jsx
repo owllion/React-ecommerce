@@ -7,6 +7,8 @@ import SingleProduct from "../components/SingleProduct";
 import Select from "../components/Select";
 import Filter from "../components/Filter";
 
+import { motion } from "framer-motion";
+
 const ProductList = () => {
   const [activeSort, setActiveSort] = useState(false);
   const [activeFilter, setActiveFilter] = useState(false);
@@ -21,7 +23,12 @@ const ProductList = () => {
   };
 
   return (
-    <Container>
+    <Container
+      as={motion.div}
+      initial={{ opacity: 0, y: 80 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: 0.2 }}
+    >
       <Wrapper>
         <Top>
           <PageTitle>All Products</PageTitle>

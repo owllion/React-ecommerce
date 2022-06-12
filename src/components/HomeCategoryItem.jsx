@@ -2,11 +2,17 @@ import React from "react";
 import styled from "styled-components";
 import cl from "../constants/color/color";
 import { ShopBtn } from "./Hero";
+import { motion } from "framer-motion";
 
-const HomeCategoryItem = ({ item }) => {
-  const { title, img } = item;
+const HomeCategoryItem = ({ item: { title, img }, index }) => {
   return (
-    <Container>
+    <Container
+      as={motion.div}
+      viewport={{ once: true }}
+      initial={{ opacity: 0, y: index * 120 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: 0.2 }}
+    >
       <Bg url={img} />
       <Info>
         <Title>{title}</Title>

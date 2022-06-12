@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 import styled from "styled-components";
@@ -6,61 +6,86 @@ import cl from "../constants/color/color";
 
 import { IoMdCart, IoIosMenu } from "react-icons/io";
 import { MdAccountCircle } from "react-icons/md";
+
+import SideNav from "./SideNav";
+
 const Navbar = () => {
+  const [showSideNav, setShowSideNav] = useState(false);
+  const [isLoggedIn, setLog] = useState(true);
+  const handleShowSideNav = (e) => {
+    const target = ["backdrop", "close", "closeIcon"];
+    if (target.includes(e.target.id)) {
+      setShowSideNav(false);
+    }
+  };
+
   return (
-    <Container>
-      <Wrapper>
-        <Left>
-          <div className="logo">
+    <>
+      {showSideNav && <SideNav handleShowSideNav={handleShowSideNav} />}
+      <Container>
+        <Wrapper>
+          <Left>
+            <div className="logo">
+              <Link to={"/"}>
+                <Logo>Koh.</Logo>
+              </Link>
+            </div>
+            <div className="menu" onClick={() => setShowSideNav(!showSideNav)}>
+              <IoIosMenu />
+            </div>
+          </Left>
+
+          <Center>
             <Link to={"/"}>
               <Logo>Koh.</Logo>
             </Link>
-          </div>
-          <div className="menu">
-            <IoIosMenu />
-          </div>
-        </Left>
+          </Center>
+          <Right>
+            <RightInner>
+              <LinkBox>
+                <MenuItem>
+                  <Link to={"/"}>HOME</Link>
+                </MenuItem>
+                <MenuItem>
+                  <Link to={"/productList"}>PRODUCTS</Link>
+                </MenuItem>
 
-        <Center>
-          <Logo>Koh.</Logo>
-        </Center>
-        <Right>
-          <RightInner>
-            <LinkBox>
+                {isLoggedIn ? (
+                  <MenuItem>
+                    <AccountIcon>
+                      <MdAccountCircle />
+                    </AccountIcon>
+                  </MenuItem>
+                ) : (
+                  <>
+                    <MenuItem>REGISTER</MenuItem>
+                    <MenuItem>SIGN IN</MenuItem>
+                  </>
+                )}
+              </LinkBox>
               <MenuItem>
-                <Link to={"/"}>HOME</Link>
+                <CartContainer>
+                  <CartInnerContainer>
+                    <IoMdCart />
+                    <Badge>
+                      <span>5</span>
+                    </Badge>
+                  </CartInnerContainer>
+                </CartContainer>
               </MenuItem>
-              <MenuItem>
-                <Link to={"/productList"}>PRODUCTS</Link>
-              </MenuItem>
-              <MenuItem>REGISTER</MenuItem>
-              <MenuItem>SIGN IN</MenuItem>
-            </LinkBox>
-            <MenuItem>
-              <div>
-                <MdAccountCircle />
-              </div>
-            </MenuItem>
-            <MenuItem>
-              <CartContainer>
-                <IoMdCart />
-                <Badge>
-                  <span>5</span>
-                </Badge>
-              </CartContainer>
-            </MenuItem>
-          </RightInner>
-        </Right>
-      </Wrapper>
-    </Container>
+            </RightInner>
+          </Right>
+        </Wrapper>
+      </Container>
+    </>
   );
 };
 
 const Container = styled.nav`
   height: 70px;
-  @media (max-width: 800px) {
+  /* @media (max-width: 800px) {
     height: 50px;
-  }
+  } */
   position: fixed;
   top: 0;
   left: 0;
@@ -75,7 +100,7 @@ const Wrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   @media (max-width: 800px) {
-    height: 50px;
+    /* height: 50px; */
     padding: 10px 20px;
   }
 `;
@@ -90,6 +115,7 @@ const Left = styled.div`
     @media (max-width: 800px) {
       cursor: pointer;
       display: block;
+      font-size: 2rem;
     }
   }
 `;
@@ -100,6 +126,7 @@ const Logo = styled.h1`
   cursor: pointer;
   @media (max-width: 800px) {
     font-size: 1.5rem;
+    flex: 3;
   }
 `;
 const Center = styled.div`
@@ -112,6 +139,11 @@ const Right = styled.div``;
 const RightInner = styled.ul`
   display: flex;
   align-items: center;
+  margin: 0;
+  padding: 0;
+  @media (max-width: 500px) {
+    width: 20%;
+  }
 `;
 const LinkBox = styled.div`
   display: flex;
@@ -123,13 +155,20 @@ const MenuItem = styled.li`
   font-size: 0.9rem;
   font-weight: bold;
   padding-right: 2rem;
+  @media (max-width: 500px) {
+    padding-right: 0.2rem;
+  }
   cursor: pointer;
   list-style: none;
 `;
+const AccountIcon = styled.div``;
 const CartContainer = styled.div`
   display: inline-block;
   position: relative;
   font-size: 2rem;
+`;
+const CartInnerContainer = styled.div`
+  display: flex;
 `;
 const Badge = styled.div`
   position: absolute;

@@ -1,0 +1,25 @@
+/* .aside {
+  z-index: 10000;
+} */
+/* .sidenav-backdrop {
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.7);
+} */
+/* .slide-side-enter-active,
+.slide-side-leave-active {
+  transition: all 0.3s ease-out;
+}
+.slide-side-enter,
+.slide-side-leave-to {
+  transform: translateY(-100%);
+} */
+.nav-text {
+  color: whitesmoke;
+  transition: all 0.5s;
+  padding-left: 20px;
+}
+.nav-text:hover {
+  background-color: white;
+  border-radius: 40px 0 0 40px;
+  color: black !important;
+}
