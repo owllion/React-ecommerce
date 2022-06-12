@@ -1,16 +1,12 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
 import styled from "styled-components";
 import cl from "../constants/color/color";
 
 import { useLottie } from "lottie-react";
 import Lottie from "lottie-react";
 import notFound from "../assets/404/notFound.json";
-
-const style = {
-  height: "100%",
-  width: "100%",
-  "object-fit": "cover",
-};
 
 const options = {
   animationData: notFound,
@@ -25,7 +21,9 @@ const NotFound = () => {
       <Wrapper>
         <ImgBox>{View}</ImgBox>
         <BackBtnBox>
-          <BackBtn>Back To Home</BackBtn>
+          <BackBtn>
+            <Link to={"/"}>Back To Home</Link>
+          </BackBtn>
         </BackBtnBox>
       </Wrapper>
     </Container>
@@ -61,11 +59,13 @@ const BackBtn = styled.button`
   background: ${cl.dark};
   cursor: pointer;
   padding: 0.5rem 1rem;
-  font-size: 0.9rem;
-  font-weight: 600;
   border-radius: 20px;
   display: flex;
   align-items: center;
-  color: ${cl.white};
+  a {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: ${cl.white};
+  }
 `;
 export default NotFound;
