@@ -6,6 +6,7 @@ import { popularProducts } from "../data/data";
 import SingleProduct from "../components/SingleProduct";
 import Select from "../components/Select";
 import Filter from "../components/Filter";
+import Pagination from "../components/Pagination";
 
 import { motion } from "framer-motion";
 import { productListMotion } from "../lib/motion";
@@ -40,6 +41,7 @@ const ProductList = () => {
             </ItemBox>
           ))}
         </ItemContainer>
+        <Pagination itemsPerPage={4} />
       </Wrapper>
     </Container>
   );

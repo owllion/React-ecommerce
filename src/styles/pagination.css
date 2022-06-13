@@ -1,0 +1,44 @@
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2.5rem;
+  padding: 0 1.2rem;
+}
+.page-link {
+  display: block;
+  padding: 0.5rem 1rem;
+  font-size: 1.1rem;
+}
+.page-link:hover {
+  background: #000;
+  color: rgb(255, 255, 255);
+  border-radius: 3px;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+.prev,
+.next {
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+}
+
+.active {
+  background: rgb(0, 0, 0);
+  border-radius: 3px;
+}
+.active .page-link {
+  color: rgb(255, 255, 255);
+}
+@media (min-width: 530px) {
+  .page-item {
+    margin: 0.2rem;
+  }
+}
+@media (max-width: 350px) {
+  .prev,
+  .next {
+    display: none;
+  }
+}
