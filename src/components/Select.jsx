@@ -5,19 +5,19 @@ import { sortOptions } from "../data/sortOptions";
 
 import { TiArrowSortedUp, TiArrowSortedDown } from "react-icons/ti";
 
-const Select = ({ active, handleActive }) => {
+const Select = ({ selected, active, handleActive }) => {
   return (
     <Container>
       <SelectBtn onClick={() => handleActive()}>
         <SelectBtnText>
-          <span>Sort</span>
+          <span>{selected || "Sort"}</span>
           {active ? <TiArrowSortedDown /> : <TiArrowSortedUp />}
         </SelectBtnText>
       </SelectBtn>
       {active && (
         <Options active={active}>
           {sortOptions.map((item, index) => (
-            <Option key={index} onClick={() => handleActive()}>
+            <Option key={index} onClick={() => handleActive(item.name)}>
               <OptionIcon>{item.icon}</OptionIcon>
               <OptionText>{item.name}</OptionText>
             </Option>

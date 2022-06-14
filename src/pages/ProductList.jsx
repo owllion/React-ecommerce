@@ -14,10 +14,12 @@ import { productListMotion } from "../lib/motion";
 const ProductList = () => {
   const [activeSort, setActiveSort] = useState(false);
   const [activeFilter, setActiveFilter] = useState(false);
+  const [selected, setSelected] = useState("");
 
-  const handleActiveSort = () => {
+  const handleActiveSort = (params) => {
     if (activeFilter) setActiveFilter(false);
     setActiveSort(!activeSort);
+    if (params) setSelected(params);
   };
   const handleActiveFilter = (e) => {
     if (activeSort) setActiveSort(false);
@@ -31,7 +33,11 @@ const ProductList = () => {
           <PageTitle>All Products</PageTitle>
           <Func>
             <Filter active={activeFilter} handleActive={handleActiveFilter} />
-            <Select active={activeSort} handleActive={handleActiveSort} />
+            <Select
+              selected={selected}
+              active={activeSort}
+              handleActive={handleActiveSort}
+            />
           </Func>
         </Top>
         <ItemContainer>
