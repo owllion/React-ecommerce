@@ -32,6 +32,75 @@ const ReviewSection = () => {
               </ReviewContentContainer>
             </RightReviewBody>
           </SingleReviewContainer>
+          <SingleReviewContainer>
+            <LeftPartContanier>
+              <LeftAvatarBox>
+                <img
+                  src="https://cdn.britannica.com/36/231936-050-63D849FB/Timothee-Chalamet-2021.jpg"
+                  alt=""
+                />
+              </LeftAvatarBox>
+            </LeftPartContanier>
+            <RightReviewBody>
+              <SingleReviewHeader>
+                <Author>Miller Mike</Author>
+                <Date>2020.06.15</Date>
+              </SingleReviewHeader>
+              <StarsContainer></StarsContainer>
+              <ReviewContentContainer>
+                <ReviewContent>
+                  A small river named Duden flows by their place and supplies it
+                  with the necessary regelialia.
+                </ReviewContent>
+              </ReviewContentContainer>
+            </RightReviewBody>
+          </SingleReviewContainer>
+          <SingleReviewContainer>
+            <LeftPartContanier>
+              <LeftAvatarBox>
+                <img
+                  src="https://cdn.britannica.com/36/231936-050-63D849FB/Timothee-Chalamet-2021.jpg"
+                  alt=""
+                />
+              </LeftAvatarBox>
+            </LeftPartContanier>
+            <RightReviewBody>
+              <SingleReviewHeader>
+                <Author>Miller Mike</Author>
+                <Date>2020.06.15</Date>
+              </SingleReviewHeader>
+              <StarsContainer></StarsContainer>
+              <ReviewContentContainer>
+                <ReviewContent>
+                  A small river named Duden flows by their place and supplies it
+                  with the necessary regelialia.
+                </ReviewContent>
+              </ReviewContentContainer>
+            </RightReviewBody>
+          </SingleReviewContainer>
+          <SingleReviewContainer>
+            <LeftPartContanier>
+              <LeftAvatarBox>
+                <img
+                  src="https://cdn.britannica.com/36/231936-050-63D849FB/Timothee-Chalamet-2021.jpg"
+                  alt=""
+                />
+              </LeftAvatarBox>
+            </LeftPartContanier>
+            <RightReviewBody>
+              <SingleReviewHeader>
+                <Author>Miller Mike</Author>
+                <Date>2020.06.15</Date>
+              </SingleReviewHeader>
+              <StarsContainer></StarsContainer>
+              <ReviewContentContainer>
+                <ReviewContent>
+                  A small river named Duden flows by their place and supplies it
+                  with the necessary regelialia.
+                </ReviewContent>
+              </ReviewContentContainer>
+            </RightReviewBody>
+          </SingleReviewContainer>
         </ReviewContainer>
         <ReviewForm />
       </MainSection>
@@ -68,13 +137,18 @@ const MainSection = styled.div`
   }
 `;
 const ReviewContainer = styled.div`
-  flex: 1;
-  margin-right: 2.8rem;
-  border: 1px solid red;
+  flex: 1.5;
+
+  @media (min-width: 767px) {
+    margin-right: 2.8rem;
+  }
+  /* border: 1px solid red; */
 `; //整個左側
 const SingleReviewContainer = styled.div`
   display: flex;
-  border: 1px solid orange;
+  padding: 1.8rem 0;
+  border-bottom: 1px solid ${cl.gray};
+  /* border: 1px solid orange; */
 `; //單個box 左側就大頭照 右側content
 const LeftPartContanier = styled.div`
   margin-right: 0.8rem;
@@ -90,7 +164,9 @@ const LeftAvatarBox = styled.div`
   }
 `;
 const RightReviewBody = styled.div`
-  padding-right: 8rem;
+  @media (min-width: 1200px) {
+    padding-right: 8rem;
+  }
 `;
 //內容本體
 
@@ -109,6 +185,8 @@ const Date = styled.span`
 const StarsContainer = styled.div``;
 
 const ReviewContentContainer = styled.div``;
-const ReviewContent = styled.p``;
+const ReviewContent = styled.p`
+  margin: 0;
+`;
 
 export default ReviewSection;

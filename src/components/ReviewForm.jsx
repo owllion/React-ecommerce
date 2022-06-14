@@ -1,25 +1,26 @@
 import React from "react";
 import styled from "styled-components";
+import cl from "../constants/color/color";
 import { ShopBtn } from "./Hero";
 const ReviewForm = () => {
   return (
     <RightWritingReviewContainer>
       <ReviewTitle>Add Your Review</ReviewTitle>
       <ReviewFormContainer>
-        <UserRatingContainer></UserRatingContainer>
+        <UserRatingContainer>星星*5</UserRatingContainer>
         <ReviewAreaBox>
-          <ReviewAreaLabel>Your Email</ReviewAreaLabel>
+          <ReviewAreaLabel>How was your overall experience?</ReviewAreaLabel>
           <ReviewArea></ReviewArea>
         </ReviewAreaBox>
 
         <ReviewUserNameBox>
+          <ReviewUserNameLabel>Name</ReviewUserNameLabel>
           <ReviewUserName></ReviewUserName>
-          <ReviewUserNameLabel></ReviewUserNameLabel>
         </ReviewUserNameBox>
 
         <ReviewEmailBox>
+          <ReviewEmailLabel>Email</ReviewEmailLabel>
           <ReviewEmail></ReviewEmail>
-          <ReviewEmailLabel></ReviewEmailLabel>
         </ReviewEmailBox>
         <SubmitBtn>Submit</SubmitBtn>
       </ReviewFormContainer>
@@ -29,7 +30,8 @@ const ReviewForm = () => {
 
 //右邊寫評論區
 const RightWritingReviewContainer = styled.div`
-  width: calc(40%-24px);
+  /* width: calc(40%-24px); */
+  flex: 1;
   @media (max-width: 768px) {
     margin-right: 0;
     margin-top: 3rem;
@@ -42,19 +44,47 @@ const ReviewTitle = styled.h3`
 `;
 const ReviewFormContainer = styled.div``;
 const UserRatingContainer = styled.div`
+  margin: 2rem 0;
+`;
+const ReviewAreaBox = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+const ReviewAreaLabel = styled.label`
+  color: ${cl.darkenGray};
+  font-size: 0.8rem;
+`;
+const ReviewArea = styled.textarea`
+  padding: 1rem;
+`;
+
+const ReviewUserNameBox = styled.div`
+  display: flex;
+  flex-direction: column;
   margin-top: 1rem;
 `;
-const ReviewAreaBox = styled.div``;
-const ReviewAreaLabel = styled.label``;
-const ReviewArea = styled.textarea``;
-
-const ReviewUserNameBox = styled.div``;
 const ReviewUserName = styled.input``;
-const ReviewUserNameLabel = styled.label``;
+const ReviewUserNameLabel = styled.label`
+  color: ${cl.darkenGray};
+  font-size: 0.8rem;
+`;
 
-const ReviewEmailBox = styled.div``;
+const ReviewEmailBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+`;
 const ReviewEmail = styled.input``;
-const ReviewEmailLabel = styled.label``;
+const ReviewEmailLabel = styled.label`
+  color: ${cl.darkenGray};
+  font-size: 0.8rem;
+`;
 
-const SubmitBtn = styled(ShopBtn)``;
+const SubmitBtn = styled(ShopBtn)`
+  margin-top: 1rem;
+  background: #000;
+  color: ${cl.white};
+  display: inline-block;
+  padding: 0.7rem 2.3rem;
+`;
 export default ReviewForm;
