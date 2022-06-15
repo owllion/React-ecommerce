@@ -4,7 +4,9 @@ const COLORS = {
   dark: "#000",
   arrowBg: "#fff7f7",
   lightBlue: "#0071c2",
-  yellow: "#febb02",
+
+  yellow: "#FFCC1D", //RatingStars
+
   red: "#A50104",
   transparent: "rgba(0,0,0,0)",
   green: "#008080",

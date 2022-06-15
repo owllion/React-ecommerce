@@ -2,7 +2,10 @@ import React from "react";
 
 import styled from "styled-components";
 import cl from "../constants/color/color";
+
 import ReviewForm from "../components/ReviewForm";
+import Rating from "./Rating";
+
 const ReviewSection = () => {
   return (
     <Container>
@@ -10,14 +13,39 @@ const ReviewSection = () => {
       <MainSection>
         <ReviewContainer>
           <SingleReviewContainer>
-            <LeftPartContanier>
+            <LeftPartContainer>
               <LeftAvatarBox>
                 <img
                   src="https://cdn.britannica.com/36/231936-050-63D849FB/Timothee-Chalamet-2021.jpg"
                   alt=""
                 />
               </LeftAvatarBox>
-            </LeftPartContanier>
+            </LeftPartContainer>
+            <RightReviewBody>
+              <SingleReviewHeader>
+                <Author>Miller Mike</Author>
+                <Date>2020.06.15</Date>
+              </SingleReviewHeader>
+              <StarsContainer>
+                <Rating readonly initialRating={4.5} />
+              </StarsContainer>
+              <ReviewContentContainer>
+                <ReviewContent>
+                  A small river named Duden flows by their place and supplies it
+                  with the necessary regelialia.
+                </ReviewContent>
+              </ReviewContentContainer>
+            </RightReviewBody>
+          </SingleReviewContainer>
+          <SingleReviewContainer>
+            <LeftPartContainer>
+              <LeftAvatarBox>
+                <img
+                  src="https://cdn.britannica.com/36/231936-050-63D849FB/Timothee-Chalamet-2021.jpg"
+                  alt=""
+                />
+              </LeftAvatarBox>
+            </LeftPartContainer>
             <RightReviewBody>
               <SingleReviewHeader>
                 <Author>Miller Mike</Author>
@@ -33,14 +61,14 @@ const ReviewSection = () => {
             </RightReviewBody>
           </SingleReviewContainer>
           <SingleReviewContainer>
-            <LeftPartContanier>
+            <LeftPartContainer>
               <LeftAvatarBox>
                 <img
                   src="https://cdn.britannica.com/36/231936-050-63D849FB/Timothee-Chalamet-2021.jpg"
                   alt=""
                 />
               </LeftAvatarBox>
-            </LeftPartContanier>
+            </LeftPartContainer>
             <RightReviewBody>
               <SingleReviewHeader>
                 <Author>Miller Mike</Author>
@@ -56,37 +84,14 @@ const ReviewSection = () => {
             </RightReviewBody>
           </SingleReviewContainer>
           <SingleReviewContainer>
-            <LeftPartContanier>
+            <LeftPartContainer>
               <LeftAvatarBox>
                 <img
                   src="https://cdn.britannica.com/36/231936-050-63D849FB/Timothee-Chalamet-2021.jpg"
                   alt=""
                 />
               </LeftAvatarBox>
-            </LeftPartContanier>
-            <RightReviewBody>
-              <SingleReviewHeader>
-                <Author>Miller Mike</Author>
-                <Date>2020.06.15</Date>
-              </SingleReviewHeader>
-              <StarsContainer></StarsContainer>
-              <ReviewContentContainer>
-                <ReviewContent>
-                  A small river named Duden flows by their place and supplies it
-                  with the necessary regelialia.
-                </ReviewContent>
-              </ReviewContentContainer>
-            </RightReviewBody>
-          </SingleReviewContainer>
-          <SingleReviewContainer>
-            <LeftPartContanier>
-              <LeftAvatarBox>
-                <img
-                  src="https://cdn.britannica.com/36/231936-050-63D849FB/Timothee-Chalamet-2021.jpg"
-                  alt=""
-                />
-              </LeftAvatarBox>
-            </LeftPartContanier>
+            </LeftPartContainer>
             <RightReviewBody>
               <SingleReviewHeader>
                 <Author>Miller Mike</Author>
@@ -150,7 +155,7 @@ const SingleReviewContainer = styled.div`
   border-bottom: 1px solid ${cl.gray};
   /* border: 1px solid orange; */
 `; //單個box 左側就大頭照 右側content
-const LeftPartContanier = styled.div`
+const LeftPartContainer = styled.div`
   margin-right: 0.8rem;
 `;
 const LeftAvatarBox = styled.div`
@@ -172,14 +177,18 @@ const RightReviewBody = styled.div`
 
 const SingleReviewHeader = styled.div`
   display: flex;
+  align-items: center;
+  padding-bottom: 0.8rem;
 `;
 //這兩個 flex
 const Author = styled.h4`
   padding-right: 1.5rem;
   font-weight: 600;
+  margin: 0;
 `;
 const Date = styled.span`
   color: ${cl.textLightGray};
+  font-size: 0.8rem;
 `;
 
 const StarsContainer = styled.div``;

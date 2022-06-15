@@ -25,7 +25,7 @@ const Container = styled.button`
     content: "";
     height: 0%;
     width: 100%;
-    background: ${cl.blue};
+    background: ${cl.green};
     position: absolute;
     left: 0;
     bottom: 0;

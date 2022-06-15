@@ -6,7 +6,7 @@ const PlusMinusBtn = () => {
   return (
     <Container>
       <Plus>+</Plus>
-      <Input maxLength={2} min="1" max="99" />
+      <Input value="1" maxLength={2} min="1" max="99" />
       <Minus>-</Minus>
     </Container>
   );
