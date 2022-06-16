@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import cl from "../constants/color/color";
 
 import PlusMinusBtn from "../components/PlusMinusBtn";
@@ -8,8 +8,12 @@ import AddToCartBtn from "../components/AddToCartBtn";
 import ReviewSection from "../components/ReviewSection";
 
 const imgList = ["t1", "t2", "t3", "t4"];
+const sizeList = ["XS", "S", "M", "L", "XL"];
+
 const ProductDetail = () => {
   const [mainImg, setMainImg] = useState("t1");
+  const [selectedSizeIndex, setSelectedSizeIndex] = useState(0);
+
   return (
     <Container>
       <Wrapper>
@@ -30,14 +34,24 @@ const ProductDetail = () => {
             <Name>RAVEN JACKET</Name>
             <Price>$105.99</Price>
             <Spacer />
-            <Color>
+            <ColorContainer>
               <ColorTitle>Color</ColorTitle>
               <SelectedColor>Black</SelectedColor>
-            </Color>
-            <Size>
+            </ColorContainer>
+            <SizeContainer>
               <SizeTitle>Size</SizeTitle>
-              <SelectedSize>XL</SelectedSize>
-            </Size>
+
+              {sizeList.map((size, index) => (
+                <SizeItems
+                  key={index}
+                  onClick={() => setSelectedSizeIndex(index)}
+                >
+                  <SizeItem nowIndex={index} nowSelected={selectedSizeIndex}>
+                    {size}
+                  </SizeItem>
+                </SizeItems>
+              ))}
+            </SizeContainer>
             <BtnBox>
               <PlusMinusBtnBox>
                 <PlusMinusBtn />
@@ -143,25 +157,41 @@ const Price = styled.p`
   }
   font-size: 1.4rem;
 `;
-const Color = styled.div`
+const ColorContainer = styled.div`
   padding: 0.4rem 0.4rem 0.4rem 0;
 `;
 const ColorTitle = styled.span`
   font-size: 1.2rem;
+  width: 60px;
 `;
 const SelectedColor = styled.span`
   font-weight: 600;
   padding-left: 0.8rem;
 `;
-const Size = styled.div`
+const SizeContainer = styled.div`
   padding: 0.4rem 0.4rem 0.4rem 0;
+  display: flex;
+  align-items: center;
 `;
 const SizeTitle = styled.span`
   font-size: 1.2rem;
+  padding-right: 1.7rem;
+  width: 60px;
 `;
-const SelectedSize = styled.span`
-  font-weight: 600;
-  padding-left: 0.8rem;
+const SizeItems = styled.ul`
+  display: flex;
+`;
+const SizeItem = styled.li`
+  margin-right: 1.5rem;
+  border: 1px solid ${cl.dark};
+  border-radius: min(calc(1rem * (16 / 16 + 0.333 * 4)), 4px);
+  padding: 0.5rem 1rem;
+  ${({ nowSelected, nowIndex }) =>
+    nowSelected === nowIndex &&
+    css`
+      background: ${cl.dark};
+      color: ${cl.white};
+    `};
 `;
 const BtnBox = styled.div`
   display: flex;

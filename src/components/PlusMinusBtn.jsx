@@ -24,11 +24,10 @@ const baseBtn = css`
 
 const Container = styled.div`
   display: flex;
-
   background: ${cl.lightGray};
-  display: inline-block;
   border-radius: 12px;
-  padding: 8px;
+  /* padding: 8px; */
+  padding: 10px 8px 10px 2px;
 `;
 const Plus = styled.button`
   ${baseBtn}
@@ -43,7 +42,7 @@ const Input = styled.input`
   border: none;
   background: ${cl.transparent};
   &:focus {
-    outline: none;
+    outline: transparent;
   }
 `;
 
