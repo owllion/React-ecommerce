@@ -76,7 +76,13 @@ const Wrapper = styled.div`
   margin: 0 auto;
   /* background-color: coral; */
   display: flex;
-  padding: 30px 80px 60px;
+  padding: 2rem 5rem 4rem;
+  @media (max-width: 768px) {
+    padding: 2rem 0.9rem 4rem;
+  }
+  @media (max-width: 1330px) {
+    padding: 2rem 0.9rem 4rem;
+  }
   flex-direction: column;
 `;
 const CartContent = styled.div``;
@@ -271,7 +277,7 @@ const ContinueShoppingBtn = styled.button`
   ${baseBtn};
   border: 1px solid ${cl.dark};
   margin-right: 1.2rem;
-  @media (max-width: 768px) {
+  @media (max-width: 400px) {
     font-size: 0.8rem;
   }
 `;

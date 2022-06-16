@@ -40,17 +40,18 @@ const ProductDetail = () => {
             </ColorContainer>
             <SizeContainer>
               <SizeTitle>Size</SizeTitle>
-
-              {sizeList.map((size, index) => (
-                <SizeItems
-                  key={index}
-                  onClick={() => setSelectedSizeIndex(index)}
-                >
-                  <SizeItem nowIndex={index} nowSelected={selectedSizeIndex}>
+              <SizeItems>
+                {sizeList.map((size, index) => (
+                  <SizeItem
+                    key={index}
+                    onClick={() => setSelectedSizeIndex(index)}
+                    nowIndex={index}
+                    nowSelected={selectedSizeIndex}
+                  >
                     {size}
                   </SizeItem>
-                </SizeItems>
-              ))}
+                ))}
+              </SizeItems>
             </SizeContainer>
             <BtnBox>
               <PlusMinusBtnBox>
@@ -172,17 +173,27 @@ const SizeContainer = styled.div`
   padding: 0.4rem 0.4rem 0.4rem 0;
   display: flex;
   align-items: center;
+  @media (max-width: 767px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 `;
 const SizeTitle = styled.span`
   font-size: 1.2rem;
   padding-right: 1.7rem;
   width: 60px;
+  @media (max-width: 767px) {
+    padding-bottom: 0.5rem;
+  }
 `;
 const SizeItems = styled.ul`
   display: flex;
 `;
 const SizeItem = styled.li`
-  margin-right: 1.5rem;
+  margin-right: 1rem;
+  @media (max-width: 500px) {
+    margin-right: 0.4rem;
+  }
   border: 1px solid ${cl.dark};
   border-radius: min(calc(1rem * (16 / 16 + 0.333 * 4)), 4px);
   padding: 0.5rem 1rem;
