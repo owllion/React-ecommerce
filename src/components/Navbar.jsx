@@ -51,10 +51,10 @@ const Navbar = () => {
                   <Link to={"/"}>HOME</Link>
                 </MenuItem>
                 <MenuItem>
-                  <Link to={"/productList"}>PRODUCTS</Link>
+                  <Link to={"/product-list"}>PRODUCTS</Link>
                 </MenuItem>
                 <MenuItem>
-                  <Link to={"/productDetail/1"}>Detail</Link>
+                  <Link to={"/product-detail/1"}>Detail</Link>
                 </MenuItem>
                 <MenuItem>
                   <Link to={"/f"}>Notfound</Link>
@@ -73,7 +73,7 @@ const Navbar = () => {
                 </Link>
               </MenuItem>
               <MenuItem>
-                <Link to={"/cart"}>
+                <Link to={"/checkout/cart"}>
                   <CartContainer>
                     <CartInnerContainer>
                       <IoMdCart />

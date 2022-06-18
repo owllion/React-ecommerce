@@ -17,15 +17,18 @@ export const SectionTitleBox = styled.div`
 export const SectionTitle = styled.h2``;
 export const FormContainer = styled.form`
   /* height: 100px; */
+  display: flex;
+  flex-direction: column;
   width: 100%;
+  margin-bottom: 2rem;
   @media (max-width: 950px) {
     width: 100%;
     margin-bottom: 1.5rem;
   }
 `;
-export const CardElementBox = styled.div`
-  margin-bottom: 2rem;
-`;
+// export const CardElementBox = styled.div`
+//   margin-bottom: 2rem;
+// `;
 export const PayBtn = styled.button`
   background: ${cl.dark};
   color: ${cl.white};

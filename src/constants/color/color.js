@@ -17,6 +17,7 @@ const COLORS = {
   darkenGray: "#868e96",
   lightGray: "#F5F5F5",
   mainGray: "#f0efee",
+  plusGray: "#e3e2e27b",
 };
 
 export default COLORS;

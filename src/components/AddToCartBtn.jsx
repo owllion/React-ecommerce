@@ -12,15 +12,16 @@ const Container = styled.button`
   font-weight: 600;
   padding: 0.8rem;
   display: inline-block;
-  border-radius: 8px;
+  border-radius: 6px;
   text-align: center;
   position: relative;
   z-index: 1;
   min-width: 8rem;
-  transition: all 0.3s ease-in;
   color: ${cl.white};
   background: black;
   overflow: hidden;
+  font-weight: 500;
+  width: 150px;
   &::before {
     content: "";
     height: 0%;

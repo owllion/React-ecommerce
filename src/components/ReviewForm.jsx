@@ -40,10 +40,11 @@ const ReviewForm = () => {
   );
 };
 
-const baseInput = css`
+export const baseInput = css`
   width: 100%;
   padding: 0.7rem;
   border-radius: 5px;
+  padding-left: 1.5rem;
   border: 1px solid ${cl.gray};
   &:focus {
     outline: transparent;
@@ -75,13 +76,17 @@ const Score = styled.span`
   font-size: 1rem;
   font-weight: 600;
 `;
+
+export const baseLabel = css`
+  color: ${cl.darkenGray};
+  font-size: 0.8rem;
+`;
 const ReviewAreaBox = styled.div`
   display: flex;
   flex-direction: column;
 `;
 const ReviewAreaLabel = styled.label`
-  color: ${cl.darkenGray};
-  font-size: 0.8rem;
+  ${baseLabel}
 `;
 const ReviewArea = styled.textarea`
   padding: 1rem;
@@ -115,8 +120,7 @@ const ReviewUserName = styled.input`
   ${baseInput}
 `;
 const ReviewUserNameLabel = styled.label`
-  color: ${cl.darkenGray};
-  font-size: 0.8rem;
+  ${baseLabel}
 `;
 
 const ReviewEmailBox = styled.div`
@@ -132,8 +136,7 @@ const ReviewEmail = styled.input`
   ${baseInput}
 `;
 const ReviewEmailLabel = styled.label`
-  color: ${cl.darkenGray};
-  font-size: 0.8rem;
+  ${baseLabel}
 `;
 
 const SubmitBtn = styled(ShopBtn)`
@@ -142,5 +145,7 @@ const SubmitBtn = styled(ShopBtn)`
   color: ${cl.white};
   display: inline-block;
   padding: 0.7rem 2.3rem;
+  border-radius: 5px;
+  font-weight: 500;
 `;
 export default ReviewForm;

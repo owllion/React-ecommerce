@@ -145,11 +145,9 @@ const Spacer = styled.div`
 `;
 const Name = styled.h2`
   @media (min-width: 640px) {
-    font-size: 4rem;
+    font-size: 3rem;
   }
-  /* @media (min-width: 460px) {
-    font-size: 2.5rem;
-  } */
+
   font-size: 2rem;
 `;
 const Price = styled.p`
@@ -194,9 +192,14 @@ const SizeItem = styled.li`
   @media (max-width: 500px) {
     margin-right: 0.4rem;
   }
-  border: 1px solid ${cl.dark};
-  border-radius: min(calc(1rem * (16 / 16 + 0.333 * 4)), 4px);
-  padding: 0.5rem 1rem;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  line-height: 38px;
+  text-align: center;
+  font-weight: 800;
+  font-size: 0.9rem;
+  background: ${cl.plusGray};
   ${({ nowSelected, nowIndex }) =>
     nowSelected === nowIndex &&
     css`

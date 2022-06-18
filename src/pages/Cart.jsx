@@ -40,13 +40,10 @@ const Cart = () => {
 
           <BtnSetBox>
             <BtnSetInnerBox>
-              <Link to={"/productList"}>
-                <ContinueShoppingBtn>Back to shopping</ContinueShoppingBtn>
-              </Link>
-
-              <Link to={"/checkout"}>
-                <CheckoutBtn>Checkout </CheckoutBtn>
-              </Link>
+              <ContinueShoppingBtn to={"/product-list"}>
+                Back to shopping
+              </ContinueShoppingBtn>
+              <CheckoutBtn to={"/checkout/ship-and-pay"}>Checkout </CheckoutBtn>
             </BtnSetInnerBox>
           </BtnSetBox>
         </CartContent>
@@ -55,10 +52,10 @@ const Cart = () => {
   );
 };
 const Container = styled.div`
-  @media (min-width: 1000px) {
+  /* @media (min-width: 1000px) {
     padding: 10rem 0;
   }
-  padding: 2rem 0;
+  padding: 2rem 0; */
 `;
 const Wrapper = styled.div`
   max-width: 1300px;
@@ -185,14 +182,17 @@ const baseBtn = css`
   width: 200px;
   height: 50px;
   font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   /* text-align: center; */
   cursor: pointer;
   border-radius: 5px;
-  @media (max-width: 768px) {
+  @media (max-width: 600x) {
     width: 50%;
   }
 `;
-const ContinueShoppingBtn = styled.button`
+const ContinueShoppingBtn = styled(Link)`
   ${baseBtn};
   border: 1px solid ${cl.dark};
   margin-right: 1.2rem;
@@ -200,7 +200,7 @@ const ContinueShoppingBtn = styled.button`
     font-size: 0.8rem;
   }
 `;
-const CheckoutBtn = styled.button`
+const CheckoutBtn = styled(Link)`
   ${baseBtn};
   color: ${cl.white};
   background: ${cl.dark};
