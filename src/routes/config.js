@@ -5,6 +5,7 @@ import Cart from "../pages/Cart";
 import Account from "../pages/Account";
 import ProductDetail from "../pages/ProductDetail.jsx";
 import NotFound from "../pages/NotFound.jsx";
+import Checkout from "../pages/Checkout.jsx";
 
 export const RouteConfig = () => {
   let element = useRoutes([
@@ -12,6 +13,7 @@ export const RouteConfig = () => {
     { path: "/productList", element: <ProductList /> },
     { path: "/productDetail/:id", element: <ProductDetail /> },
     { path: "/cart", element: <Cart /> },
+    { path: "/checkout", element: <Checkout /> },
     { path: "/account", element: <Account /> },
     { path: "*", element: <NotFound /> },
   ]);

@@ -5,29 +5,34 @@ import cl from "../constants/color/color";
 const PlusMinusBtn = () => {
   return (
     <Container>
-      <Plus>+</Plus>
-      <Input value="1" maxLength={2} min="1" max="99" />
-      <Minus>-</Minus>
+      <Wrapper>
+        <Plus>+</Plus>
+        <Input value="1" maxLength={2} min="1" max="99" />
+        <Minus>-</Minus>
+      </Wrapper>
     </Container>
   );
 };
 
 const baseBtn = css`
-  width: 1.8rem;
+  width: 28px;
+  height: 28px;
   font-size: 1.3rem;
-  font-weight: 600;
-  line-height: 30px;
-  /* border-radius: 50%; */
-  /* background-color: ${cl.yellow}; */
+  /* font-weight: 600; */
+  line-height: 25px;
+  border-radius: 50%;
+  background: #e3e2e27b;
   cursor: pointer;
 `;
 
-const Container = styled.div`
+const Container = styled.div``;
+const Wrapper = styled.div`
   display: flex;
-  background: ${cl.lightGray};
+  /* background: ${cl.lightGray}; */
   border-radius: 12px;
   /* padding: 8px; */
-  padding: 10px 8px 10px 2px;
+  padding: 10px 8px 10px 5px;
+  width: 7rem;
 `;
 const Plus = styled.button`
   ${baseBtn}

@@ -1,11 +1,11 @@
 import React from "react";
-
-import { IoMdTrash } from "react-icons/io";
+import { Link } from "react-router-dom";
 
 import styled, { css } from "styled-components";
 import cl from "../constants/color/color";
 
-import PlusMinusBtn from "../components/PlusMinusBtn";
+import DesktopCartItem from "../components/DesktopCartItem";
+import TabletCartItem from "../components/TabletCartItem";
 
 const Cart = () => {
   return (
@@ -15,31 +15,15 @@ const Cart = () => {
           <Title>Cart</Title>
           <CartTableContainer>
             <CartTableHeader>
-              <HeaderItem>Shopping List</HeaderItem>
+              <HeaderItem>Product</HeaderItem>
+              <Item2>Price</Item2>
+              <Item3>Quantity</Item3>
+              <Item4>Subtotal</Item4>
+              <Item5>Remove</Item5>
             </CartTableHeader>
             <SingleItemContainer>
-              <DesktopSingleItemContainer>
-                <ItemInfoContainer>
-                  <ItemInfo>
-                    <ItemInfoImgBox>
-                      <ItemImg src={require(`../assets/category/cat1.jpg`)} />
-                    </ItemInfoImgBox>
-                    <ItemInfoTextBox>
-                      <h3>raven cool Jacket</h3>
-                      <ItemInfoColor>Black</ItemInfoColor>
-                      <ItemInfoSize>Xl</ItemInfoSize>
-                    </ItemInfoTextBox>
-                    <ItemInfoCounterBox>
-                      <PlusMinusBtn />
-                    </ItemInfoCounterBox>
-                    <ItemDeleteBox>
-                      <IoMdTrash />
-                    </ItemDeleteBox>
-                  </ItemInfo>
-                </ItemInfoContainer>
-              </DesktopSingleItemContainer>
-
-              <TabletSingleItemContainer></TabletSingleItemContainer>
+              <DesktopCartItem />
+              <TabletCartItem />
             </SingleItemContainer>
           </CartTableContainer>
 
@@ -56,8 +40,13 @@ const Cart = () => {
 
           <BtnSetBox>
             <BtnSetInnerBox>
-              <ContinueShoppingBtn>Back to shopping</ContinueShoppingBtn>
-              <CheckoutBtn>Checkout</CheckoutBtn>
+              <Link to={"/productList"}>
+                <ContinueShoppingBtn>Back to shopping</ContinueShoppingBtn>
+              </Link>
+
+              <Link to={"/checkout"}>
+                <CheckoutBtn>Checkout </CheckoutBtn>
+              </Link>
             </BtnSetInnerBox>
           </BtnSetBox>
         </CartContent>
@@ -67,12 +56,12 @@ const Cart = () => {
 };
 const Container = styled.div`
   @media (min-width: 1000px) {
-    padding: 10rem 5rem;
+    padding: 10rem 0;
   }
-  padding: 5rem 1rem;
+  padding: 2rem 0;
 `;
 const Wrapper = styled.div`
-  max-width: 1100px;
+  max-width: 1300px;
   margin: 0 auto;
   /* background-color: coral; */
   display: flex;
@@ -81,20 +70,22 @@ const Wrapper = styled.div`
     padding: 2rem 0.9rem 4rem;
   }
   @media (max-width: 1330px) {
-    padding: 2rem 0.9rem 4rem;
+    padding: 2rem 1rem 4rem;
   }
   flex-direction: column;
 `;
 const CartContent = styled.div``;
-const Title = styled.h2`
+export const Title = styled.h2`
   margin: 2rem 0;
   font-size: 2.4rem;
   @media (max-width: 1024px) {
     padding: 0 0 1.8rem;
     border-bottom: 5px solid #eaeaea;
+    margin-bottom: 0;
   }
   @media (max-width: 768px) {
     font-size: 2rem;
+    margin-top: 1.2rem;
   }
 `;
 const CartTableContainer = styled.div``;
@@ -105,6 +96,7 @@ const CartTableHeader = styled.div`
   align-items: center;
   padding: 2rem 0;
   background: ${cl.lightGray};
+
   @media (max-width: 1024px) {
     display: none;
   }
@@ -113,7 +105,7 @@ const HeaderItem = styled.div`
   padding: 0 2.5rem 0 1.2rem; //20px、兌換品項
   min-width: 500px;
   max-width: 500px;
-  font-size: 1.6rem;
+  font-size: 1rem;
   font-weight: 600;
 `;
 const Item2 = styled.div`
@@ -146,79 +138,6 @@ const SingleItemContainer = styled.div`
   align-items: center;
   padding: 1.5rem 0;
   border-bottom: 1px solid #d8d8d8;
-`;
-const DesktopSingleItemContainer = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  @media (max-width: 1024px) {
-    display: none;
-  }
-`;
-const ItemInfoContainer = styled.div`
-  max-width: 500px;
-  min-width: 500px;
-  padding-right: 2.7rem;
-`;
-const ItemInfo = styled.div`
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-`;
-const ItemInfoImgBox = styled.div`
-  max-width: 120px;
-  min-width: 120px;
-  height: 120px;
-  margin-right: 1rem;
-  /* position: relative; */
-`;
-const ItemImg = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 5px;
-`;
-const ItemInfoTextBox = styled.div`
-  margin-right: 1.8rem;
-  h3 {
-    font-size: 1.6rem;
-    /* margin: 0; */
-    line-height: 1.3;
-    margin-bottom: 0.9rem;
-  }
-`;
-const basePTagStyle = css`
-  line-height: 1.4;
-  color: #515151;
-  font-size: 1.3rem;
-`;
-const ItemInfoColor = styled.p`
-  ${basePTagStyle};
-  margin-bottom: 0.7rem; //10px
-`;
-const ItemInfoSize = styled.p`
-  ${basePTagStyle}
-`;
-const ItemInfoCounterBox = styled.div`
-  /* width: 20%; */
-  min-width: 120px;
-  flex-grow: 1;
-  padding-right: 1.2rem; //20px 數量小記一樣!
-`;
-const ItemDeleteBox = styled.div`
-  padding-right: 1.2rem;
-  width: 10%;
-  min-width: 65px;
-  flex-grow: 1;
-  text-align: center; //基本和header都一樣
-  /* font-size:1.6rem */
-`;
-const TabletSingleItemContainer = styled.div`
-  width: 100%;
-  display: none;
-  @media (max-width: 1024px) {
-    display: block;
-  }
 `;
 
 const CheckInfoContainer = styled.div`

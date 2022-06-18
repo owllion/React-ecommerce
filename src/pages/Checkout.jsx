@@ -1,0 +1,59 @@
+import React from "react";
+
+import PaymentForm from "../components/payment-form/PaymentForm";
+import ShippingForm from "../components/shipping-form/ShippingForm";
+import styled from "styled-components";
+import { Title } from "./Cart";
+import CheckoutItemList from "../components/checkout-item-list/CheckoutItemList";
+
+const Checkout = () => {
+  return (
+    <Container>
+      <Wrapper>
+        <Title>Checkout</Title>
+        <ContentContainer>
+          <LeftContentContainer>
+            <ShippingForm />
+            <PaymentForm />
+          </LeftContentContainer>
+          <RightContentContainer>
+            <CheckoutItemList />
+          </RightContentContainer>
+        </ContentContainer>
+      </Wrapper>
+    </Container>
+  );
+};
+
+const Container = styled.div`
+  padding: 7rem 0;
+`;
+const Wrapper = styled.div`
+  max-width: 1300px;
+  margin: 0 auto;
+  background-color: coral;
+  display: flex;
+  padding: 2rem 5rem 4rem;
+  @media (max-width: 768px) {
+    padding: 2rem 0.9rem 4rem;
+  }
+  @media (max-width: 1330px) {
+    padding: 2rem 1rem 4rem;
+  }
+  flex-direction: column;
+`;
+const ContentContainer = styled.div`
+  display: flex;
+  @media (max-width: 1024px) {
+    flex-direction: column;
+  }
+`;
+const LeftContentContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex-basis: 50%;
+  margin-right: 2rem;
+`;
+const RightContentContainer = styled.div``;
+
+export default Checkout;
