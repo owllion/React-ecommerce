@@ -16,7 +16,7 @@ const navList = [
     name: "HOME",
   },
   {
-    route: "/productList",
+    route: "/product-list",
     name: "PRODUCTS",
   },
   {

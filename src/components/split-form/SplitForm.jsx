@@ -7,9 +7,11 @@ import {
   CardExpiryElement,
 } from "@stripe/react-stripe-js";
 import styled, { css } from "styled-components";
-import { FormContainer, PayBtn } from "../payment-form/style/PaymentForm.style";
 
+import { FormContainer, PayBtn } from "../payment-form/style/PaymentForm.style";
+import { baseInput, baseLabel } from "../ReviewForm";
 import { useOptions } from "./hooks/useOptions";
+import { SingleInputBox } from "../shipping-form/ShippingForm";
 
 const SplitForm = () => {
   const stripe = useStripe();
@@ -19,11 +21,7 @@ const SplitForm = () => {
   const paymentHandler = async (event) => {
     event.preventDefault();
 
-    if (!stripe || !elements) {
-      // Stripe.js has not loaded yet. Make sure to disable
-      // form submission until Stripe.js has loaded.
-      return;
-    }
+    if (!stripe || !elements) return;
 
     const payload = await stripe.createPaymentMethod({
       type: "card",
@@ -34,8 +32,8 @@ const SplitForm = () => {
 
   return (
     <FormContainer onSubmit={paymentHandler}>
-      <label>
-        Card number
+      <SingleInputBox>
+        <Label>Card number</Label>
         <NumberInput
           options={options}
           onReady={() => {
@@ -51,10 +49,11 @@ const SplitForm = () => {
             console.log("CardNumberElement [focus]");
           }}
         />
-      </label>
-      <label>
-        Expiration date
-        <CardExpiryElement
+      </SingleInputBox>
+
+      <SingleInputBox>
+        <Label>Expiration date</Label>
+        <ExpiryInput
           options={options}
           onReady={() => {
             console.log("CardNumberElement [ready]");
@@ -69,10 +68,11 @@ const SplitForm = () => {
             console.log("CardNumberElement [focus]");
           }}
         />
-      </label>
-      <label>
-        CVC
-        <CardCvcElement
+      </SingleInputBox>
+
+      <SingleInputBox>
+        <Label>CVC</Label>
+        <CvcInput
           options={options}
           onReady={() => {
             console.log("CardNumberElement [ready]");
@@ -87,21 +87,25 @@ const SplitForm = () => {
             console.log("CardNumberElement [focus]");
           }}
         />
-      </label>
+      </SingleInputBox>
+
       <PayBtn type="submit" disabled={!stripe || !elements}>
         Pay
       </PayBtn>
     </FormContainer>
   );
 };
-const baseInput = css`
-  background: #74a618;
-  padding: 0.5rem 0 0.5rem 0.8rem;
-  border-radius: 5px;
-  width: 100%;
+
+const Label = styled.label`
+  ${baseLabel}
 `;
 const NumberInput = styled(CardNumberElement)`
   ${baseInput}
 `;
-const ExpiryInput = styled(CardExpiryElement)``;
+const ExpiryInput = styled(CardExpiryElement)`
+  ${baseInput}
+`;
+const CvcInput = styled(CardCvcElement)`
+  ${baseInput}
+`;
 export default SplitForm;

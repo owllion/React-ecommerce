@@ -34,14 +34,12 @@ const Filter = ({ active, handleActive }) => {
         </SelectBtnText>
       </SelectBtn>
       {active && (
-        <>
-          <Options active={active}>
-            <FilterOptionList title="Category" itemList={CategoryOption} />
-            <FilterOptionList title="Brand" itemList={apparelBrand} />
-            <FilterOptionList title="Price" itemList={priceOption} />
-            <SearchBtn>Go</SearchBtn>
-          </Options>
-        </>
+        <Options active={active}>
+          <FilterOptionList title="Category" itemList={CategoryOption} />
+          <FilterOptionList title="Brand" itemList={apparelBrand} />
+          <FilterOptionList title="Price" itemList={priceOption} />
+          <SearchBtn>Go</SearchBtn>
+        </Options>
       )}
     </Container>
   );
@@ -66,6 +64,7 @@ const Container = styled.div`
   }
   position: relative;
 `;
+
 const SelectBtn = styled.div`
   display: flex;
   height: 55px;
@@ -81,6 +80,8 @@ const SelectBtn = styled.div`
 `;
 const SelectBtnText = styled.div`
   display: flex;
+  flex-grow: 1;
+  justify-content: space-between;
   align-items: center;
   span {
     padding-right: 0.6rem;
@@ -88,6 +89,9 @@ const SelectBtnText = styled.div`
 `;
 
 const Options = styled.ul`
+  overflow-y: scroll;
+  height: 500px;
+  /* background: #000; */
   position: absolute;
   width: 100%;
   z-index: 10;

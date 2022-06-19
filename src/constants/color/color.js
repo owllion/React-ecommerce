@@ -7,7 +7,7 @@ const COLORS = {
 
   yellow: "#FFCC1D", //RatingStars
 
-  red: "#A50104",
+  red: "#ff0000",
   transparent: "rgba(0,0,0,0)",
   green: "#008080",
   blue: "#79a6ff", //sideNav input

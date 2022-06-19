@@ -75,7 +75,7 @@ const Container = styled.div`
   @media (min-width: 1000px) {
     padding: 10rem 0;
   }
-  padding: 2rem 0;
+  padding: 5rem 0;
 `;
 const ProgressTrack = styled.ul`
   display: flex;
@@ -85,6 +85,9 @@ const ProgressTrack = styled.ul`
   text-align: center;
   list-style-type: none;
   width: 50%;
+  @media (max-width: 767px) {
+    width: 100%;
+  }
   margin: 0 auto;
 `;
 const nextStep = keyframes`
@@ -108,11 +111,8 @@ const StageItem = styled.li`
     pathName[index] === nowPath ? `${cl.green}` : `${cl.dark}`};
 
   &:before {
-    content: ${({ color, iconName }) =>
-      `url(${reactSvgComponentToMarkupString(iconName, {
-        color,
-      })})`};
-
+    content: "f058";
+    font-family: "Font Awesome 5 Free";
     display: block;
     font-size: 5rem;
     line-height: 24px;

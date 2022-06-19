@@ -2,24 +2,29 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import cl from "../constants/color/color";
 
+import { motion } from "framer-motion";
+import { productListMotion } from "../lib/motion";
+
 import { popularProducts } from "../data/data";
 import SingleProduct from "../components/SingleProduct";
 import Select from "../components/Select";
 import Filter from "../components/Filter";
 import Pagination from "../components/Pagination";
-
-import { motion } from "framer-motion";
-import { productListMotion } from "../lib/motion";
+import { sortOptions } from "../data/sortOptions";
 
 const ProductList = () => {
   const [activeSort, setActiveSort] = useState(false);
   const [activeFilter, setActiveFilter] = useState(false);
-  const [selected, setSelected] = useState("");
+  const [selectedName, setSelectedName] = useState("");
+  const [selectedVal, setSelectedVal] = useState("");
 
   const handleActiveSort = (params) => {
     if (activeFilter) setActiveFilter(false);
     setActiveSort(!activeSort);
-    if (params) setSelected(params);
+    if (params) {
+      setSelectedName(params.name);
+      setSelectedVal(params.val);
+    }
   };
   const handleActiveFilter = (e) => {
     if (activeSort) setActiveSort(false);
@@ -34,7 +39,10 @@ const ProductList = () => {
           <Func>
             <Filter active={activeFilter} handleActive={handleActiveFilter} />
             <Select
-              selected={selected}
+              w_full={false}
+              listData={sortOptions}
+              selectedName={selectedName}
+              selectedVal={selectedVal}
               active={activeSort}
               handleActive={handleActiveSort}
             />

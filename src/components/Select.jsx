@@ -1,24 +1,40 @@
 import React from "react";
 import styled, { css, keyframes } from "styled-components";
 
+import { TiArrowSortedUp, TiArrowSortedDown } from "react-icons/ti";
 import { sortOptions } from "../data/sortOptions";
 
-import { TiArrowSortedUp, TiArrowSortedDown } from "react-icons/ti";
-
-const Select = ({ selected, active, handleActive }) => {
+const Select = ({
+  listData,
+  selectedName,
+  selectedVal,
+  active,
+  handleActive,
+  w_full,
+}) => {
   return (
-    <Container>
+    <Container w_full={w_full}>
       <SelectBtn onClick={() => handleActive()}>
         <SelectBtnText>
-          <span>{selected || "Sort"}</span>
+          <div>
+            {selectedVal &&
+              sortOptions.find((item) => item.val === selectedVal).icon}
+
+            <span>
+              <span>{selectedName || "Sort"}</span>
+            </span>
+          </div>
           {active ? <TiArrowSortedDown /> : <TiArrowSortedUp />}
         </SelectBtnText>
       </SelectBtn>
       {active && (
         <Options active={active}>
-          {sortOptions.map((item, index) => (
-            <Option key={index} onClick={() => handleActive(item.name)}>
-              <OptionIcon>{item.icon}</OptionIcon>
+          {listData.map((item, index) => (
+            <Option
+              key={index}
+              onClick={() => handleActive({ name: item.name, val: item.val })}
+            >
+              {item.icon && <OptionIcon>{item.icon}</OptionIcon>}
               <OptionText>{item.name}</OptionText>
             </Option>
           ))}
@@ -37,7 +53,7 @@ from {
   }
 `;
 const Container = styled.div`
-  width: 300px;
+  width: ${({ w_full }) => (w_full ? "100%" : "200px")};
   @media (max-width: 950px) {
     width: 100%;
   }
@@ -53,11 +69,13 @@ const SelectBtn = styled.div`
   border-radius: 8px;
   align-items: center;
   cursor: pointer;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 `;
 const SelectBtnText = styled.div`
   display: flex;
+  flex-grow: 1;
+  justify-content: space-between;
   align-items: center;
   span {
     padding-right: 0.6rem;
@@ -65,6 +83,8 @@ const SelectBtnText = styled.div`
 `;
 
 const Options = styled.ul`
+  overflow-y: scroll;
+  height: 500px;
   position: absolute;
   width: 100%;
   z-index: 10;
