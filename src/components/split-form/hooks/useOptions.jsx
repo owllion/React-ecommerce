@@ -11,7 +11,6 @@ export const useOptions = () => {
           fontSize,
           color: "#424770",
           letterSpacing: "0.025em",
-          //   fontFamily: "Source Code Pro, monospace",
           "::placeholder": {
             color: "#aab7c4",
           },

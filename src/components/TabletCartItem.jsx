@@ -49,16 +49,17 @@ const TabletSingleItemContainer = styled.div`
   }
 `;
 
-const ItemInfo = styled.div`
+export const ItemInfo = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
   margin-bottom: 0.8rem; //25px
 `;
-const ItemInfoBox = styled.div`
+export const ItemInfoBox = styled.div`
   display: flex;
+  width: 100%;
 `;
-const ItemInfoImgBox = styled.div`
+export const ItemInfoImgBox = styled.div`
   width: 27.5vw;
   max-width: 120px;
   min-width: 7rem;
@@ -67,13 +68,13 @@ const ItemInfoImgBox = styled.div`
   flex-grow: 1;
   margin-right: 1.2rem; //20px
 `;
-const ItemImg = styled.img`
+export const ItemImg = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
   border-radius: 5px;
 `;
-const ItemInfoTextBox = styled.div`
+export const ItemInfoTextBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -85,7 +86,7 @@ const ItemInfoTextBox = styled.div`
     }
     margin: 0;
     line-height: 1.3;
-    font-size: 1rem;
+    font-size: 0.9rem;
   }
 `;
 const basePTagStyle = css`
@@ -94,10 +95,10 @@ const basePTagStyle = css`
   font-size: 0.9rem;
   margin: 0;
 `;
-const ItemInfoColor = styled.p`
+export const ItemInfoColor = styled.p`
   ${basePTagStyle};
 `;
-const ItemInfoSize = styled.p`
+export const ItemInfoSize = styled.p`
   ${basePTagStyle}
 `;
 const ItemDeleteBox = styled.div`

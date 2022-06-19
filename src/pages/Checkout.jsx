@@ -73,9 +73,9 @@ const Checkout = () => {
 };
 const Container = styled.div`
   @media (min-width: 1000px) {
-    padding: 10rem 0;
+    padding: 5rem 0;
   }
-  padding: 5rem 0;
+  padding: 1rem 0;
 `;
 const ProgressTrack = styled.ul`
   display: flex;
@@ -111,8 +111,11 @@ const StageItem = styled.li`
     pathName[index] === nowPath ? `${cl.green}` : `${cl.dark}`};
 
   &:before {
-    content: "f058";
-    font-family: "Font Awesome 5 Free";
+    content: ${({ color, iconName }) =>
+      `url(${reactSvgComponentToMarkupString(iconName, {
+        color,
+      })})`};
+
     display: block;
     font-size: 5rem;
     line-height: 24px;
