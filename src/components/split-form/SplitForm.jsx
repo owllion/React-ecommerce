@@ -89,21 +89,28 @@ const SplitForm = () => {
           }}
         /> */}
       </SingleInputBox>
-      <PayBtn type="submit">Pay</PayBtn>
+      {/* <PayBtn type="submit">Pay</PayBtn> */}
     </FormContainer>
   );
 };
 
+const extraSpace = css`
+  height: 48px;
+  padding-top: 1rem;
+`;
 const Label = styled.label`
   ${baseLabel}
 `;
 const NumberInput = styled(CardNumberElement)`
   ${baseInput}
+  ${extraSpace}
 `;
 const ExpiryInput = styled(CardExpiryElement)`
   ${baseInput}
+  ${extraSpace}
 `;
 const CvcInput = styled(CardCvcElement)`
   ${baseInput}
+  ${extraSpace}
 `;
 export default SplitForm;

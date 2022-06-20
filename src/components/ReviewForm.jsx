@@ -44,7 +44,7 @@ export const baseInput = css`
   width: 100%;
   padding: 0.7rem;
   border-radius: 5px;
-  padding-left: 1.5rem;
+  padding-left: 0.8rem;
   border: 1px solid ${cl.gray};
   &:focus {
     outline: transparent;

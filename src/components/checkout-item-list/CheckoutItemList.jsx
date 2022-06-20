@@ -3,6 +3,10 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 import cl from "../../constants/color/color";
+
+import { PayBtn } from "../payment-form/style/PaymentForm.style";
+import { baseInput } from "../ReviewForm";
+
 import { SectionTitle } from "../payment-form/style/PaymentForm.style";
 import {
   ItemImg,
@@ -10,11 +14,12 @@ import {
   ItemInfoColor,
   ItemInfoSize,
 } from "../TabletCartItem";
+import ClearInputBtn from "../Button/ClearInputBtn";
 const CheckoutItemList = () => {
   return (
     <Container>
       <SectionTitle>ORDER SUMMARY</SectionTitle>
-      <ItemInfoBox>
+      {/* <ItemInfoBox>
         <ItemWrapper>
           <ItemInfoImgBox>
             <Link to="/product-detail/1">
@@ -91,7 +96,7 @@ const CheckoutItemList = () => {
           </ItemNumber>
           <ItemSubTotal>$800</ItemSubTotal>
         </ItemWrapper>
-      </ItemInfoBox>
+      </ItemInfoBox> */}
       <ItemInfoBox>
         <ItemWrapper>
           <ItemInfoImgBox>
@@ -118,6 +123,23 @@ const CheckoutItemList = () => {
           <ItemSubTotal>$800</ItemSubTotal>
         </ItemWrapper>
       </ItemInfoBox>
+
+      <SummarySection>
+        <SummaryItemBox>
+          <SummaryType>Subtotal</SummaryType>
+          <SummaryNum>$108.00</SummaryNum>
+        </SummaryItemBox>
+      </SummarySection>
+
+      <PromoCodeContainer>
+        <CodeInputBox>
+          <CodeInput placeholder="Your promo code" />
+          <ClearInputBtn />
+        </CodeInputBox>
+        <ApplyBtn>APPLY</ApplyBtn>
+      </PromoCodeContainer>
+
+      <PayBtn type="submit">Pay</PayBtn>
     </Container>
   );
 };
@@ -183,4 +205,69 @@ const ItemSubTotal = styled.div`
   /* background: orange; */
   /* padding-left: 2rem; */
 `;
+
+const SummarySection = styled.div`
+  padding: 0.2rem;
+  display: flex;
+  flex-direction: column;
+`;
+const SummaryItemBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+`;
+const SummaryType = styled.span``;
+const SummaryNum = styled.span``;
+
+const PromoCodeContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin-top: 3rem;
+  width: 100%;
+  padding: 1.2rem 0;
+  @media (max-width: 1024px) {
+    padding: 0;
+  }
+`;
+const CodeInputBox = styled.div`
+  position: relative;
+  flex: 4;
+  margin-right: 0.8rem;
+`;
+const CodeInput = styled.input`
+  ${baseInput}
+`;
+const ApplyBtn = styled.button`
+  border-radius: 5px;
+  background: ${cl.green};
+  color: ${cl.white};
+  padding: 0.8rem;
+  flex: 1;
+  cursor: pointer;
+`;
+const ClearBtn = styled.button`
+  position: absolute;
+  right: 12px;
+  top: 20%;
+`;
+const IconBox = styled.div`
+  background: ${cl.plusGray};
+  color: ${cl.darkenGray};
+  border-radius: 50%;
+  font-size: 1.5rem;
+  width: 25px;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+`;
+// const ShippingBox = styled.div``;
+// const Shipping = styled.span``;
+// const ShippingCost = styled.span``;
+
+// const TotalBox = styled.div``;
+// const Total = styled.span``;
+// const TotalNum = styled.span``;
+
 export default CheckoutItemList;

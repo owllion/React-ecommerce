@@ -40,11 +40,11 @@ const Wrapper = styled.div`
     padding: 2rem 1rem 4rem;
   } */
   padding: 0 5rem;
-  @media (max-width: 768px) {
-    padding: 0 1rem;
-  }
   @media (max-width: 1330px) {
     padding: 0 2rem;
+  }
+  @media (max-width: 768px) {
+    padding: 0 1rem;
   }
   flex-direction: column;
 `;
@@ -61,16 +61,16 @@ const LeftContentContainer = styled.div`
   @media (min-width: 1024px) {
     margin-right: 2rem;
   }
-  @media (max-width: 1024px) {
+  /* @media (max-width: 1024px) {
     order: 2;
-  }
+  } */
 `;
 const RightContentContainer = styled.div`
   flex-basis: 50%;
   padding-left: 3rem;
   @media (max-width: 1024px) {
     padding-left: 0;
-    order: 1;
+    /* order: 1; */
   }
 `;
 export default ShipAndPay;

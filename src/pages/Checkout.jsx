@@ -73,9 +73,9 @@ const Checkout = () => {
 };
 const Container = styled.div`
   @media (min-width: 1000px) {
-    padding: 5rem 0;
+    padding: 10rem 0 5rem 0;
   }
-  padding: 1rem 0;
+  padding: 5rem 0;
 `;
 const ProgressTrack = styled.ul`
   display: flex;
