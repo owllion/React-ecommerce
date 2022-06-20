@@ -245,23 +245,7 @@ const ApplyBtn = styled.button`
   flex: 1;
   cursor: pointer;
 `;
-const ClearBtn = styled.button`
-  position: absolute;
-  right: 12px;
-  top: 20%;
-`;
-const IconBox = styled.div`
-  background: ${cl.plusGray};
-  color: ${cl.darkenGray};
-  border-radius: 50%;
-  font-size: 1.5rem;
-  width: 25px;
-  height: 25px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-`;
+
 // const ShippingBox = styled.div``;
 // const Shipping = styled.span``;
 // const ShippingCost = styled.span``;

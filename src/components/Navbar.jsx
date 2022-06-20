@@ -66,7 +66,7 @@ const Navbar = () => {
                 </SearchIcon>
               </MenuItem>
               <MenuItem>
-                <Link to={"/account"}>
+                <Link to={"/settings"}>
                   <AccountIcon>
                     <MdAccountCircle />
                   </AccountIcon>

@@ -2,7 +2,7 @@ import { useRoutes } from "react-router-dom";
 import ProductList from "../pages/ProductList.jsx";
 import Home from "../pages/Home";
 import Cart from "../pages/Cart";
-import Account from "../pages/Account";
+import Settings from "../pages/Settings.jsx";
 import ProductDetail from "../pages/ProductDetail.jsx";
 import NotFound from "../pages/NotFound.jsx";
 import Checkout from "../pages/Checkout.jsx";
@@ -25,7 +25,7 @@ export const RouteConfig = () => {
         { path: "ship-and-pay", element: <ShipAndPay /> },
       ],
     },
-    { path: "/account", element: <Account /> },
+    { path: "/settings", element: <Settings /> },
     { path: "*", element: <NotFound /> },
   ]);
 
