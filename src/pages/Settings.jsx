@@ -23,19 +23,19 @@ const Settings = () => {
                 <ItemIcon>
                   <IoPersonSharp />
                 </ItemIcon>
-                <ItemText>Account</ItemText>
+                {/* <ItemText>Account</ItemText> */}
               </BarItem>
               <BarItem>
                 <ItemIcon>
                   <IoIosHeart />
                 </ItemIcon>
-                <ItemText>Favorite</ItemText>
+                {/* <ItemText>Favorite</ItemText> */}
               </BarItem>
               <BarItem>
                 <ItemIcon>
                   <IoLogOutOutline />
                 </ItemIcon>
-                <ItemText>Logout</ItemText>
+                {/* <ItemText>Logout</ItemText> */}
               </BarItem>
             </BarItems>
           </SideBar>
@@ -113,27 +113,51 @@ const DesktopMain = styled.div`
     padding: 0;
   }
 `;
+// const SideBar = styled.div`
+//   /* flex: 5; */
+//   margin-right: 1.5rem;
+//   /* background: ${cl.white}; */
+//   min-height: 50vh;
+//   width: 300px;
+//   @media (max-width: 1024px) {
+//     width: 100%;
+//     min-height: 10vh;
+//     margin-bottom: 3rem;
+//   }
+
+//   box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+
+//   border-radius: 12px;
+//   display: flex;
+//   justify-content: center;
+//   align-items: flex-start;
+//   padding-top: 4rem;
+//   min-height: 50vh;
+//   width: 300px;
+//   @media (max-width: 1024px) {
+//     width: 100%;
+//     min-height: 10vh;
+//     padding-top: 0;
+//   }
+// `;
 const SideBar = styled.div`
-  /* flex: 5; */
   margin-right: 1.5rem;
-  /* background: ${cl.white}; */
   min-height: 50vh;
-  width: 300px;
+  width: 100px;
   @media (max-width: 1024px) {
     width: 100%;
     min-height: 10vh;
     margin-bottom: 3rem;
   }
 
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
-    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+  box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
   border-radius: 12px;
   display: flex;
   justify-content: center;
   align-items: flex-start;
   padding-top: 4rem;
   min-height: 50vh;
-  width: 300px;
+  /* width: 300px; */
   @media (max-width: 1024px) {
     width: 100%;
     min-height: 10vh;
@@ -147,34 +171,39 @@ const BarItems = styled.ul`
   align-items: center;
   flex-direction: column;
   max-width: 100%;
+  width: 100%;
   @media (max-width: 1024px) {
     flex-direction: row;
   }
 `;
 const BarItem = styled.li`
-  text-align: center;
   padding: 0.8rem;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  border-radius: 12px;
-  transition: all 0.5s ease;
-  width: 150px;
+  /* border-radius: 12px; */
+  transition: background 0.8s ease;
+  width: 100%;
   margin-top: 1rem;
   &:hover {
-    background-color: red;
+    border-left: 5px solid ${cl.green};
+    /* background: #0080801c; */
     @media (max-width: 450px) {
-      border-radius: 50%;
-      background-color: red;
+      border-left: none;
     }
   }
 `;
 
 const ItemIcon = styled.div`
   display: flex;
-  margin-right: 0.9rem;
+  /* margin-right: 0.9rem; */
+  transition: 0.8s ease;
   font-size: 1.5rem;
+  color: ${cl.darkenGray};
+  &:hover {
+    color: ${cl.dark};
+  }
 `;
 const ItemText = styled.span`
   font-size: 1.1rem;
