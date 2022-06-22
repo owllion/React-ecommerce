@@ -6,8 +6,8 @@ import { FiHeart } from "react-icons/fi";
 
 const SingleProduct = ({ item: { img, name, price } }) => {
   return (
-    <>
-      <Container>
+    <Container>
+      <Wrapper>
         <Image src={img} alt="product" />
         <Info>
           <Icon>
@@ -17,12 +17,14 @@ const SingleProduct = ({ item: { img, name, price } }) => {
             <FiHeart />
           </Icon>
         </Info>
-      </Container>
+      </Wrapper>
       <Name>{name}</Name>
       <Price>{price}</Price>
-    </>
+    </Container>
   );
 };
+
+const Container = styled.div``;
 const Info = styled.div`
   opacity: 0;
   width: 100%;
@@ -39,7 +41,7 @@ const Info = styled.div`
   transition: all 0.5s ease;
   cursor: pointer;
 `;
-const Container = styled.div`
+const Wrapper = styled.div`
   flex: 1;
   margin: 0.2rem;
   padding: 1.2rem;

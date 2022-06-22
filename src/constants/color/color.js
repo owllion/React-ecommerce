@@ -4,13 +4,12 @@ const COLORS = {
   dark: "#000",
   arrowBg: "#fff7f7",
   lightBlue: "#0071c2",
-
+  blue: "#79a6ff", //sideNav input
+  purple: "#7B6CCD", //Settings & ScrollBar
   yellow: "#FFCC1D", //RatingStars
-
   red: "#ff0000",
   transparent: "rgba(0,0,0,0)",
   green: "#008080",
-  blue: "#79a6ff", //sideNav input
 
   textLightGray: "#A3A3A3", // review Date
   gray: "#d3d3d3", //lighter than above

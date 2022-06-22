@@ -1,16 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 
-import { IoIosHeart, IoIosCamera } from "react-icons/io";
+import { IoIosHeart } from "react-icons/io";
 import { IoPersonSharp, IoLogOutOutline } from "react-icons/io5";
+import { RiLockPasswordFill } from "react-icons/ri";
 
 import cl from "../constants/color/color";
-import avatar from "../assets/avatar/avatar1.svg";
 import { Title } from "./Cart";
-import { SingleInputBox } from "../components/shipping-form/ShippingForm";
-import { baseInput, baseLabel } from "../components/ReviewForm";
-import { PayBtn } from "../components/payment-form/style/PaymentForm.style";
 
+import { Outlet } from "react-router-dom";
+import { Link } from "react-router-dom";
 const Settings = () => {
   return (
     <Container>
@@ -20,51 +19,35 @@ const Settings = () => {
           <SideBar>
             <BarItems>
               <BarItem>
-                <ItemIcon>
-                  <IoPersonSharp />
-                </ItemIcon>
-                {/* <ItemText>Account</ItemText> */}
+                <BarItemLink to="/settings/account">
+                  <ItemIcon>
+                    <IoPersonSharp />
+                  </ItemIcon>
+                </BarItemLink>
               </BarItem>
               <BarItem>
-                <ItemIcon>
-                  <IoIosHeart />
-                </ItemIcon>
-                {/* <ItemText>Favorite</ItemText> */}
+                <BarItemLink to="/settings/change-pwd">
+                  <ItemIcon>
+                    <RiLockPasswordFill />
+                  </ItemIcon>
+                </BarItemLink>
+              </BarItem>
+              <BarItem>
+                <BarItemLink to="/settings/favlist">
+                  <ItemIcon>
+                    <IoIosHeart />
+                  </ItemIcon>
+                </BarItemLink>
               </BarItem>
               <BarItem>
                 <ItemIcon>
                   <IoLogOutOutline />
                 </ItemIcon>
-                {/* <ItemText>Logout</ItemText> */}
               </BarItem>
             </BarItems>
           </SideBar>
           <DesktopMain>
-            <DesktopLeft>
-              <DropAvatarBox avatar={avatar}>
-                <CameraIconBox>
-                  <IoIosCamera />
-                </CameraIconBox>
-              </DropAvatarBox>
-
-              <UploadBtn></UploadBtn>
-            </DesktopLeft>
-
-            <DesktopRight>
-              <SingleInputBox>
-                <Label>Name</Label>
-                <Input></Input>
-              </SingleInputBox>
-              <SingleInputBox>
-                <Label>Email</Label>
-                <Input disabled value="Test@gmai.com"></Input>
-              </SingleInputBox>
-              <SingleInputBox>
-                <Label>Phone</Label>
-                <Input></Input>
-              </SingleInputBox>
-              <SaveBtn>SAVE</SaveBtn>
-            </DesktopRight>
+            <Outlet />
           </DesktopMain>
         </DesktopWrapper>
       </Wrapper>
@@ -97,49 +80,22 @@ const Wrapper = styled.div`
 `;
 const DesktopWrapper = styled.div`
   display: flex;
-  /* background: yellow; */
   @media (max-width: 1024px) {
     flex-direction: column;
   }
 `;
 const DesktopMain = styled.div`
-  width: 100%;
-  display: flex;
-  box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+  background: #00028008;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
   padding: 3.5rem;
   border-radius: 8px;
+  width: 100%;
+  display: flex;
   @media (max-width: 700px) {
-    flex-direction: column;
+    /* flex-direction: column; */
     padding: 0;
   }
 `;
-// const SideBar = styled.div`
-//   /* flex: 5; */
-//   margin-right: 1.5rem;
-//   /* background: ${cl.white}; */
-//   min-height: 50vh;
-//   width: 300px;
-//   @media (max-width: 1024px) {
-//     width: 100%;
-//     min-height: 10vh;
-//     margin-bottom: 3rem;
-//   }
-
-//   box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
-
-//   border-radius: 12px;
-//   display: flex;
-//   justify-content: center;
-//   align-items: flex-start;
-//   padding-top: 4rem;
-//   min-height: 50vh;
-//   width: 300px;
-//   @media (max-width: 1024px) {
-//     width: 100%;
-//     min-height: 10vh;
-//     padding-top: 0;
-//   }
-// `;
 const SideBar = styled.div`
   margin-right: 1.5rem;
   min-height: 50vh;
@@ -150,14 +106,14 @@ const SideBar = styled.div`
     margin-bottom: 3rem;
   }
 
-  box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
+    rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
   border-radius: 12px;
   display: flex;
   justify-content: center;
   align-items: flex-start;
   padding-top: 4rem;
   min-height: 50vh;
-  /* width: 300px; */
   @media (max-width: 1024px) {
     width: 100%;
     min-height: 10vh;
@@ -182,89 +138,30 @@ const BarItem = styled.li`
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  /* border-radius: 12px; */
   transition: background 0.8s ease;
   width: 100%;
   margin-top: 1rem;
   &:hover {
-    border-left: 5px solid ${cl.green};
-    /* background: #0080801c; */
+    border-left: 5px solid ${cl.purple};
     @media (max-width: 450px) {
       border-left: none;
     }
   }
 `;
-
+const BarItemLink = styled(Link)`
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+`;
 const ItemIcon = styled.div`
   display: flex;
-  /* margin-right: 0.9rem; */
   transition: 0.8s ease;
   font-size: 1.5rem;
   color: ${cl.darkenGray};
   &:hover {
-    color: ${cl.dark};
+    color: ${cl.purple};
   }
-`;
-const ItemText = styled.span`
-  font-size: 1.1rem;
-  @media (max-width: 450px) {
-    display: none;
-  }
-`;
-const DesktopLeft = styled.div`
-  width: 50%;
-  @media (max-width: 700px) {
-    width: 100%;
-    padding-left: 0.8rem;
-  }
-  /* margin-right: 1.5rem; */
-  /* background-color: red; */
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  padding-top: 5rem;
-`;
-const DropAvatarBox = styled.div`
-  position: relative;
-  cursor: pointer;
-  width: 300px;
-  height: 300px;
-  @media (max-width: 400px) {
-    width: 250px;
-    height: 250px;
-  }
-  border-radius: 8px;
-  background-image: ${(props) => `url(${props.avatar})`};
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  transition: all 0.6s;
-  &:hover {
-    transform: translateY(-5px);
-  }
-`;
-const CameraIconBox = styled.div`
-  position: absolute;
-  top: 5px;
-  left: 10px;
-  font-size: 2rem;
-`;
-const UploadBtn = styled.button``; //下方那一科
-
-const DesktopRight = styled.div`
-  width: 50%;
-  @media (max-width: 700px) {
-    width: 100%;
-    padding-bottom: 4.5rem;
-  }
-  padding: 2rem;
-`;
-const SaveBtn = styled(PayBtn)``;
-const Label = styled.label`
-  ${baseLabel}
-`;
-const Input = styled.input`
-  ${baseInput}
 `;
 
 export default Settings;

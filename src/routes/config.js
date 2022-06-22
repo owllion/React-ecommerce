@@ -7,6 +7,9 @@ import ProductDetail from "../pages/ProductDetail.jsx";
 import NotFound from "../pages/NotFound.jsx";
 import Checkout from "../pages/Checkout.jsx";
 import ShipAndPay from "../pages/ShipAndPay.jsx";
+import Account from "../components/settings/Account.jsx";
+import FavList from "../components/settings/FavList.jsx";
+import ChangePwd from "../components/settings/ChangePwd.jsx";
 
 export const RouteConfig = () => {
   let element = useRoutes([
@@ -25,7 +28,24 @@ export const RouteConfig = () => {
         { path: "ship-and-pay", element: <ShipAndPay /> },
       ],
     },
-    { path: "/settings", element: <Settings /> },
+    {
+      path: "/settings",
+      element: <Settings />,
+      children: [
+        {
+          path: "account",
+          element: <Account />,
+        },
+        {
+          path: "favlist",
+          element: <FavList />,
+        },
+        {
+          path: "change-pwd",
+          element: <ChangePwd />,
+        },
+      ],
+    },
     { path: "*", element: <NotFound /> },
   ]);
 
