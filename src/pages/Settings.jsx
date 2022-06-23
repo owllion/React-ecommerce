@@ -18,27 +18,27 @@ const Settings = () => {
         <DesktopWrapper>
           <SideBar>
             <BarItems>
-              <BarItem>
-                <BarItemLink to="/settings/account">
+              <BarItemLink to="/settings/account">
+                <BarItem>
                   <ItemIcon>
                     <IoPersonSharp />
                   </ItemIcon>
-                </BarItemLink>
-              </BarItem>
-              <BarItem>
-                <BarItemLink to="/settings/change-pwd">
+                </BarItem>
+              </BarItemLink>
+              <BarItemLink to="/settings/account-reset-pwd">
+                <BarItem>
                   <ItemIcon>
                     <RiLockPasswordFill />
                   </ItemIcon>
-                </BarItemLink>
-              </BarItem>
-              <BarItem>
-                <BarItemLink to="/settings/favlist">
+                </BarItem>
+              </BarItemLink>
+              <BarItemLink to="/settings/favlist">
+                <BarItem>
                   <ItemIcon>
                     <IoIosHeart />
                   </ItemIcon>
-                </BarItemLink>
-              </BarItem>
+                </BarItem>
+              </BarItemLink>
               <BarItem>
                 <ItemIcon>
                   <IoLogOutOutline />

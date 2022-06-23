@@ -9,7 +9,7 @@ import Checkout from "../pages/Checkout.jsx";
 import ShipAndPay from "../pages/ShipAndPay.jsx";
 import Account from "../components/settings/Account.jsx";
 import FavList from "../components/settings/FavList.jsx";
-import ChangePwd from "../components/settings/ChangePwd.jsx";
+import AccountResetPwd from "../components/settings/AccountResetPwd.jsx";
 
 export const RouteConfig = () => {
   let element = useRoutes([
@@ -41,8 +41,8 @@ export const RouteConfig = () => {
           element: <FavList />,
         },
         {
-          path: "change-pwd",
-          element: <ChangePwd />,
+          path: "account-reset-pwd",
+          element: <AccountResetPwd />,
         },
       ],
     },

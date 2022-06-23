@@ -27,6 +27,14 @@ const validationRulesList = [
       message: "Please enter a number",
     },
   },
+  {
+    name: "password",
+    pattern: {
+      value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/,
+      message:
+        "Password must be eight characters or longer & must contain at least 1 lowercase/uppercase alphabetical character &  at least one special character,",
+    },
+  },
 ];
 
 export const getValidationData = (validation) => {

@@ -4,11 +4,10 @@ import styled from "styled-components";
 import { IoIosCamera } from "react-icons/io";
 
 import { baseInput, baseLabel } from "../ReviewForm";
-import { PayBtn } from "../payment-form/style/PaymentForm.style";
 
 import { SingleInputBox } from "../shipping-form/ShippingForm";
 import SectionTitle from "./SectionTitle";
-
+import SaveBtn from "./SaveBtn";
 import avatar from "../../assets/avatar/avatar1.svg";
 
 const Account = () => {
@@ -23,7 +22,7 @@ const Account = () => {
             </CameraIconBox>
           </DropAvatarBox>
 
-          <UploadBtn></UploadBtn>
+          {/* <UploadBtn></UploadBtn> */}
         </DesktopLeft>
         <DesktopRight>
           <SingleInputBox>
@@ -38,7 +37,7 @@ const Account = () => {
             <Label>Phone</Label>
             <Input></Input>
           </SingleInputBox>
-          <SaveBtn>SAVE</SaveBtn>
+          <SaveBtn />
         </DesktopRight>
       </Wrapper>
     </Container>
@@ -92,8 +91,7 @@ const CameraIconBox = styled.div`
   left: 10px;
   font-size: 2rem;
 `;
-const UploadBtn = styled.button``; //下方那一科
-
+// const UploadBtn = styled.button``;
 const DesktopRight = styled.div`
   width: 50%;
   @media (max-width: 700px) {
@@ -102,12 +100,7 @@ const DesktopRight = styled.div`
   }
   padding: 2rem;
 `;
-const SaveBtn = styled(PayBtn)`
-  &:not([disabled]):active {
-    /* box-shadow: #fff 2px 2px 0 0, #000 2px 2px 0 1px; */
-    transform: translate(2px, 2px);
-  }
-`;
+
 const Label = styled.label`
   ${baseLabel}
 `;

@@ -28,7 +28,9 @@ export const FormContainer = styled.form`
   }
 `;
 
-export const PayBtn = styled.button`
+export const PayBtn = styled.button.attrs((props) => ({
+  type: "submit",
+}))`
   background: ${cl.dark};
   color: ${cl.white};
   padding: 0.2rem;
