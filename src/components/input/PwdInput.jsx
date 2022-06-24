@@ -1,11 +1,13 @@
 import React, { useState } from "react";
+
 import { useFormContext } from "react-hook-form";
 import styled from "styled-components";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
+
 import { baseInput, baseLabel } from "../ReviewForm";
 import { getValidationData } from "../shipping-form/getValidationData";
-import cl from "../../constants/color/color";
 import FieldErr from "../Error/FieldErr";
+import cl from "../../constants/color/color";
 
 const PwdInput = ({ label, field, errors, validation }) => {
   const [showPwd, setShowPwd] = useState(false);

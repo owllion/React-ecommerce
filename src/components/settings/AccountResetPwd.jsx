@@ -63,7 +63,6 @@ const Wrapper = styled.div`
 `;
 const InputContainer = styled.div`
   flex: 1;
-  /* background: red; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -75,27 +74,6 @@ const FormWrapper = styled.form`
     width: 100%;
   }
 `;
-const Label = styled.label`
-  ${baseLabel}
-`;
-const PwdBox = styled.div`
-  position: relative;
-  margin-top: 1.5rem;
-`;
-
-const Input = styled.input.attrs((props) => ({
-  type: props.type,
-}))`
-  ${baseInput}
-  border-color: ${({ error }) => (error ? `${cl.red}` : `${cl.gray}`)};
-`;
-const EyeBox = styled.div`
-  position: absolute;
-  right: 15px;
-  top: 45px;
-  cursor: pointer;
-`;
-
 const ImageContainer = styled.div`
   flex: 1;
   display: flex;

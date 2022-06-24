@@ -10,6 +10,7 @@ import ShipAndPay from "../pages/ShipAndPay.jsx";
 import Account from "../components/settings/Account.jsx";
 import FavList from "../components/settings/FavList.jsx";
 import AccountResetPwd from "../components/settings/AccountResetPwd.jsx";
+import OrderComplete from "../components/OrderComplete.jsx";
 
 export const RouteConfig = () => {
   let element = useRoutes([
@@ -26,6 +27,7 @@ export const RouteConfig = () => {
           element: <Cart />,
         },
         { path: "ship-and-pay", element: <ShipAndPay /> },
+        { path: "order-complete", element: <OrderComplete /> },
       ],
     },
     {

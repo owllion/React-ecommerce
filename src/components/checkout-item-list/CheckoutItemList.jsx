@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 import cl from "../../constants/color/color";
 
@@ -16,6 +16,9 @@ import {
 } from "../TabletCartItem";
 import ClearInputBtn from "../Button/ClearInputBtn";
 const CheckoutItemList = () => {
+  const navigate = useNavigate();
+  const toComplete = () => navigate("/checkout/order-complete");
+
   return (
     <Container>
       <SectionTitle>ORDER SUMMARY</SectionTitle>
@@ -139,7 +142,9 @@ const CheckoutItemList = () => {
         <ApplyBtn>APPLY</ApplyBtn>
       </PromoCodeContainer>
 
-      <PayBtn type="submit">Pay</PayBtn>
+      <PayBtn type="submit" onClick={() => toComplete()}>
+        Pay
+      </PayBtn>
     </Container>
   );
 };
@@ -237,7 +242,7 @@ const CodeInputBox = styled.div`
 const CodeInput = styled.input`
   ${baseInput}
 `;
-const ApplyBtn = styled.button`
+export const ApplyBtn = styled.button`
   border-radius: 5px;
   background: ${cl.green};
   color: ${cl.white};

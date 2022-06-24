@@ -37,18 +37,15 @@ const Checkout = () => {
 
   const isCart = matchPath("/checkout/cart", pathname);
   const isShipping = matchPath("/checkout/ship-and-pay", pathname);
-
-  // const isComplete = matchPath("/checkout/ship-and-pay", pathname);
+  const isComplete = matchPath("/checkout/order-complete", pathname);
   // console.log({ isCart });
   // console.log({ isShipping });
 
   useEffect(() => {
-    // console.log("有被觸發");
-    // console.log(
-    //   [isCart, isShipping].find((item) => item).pathname.substring(10)
-    // );
     setNowPath(
-      [isCart, isShipping].find((item) => item).pathname.substring(10)
+      [isCart, isShipping, isComplete]
+        .find((item) => item)
+        .pathname.substring(10)
     );
   }, [pathname]);
   return (
@@ -67,7 +64,7 @@ const Checkout = () => {
           </StageItem>
         ))}
       </ProgressTrack>
-      <Outlet />;
+      <Outlet />
     </Container>
   );
 };
@@ -149,13 +146,13 @@ const StageItem = styled.li`
         }
       `;
     }
-    // if (nowPath === "success") {
-    //   css`
-    //     :nth-child(2):after {
-    //       ${afterAnimation}
-    //     }
-    //   `;
-    // }
+    if (nowPath === "order-complete") {
+      return css`
+        :nth-child(2):after {
+          ${afterAnimation}
+        }
+      `;
+    }
   }}
 `;
 

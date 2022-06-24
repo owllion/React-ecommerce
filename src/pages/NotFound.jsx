@@ -5,7 +5,6 @@ import styled from "styled-components";
 import cl from "../constants/color/color";
 
 import { useLottie } from "lottie-react";
-import Lottie from "lottie-react";
 import notFound from "../assets/404/notFound.json";
 
 const options = {
