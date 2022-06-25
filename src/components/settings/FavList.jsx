@@ -60,7 +60,7 @@ const Container = styled.section`
   overflow-y: scroll;
   overflow-x: hidden;
   &::-webkit-scrollbar {
-    width: 20px;
+    width: 15px;
   }
 
   &::-webkit-scrollbar-track {
@@ -74,6 +74,11 @@ const Container = styled.section`
     background-clip: content-box;
     background-color: #8070d4;
   }
+  @media (max-width: 767px) {
+    &::-webkit-scrollbar {
+      display: none; /* for Chrome, Safari, and Opera */
+    }
+  }
   height: 500px;
 `;
 const Wrapper = styled.div`
@@ -81,7 +86,7 @@ const Wrapper = styled.div`
   flex-wrap: wrap;
   padding: 2rem;
   @media (max-width: 380px) {
-    padding: 2rem 1rem;
+    padding: 0;
   }
 `;
 const SingleBox = styled.div`

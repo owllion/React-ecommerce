@@ -1,12 +1,13 @@
 import React from "react";
 import { useLottie } from "lottie-react";
-
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import cl from "../constants/color/color";
 import done from "../assets/order/done.json";
 import { ApplyBtn } from "./checkout-item-list/CheckoutItemList";
 
 const OrderComplete = () => {
+  const navigate = useNavigate();
   const options = {
     animationData: done,
     loop: false,
@@ -19,7 +20,9 @@ const OrderComplete = () => {
         <ImgBox>{View}</ImgBox>
         <RightBox>
           <Msg>Order Completed!</Msg>
-          <RouteBtn>Check My Order</RouteBtn>
+          <RouteBtn onClick={() => navigate("/settings/order-list")}>
+            Check My Order
+          </RouteBtn>
         </RightBox>
       </Wrapper>
     </Container>

@@ -11,6 +11,8 @@ import Account from "../components/settings/Account.jsx";
 import FavList from "../components/settings/FavList.jsx";
 import AccountResetPwd from "../components/settings/AccountResetPwd.jsx";
 import OrderComplete from "../components/OrderComplete.jsx";
+import OrderList from "../components/settings/OrderList.jsx";
+import OrderDetail from "../pages/OrderDetail.jsx";
 
 export const RouteConfig = () => {
   let element = useRoutes([
@@ -39,12 +41,22 @@ export const RouteConfig = () => {
           element: <Account />,
         },
         {
-          path: "favlist",
+          path: "fav-list",
           element: <FavList />,
         },
         {
           path: "account-reset-pwd",
           element: <AccountResetPwd />,
+        },
+        {
+          path: "order-list",
+          element: <OrderList />,
+          children: [
+            {
+              path: "order-detail/:id",
+              element: <OrderDetail />,
+            },
+          ],
         },
       ],
     },

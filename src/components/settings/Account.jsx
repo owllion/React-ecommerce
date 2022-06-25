@@ -94,11 +94,11 @@ const CameraIconBox = styled.div`
 // const UploadBtn = styled.button``;
 const DesktopRight = styled.div`
   width: 50%;
+  padding: 2rem;
   @media (max-width: 700px) {
     width: 100%;
-    padding-bottom: 4.5rem;
+    padding: 0 0 4.5rem 0;
   }
-  padding: 2rem;
 `;
 
 const Label = styled.label`

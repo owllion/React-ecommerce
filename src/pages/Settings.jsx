@@ -3,6 +3,8 @@ import styled from "styled-components";
 
 import { IoIosHeart } from "react-icons/io";
 import { IoPersonSharp, IoLogOutOutline } from "react-icons/io5";
+import { FaClipboardList } from "react-icons/fa";
+
 import { RiLockPasswordFill } from "react-icons/ri";
 
 import cl from "../constants/color/color";
@@ -32,10 +34,17 @@ const Settings = () => {
                   </ItemIcon>
                 </BarItem>
               </BarItemLink>
-              <BarItemLink to="/settings/favlist">
+              <BarItemLink to="/settings/fav-list">
                 <BarItem>
                   <ItemIcon>
                     <IoIosHeart />
+                  </ItemIcon>
+                </BarItem>
+              </BarItemLink>
+              <BarItemLink to="/settings/order-list">
+                <BarItem>
+                  <ItemIcon>
+                    <FaClipboardList />
                   </ItemIcon>
                 </BarItem>
               </BarItemLink>
@@ -93,7 +102,7 @@ const DesktopMain = styled.div`
   display: flex;
   @media (max-width: 700px) {
     /* flex-direction: column; */
-    padding: 0;
+    padding: 1.5rem;
   }
 `;
 const SideBar = styled.div`
@@ -108,6 +117,9 @@ const SideBar = styled.div`
 
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
     rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+  @media (max-width: 1024px) {
+    box-shadow: none;
+  }
   border-radius: 12px;
   display: flex;
   justify-content: center;
@@ -131,6 +143,13 @@ const BarItems = styled.ul`
   @media (max-width: 1024px) {
     flex-direction: row;
   }
+  @media (max-width: 500px) {
+    overflow: scroll;
+    /* padding: 0 0 1.2rem 2rem; */
+  }
+  @media (max-width: 380px) {
+    padding: 0 0 1.2rem 5rem;
+  }
 `;
 const BarItem = styled.li`
   padding: 0.8rem;
@@ -143,7 +162,7 @@ const BarItem = styled.li`
   margin-top: 1rem;
   &:hover {
     border-left: 5px solid ${cl.purple};
-    @media (max-width: 450px) {
+    @media (max-width: 1024px) {
       border-left: none;
     }
   }
@@ -161,6 +180,19 @@ const ItemIcon = styled.div`
   color: ${cl.darkenGray};
   &:hover {
     color: ${cl.purple};
+    @media (max-width: 1024px) {
+      color: ${cl.white};
+      background: ${cl.purple};
+    }
+  }
+  @media (max-width: 1024px) {
+    align-items: center;
+    justify-content: center;
+    color: ${cl.purple};
+    width: 50px;
+    height: 50px;
+    background-color: ${cl.lightGray};
+    border-radius: 50%;
   }
 `;
 
