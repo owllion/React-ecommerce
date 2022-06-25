@@ -13,10 +13,22 @@ import AccountResetPwd from "../components/settings/AccountResetPwd.jsx";
 import OrderComplete from "../components/OrderComplete.jsx";
 import OrderList from "../components/settings/OrderList.jsx";
 import OrderDetail from "../pages/OrderDetail.jsx";
+import Login from "../pages/Login.jsx";
+import WelcomeView from "../components/login/WelcomeView.jsx";
 
 export const RouteConfig = () => {
   let element = useRoutes([
     { path: "/", element: <Home /> },
+    {
+      path: "/login",
+      element: <Login />,
+      children: [
+        {
+          path: "welcome",
+          element: <WelcomeView />,
+        },
+      ],
+    },
     { path: "/product-list", element: <ProductList /> },
     { path: "/product-detail/:id", element: <ProductDetail /> },
     { path: "/cart", element: <Cart /> },
