@@ -41,6 +41,7 @@ const Pagination = ({ itemsPerPage }) => {
       `User requested page number ${event.selected}, which is offset ${newOffset}`
     );
     setItemOffset(newOffset);
+    window.scrollTo(0, 0);
   };
 
   return (
