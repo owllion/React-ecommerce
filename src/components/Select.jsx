@@ -83,7 +83,7 @@ const SelectBtnText = styled.div`
 `;
 
 const Options = styled.ul`
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
   height: 500px;
   position: absolute;
   width: 100%;
