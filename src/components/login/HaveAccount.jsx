@@ -18,6 +18,7 @@ const HaveAccount = () => {
   } = methods;
   const onSubmit = (data) => console.log(data);
   console.log(errors);
+
   return (
     <FormProvider {...methods}>
       <FormContainer onSubmit={handleSubmit(onSubmit)}>

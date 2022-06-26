@@ -12,13 +12,13 @@ const Login = () => {
   );
 };
 
-const Container = styled.div`
+export const Container = styled.div`
   padding: 10rem 0;
   display: flex;
   align-items: center;
   justify-content: center;
 `;
-const LoginContainer = styled.div`
+export const LoginContainer = styled.div`
   padding: 40px 24px;
   width: 100%;
   max-width: 400px;
