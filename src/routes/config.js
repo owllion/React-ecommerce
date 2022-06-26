@@ -15,6 +15,11 @@ import OrderList from "../components/settings/OrderList.jsx";
 import OrderDetail from "../pages/OrderDetail.jsx";
 import Login from "../pages/Login.jsx";
 import WelcomeView from "../components/login/WelcomeView.jsx";
+import CheckEmail from "../components/login/CheckEmail.jsx";
+import HaveAccount from "../components/login/HaveAccount.jsx";
+import Registration from "../components/login/Registration.jsx";
+import ForgotPassword from "../components/login/ForgotPassword.jsx";
+import ResetPassword from "../components/login/ResetPassword.jsx";
 
 export const RouteConfig = () => {
   let element = useRoutes([
@@ -27,7 +32,27 @@ export const RouteConfig = () => {
           path: "welcome",
           element: <WelcomeView />,
         },
+        {
+          path: "check-email",
+          element: <CheckEmail />,
+        },
+        {
+          path: "user-login",
+          element: <HaveAccount />,
+        },
+        {
+          path: "registration",
+          element: <Registration />,
+        },
+        {
+          path: "forgot-password",
+          element: <ForgotPassword />,
+        },
       ],
+    },
+    {
+      path: "reset-password",
+      element: <ResetPassword />,
     },
     { path: "/product-list", element: <ProductList /> },
     { path: "/product-detail/:id", element: <ProductDetail /> },

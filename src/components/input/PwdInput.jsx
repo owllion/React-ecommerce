@@ -10,13 +10,14 @@ import FieldErr from "../error/FieldErr";
 import cl from "../../constants/color/color";
 
 const PwdInput = ({ label, field, errors, validation }) => {
+  console.log(validation);
   const [showPwd, setShowPwd] = useState(false);
   const { register } = useFormContext();
 
   return (
     <>
       <PwdBox>
-        <Label>{label}</Label>
+        <Label error={errors[field]}>{label}</Label>
         <Input
           error={errors[field]}
           {...register(field, getValidationData([...validation]))}
@@ -32,6 +33,7 @@ const PwdInput = ({ label, field, errors, validation }) => {
 };
 const Label = styled.label`
   ${baseLabel}
+  color: ${({ error }) => error && `${cl.red}`};
 `;
 const PwdBox = styled.div`
   position: relative;

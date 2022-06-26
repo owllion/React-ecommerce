@@ -35,8 +35,9 @@ const AccountResetPwd = () => {
                 label="New Password"
                 errors={errors}
                 field="newPwd"
-                validation={["required", "password"]}
+                validation={["required", "passwordValidation"]}
               />
+
               <SaveBtn />
             </FormWrapper>
           </FormProvider>

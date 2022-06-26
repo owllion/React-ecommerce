@@ -1,30 +1,38 @@
 import React from "react";
-
+import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import { IoIosCamera } from "react-icons/io";
 
 import { baseInput, baseLabel } from "../ReviewForm";
-
+import cl from "../../constants/color/color";
 import { SingleInputBox } from "../shipping-form/ShippingForm";
 import SectionTitle from "./SectionTitle";
 import SaveBtn from "./SaveBtn";
 import avatar from "../../assets/avatar/avatar1.svg";
 
 const Account = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = (data) => console.log(data);
+  console.log(errors);
+
   return (
     <Container>
       <SectionTitle title="Account" />
       <Wrapper>
-        <DesktopLeft>
+        <LeftAvatar>
           <DropAvatarBox avatar={avatar}>
             <CameraIconBox>
               <IoIosCamera />
             </CameraIconBox>
           </DropAvatarBox>
+        </LeftAvatar>
 
-          {/* <UploadBtn></UploadBtn> */}
-        </DesktopLeft>
-        <DesktopRight>
+        <RightForm onSubmit={handleSubmit(onSubmit)}>
           <SingleInputBox>
             <Label>Name</Label>
             <Input></Input>
@@ -38,7 +46,7 @@ const Account = () => {
             <Input></Input>
           </SingleInputBox>
           <SaveBtn />
-        </DesktopRight>
+        </RightForm>
       </Wrapper>
     </Container>
   );
@@ -55,7 +63,7 @@ const Wrapper = styled.div`
     padding: 0;
   }
 `;
-const DesktopLeft = styled.div`
+const LeftAvatar = styled.div`
   width: 50%;
   @media (max-width: 700px) {
     width: 100%;
@@ -91,8 +99,7 @@ const CameraIconBox = styled.div`
   left: 10px;
   font-size: 2rem;
 `;
-// const UploadBtn = styled.button``;
-const DesktopRight = styled.div`
+const RightForm = styled.form`
   width: 50%;
   padding: 2rem;
   @media (max-width: 700px) {
@@ -103,9 +110,11 @@ const DesktopRight = styled.div`
 
 const Label = styled.label`
   ${baseLabel}
+  color: ${({ error }) => error && `${cl.red}`};
 `;
 const Input = styled.input`
   ${baseInput}
+  border-color: ${({ error }) => (error ? `${cl.red}` : `${cl.gray}`)};
 `;
 
 export default Account;

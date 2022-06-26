@@ -33,8 +33,7 @@ const ShippingForm = () => {
   } = useForm();
 
   const onSubmit = (data) => console.log(data);
-  // console.log(errors);
-  // console.log(getValidationData(["maxLength", "required", "alphabetical"]));
+  console.log(errors);
 
   return (
     <ShippingContainer>
@@ -121,7 +120,7 @@ const Label = styled.label`
   color: ${({ error }) => error && `${cl.red}`};
 `;
 
-const RowFlexBox = styled.div`
+export const RowFlexBox = styled.div`
   display: flex;
   margin-top: 1.2rem;
   @media (max-width: 500px) {
@@ -136,11 +135,11 @@ const baseInputBox = css`
     margin-top: 1.2rem;
   }
 `;
-const LeftInputBox = styled.div`
+export const LeftInputBox = styled.div`
   ${baseInputBox}
   margin-right: 2rem;
 `;
-const RightInputBox = styled.div`
+export const RightInputBox = styled.div`
   ${baseInputBox}
 `;
 export const SingleInputBox = styled.div`
