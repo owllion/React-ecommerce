@@ -5,7 +5,7 @@ import cl from "../../constants/color/color";
 import SectionTitle from "./SectionTitle";
 
 const OrderList = () => {
-  const [status, setStatus] = useState("cancel");
+  const [status, setStatus] = useState("complete");
 
   return (
     <Container>
@@ -40,7 +40,7 @@ const OrderList = () => {
                 <ID>I996688522</ID>
                 <Total>$385</Total>
                 <Status>
-                  <Chip status={status}>Cancel</Chip>
+                  <Chip status={status}>Complete</Chip>
                 </Status>
                 <Date>22/07/2022</Date>
               </OrderItem>
@@ -149,12 +149,13 @@ const Date = styled.p`
 `;
 const Chip = styled.span`
   background: ${({ status }) => (status === "cancel" ? "#fbcccc" : "#CFEEE8")};
-  padding: 0.6rem;
+  padding: 0.2rem;
   border-radius: 10px;
   color: ${({ status }) => (status === "cancel" ? "#f25551" : "#4B8F6E")};
   font-weight: 800;
   display: block;
-  width: 120px;
+  width: 90px;
+  font-size: 0.8rem;
   text-align: center;
 `;
 const Status = styled.p`

@@ -4,7 +4,7 @@ import { AnimatePresence } from "framer-motion";
 import styled from "styled-components";
 import cl from "../constants/color/color";
 
-import { IoMdCart, IoIosMenu, IoIosSearch } from "react-icons/io";
+import { IoMdCart, IoIosMenu, IoIosSearch, IoIosLogIn } from "react-icons/io";
 import { MdAccountCircle } from "react-icons/md";
 
 import SideNav from "./SideNav";
@@ -69,6 +69,13 @@ const Navbar = () => {
                 <Link to={"/settings/account"}>
                   <AccountIcon>
                     <MdAccountCircle />
+                  </AccountIcon>
+                </Link>
+              </MenuItem>
+              <MenuItem>
+                <Link to={"/login/welcome"}>
+                  <AccountIcon>
+                    <IoIosLogIn />
                   </AccountIcon>
                 </Link>
               </MenuItem>
