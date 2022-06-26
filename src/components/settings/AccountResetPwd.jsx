@@ -1,21 +1,15 @@
-import React, { useState } from "react";
-
+import React from "react";
 import styled from "styled-components";
-import { IoMdEye, IoMdEyeOff } from "react-icons/io";
-import { useForm, FormProvider, useFormContext } from "react-hook-form";
 
-import { baseInput, baseLabel } from "../ReviewForm";
-import cl from "../../constants/color/color";
+import { useForm, FormProvider } from "react-hook-form";
 import SectionTitle from "./SectionTitle";
-import { getValidationData } from "../shipping-form/getValidationData";
+
 import SaveBtn from "./SaveBtn";
-import FieldErr from "../Error/FieldErr";
 
 import PwdSvg from "../../assets/reset-password/pwd.svg";
 import PwdInput from "../input/PwdInput";
-const AccountResetPwd = () => {
-  const [showPwd, setShowPwd] = useState(false);
 
+const AccountResetPwd = () => {
   const methods = useForm();
   const {
     handleSubmit,

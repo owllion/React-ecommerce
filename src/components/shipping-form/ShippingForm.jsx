@@ -12,7 +12,7 @@ import { countries } from "../../data/countries";
 import { getValidationData } from "./getValidationData";
 
 import Select from "../Select";
-import FieldErr from "../Error/FieldErr";
+import FieldErr from "../error/FieldErr";
 
 const ShippingForm = () => {
   const [selectedCountry, setSelectedCountry] = useState("Taiwan");

@@ -14,7 +14,8 @@ import {
   ItemInfoColor,
   ItemInfoSize,
 } from "../TabletCartItem";
-import ClearInputBtn from "../Button/ClearInputBtn";
+import ClearInputBtn from "../button/ClearInputBtn";
+
 const CheckoutItemList = () => {
   const navigate = useNavigate();
   const toComplete = () => navigate("/checkout/order-complete");

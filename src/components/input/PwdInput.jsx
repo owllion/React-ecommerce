@@ -6,7 +6,7 @@ import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 
 import { baseInput, baseLabel } from "../ReviewForm";
 import { getValidationData } from "../shipping-form/getValidationData";
-import FieldErr from "../Error/FieldErr";
+import FieldErr from "../error/FieldErr";
 import cl from "../../constants/color/color";
 
 const PwdInput = ({ label, field, errors, validation }) => {

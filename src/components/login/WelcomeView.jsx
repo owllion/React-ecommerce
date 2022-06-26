@@ -1,40 +1,42 @@
 import React from "react";
 import styled, { css } from "styled-components";
 import cl from "../../constants/color/color";
-
+import { MainTitle, SubTitle } from "./Title.style";
 const WelcomeView = () => {
   return (
     <Container>
-      <WelcomeText>Welcome!</WelcomeText>
-      <SubText>Sign Up or Sign In</SubText>
-      <LoginBtnBox>
-        <GoogleBtn>
-          <BtnText>Google</BtnText>
-        </GoogleBtn>
+      <MainTitle>Welcome!</MainTitle>
+      <SubTitle>Sign Up or Sign In</SubTitle>
+      <LoginBtnBox needPadding>
+        <Btn shadow>
+          <BtnText color={`${cl.textLightGray}`}>Login with Google</BtnText>
+        </Btn>
       </LoginBtnBox>
-      <LoginBtnBox isLast={true}>
-        <LineBtn>
-          <BtnText>LINE</BtnText>
-        </LineBtn>
+      <LoginBtnBox>
+        <Btn bgColor={"#61ee3d"}>
+          <BtnText color={`${cl.white}`}>Login with LINE</BtnText>
+        </Btn>
       </LoginBtnBox>
       <Divider>OR</Divider>
+      <LoginBtnBox>
+        <Btn border>
+          <BtnText>Login with Email</BtnText>
+        </Btn>
+      </LoginBtnBox>
     </Container>
   );
 };
 
 const Container = styled.div``;
-const WelcomeText = styled.h2``;
-const SubText = styled.p`
-  margin: 0;
-  color: ${cl.textLightGray};
-  font-size: 0.8rem;
-  margin-bottom: 2rem;
-`;
+
 const LoginBtnBox = styled.div`
-  padding-bottom: ${({ isLast }) => (isLast ? 0 : "1.3rem")};
+  padding-bottom: ${({ needPadding }) => (needPadding ? "1.3rem" : 0)};
 `;
-const BtnText = styled.span``;
-const baseBtn = css`
+const BtnText = styled.span`
+  color: ${({ color }) => color};
+  font-size: 0.8rem;
+`;
+const Btn = styled.button`
   width: 100%;
   z-index: 1;
   cursor: pointer;
@@ -57,20 +59,17 @@ const baseBtn = css`
   text-overflow: ellipsis;
   white-space: nowrap;
   word-wrap: normal;
-`;
-const GoogleBtn = styled.button`
-  ${baseBtn}
-  background-color: #fff;
-  border: none;
-  box-shadow: 0 0 2px 0 rgb(0 0 0 / 12%), 0 2px 2px 0 rgb(0 0 0 / 24%);
-`;
-const LineBtn = styled.button`
-  ${baseBtn}
-  background: #61ee3d;
+  background: ${({ bgColor }) => bgColor};
+  border: ${({ border }) => (border ? `1px solid ${cl.dark}` : "none")};
+  box-shadow: ${({ shadow }) =>
+    shadow
+      ? "0 0 2px 0 rgb(0 0 0 / 12%), 0 2px 2px 0 rgb(0 0 0 / 24%)"
+      : "none"};
 `;
 const Divider = styled.p`
   text-align: center;
   color: #707070;
   margin: 1rem 0;
 `;
+
 export default WelcomeView;
