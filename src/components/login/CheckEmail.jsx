@@ -20,7 +20,7 @@ const CheckEmail = () => {
         <Input />
       </InputBox>
       <BtnBox>
-        <Link to={"/login/registration"}>
+        <Link to={"/login/send-link-notification"}>
           <Btn bgColor={`${cl.dark}`}>
             <BtnText color={`${cl.white}`}>Continue</BtnText>
           </Btn>

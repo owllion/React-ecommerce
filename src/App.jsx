@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { BrowserRouter } from "react-router-dom";
 import { RouteConfig } from "./routes/config";
 
@@ -14,8 +14,10 @@ const App = () => {
       <ScrollToTop>
         <Navbar />
         <GlobalCss />
-        <RouteConfig />
-        <Footer />
+        <Suspense fallback={<div>loading The Page</div>}>
+          <RouteConfig />
+          <Footer />
+        </Suspense>
       </ScrollToTop>
     </BrowserRouter>
   );

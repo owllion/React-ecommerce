@@ -11,7 +11,7 @@ export const SubTitle = styled.p`
 
 export const BtnText = styled.span`
   color: ${({ color }) => color};
-  font-size: 0.8rem;
+  font-size: 0.9rem;
 `;
 export const Btn = styled.button`
   width: 100%;
