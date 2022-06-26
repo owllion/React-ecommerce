@@ -111,14 +111,12 @@ export const RouteConfig = () => {
         {
           path: "order-list",
           element: <OrderList />,
-          children: [
-            {
-              path: "order-detail/:id",
-              element: <OrderDetail />,
-            },
-          ],
         },
       ],
+    },
+    {
+      path: "order/order-detail/:id",
+      element: <OrderDetail />,
     },
     { path: "*", element: <NotFound /> },
   ]);

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled, { css } from "styled-components";
-
+import { Link } from "react-router-dom";
 import cl from "../../constants/color/color";
 import SectionTitle from "./SectionTitle";
 
@@ -21,7 +21,10 @@ const OrderList = () => {
           <TableMainContainer>
             <OrderItemBox>
               <OrderItem>
-                <ID>I996688522</ID>
+                <ID>
+                  <Link to={"/order/order-detail/5"}>I996688522 </Link>
+                </ID>
+
                 <Total>$385</Total>
                 <Status>
                   <Chip status={status}>Cancel</Chip>
