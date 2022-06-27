@@ -6,11 +6,12 @@ import GlobalCss from "./styles/global.css";
 
 import Navbar from "./components/Navbar.jsx";
 import Footer from "./components/Footer.jsx";
+import HeaderSearch from "./components/HeaderSearch.jsx";
 import ScrollToTop from "./components/ScrollToTop";
-
 const App = () => {
   return (
     <BrowserRouter>
+      <HeaderSearch />
       <ScrollToTop>
         <Navbar />
         <GlobalCss />

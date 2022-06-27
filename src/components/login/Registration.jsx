@@ -14,7 +14,7 @@ import {
 } from "../shipping-form/ShippingForm";
 import { getValidationData } from "../shipping-form/getValidationData.js";
 import { baseInput, baseLabel } from "../ReviewForm";
-import RegistrationImg from "../../assets/login/registration.png";
+import RegistrationImg from "../../assets/login/signup.png";
 
 const Registration = () => {
   const methods = useForm();
@@ -82,8 +82,11 @@ const Registration = () => {
 const FormContainer = styled.form``;
 const IconContainer = styled.div`
   margin-bottom: 0.8rem;
+  width: 130px;
 `;
-const Icon = styled.img``;
+const Icon = styled.img`
+  width: 100%;
+`;
 const BtnBox = styled.div`
   margin-top: 1.3rem;
 `;

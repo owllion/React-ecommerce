@@ -26,6 +26,7 @@ const Navbar = () => {
       <AnimatePresence>
         {showSideNav && <SideNav handleShowSideNav={handleShowSideNav} />}
       </AnimatePresence>
+
       <Container>
         <Wrapper>
           <Left>
@@ -53,12 +54,12 @@ const Navbar = () => {
                 <MenuItem>
                   <Link to={"/product-list"}>PRODUCTS</Link>
                 </MenuItem>
-                <MenuItem>
+                {/* <MenuItem>
                   <Link to={"/product-detail/1"}>Detail</Link>
                 </MenuItem>
                 <MenuItem>
                   <Link to={"/f"}>Notfound</Link>
-                </MenuItem>
+                </MenuItem> */}
               </LinkBox>
               <MenuItem>
                 <SearchIcon>
@@ -72,13 +73,13 @@ const Navbar = () => {
                   </AccountIcon>
                 </Link>
               </MenuItem>
-              <MenuItem>
+              {/* <MenuItem>
                 <Link to={"/login/welcome"}>
                   <AccountIcon>
                     <IoIosLogIn />
                   </AccountIcon>
                 </Link>
-              </MenuItem>
+              </MenuItem> */}
               <MenuItem>
                 <Link to={"/checkout/cart"}>
                   <CartContainer>

@@ -91,7 +91,7 @@ const Logo = styled.h1`
 const CloseIcon = styled.div`
   cursor: pointer;
   font-size: 1rem;
-  background: rgba(225, 225, 225, 0.8);
+  background: rgba(0, 0, 0, 0.04);
   border-radius: 50%;
   width: 40px;
   display: flex;
@@ -129,9 +129,7 @@ const SearchIcon = styled(IoIosSearch)`
   font-size: 1.9rem;
   color: #6e80a5;
 `;
-const NavBox = styled.ul`
-  /* background-color: coral; */
-`;
+const NavBox = styled.ul``;
 const Nav = styled.li`
   padding: 1rem 1rem 1rem 1.5rem;
   border-bottom: 1px solid rgb(0, 0, 0, 0.1);
