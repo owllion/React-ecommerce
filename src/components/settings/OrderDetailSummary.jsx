@@ -1,28 +1,18 @@
 import React from "react";
 import styled from "styled-components";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import cl from "../../constants/color/color";
-
-import { PayBtn } from "../payment-form/style/PaymentForm.style";
-import { baseInput } from "../ReviewForm";
-
-import { SectionTitle } from "../payment-form/style/PaymentForm.style";
 import {
   ItemImg,
   ItemInfoTextBox,
   ItemInfoColor,
   ItemInfoSize,
 } from "../TabletCartItem";
-import ClearInputBtn from "../button/ClearInputBtn";
 
-const CheckoutItemList = () => {
-  const navigate = useNavigate();
-  const toComplete = () => navigate("/checkout/order-complete");
-
+const OrderDetailSummary = () => {
   return (
     <Container>
-      <SectionTitle>ORDER SUMMARY</SectionTitle>
       <ItemInfoBox>
         <ItemWrapper>
           <ItemInfoImgBox>
@@ -53,35 +43,30 @@ const CheckoutItemList = () => {
       <SummarySection>
         <SummaryItemBox>
           <SummaryType>Subtotal</SummaryType>
-          <SummaryNum>$108.00</SummaryNum>
+          <SummaryNum>$800</SummaryNum>
+        </SummaryItemBox>
+        <SummaryItemBox>
+          <SummaryType>Shipping</SummaryType>
+          <SummaryNum>$80</SummaryNum>
+        </SummaryItemBox>
+        <SummaryItemBox>
+          <SummaryType>Total</SummaryType>
+          <SummaryNum>$880.00</SummaryNum>
         </SummaryItemBox>
       </SummarySection>
-
-      <PromoCodeContainer>
-        <CodeInputBox>
-          <CodeInput placeholder="Your promo code" />
-          <ClearInputBtn />
-        </CodeInputBox>
-        <ApplyBtn>APPLY</ApplyBtn>
-      </PromoCodeContainer>
-      <PayBtn type="submit" onClick={() => toComplete()}>
-        Pay
-      </PayBtn>
     </Container>
   );
 };
-
 const Container = styled.div`
-  flex-basis: 50%;
+  width: 100%;
+  padding: 1.2rem;
 `;
 const ItemWrapper = styled.div`
   width: 100%;
   display: flex;
-  /* background: red; */
   border-bottom: 1px solid ${cl.gray};
   padding: 0.5rem 0;
 `;
-
 const SizeAndColorBox = styled.div`
   display: flex;
   flex-direction: column;
@@ -97,11 +82,9 @@ const TextBox = styled(ItemInfoTextBox)`
   @media (max-width: 500px) {
     flex: 2;
   }
-  @media (min-width: 1000px) {
+  /* @media (min-width: 1000px) {
     flex: 4;
-  }
-
-  /* background-color: red; */
+  } */
 `;
 const ItemInfoBox = styled.div`
   display: flex;
@@ -113,13 +96,11 @@ const ItemInfoImgBox = styled.div`
   height: 100px;
   padding: 1rem 1rem 1rem 0;
 `;
-
 const ItemNumber = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   flex: 1;
-  /* background: yellow; */
   span {
     font-weight: bold;
   }
@@ -127,12 +108,9 @@ const ItemNumber = styled.div`
 const ItemSubTotal = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
   flex: 1;
-  /* background: orange; */
-  /* padding-left: 2rem; */
 `;
-
 const SummarySection = styled.div`
   padding: 0.2rem;
   display: flex;
@@ -145,25 +123,6 @@ const SummaryItemBox = styled.div`
 `;
 const SummaryType = styled.span``;
 const SummaryNum = styled.span``;
-
-const PromoCodeContainer = styled.div`
-  display: flex;
-  align-items: center;
-  margin-top: 3rem;
-  width: 100%;
-  padding: 1.2rem 0;
-  @media (max-width: 1024px) {
-    padding: 0;
-  }
-`;
-const CodeInputBox = styled.div`
-  position: relative;
-  flex: 4;
-  margin-right: 0.8rem;
-`;
-const CodeInput = styled.input`
-  ${baseInput}
-`;
 export const ApplyBtn = styled.button`
   border-radius: 5px;
   background: ${cl.green};
@@ -172,13 +131,4 @@ export const ApplyBtn = styled.button`
   flex: 1;
   cursor: pointer;
 `;
-
-// const ShippingBox = styled.div``;
-// const Shipping = styled.span``;
-// const ShippingCost = styled.span``;
-
-// const TotalBox = styled.div``;
-// const Total = styled.span``;
-// const TotalNum = styled.span``;
-
-export default CheckoutItemList;
+export default OrderDetailSummary;
