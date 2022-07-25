@@ -10,7 +10,7 @@ export const SubTitle = styled.p`
 `;
 
 export const BtnText = styled.span`
-  color: ${({ color }: { color: string }) => color};
+  color: ${({ color }: { color?: string }) => color};
   font-size: 0.9rem;
 `;
 
