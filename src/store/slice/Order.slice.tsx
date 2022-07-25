@@ -1,41 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
+import { IOrder } from "../../interface/order.interface";
 interface DisProps {
   finalPrice: number;
   discount: number;
-}
-
-interface GameListProps {
-  gameList: {
-    image: Array<string>;
-    productName: string;
-    price: number;
-    category: string;
-    description: string;
-    productId: string;
-  }[];
-}
-
-interface DetailProps {
-  orderDetail: {
-    total_price: number;
-    discount: number;
-    discount_code: string;
-    payment_method: string;
-    delivery_address: string;
-    order_item: {
-      image: Array<string>;
-      productName: string;
-      price: number;
-      category: string;
-      description: string;
-      productId: string;
-      rating: number;
-      qty: number;
-      isChecked: boolean;
-      stock: number;
-    }[];
-  };
 }
 
 const orderSlice = createSlice({
@@ -44,7 +11,7 @@ const orderSlice = createSlice({
     finalPrice: 0,
     discount: 0,
     detail: {},
-    gameList: [],
+    orderItem: [],
   },
   reducers: {
     setDisAndPrice(state, { payload }: PayloadAction<DisProps>) {
@@ -55,11 +22,8 @@ const orderSlice = createSlice({
       state.finalPrice = 0;
       state.discount = 0;
     },
-    setOrderDetail(state, { payload }: PayloadAction<DetailProps>) {
-      state.detail = payload.orderDetail;
-    },
-    setGameList(state, { payload }: PayloadAction<GameListProps>) {
-      state.gameList = payload.gameList;
+    setOrderDetail(state, { payload }: PayloadAction<IOrder>) {
+      state.detail = payload;
     },
   },
 });

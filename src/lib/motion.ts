@@ -5,7 +5,7 @@ export const heroMotion = {
   transition: { type: "spring", stiffness: 100 },
 };
 
-export const homeCategoryItemMotion = (index) => ({
+export const homeCategoryItemMotion = (index: number) => ({
   viewport: { once: true },
   initial: { opacity: 0, y: index * 120 },
   whileInView: { opacity: 1, y: 0 },
