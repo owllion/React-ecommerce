@@ -1,17 +1,17 @@
 import React, { Suspense } from "react";
 import { BrowserRouter } from "react-router-dom";
+
 import { RouteConfig } from "./routes/config";
-
 import GlobalCss from "./styles/global.css";
-
 import Navbar from "./components/Navbar.jsx";
 import Footer from "./components/Footer.jsx";
 import HeaderSearch from "./components/HeaderSearch.jsx";
 import ScrollToTop from "./components/ScrollToTop";
+
 const App = () => {
   return (
     <BrowserRouter>
-      <HeaderSearch />
+      {/* <HeaderSearch /> */}
       <ScrollToTop>
         <Navbar />
         <GlobalCss />

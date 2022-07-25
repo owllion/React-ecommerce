@@ -13,6 +13,8 @@ import Pagination from "../components/Pagination";
 import { sortOptions } from "../data/sortOptions";
 
 const ProductList = () => {
+  const [filterV, setFilter] = useState(1);
+
   const [activeSort, setActiveSort] = useState(false);
   const [activeFilter, setActiveFilter] = useState(false);
   const [selectedName, setSelectedName] = useState("");
@@ -36,6 +38,12 @@ const ProductList = () => {
       <Wrapper>
         <Top>
           <PageTitle>All Products</PageTitle>
+          <button style={{ color: "red" }} onClick={() => setFilter(5)}>
+            點我filter1
+          </button>
+          <button style={{ color: "orange" }} onClick={() => setFilter(10)}>
+            點我filter2
+          </button>
           <Func>
             <Filter active={activeFilter} handleActive={handleActiveFilter} />
             <Select
@@ -48,12 +56,14 @@ const ProductList = () => {
             />
           </Func>
         </Top>
-        <ItemContainer>
-          {popularProducts.map((item) => (
-            <ItemBox>
-              <SingleProduct item={item} />
-            </ItemBox>
-          ))}
+        <ItemContainer as={motion.div} layout>
+          {popularProducts
+            .filter((i) => (filterV < 6 ? i.id < 6 : i.id > 6))
+            .map((item) => (
+              <ItemBox>
+                <SingleProduct item={item} />
+              </ItemBox>
+            ))}
         </ItemContainer>
         <Pagination itemsPerPage={4} />
       </Wrapper>

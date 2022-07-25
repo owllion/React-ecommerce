@@ -28,3 +28,10 @@ export const sideNavMotion = {
     transition: { duration: 0.3 },
   },
 };
+
+export const productItemMotion = {
+  animate: { opacity: 1 },
+  initial: { opacity: 0 },
+  exit: { opacity: 0 },
+  transition: { ease: "easeOut", duration: 0.5 },
+};

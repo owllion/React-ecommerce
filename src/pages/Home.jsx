@@ -1,7 +1,7 @@
 import React from "react";
 
 import Hero from "../components/Hero";
-import HomeCategories from "../components/HomeCategories";
+import HomeCategories from "../components/Home/HomeCategories";
 import HomeProducts from "../components/HomeProducts";
 import Newsletter from "../components/Newsletter";
 import Sponsors from "../components/Sponsors";
