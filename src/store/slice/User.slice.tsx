@@ -137,9 +137,6 @@ const authSlice = createSlice({
     setCouponList(state, { payload }: PayloadAction<CouponList>) {
       state.couponList = payload.couponList;
     },
-    signout(state) {
-      state.token = "";
-    },
     setError(state, { payload }: PayloadAction<Error>) {
       state.errorMsg = payload.message;
     },

@@ -1,27 +1,15 @@
 import { IProduct } from "./product.interface";
+import { ICoupon } from "./coupon.interface";
 export interface Data {
   result: {
     token: string;
+    refreshToken: string;
     user: {
       name: string;
       email: string;
       avatarRnDefault: string;
-      favList: {
-        image: Array<string>;
-        productName: string;
-        price: number;
-        category: string;
-        description: string;
-        productId: string;
-        rating: number;
-      }[];
-      couponList: {
-        discount_type: string;
-        amount: number;
-        expiry_date: Date;
-        minimum_amount: number;
-        code: string;
-      }[];
+      favList: IProduct[];
+      couponList: ICoupon[];
       cartList: IProduct[];
     };
   };

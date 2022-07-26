@@ -5,7 +5,7 @@ import { combineReducers } from "redux";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
-import authSlice from "./slice/User.slice";
+import authSlice from "./slice/Auth.slice";
 import orderSlice from "./slice/Order.slice";
 
 const persistConfig = {

@@ -1,4 +1,4 @@
-interface ICoupon {
+export interface ICoupon {
   code: string;
   discountType: string;
   amount: number;

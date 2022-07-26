@@ -1,23 +1,15 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import * as AuthInterface from "../../interface/auth.interface";
+
 const authSlice = createSlice({
   name: "auth",
   initialState: {
     token: "",
     refreshToken: "",
-    name: "",
-    email: "",
-    avatarDefault: "",
-    avatar: "",
-    cartList: [],
-    couponList: [],
-    cartListLength: 0,
-    favList: [],
-    errorMsg: "",
-    loading: false,
   },
   reducers: {
-    login(state, { payload }: PayloadAction<Data>) {},
-    register(state, { payload }: PayloadAction<Data>) {},
+    login(state, { payload }: PayloadAction<AuthInterface.ILogin>) {},
+    // register(state, { payload }: PayloadAction<Data>) {},
 
     logout(state) {
       state.token = "";
