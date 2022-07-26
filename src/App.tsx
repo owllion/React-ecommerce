@@ -3,10 +3,10 @@ import { BrowserRouter } from "react-router-dom";
 
 import { RouteConfig } from "./routes/config";
 import GlobalCss from "./styles/global.css";
-import Navbar from "./components/Navbar.jsx";
-import Footer from "./components/Footer.jsx";
-import HeaderSearch from "./components/HeaderSearch.jsx";
-import ScrollToTop from "./components/ScrollToTop";
+import Navbar from "./components/Common/Navbar";
+import Footer from "./components/Common/Footer";
+import HeaderSearch from "./components/Common/HeaderSearch.jsx";
+import ScrollToTop from "./components/Common/ScrollToTop";
 
 const App = () => {
   return (

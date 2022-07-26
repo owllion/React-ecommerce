@@ -1,23 +1,29 @@
 import React from "react";
-import { useForm } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import styled from "styled-components";
 import { IoIosCamera } from "react-icons/io";
 
-import { baseInput, baseLabel } from "../ReviewForm";
+import { baseInput, baseLabel } from "../Product/Review/ReviewForm";
 import cl from "../../constants/color/color";
-import { SingleInputBox } from "../shipping-form/ShippingForm";
+import { SingleInputBox } from "../Checkout/form/shipping-form/ShippingForm";
 import SectionTitle from "./SectionTitle";
 import SaveBtn from "./SaveBtn";
 import avatar from "../../assets/avatar/avatar1.svg";
+
+interface FormValue {
+  name: string;
+  email: string;
+  phone: number;
+}
 
 const Account = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm<FormValue>();
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit: SubmitHandler<FormValue> = (data) => console.log(data);
   console.log(errors);
 
   return (
@@ -74,7 +80,7 @@ const LeftAvatar = styled.div`
   justify-content: center;
   padding-top: 5rem;
 `;
-const DropAvatarBox = styled.div`
+const DropAvatarBox = styled.div<{ avatar: string }>`
   position: relative;
   cursor: pointer;
   width: 300px;

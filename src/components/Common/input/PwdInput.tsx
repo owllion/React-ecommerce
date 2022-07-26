@@ -1,15 +1,23 @@
 import React, { useState } from "react";
 
-import { useFormContext } from "react-hook-form";
+import { Field, useFormContext } from "react-hook-form";
+import { FieldError } from "react-hook-form";
 import styled from "styled-components";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 
-import { baseInput, baseLabel } from "../../ReviewForm";
-import { getValidationData } from "../../shipping-form/getValidationData";
-import FieldErr from "../../Error/FieldErr";
+import { baseInput, baseLabel } from "../../Product/Review/ReviewForm";
+import { getValidationData } from "../../Checkout/form/shipping-form/getValidationData";
+import FieldErr from "../../error/FieldErr";
 import cl from "../../../constants/color/color";
 
-const PwdInput = ({ label, field, errors, validation }) => {
+interface IProps {
+  label: string;
+  field: keyof FieldError;
+  errors: FieldError;
+  validation: object;
+}
+
+const PwdInput = ({ label, field, errors, validation }: IProps) => {
   console.log(validation);
   const [showPwd, setShowPwd] = useState(false);
   const { register } = useFormContext();
@@ -31,7 +39,7 @@ const PwdInput = ({ label, field, errors, validation }) => {
     </>
   );
 };
-const Label = styled.label`
+const Label = styled.label<{ error: FieldError }>`
   ${baseLabel}
   color: ${({ error }) => error && `${cl.red}`};
 `;
@@ -44,7 +52,8 @@ const Input = styled.input.attrs((props) => ({
   type: props.type,
 }))`
   ${baseInput}
-  border-color: ${({ error }) => (error ? `${cl.red}` : `${cl.gray}`)};
+  border-color: ${({ error }: { error: FieldError }) =>
+    error ? `${cl.red}` : `${cl.gray}`};
 `;
 const EyeBox = styled.div`
   position: absolute;

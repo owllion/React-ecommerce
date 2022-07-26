@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 
-import useResponsiveFontSize from "../../hooks/useResponsiveFontSize";
+import useResponsiveFontSize from "./useResponsiveFontSize";
 
 export const useOptions = () => {
   const fontSize = useResponsiveFontSize();

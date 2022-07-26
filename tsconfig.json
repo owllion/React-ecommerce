@@ -1,0 +1,40 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "jsx": "react-jsx",
+    "lib": ["es6", "es2017", "esnext.asynciterable", "dom"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "noFallthroughCasesInSwitch": true,
+    //If the current project's tsconfig also includes compilerOptions.lib with dom, then the types from Typegoose and Typescript will conflict.
+    // Solution is to remove dom from the lib array.
+    "sourceMap": true,
+    "outDir": "./dist",
+    "strictPropertyInitialization": false, // Checks for class properties that are declared but not set in the constructor.
+    "removeComments": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noImplicitReturns": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "exclude": ["node_modules"],
+  "include": ["src", "./src/**/*.tsx", "./src/**/*.ts", "src/**/*"]
+}

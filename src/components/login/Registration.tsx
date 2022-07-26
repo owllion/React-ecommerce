@@ -1,29 +1,41 @@
 import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { useForm, FormProvider } from "react-hook-form";
+import {
+  useForm,
+  FormProvider,
+  SubmitHandler,
+  FieldError,
+} from "react-hook-form";
 
 import cl from "../../constants/color/color.js";
-import { MainTitle, SubTitle, Btn, BtnText } from "./Common.style";
-import FieldErr from "../error/FieldErr.jsx";
-import PwdInput from "../input/PwdInput";
+import { MainTitle, SubTitle, Btn, BtnText } from "../Login/Common.style";
+import FieldErr from "../Error/FieldErr";
+import PwdInput from "../Common/input/PwdInput";
 import {
   RowFlexBox,
   LeftInputBox,
   RightInputBox,
-} from "../shipping-form/ShippingForm";
-import { getValidationData } from "../shipping-form/getValidationData.js";
-import { baseInput, baseLabel } from "../ReviewForm";
+} from "../Checkout/form/shipping-form/ShippingForm";
+import { getValidationData } from "../Checkout/form/shipping-form/getValidationData.js";
+import { baseInput, baseLabel } from "../Product/Review/ReviewForm";
 import RegistrationImg from "../../assets/login/signup.png";
 
+interface FormValue {
+  email: string;
+  firstName: string;
+  lastName: string;
+  password: string;
+}
+
 const Registration = () => {
-  const methods = useForm();
+  const methods = useForm<FormValue>();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = methods;
-  const onSubmit = (data) => console.log(data);
+  const onSubmit: SubmitHandler<FormValue> = (data) => console.log(data);
   console.log(errors);
 
   return (
@@ -94,11 +106,11 @@ const RegistrationLeftInputBox = styled(LeftInputBox)`
   margin-right: 1rem;
 `;
 
-const Input = styled.input`
+const Input = styled.input<{ error?: FieldError }>`
   ${baseInput}
   border-color: ${({ error }) => (error ? `${cl.red}` : `${cl.gray}`)};
 `;
-const Label = styled.label`
+const Label = styled.label<{ error?: FieldError }>`
   ${baseLabel}
   color: ${({ error }) => error && `${cl.red}`};
 `;

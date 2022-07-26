@@ -1,11 +1,16 @@
 import React from "react";
 import styled from "styled-components";
-import cl from "../constants/color/color";
+import cl from "../../constants/color/color";
 import { ShopBtn } from "./Hero";
 import { motion } from "framer-motion";
-import { homeCategoryItemMotion } from "../lib/motion";
+import { homeCategoryItemMotion } from "../../lib/motion";
 
-const HomeCategoryItem = ({ item: { title, img }, index }) => {
+interface IProps {
+  item: { title: string; img: string };
+  index: number;
+}
+
+const HomeCategoryItem = ({ item: { title, img }, index }: IProps) => {
   return (
     <Container as={motion.div} {...homeCategoryItemMotion(index)}>
       <Bg url={img} />
@@ -31,10 +36,9 @@ const Container = styled.div`
     cursor: pointer;
   }
 `;
-const Bg = styled.div`
+const Bg = styled.div<{ url: string }>`
   width: 100%;
   height: 100%;
-
   background-size: cover;
   background-position: center;
   background-image: ${(props) => `url(${props.url})`};

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 import cl from "../../constants/color/color.js";
 import { MainTitle, SubTitle, Btn, BtnText } from "./Common.style";
-import { baseInput, baseLabel } from "../ReviewForm";
+import { baseInput, baseLabel } from "../Product/Review/ReviewForm";
 import EmailImg from "../../assets/login/at-sign.png";
 
 const CheckEmail = () => {

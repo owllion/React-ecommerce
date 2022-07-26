@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import cl from "../../constants/color/color";
-import { MainTitle, SubTitle, Btn, BtnText } from "./Common.style";
+import { MainTitle, SubTitle, Btn, BtnText } from "../Login/Common.style";
 const WelcomeView = () => {
   return (
     <Container>
@@ -32,9 +32,8 @@ const WelcomeView = () => {
 
 const Container = styled.div``;
 
-const LoginBtnBox = styled.div`
-  padding-bottom: ${({ needPadding }: { needPadding?: boolean }) =>
-    needPadding ? "1.3rem" : 0};
+const LoginBtnBox = styled.div<{ needPadding?: boolean }>`
+  padding-bottom: ${({ needPadding }) => (needPadding ? "1.3rem" : 0)};
 `;
 const Divider = styled.p`
   text-align: center;

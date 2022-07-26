@@ -8,7 +8,7 @@ import {
   ItemInfoTextBox,
   ItemInfoColor,
   ItemInfoSize,
-} from "../TabletCartItem";
+} from "../Checkout/Cart/TabletCartItem";
 
 const OrderDetailSummary = () => {
   return (

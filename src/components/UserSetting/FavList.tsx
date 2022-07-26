@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import SingleProduct from "../SingleProduct";
+import SingleProduct from "../Product/SingleProduct";
 import SectionTitle from "./SectionTitle";
 const FavList = () => {
   const test = {

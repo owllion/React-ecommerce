@@ -1,10 +1,9 @@
 import React from "react";
-
 import styled from "styled-components";
 import cl from "../../constants/color/color";
 
-import hero from "../assets/hero/hero.jpg";
-import hero2 from "../assets/category/hero2.jpg";
+import hero from "../../assets/hero/hero.jpg";
+import hero2 from "../../assets/category/hero2.jpg";
 
 import { FiArrowRight } from "react-icons/fi";
 import { motion } from "framer-motion";
@@ -35,7 +34,7 @@ const Hero = () => {
     </Container>
   );
 };
-const Container = styled.section`
+const Container = styled.section<{ hero: string }>`
   width: 100%;
   height: 100vh;
   padding: 0 8rem;

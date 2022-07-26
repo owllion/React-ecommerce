@@ -3,39 +3,41 @@ import { useRoutes } from "react-router-dom";
 
 const Home = lazy(() => import("../pages/Home"));
 
-const Login = lazy(() => import("../pages/Login.jsx"));
-const WelcomeView = lazy(() => import("../components/login/WelcomeView.jsx"));
-const CheckEmail = lazy(() => import("../components/login/CheckEmail.jsx"));
-const HaveAccount = lazy(() => import("../components/login/HaveAccount.jsx"));
-const Registration = lazy(() => import("../components/login/Registration.jsx"));
+const Login = lazy(() => import("../pages/Login.tsx"));
+const WelcomeView = lazy(() => import("../components/Login/WelcomeView.tsx"));
+const CheckEmail = lazy(() => import("../components/Login/CheckEmail.tsx"));
+const HaveAccount = lazy(() => import("../components/Login/HaveAccount.tsx"));
+const Registration = lazy(() => import("../components/Login/Registration.tsx"));
 const SendResetLinkNotification = lazy(() =>
-  import("../components/login/SendResetLinkNotification")
+  import("../components/Login/SendResetLinkNotification")
 );
 const ForgotPassword = lazy(() =>
-  import("../components/login/ForgotPassword.jsx")
+  import("../components/Login/ForgotPassword.tsx")
 );
 const ResetPassword = lazy(() =>
-  import("../components/login/ResetPassword.jsx")
+  import("../components/Login/ResetPassword.tsx")
 );
 
-const ProductList = lazy(() => import("../pages/ProductList.jsx"));
-const ProductDetail = lazy(() => import("../pages/ProductDetail.jsx"));
+const ProductList = lazy(() => import("../pages/ProductList.tsx"));
+const ProductDetail = lazy(() => import("../pages/ProductDetail.tsx"));
 
-const Settings = lazy(() => import("../pages/Settings.jsx"));
-const Account = lazy(() => import("../components/settings/Account.jsx"));
-const FavList = lazy(() => import("../components/settings/FavList.jsx"));
-const OrderList = lazy(() => import("../components/settings/OrderList.jsx"));
-const OrderDetail = lazy(() => import("../pages/OrderDetail.jsx"));
+const Settings = lazy(() => import("../pages/Settings.tsx"));
+const Account = lazy(() => import("../components/UserSetting/Account.tsx"));
+const FavList = lazy(() => import("../components/UserSetting/FavList.tsx"));
+const OrderList = lazy(() => import("../components/UserSetting/OrderList.tsx"));
+const OrderDetail = lazy(() => import("../pages/OrderDetail.tsx"));
 const AccountResetPwd = lazy(() =>
-  import("../components/settings/AccountResetPwd.jsx")
+  import("../components/UserSetting/AccountResetPwd.tsx")
 );
 
-const Checkout = lazy(() => import("../pages/Checkout.jsx"));
+const Checkout = lazy(() => import("../pages/Checkout.tsx"));
 const Cart = lazy(() => import("../pages/Cart"));
-const ShipAndPay = lazy(() => import("../pages/ShipAndPay.jsx"));
-const OrderComplete = lazy(() => import("../components/OrderComplete.jsx"));
+const ShipAndPay = lazy(() => import("../pages/ShipAndPay.tsx"));
+const OrderComplete = lazy(() =>
+  import("../components/Checkout/OrderComplete.tsx")
+);
 
-const NotFound = lazy(() => import("../pages/NotFound.jsx"));
+const NotFound = lazy(() => import("../pages/NotFound.tsx"));
 
 export const RouteConfig = () => {
   let element = useRoutes([

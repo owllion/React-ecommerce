@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { IoMdClose, IoIosSearch } from "react-icons/io";
-import searchImg from "../assets/search/search.svg";
+import searchImg from "../../assets/search/search.svg";
 
 const Search = () => {
   return (

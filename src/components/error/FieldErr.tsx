@@ -1,12 +1,17 @@
 import React from "react";
 import styled from "styled-components";
 import cl from "../../constants/color/color";
+import { FieldError } from "react-hook-form";
+interface IProps {
+  errors: FieldError;
+  field: string;
+}
 
-const FieldErr = ({ errors, field }) => {
+const FieldErr = ({ errors, field }: IProps) => {
   console.log(errors);
   return (
     <ErrMsgContainer>
-      {errors?.[field] && <Msg>{errors?.[field].message}</Msg>}
+      {errors?.[field] && <Msg>{errors[field].message}</Msg>}
     </ErrMsgContainer>
   );
 };

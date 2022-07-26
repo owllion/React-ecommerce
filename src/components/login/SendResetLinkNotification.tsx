@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 import cl from "../../constants/color/color.js";
-import { MainTitle, SubTitle, Btn, BtnText } from "./Common.style";
+import { MainTitle, SubTitle, Btn, BtnText } from "../Login/Common.style";
 import EmailImg from "../../assets/login/at-sign.png";
 
 const SendResetLinkNotification = () => {

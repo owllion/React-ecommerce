@@ -5,8 +5,8 @@ import cl from "../../constants/color/color";
 import { ImPhone, ImLocation } from "react-icons/im";
 import { IoMdMail } from "react-icons/io";
 
-import store1 from "../assets/footer/store/footerstore1.png";
-import store2 from "../assets/footer/store/footerstore2.png";
+import store1 from "../../assets/footer/store/footerstore1.png";
+import store2 from "../../assets/footer/store/footerstore2.png";
 
 const contact = [
   {
@@ -40,7 +40,7 @@ const Footer = () => {
               <h3>Follow Us</h3>
               <SocialContainer>
                 {["fb", "twitter", "ig"].map((item, index) => {
-                  const url = require(`../assets/footer/social/${item}.svg`);
+                  const url = require(`../../assets/footer/social/${item}.svg`);
                   return (
                     <SocialIcon key={index}>
                       <Img src={url} alt="Follow" />

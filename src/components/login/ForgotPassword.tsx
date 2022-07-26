@@ -2,10 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-import BackBtn from "../button/BackBtn";
+import BackBtn from "../Common/button/BackBtn";
 import cl from "../../constants/color/color.js";
 import { MainTitle, SubTitle, Btn, BtnText } from "./Common.style";
-import { baseInput, baseLabel } from "../ReviewForm";
+import { baseInput, baseLabel } from "../Product/Review/ReviewForm";
 import ForgotPwd from "../../assets/login/forgot-pwd.png";
 
 const ForgotPassword = () => {

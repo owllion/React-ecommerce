@@ -7,7 +7,7 @@ import cl from "../../constants/color/color";
 import { IoMdCart, IoIosMenu, IoIosSearch, IoIosLogIn } from "react-icons/io";
 import { MdAccountCircle } from "react-icons/md";
 
-import SideNav from "../common/SideNav";
+import SideNav from "./SideNav";
 
 const Navbar = () => {
   const [showSideNav, setShowSideNav] = useState(false);

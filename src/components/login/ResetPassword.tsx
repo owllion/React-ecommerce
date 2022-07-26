@@ -1,23 +1,27 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { useForm, FormProvider } from "react-hook-form";
-import FieldErr from "../error/FieldErr.jsx";
+import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
+import FieldErr from "../Error/FieldErr";
 
 import { Container, LoginContainer } from "../../pages/Login.jsx";
-import PwdInput from "../input/PwdInput";
+import PwdInput from "../Common/input/PwdInput";
 import cl from "../../constants/color/color.js";
-import { MainTitle, SubTitle, Btn, BtnText } from "./Common.style";
-import { baseInput, baseLabel } from "../ReviewForm";
+import { MainTitle, SubTitle, Btn, BtnText } from "../Login/Common.style";
+import { baseInput, baseLabel } from "../Product/Review/ReviewForm";
 import EmailImg from "../../assets/login/at-sign.png";
 
+interface FormValue {
+  password: string;
+}
+
 const ResetPassword = () => {
-  const methods = useForm();
+  const methods = useForm<FormValue>();
   const {
     handleSubmit,
     formState: { errors },
   } = methods;
-  const onSubmit = (data) => console.log(data);
+  const onSubmit: SubmitHandler<FormValue> = (data) => console.log(data);
   console.log(errors);
 
   return (
@@ -36,7 +40,7 @@ const ResetPassword = () => {
               field="newPwd"
               validation={["required", "passwordValidation"]}
             />
-            <FieldErr />
+            <FieldErr errors={errors} field="newPwd" />
             <BtnBox>
               <Btn bgColor={`${cl.dark}`}>
                 <BtnText color={`${cl.white}`}>Submit</BtnText>
