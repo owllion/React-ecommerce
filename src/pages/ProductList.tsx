@@ -20,17 +20,19 @@ const ProductList = () => {
   const [selectedName, setSelectedName] = useState("");
   const [selectedVal, setSelectedVal] = useState("");
 
-  const handleActiveSort = (params: { name: string; val: string }) => {
+  const handleActiveSort = () => {
     if (activeFilter) setActiveFilter(false);
     setActiveSort(!activeSort);
-    if (params) {
-      setSelectedName(params.name);
-      setSelectedVal(params.val);
-    }
   };
   const handleActiveFilter = () => {
     if (activeSort) setActiveSort(false);
     setActiveFilter(!activeFilter);
+  };
+  const handleSetSelected = (params: { name: string; val: string }) => {
+    if (params.name && params.val) {
+      setSelectedName(params.name);
+      setSelectedVal(params.val);
+    }
   };
 
   return (
@@ -53,6 +55,7 @@ const ProductList = () => {
               selectedVal={selectedVal}
               active={activeSort}
               handleActive={handleActiveSort}
+              handleSetSelected={handleSetSelected}
             />
           </Func>
         </Top>

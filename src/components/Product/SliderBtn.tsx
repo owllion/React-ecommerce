@@ -4,7 +4,11 @@ import cl from "../../constants/color/color";
 
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
-const SliderBtn = ({ type, clickHandler }) => {
+interface IProps {
+  type: string;
+  clickHandler: () => void;
+}
+const SliderBtn = ({ type, clickHandler }: IProps) => {
   return (
     <Btn onClick={() => clickHandler()}>
       {type === "prev" ? <IoIosArrowBack /> : <IoIosArrowForward />}

@@ -1,5 +1,5 @@
 import React from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm, SubmitHandler, FieldError } from "react-hook-form";
 import styled from "styled-components";
 import { IoIosCamera } from "react-icons/io";
 
@@ -114,11 +114,11 @@ const RightForm = styled.form`
   }
 `;
 
-const Label = styled.label`
+const Label = styled.label<{ error?: FieldError }>`
   ${baseLabel}
   color: ${({ error }) => error && `${cl.red}`};
 `;
-const Input = styled.input`
+const Input = styled.input<{ error?: FieldError }>`
   ${baseInput}
   border-color: ${({ error }) => (error ? `${cl.red}` : `${cl.gray}`)};
 `;

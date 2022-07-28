@@ -92,10 +92,9 @@ export interface FavProps {
   }[];
 }
 
-const authSlice = createSlice({
-  name: "auth",
+const userSlice = createSlice({
+  name: "user",
   initialState: {
-    token: "",
     name: "",
     email: "",
     avatar: "",
@@ -103,48 +102,10 @@ const authSlice = createSlice({
     couponList: [{}],
     cartListLength: 0,
     favList: [{}],
-    county: "",
-    district: "",
-    road: "",
-    errorMsg: "",
-    loading: false,
   },
   reducers: {
-    signup(state, { payload }: PayloadAction<Data>) {
-      state.token = payload.result.token;
-      state.name = payload.result.user.name;
-      state.email = payload.result.user.email;
-      state.avatar = payload.result.user.avatarRnDefault;
-      state.cartList = payload.result.user.cartList;
-      state.couponList = payload.result.user.couponList;
-      state.favList = payload.result.user.favList;
-      state.county = payload.result.user.county;
-      state.district = payload.result.user.district;
-      state.road = payload.result.user.road;
-    },
-    signin(state, { payload }: PayloadAction<Data>) {
-      state.token = payload.result.token;
-      state.name = payload.result.user.name;
-      state.email = payload.result.user.email;
-      state.avatar = payload.result.user.avatarRnDefault;
-      state.cartList = payload.result.user.cartList;
-      state.favList = payload.result.user.favList;
-      state.couponList = payload.result.user.couponList;
-      state.county = payload.result.user.county;
-      state.district = payload.result.user.district;
-      state.road = payload.result.user.road;
-    },
     setCouponList(state, { payload }: PayloadAction<CouponList>) {
       state.couponList = payload.couponList;
-    },
-    setError(state, { payload }: PayloadAction<Error>) {
-      state.errorMsg = payload.message;
-    },
-    setErrorClear(state) {
-      state.errorMsg = "";
-    },
-    setLoading(state, { payload }: PayloadAction<Loading>) {
-      state.loading = payload.isLoading;
     },
     setCart(state, { payload }: PayloadAction<Cart>) {
       state.cartList = payload.cartList;
@@ -152,16 +113,16 @@ const authSlice = createSlice({
     setCartLength(state, { payload }: PayloadAction<CartLength>) {
       state.cartListLength = payload.length;
     },
-    setCartItemQty(state, { payload }: PayloadAction<Props>) {
-      payload.type === "add"
-        ? state.cartList[payload.index].qty++
-        : state.cartList[payload.index].qty--;
-    },
+    // setCartItemQty(state, { payload }: PayloadAction<Props>) {
+    //   payload.type === "add"
+    //     ? state.cartList[payload.index].qty++
+    //     : state.cartList[payload.index].qty--;
+    // },
     setFavList(state, { payload }: PayloadAction<FavProps>) {
       state.favList = payload.favList;
     },
   },
 });
 
-export const authActions = authSlice.actions;
-export default authSlice;
+export const userActions = userSlice.actions;
+export default userSlice;

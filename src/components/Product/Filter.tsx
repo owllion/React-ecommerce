@@ -24,8 +24,11 @@ const CategoryOption = [
   "Hat",
   "Trouser",
 ];
-
-const Filter = ({ active, handleActive }) => {
+interface IProps {
+  active: boolean;
+  handleActive: React.MouseEventHandler<HTMLDivElement>;
+}
+const Filter = ({ active, handleActive }: IProps) => {
   return (
     <Container>
       <SelectBtn onClick={(e) => handleActive(e)}>
@@ -89,7 +92,7 @@ const SelectBtnText = styled.div`
   }
 `;
 
-const Options = styled.ul`
+const Options = styled.ul<{ active: boolean }>`
   overflow-y: scroll;
   height: 500px;
   /* background: #000; */

@@ -4,7 +4,7 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistStore } from "redux-persist";
 // @ts-ignore
-import store from "./store/store2";
+import store from "./store/store";
 import App from "./App";
 
 import { Elements } from "@stripe/react-stripe-js";

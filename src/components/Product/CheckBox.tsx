@@ -1,7 +1,12 @@
-import React from "react";
+import React, { ChangeEventHandler } from "react";
 import styled, { keyframes } from "styled-components";
 
-const CheckBox = ({ item, current, handle }) => {
+interface IProps {
+  item: string;
+  current: string;
+  handleSetCheckVal: ChangeEventHandler<HTMLInputElement>;
+}
+const CheckBox = ({ item, current, handleSetCheckVal }: IProps) => {
   return (
     <Container>
       <CheckBoxItem
@@ -9,7 +14,7 @@ const CheckBox = ({ item, current, handle }) => {
         name={current !== "Price" ? item : "singleAns"}
         value={item}
         id={item}
-        onChange={handle}
+        onChange={(e) => handleSetCheckVal(e)}
       />
       <Label for={item}>{item}</Label>
     </Container>
@@ -54,7 +59,9 @@ const CheckBoxItem = styled.input`
     animation: ${pop} 0.3s 1;
   }
 `;
-const Label = styled.label`
+const Label = styled.label.attrs((props: { for: string }) => ({
+  for: props.for,
+}))`
   padding: 0.5rem 0 0 1.5rem;
   cursor: pointer;
 `;

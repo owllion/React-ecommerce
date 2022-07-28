@@ -21,7 +21,7 @@ const items = [
 
 const Pagination = ({ itemsPerPage }: { itemsPerPage: number }) => {
   // We start with an empty list of items.
-  const [currentItems, setCurrentItems] = useState(null);
+  const [currentItems, setCurrentItems] = useState<number[]>([]);
   const [pageCount, setPageCount] = useState(0);
   // Here we use item offsets; we could also use page offsets
   // following the API or data you're working with.

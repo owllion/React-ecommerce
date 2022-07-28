@@ -14,7 +14,8 @@ interface IProps {
   selectedVal?: string;
   fullWidth: boolean;
   active: boolean;
-  handleActive: (params: { name: string; val: string }) => void;
+  handleSetSelected?: (params: { name: string; val: string }) => void;
+  handleActive?: React.MouseEventHandler<HTMLDivElement>;
 }
 
 const Select = ({
@@ -23,11 +24,12 @@ const Select = ({
   selectedVal,
   active,
   handleActive,
+  handleSetSelected,
   fullWidth,
 }: IProps) => {
   return (
     <Container fullWidth={fullWidth}>
-      <SelectBtn onClick={(e) => handleActive(e)}>
+      <SelectBtn onClick={(e) => handleActive?.(e)}>
         <SelectBtnText>
           <div>
             {selectedVal &&
@@ -45,7 +47,9 @@ const Select = ({
           {listData.map((item, index) => (
             <Option
               key={index}
-              onClick={() => handleActive({ name: item.name, val: item.val })}
+              onClick={() =>
+                handleSetSelected?.({ name: item.name, val: item.val })
+              }
             >
               {item.icon && <OptionIcon>{item.icon}</OptionIcon>}
               <OptionText>{item.name}</OptionText>

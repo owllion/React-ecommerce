@@ -9,6 +9,7 @@ import { BsFillBagCheckFill } from "react-icons/bs";
 import { Outlet } from "react-router-dom";
 import styled, { keyframes, css } from "styled-components";
 import cl from "../constants/color/color";
+import { IconType } from "react-icons";
 
 const ProgressList = [
   {
@@ -25,12 +26,15 @@ const ProgressList = [
   },
 ];
 const pathName = ["cart", "ship-and-pay"];
-const reactSvgComponentToMarkupString = (Component, props) =>
+const reactSvgComponentToMarkupString = (
+  Component: IconType,
+  props: Record<string, string>
+) =>
   `data:image/svg+xml,${encodeURIComponent(
     renderToStaticMarkup(createElement(Component, props))
   )}`;
 const Checkout = () => {
-  const [nowPath, setNowPath] = useState<PathMatch<string> | null>();
+  const [nowPath, setNowPath] = useState<string | null>();
   const res = useLocation();
   console.log({ res });
   const { pathname } = useLocation();
@@ -98,22 +102,23 @@ const afterAnimation = css`
   animation-fill-mode: forwards;
 `;
 const StageItem = styled.li<{
-  nowPath: string;
+  nowPath: string | null | undefined;
   index: number;
+  isLast: boolean;
+  iconName: IconType;
 }>`
   font-size: 1rem;
   width: 100%;
   position: relative;
   z-index: 1;
   font-weight: 500;
-
   color: ${({ nowPath, index }) =>
     pathName[index] === nowPath ? `${cl.green}` : `${cl.dark}`};
 
   &:before {
     content: ${({ color, iconName }) =>
       `url(${reactSvgComponentToMarkupString(iconName, {
-        color,
+        color: color!!,
       })})`};
 
     display: block;

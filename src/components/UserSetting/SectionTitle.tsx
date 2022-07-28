@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import cl from "../../constants/color/color";
 
-const SectionTitle = ({ title }) => {
+const SectionTitle = ({ title }: { title: string }) => {
   return (
     <TitleBox>
       <SymbolBox>

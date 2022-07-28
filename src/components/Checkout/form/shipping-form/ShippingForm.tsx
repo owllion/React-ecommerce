@@ -78,7 +78,7 @@ const ShippingForm = () => {
           <Select
             fullWidth={true}
             listData={countries}
-            handleActive={handleSetCountry}
+            handleSetSelected={handleSetCountry}
             selectedName={selectedCountry}
             active={active}
           />

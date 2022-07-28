@@ -7,14 +7,18 @@ import { apparelBrand } from "../../data/apparelBrand";
 
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 
-const FilterOptionList = ({ title, itemList }) => {
-  const [range, setRange] = useState(7);
+interface IProps {
+  title: string;
+  itemList: string[];
+}
+const FilterOptionList = ({ title, itemList }: IProps) => {
+  const [range, setRange] = useState<number | undefined | void>(7);
   const [listState, setListState] = useState("more");
   const [checkVal, setCheckVal] = useState("");
-  const handleSetCheckVal = (val) => {
+  const handleSetCheckVal = (event: React.ChangeEvent<HTMLInputElement>) => {
     const {
       target: { value },
-    } = val;
+    } = event;
     console.log({ checkVal });
     setCheckVal(value);
   };
@@ -27,13 +31,12 @@ const FilterOptionList = ({ title, itemList }) => {
     <>
       <Container>
         <h3>{title}</h3>
-        {itemList.slice(0, range).map((a, index) => (
+        {itemList.slice(0, range as undefined | number).map((item, index) => (
           <CheckBox
-            item={a}
+            item={item}
             key={index}
             current={title}
-            handle={handleSetCheckVal}
-            checkVal={checkVal}
+            handleSetCheckVal={handleSetCheckVal}
           />
         ))}
 
@@ -42,7 +45,7 @@ const FilterOptionList = ({ title, itemList }) => {
             <span
               onClick={() =>
                 setRange((prev) => {
-                  if (prev === apparelBrand.length) setRange(7);
+                  if (prev === apparelBrand.length) return setRange(7);
                   else setRange(apparelBrand.length);
                 })
               }
