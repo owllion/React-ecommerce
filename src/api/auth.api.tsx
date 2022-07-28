@@ -4,6 +4,9 @@ import * as AuthInterface from "../interface/auth.interface";
 export const login = (data: AuthInterface.ILogin) =>
   instance.post("/login", data);
 
+export const checkIfAccountExists = (data: AuthInterface.ICheckAccount) =>
+  instance.post("/check-account", data);
+
 export const register = (data: AuthInterface.IRegister) =>
   instance.post("/register", data);
 

@@ -28,6 +28,13 @@ const validationRulesList = [
     },
   },
   {
+    name: "email",
+    pattern: {
+      value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g,
+      message: "Invalid email format",
+    },
+  },
+  {
     name: "passwordValidation",
     validate: {
       lessThanEight: (v: string) =>

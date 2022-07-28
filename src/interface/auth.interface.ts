@@ -1,6 +1,10 @@
 import { IProduct } from "./product.interface";
 import { ICoupon } from "./coupon.interface";
 export interface ILogin {
+  email: string;
+  password: string;
+}
+export interface ILogin2 {
   token: string;
   refreshToken: string;
   user: {
@@ -11,6 +15,9 @@ export interface ILogin {
     couponList: ICoupon[];
     cartList: IProduct[];
   };
+}
+export interface ICheckAccount {
+  email: string;
 }
 
 export interface IGoogleLogin {
