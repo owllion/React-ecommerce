@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import cl from "../../constants/color/color";
 import done from "../../assets/order/done.json";
-import { ApplyBtn } from "./checkout-item-list/CheckoutItemList";
+import { ApplyBtn } from "../Checkout/CheckoutItemList";
 
 const OrderComplete = () => {
   const navigate = useNavigate();

@@ -3,7 +3,9 @@ import styled from "styled-components";
 import cl from "../../constants/color/color";
 import { FieldError } from "react-hook-form";
 interface IProps {
-  errors: FieldError;
+  errors: {
+    [x: string]: FieldError;
+  };
   field: string;
 }
 

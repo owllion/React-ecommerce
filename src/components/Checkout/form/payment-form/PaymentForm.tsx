@@ -3,9 +3,9 @@ import {
   SectionTitle,
   SectionTitleBox,
   PaymentFormContainer,
-} from "./style/PaymentForm.style";
+} from "./PaymentForm.style";
 
-import SplitFrom from "../split-form/SplitForm";
+import SplitFrom from "../SplitForm";
 
 const PaymentForm = () => {
   return (

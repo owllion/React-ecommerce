@@ -2,7 +2,7 @@ import React from "react";
 
 import { IoMdTrash } from "react-icons/io";
 
-import PlusMinusBtn from "../PlusMinusBtn";
+import PlusMinusBtn from "../../Common/PlusMinusBtn";
 import styled, { css } from "styled-components";
 import cl from "../../../constants/color/color";
 
@@ -12,7 +12,7 @@ const DesktopCartItem = () => {
       <ItemInfoContainer>
         <ItemInfo>
           <ItemInfoImgBox>
-            <ItemImg src={require(`../assets/category/cat1.jpg`)} />
+            <ItemImg src={require(`../../../assets/category/cat1.jpg`)} />
           </ItemInfoImgBox>
           <ItemInfoTextBox>
             <h3>raven cool Jacket</h3>

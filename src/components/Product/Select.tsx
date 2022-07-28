@@ -4,21 +4,34 @@ import styled, { css, keyframes } from "styled-components";
 import { TiArrowSortedUp, TiArrowSortedDown } from "react-icons/ti";
 import { sortOptions } from "../../data/sortOptions";
 
+interface IProps {
+  listData: {
+    name: string;
+    val: string;
+    icon?: JSX.Element;
+  }[];
+  selectedName: string;
+  selectedVal?: string;
+  fullWidth: boolean;
+  active: boolean;
+  handleActive: (params: { name: string; val: string }) => void;
+}
+
 const Select = ({
   listData,
   selectedName,
   selectedVal,
   active,
   handleActive,
-  w_full,
-}) => {
+  fullWidth,
+}: IProps) => {
   return (
-    <Container w_full={w_full}>
-      <SelectBtn onClick={() => handleActive()}>
+    <Container fullWidth={fullWidth}>
+      <SelectBtn onClick={(e) => handleActive(e)}>
         <SelectBtnText>
           <div>
             {selectedVal &&
-              sortOptions.find((item) => item.val === selectedVal).icon}
+              sortOptions.find((item) => item.val === selectedVal)?.icon}
 
             <span>
               <span>{selectedName || "Sort"}</span>
@@ -52,8 +65,8 @@ from {
     opacity: 1;
   }
 `;
-const Container = styled.div`
-  width: ${({ w_full }) => (w_full ? "100%" : "200px")};
+const Container = styled.div<{ fullWidth: boolean }>`
+  width: ${({ fullWidth }) => (fullWidth ? "100%" : "200px")};
   @media (max-width: 950px) {
     width: 100%;
   }
@@ -82,7 +95,7 @@ const SelectBtnText = styled.div`
   }
 `;
 
-const Options = styled.ul`
+const Options = styled.ul<{ active: boolean }>`
   /* overflow-y: scroll; */
   height: 500px;
   position: absolute;

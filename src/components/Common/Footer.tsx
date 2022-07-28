@@ -1,12 +1,11 @@
 import React from "react";
-import styled from "styled-components";
-import cl from "../../constants/color/color";
-
 import { ImPhone, ImLocation } from "react-icons/im";
 import { IoMdMail } from "react-icons/io";
+import styled from "styled-components";
 
-import store1 from "../../assets/footer/store/footerstore1.png";
-import store2 from "../../assets/footer/store/footerstore2.png";
+import cl from "../../constants/color/color";
+import store1 from "src/assets/footer/store/footerstore1.png";
+import store2 from "src/assets/footer/store/footerstore2.png";
 
 const contact = [
   {

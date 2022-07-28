@@ -2,11 +2,11 @@ import React from "react";
 import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
 
-import { Chip } from "../components/settings/OrderList";
-import BackBtn from "../components/button/BackBtn";
+import { Chip } from "../components/UserSetting/OrderList";
+import BackBtn from "../components/Common/button/BackBtn";
 import cl from "../constants/color/color";
 import visa from "../assets/order/visa.png";
-import OrderDetailSummary from "../components/settings/OrderDetailSummary";
+import OrderDetailSummary from "../components/UserSetting/OrderDetailSummary";
 
 const OrderDetail = () => {
   return (

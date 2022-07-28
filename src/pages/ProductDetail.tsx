@@ -3,9 +3,9 @@ import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import cl from "../constants/color/color";
 
-import PlusMinusBtn from "../components/PlusMinusBtn";
-import AddToCartBtn from "../components/AddToCartBtn";
-import ReviewSection from "../components/ReviewSection";
+import PlusMinusBtn from "../components/Common/PlusMinusBtn";
+import AddToCartBtn from "../components/Product/AddToCartBtn";
+import ReviewSection from "../components/Product/Review/ReviewSection";
 
 const imgList = ["t1", "t2", "t3", "t4"];
 const sizeList = ["XS", "S", "M", "L", "XL"];
@@ -187,7 +187,7 @@ const SizeTitle = styled.span`
 const SizeItems = styled.ul`
   display: flex;
 `;
-const SizeItem = styled.li`
+const SizeItem = styled.li<{ nowSelected: number; nowIndex: number }>`
   margin-right: 1rem;
   @media (max-width: 500px) {
     margin-right: 0.4rem;

@@ -12,9 +12,11 @@ import cl from "../../../constants/color/color";
 
 interface IProps {
   label: string;
-  field: keyof FieldError;
-  errors: FieldError;
-  validation: object;
+  field: string;
+  errors: {
+    [x: string]: FieldError;
+  };
+  validation: string[];
 }
 
 const PwdInput = ({ label, field, errors, validation }: IProps) => {

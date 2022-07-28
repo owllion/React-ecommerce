@@ -4,16 +4,23 @@ import ReactRating from "react-rating";
 import styled, { css } from "styled-components";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 
-const Rating = ({ initialRating, readonly, handleRating }) => {
+interface IProps {
+  initialRating: number;
+  readonly?: boolean;
+  handleRating?: (res: number) => void;
+}
+
+const Rating = ({ initialRating, readonly, handleRating }: IProps) => {
   return (
     <div>
+      {/* @ts-ignore */}
       <ReactRating
         emptySymbol={<OutlineStar />}
         fullSymbol={<FilledStar />}
         initialRating={initialRating}
         fractions={2}
         readonly={readonly}
-        onClick={(res) => handleRating(res)}
+        onClick={(res) => handleRating?.(res)}
       />
     </div>
   );

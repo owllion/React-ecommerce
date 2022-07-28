@@ -30,31 +30,56 @@ const validationRulesList = [
   {
     name: "passwordValidation",
     validate: {
-      lessThanEight: (v) =>
+      lessThanEight: (v: string) =>
         /(?=.{8,})/.test(v) || "Password must be eight characters or longer",
-      haveUppercase: (v) =>
+      haveUppercase: (v: string) =>
         /(?=.*[A-Z])/.test(v) ||
         "Password must contain at least 1 uppercase alphabetical character",
-      haveLowercase: (v) =>
+      haveLowercase: (v: string) =>
         /(?=.*[a-z])/.test(v) ||
         "Password must contain at least 1 lowercase alphabetical character",
-      haveNumber: (v) =>
+      haveNumber: (v: string) =>
         /(?=.*[0-9])/.test(v) || "Password must contain at least 1 number",
-      haveSpecial: (v) =>
+      haveSpecial: (v: string) =>
         /(?=.*[!@#$%^&*])/.test(v) ||
         "Password must contain at least 1 special character",
     },
   },
 ];
 
-export const getValidationData = (validation) => {
-  let res = {};
+// interface IValidationResult
+//   extends Record<
+//     string,
+//     | {
+//         value: string;
+//         message: string;
+//       }
+//     | Record<string, () => string | boolean>
+//   > {}
+interface IValidationResult {
+  [x: string]:
+    | string
+    | {
+        [x: string]: RegExp | string | (() => boolean | string);
+      };
+}
+// interface test extends {
+//   name: string;
+//   required: { value: boolean; message: string };
+//   maxLength?: undefined;
+//   pattern?: undefined;
+//   validate?: undefined;
+// }
+
+export const getValidationData = (validation: string[]) => {
+  // let res = {} as keyof typeof validationRulesList;
+  let res: IValidationResult = {};
 
   const filteredRules = validationRulesList.filter((item) =>
     validation.includes(item.name)
   );
-
   filteredRules.forEach(
+    //@ts-ignore
     (item) => (res[Object.keys(item)[1]] = item[Object.keys(item)[1]])
   );
 

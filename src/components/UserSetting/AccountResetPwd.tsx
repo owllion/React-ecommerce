@@ -1,22 +1,33 @@
 import React from "react";
 import styled from "styled-components";
 
-import { useForm, FormProvider } from "react-hook-form";
+import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
 import SectionTitle from "./SectionTitle";
 
 import SaveBtn from "./SaveBtn";
 
 import PwdSvg from "../../assets/reset-password/pwd.svg";
-import PwdInput from "../input/PwdInput";
+import PwdInput from "../Common/input/PwdInput";
+
+interface FormValue {
+  curPwd: string;
+  newPwd: string;
+}
 
 const AccountResetPwd = () => {
-  const methods = useForm();
+  const methods = useForm<FormValue>();
   const {
     handleSubmit,
     formState: { errors },
   } = methods;
-  const onSubmit = (data) => console.log(data);
-  console.log(errors);
+  const onSubmit: SubmitHandler<FormValue> = async (data) => {
+    try {
+      console.log(data);
+    } catch (error) {
+      console.log(error, "this is catch error");
+    }
+  };
+  console.log(errors, "this is formState errors");
 
   return (
     <Container>

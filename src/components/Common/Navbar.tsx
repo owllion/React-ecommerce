@@ -13,10 +13,12 @@ const Navbar = () => {
   const [showSideNav, setShowSideNav] = useState(false);
   const [isLoggedIn, setLog] = useState(true);
 
-  const handleShowSideNav = (e) => {
-    console.log(e.target.id);
+  const handleShowSideNav = <T extends { id: string }>(
+    e: React.MouseEvent<T>
+  ) => {
+    // console.log((e.target as unknown as T).id);
     const target = ["backdrop", "close", "closeIcon", "navLink"];
-    if (target.includes(e.target.id)) {
+    if (target.includes((e.target as unknown as T).id)) {
       setShowSideNav(false);
     }
   };

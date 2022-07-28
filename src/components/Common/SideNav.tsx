@@ -25,14 +25,20 @@ const navList = [
   },
 ];
 
-const SideNav = ({ handleShowSideNav }) => {
+interface IProps {
+  handleShowSideNav: <T extends { id: string }>(e: React.MouseEvent<T>) => void;
+}
+const SideNav = ({ handleShowSideNav }: IProps) => {
   return (
     <>
       <Backdrop onClick={handleShowSideNav} id="backdrop" />
 
       <Menu {...sideNavMotion}>
         <CloseBtnBox>
-          <CloseIcon onClick={handleShowSideNav} id="close">
+          <CloseIcon
+            onClick={(e) => handleShowSideNav<HTMLDivElement>(e)}
+            id="close"
+          >
             <IoMdClose id="closeIcon" />
           </CloseIcon>
           <Logo>koh.</Logo>
@@ -47,7 +53,11 @@ const SideNav = ({ handleShowSideNav }) => {
 
           {navList.map((item, index) => (
             <Nav key={index}>
-              <Link to={item.route} onClick={handleShowSideNav} id="navLink">
+              <Link
+                to={item.route}
+                onClick={(e) => handleShowSideNav<HTMLAnchorElement>(e)}
+                id="navLink"
+              >
                 {item.name}
               </Link>
             </Nav>

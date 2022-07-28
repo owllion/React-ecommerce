@@ -1,6 +1,6 @@
 import React, { createElement, useEffect, useState } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
-import { useLocation, matchPath, useNavigate } from "react-router";
+import { useLocation, matchPath, useNavigate, PathMatch } from "react-router";
 
 import { ImCart } from "react-icons/im";
 import { MdLocalShipping } from "react-icons/md";
@@ -30,7 +30,7 @@ const reactSvgComponentToMarkupString = (Component, props) =>
     renderToStaticMarkup(createElement(Component, props))
   )}`;
 const Checkout = () => {
-  const [nowPath, setNowPath] = useState();
+  const [nowPath, setNowPath] = useState<PathMatch<string> | null>();
   const res = useLocation();
   console.log({ res });
   const { pathname } = useLocation();
@@ -45,7 +45,7 @@ const Checkout = () => {
     setNowPath(
       [isCart, isShipping, isComplete]
         .find((item) => item)
-        .pathname.substring(10)
+        ?.pathname.substring(10)
     );
   }, [pathname]);
   return (
@@ -97,7 +97,10 @@ const afterAnimation = css`
   animation: ${nextStep} 1s;
   animation-fill-mode: forwards;
 `;
-const StageItem = styled.li`
+const StageItem = styled.li<{
+  nowPath: string;
+  index: number;
+}>`
   font-size: 1rem;
   width: 100%;
   position: relative;

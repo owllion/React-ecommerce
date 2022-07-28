@@ -1,9 +1,8 @@
 import React from "react";
-
 import styled from "styled-components";
-import cl from "../../constants/color/color";
+import cl from "src/constants/color/color";
 
-import ReviewForm from "../components/ReviewForm";
+import ReviewForm from "./ReviewForm";
 import Rating from "./Rating";
 
 const ReviewSection = () => {

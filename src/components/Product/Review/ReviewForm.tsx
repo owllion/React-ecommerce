@@ -3,12 +3,12 @@ import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import cl from "../../../constants/color/color";
 
-import { ShopBtn } from "./Hero";
+import { ShopBtn } from "../../Home/Hero";
 import Rating from "./Rating";
 
 const ReviewForm = () => {
   const [rating, setRating] = useState(5);
-  const handleRating = (res) => setRating(res);
+  const handleRating = (res: number) => setRating(res);
 
   return (
     <RightWritingReviewContainer>
@@ -20,7 +20,7 @@ const ReviewForm = () => {
         </UserRatingContainer>
         <ReviewAreaBox>
           <ReviewAreaLabel>How was your overall experience?</ReviewAreaLabel>
-          <ReviewArea rows="5" cols="50"></ReviewArea>
+          <ReviewArea rows={5} cols={10}></ReviewArea>
         </ReviewAreaBox>
         <InputContainer>
           <ReviewUserNameBox>
@@ -88,7 +88,12 @@ const ReviewAreaBox = styled.div`
 const ReviewAreaLabel = styled.label`
   ${baseLabel}
 `;
-const ReviewArea = styled.textarea`
+const ReviewArea = styled.textarea.attrs(
+  ({ cols, rows }: { cols: number; rows: number }) => ({
+    cols,
+    rows,
+  })
+)`
   padding: 1rem;
   border-radius: 5px;
   border: 1px solid ${cl.gray};

@@ -2,19 +2,19 @@ import React from "react";
 import styled from "styled-components";
 import { useNavigate, Link } from "react-router-dom";
 
-import cl from "../../constants/color/color";
+import cl from "src/constants/color/color";
 
-import { PayBtn } from "../payment-form/style/PaymentForm.style";
-import { baseInput } from "../ReviewForm";
+import { PayBtn } from "../Checkout/form/payment-form/PaymentForm.style";
+import { baseInput } from "../Product/Review/ReviewForm";
 
-import { SectionTitle } from "../payment-form/style/PaymentForm.style";
+import { SectionTitle } from "../Checkout/form/payment-form/PaymentForm.style";
 import {
   ItemImg,
   ItemInfoTextBox,
   ItemInfoColor,
   ItemInfoSize,
-} from "../TabletCartItem";
-import ClearInputBtn from "../button/ClearInputBtn";
+} from "../Checkout/Cart/TabletCartItem";
+import ClearInputBtn from "../Common/button/ClearInputBtn";
 
 const CheckoutItemList = () => {
   const navigate = useNavigate();

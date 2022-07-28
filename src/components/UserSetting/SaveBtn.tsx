@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 
-import { PayBtn } from "../payment-form/style/PaymentForm.style";
+import { PayBtn } from "../Checkout/form/payment-form/PaymentForm.style";
 
-const SaveBtn = ({ handleGetValues }) => {
-  return <Save onClick={handleGetValues}>SAVE</Save>;
+const SaveBtn = () => {
+  return <Save>SAVE</Save>;
 };
 export const Save = styled(PayBtn)`
   &:not([disabled]):active {

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import cl from "@/constants/color/color";
+import cl from "src/constants/color/color";
 
 export const PaymentFormContainer = styled.div`
   display: flex;

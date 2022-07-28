@@ -7,7 +7,15 @@ import { motion } from "framer-motion";
 
 import { productItemMotion } from "../../lib/motion";
 
-const SingleProduct = ({ item: { img, name, price } }) => {
+interface IProps {
+  item: {
+    img: string;
+    name: string;
+    price: string;
+  };
+}
+
+const SingleProduct = ({ item: { img, name, price } }: IProps) => {
   return (
     <Container as={motion.div} layout {...productItemMotion}>
       <Wrapper>

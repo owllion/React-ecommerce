@@ -14,12 +14,12 @@ import "swiper/css/lazy";
 import "swiper/css/navigation";
 
 const ProductCarousel = () => {
-  const swiperRef = useRef();
+  const swiperRef = useRef<{ slidePrev: () => void; slideNext: () => void }>();
   const toPrev = () => {
-    swiperRef.current.slidePrev();
+    swiperRef.current?.slidePrev();
   };
   const toNext = () => {
-    swiperRef.current.slideNext();
+    swiperRef.current?.slideNext();
   };
   return (
     <>

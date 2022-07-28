@@ -1,9 +1,8 @@
 import React from "react";
 import { IoMdTrash } from "react-icons/io";
 
-import PlusMinusBtn from "../components/PlusMinusBtn";
+import PlusMinusBtn from "../../Common/PlusMinusBtn";
 import styled, { css } from "styled-components";
-import cl from "../../constants/color/color";
 
 const TabletCartItem = () => {
   return (

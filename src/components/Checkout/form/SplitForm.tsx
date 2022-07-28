@@ -7,16 +7,19 @@ import {
   CardExpiryElement,
 } from "@stripe/react-stripe-js";
 import styled, { css } from "styled-components";
-import { useForm, Controller } from "react-hook-form";
+import { useForm, Controller, SubmitHandler } from "react-hook-form";
 
-import {
-  FormContainer,
-  PayBtn,
-} from "../../payment-form/style/PaymentForm.style";
-import { baseInput, baseLabel } from "../../ReviewForm";
-import { useOptions } from "./hooks/useOptions";
-import { SingleInputBox } from "../shipping-form/ShippingForm";
-import { getValidationData } from "../shipping-form/getValidationData";
+import { FormContainer, PayBtn } from "../form/payment-form/PaymentForm.style";
+import { baseInput, baseLabel } from "../../Product/Review/ReviewForm";
+import { useOptions } from "src/hooks/useOptions";
+import { SingleInputBox } from "../form/shipping-form/ShippingForm";
+import { getValidationData } from "../form/shipping-form/getValidationData";
+
+interface FormValue {
+  number: number;
+  expire: Date;
+  cvc: number;
+}
 
 const SplitForm = () => {
   const stripe = useStripe();
@@ -39,9 +42,9 @@ const SplitForm = () => {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm<FormValue>();
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit: SubmitHandler<FormValue> = (data) => console.log(data);
   console.log({ errors });
   return (
     <FormContainer onSubmit={handleSubmit(onSubmit)}>
@@ -54,7 +57,6 @@ const SplitForm = () => {
         /> */}
         <Controller
           name="number"
-          defaultValue=""
           control={control}
           rules={getValidationData(["required"])}
           render={({ field }) => <NumberInput {...field} />}
@@ -70,7 +72,6 @@ const SplitForm = () => {
         /> */}
         <Controller
           name="expire"
-          defaultValue=""
           control={control}
           rules={getValidationData(["required"])}
           render={({ field }) => <ExpiryInput {...field} />}
@@ -80,7 +81,6 @@ const SplitForm = () => {
         <Label>CVC</Label>
         <Controller
           name="cvc"
-          defaultValue=""
           control={control}
           rules={getValidationData(["required"])}
           render={({ field }) => <CvcInput {...field} />}

@@ -150,7 +150,7 @@ const ID = styled.p`
 const Date = styled.p`
   ${baseP}
 `;
-export const Chip = styled.span<{ status: string }>`
+export const Chip = styled.span<{ status?: string }>`
   background: ${({ status }) => (status === "cancel" ? "#fbcccc" : "#CFEEE8")};
   padding: 0.2rem;
   border-radius: 10px;

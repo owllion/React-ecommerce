@@ -1,25 +1,25 @@
 import React, { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
-import "../styles/pagination.css";
+import "src/styles/pagination.css";
 const items = [
   1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
   23, 24, 25, 26, 27, 28, 29, 30,
 ];
 
-function Items({ currentItems }) {
-  return (
-    <>
-      {currentItems &&
-        currentItems.map((item) => (
-          <div>
-            <h3>Item #{item}</h3>
-          </div>
-        ))}
-    </>
-  );
-}
+// function Items({ currentItems }) {
+//   return (
+//     <>
+//       {currentItems &&
+//         currentItems.map((item) => (
+//           <div>
+//             <h3>Item #{item}</h3>
+//           </div>
+//         ))}
+//     </>
+//   );
+// }
 
-const Pagination = ({ itemsPerPage }) => {
+const Pagination = ({ itemsPerPage }: { itemsPerPage: number }) => {
   // We start with an empty list of items.
   const [currentItems, setCurrentItems] = useState(null);
   const [pageCount, setPageCount] = useState(0);
@@ -35,7 +35,8 @@ const Pagination = ({ itemsPerPage }) => {
   }, [itemOffset, itemsPerPage]);
 
   // Invoke when user click to request another page.
-  const handlePageClick = (event) => {
+  const handlePageClick = (event: { selected: number }) => {
+    console.log(typeof event, "check event..");
     const newOffset = (event.selected * itemsPerPage) % items.length;
     console.log(
       `User requested page number ${event.selected}, which is offset ${newOffset}`
@@ -65,7 +66,7 @@ const Pagination = ({ itemsPerPage }) => {
         breakLinkClassName="page-link"
         containerClassName="pagination"
         activeClassName="active"
-        renderOnZeroPageCount={null}
+        renderOnZeroPageCount={null as any}
       />
     </>
   );

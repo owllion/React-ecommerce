@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 import { Title } from "./Cart";
-import CheckoutItemList from "../components/checkout-item-list/CheckoutItemList";
-import PaymentForm from "../components/payment-form/PaymentForm";
-import ShippingForm from "../components/shipping-form/ShippingForm";
+import CheckoutItemList from "../components/Checkout/CheckoutItemList";
+import PaymentForm from "../components/Checkout/form/payment-form/PaymentForm";
+import ShippingForm from "../components/Checkout/form/shipping-form/ShippingForm";
 
 const ShipAndPay = () => {
   return (

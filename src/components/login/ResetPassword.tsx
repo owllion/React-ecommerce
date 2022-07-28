@@ -2,14 +2,14 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
-import FieldErr from "../Error/FieldErr";
+import FieldErr from "../error/FieldErr";
 
-import { Container, LoginContainer } from "../../pages/Login.jsx";
+import { Container, LoginContainer } from "src/pages/Login";
 import PwdInput from "../Common/input/PwdInput";
-import cl from "../../constants/color/color.js";
+import cl from "src/constants/color/color.js";
 import { MainTitle, SubTitle, Btn, BtnText } from "../Login/Common.style";
 import { baseInput, baseLabel } from "../Product/Review/ReviewForm";
-import EmailImg from "../../assets/login/at-sign.png";
+import EmailImg from "src/assets/login/at-sign.png";
 
 interface FormValue {
   password: string;

@@ -6,10 +6,10 @@ import { motion } from "framer-motion";
 import { productListMotion } from "../lib/motion";
 
 import { popularProducts } from "../data/data";
-import SingleProduct from "../components/SingleProduct";
-import Select from "../components/Select";
-import Filter from "../components/Filter";
-import Pagination from "../components/Pagination";
+import SingleProduct from "../components/Product/SingleProduct";
+import Select from "../components/Product/Select";
+import Filter from "../components/Product/Filter";
+import Pagination from "../components/Common/Pagination";
 import { sortOptions } from "../data/sortOptions";
 
 const ProductList = () => {
@@ -20,7 +20,7 @@ const ProductList = () => {
   const [selectedName, setSelectedName] = useState("");
   const [selectedVal, setSelectedVal] = useState("");
 
-  const handleActiveSort = (params) => {
+  const handleActiveSort = (params: { name: string; val: string }) => {
     if (activeFilter) setActiveFilter(false);
     setActiveSort(!activeSort);
     if (params) {
@@ -28,7 +28,7 @@ const ProductList = () => {
       setSelectedVal(params.val);
     }
   };
-  const handleActiveFilter = (e) => {
+  const handleActiveFilter = () => {
     if (activeSort) setActiveSort(false);
     setActiveFilter(!activeFilter);
   };
@@ -47,7 +47,7 @@ const ProductList = () => {
           <Func>
             <Filter active={activeFilter} handleActive={handleActiveFilter} />
             <Select
-              w_full={false}
+              fullWidth={false}
               listData={sortOptions}
               selectedName={selectedName}
               selectedVal={selectedVal}

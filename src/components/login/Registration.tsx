@@ -8,16 +8,16 @@ import {
   FieldError,
 } from "react-hook-form";
 
-import cl from "../../constants/color/color.js";
+import cl from "src/constants/color/color.js";
 import { MainTitle, SubTitle, Btn, BtnText } from "../Login/Common.style";
-import FieldErr from "../Error/FieldErr";
+import FieldErr from "../error/FieldErr";
 import PwdInput from "../Common/input/PwdInput";
 import {
   RowFlexBox,
   LeftInputBox,
   RightInputBox,
 } from "../Checkout/form/shipping-form/ShippingForm";
-import { getValidationData } from "../Checkout/form/shipping-form/getValidationData.js";
+import { getValidationData } from "../Checkout/form/shipping-form/getValidationData";
 import { baseInput, baseLabel } from "../Product/Review/ReviewForm";
 import RegistrationImg from "../../assets/login/signup.png";
 
@@ -80,7 +80,7 @@ const Registration = () => {
           label="Password"
           errors={errors}
           field="loginPwd"
-          validation={["required"]}
+          validation={["required", "passwordValidation"]}
         />
         <BtnBox>
           <Btn bgColor={`${cl.dark}`}>

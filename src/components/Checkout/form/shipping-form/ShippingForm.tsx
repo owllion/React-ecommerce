@@ -1,24 +1,32 @@
 import React, { useState } from "react";
 
-import { useForm } from "react-hook-form";
+import { useForm, SubmitHandler, FieldError } from "react-hook-form";
 import styled, { css } from "styled-components";
 
-import cl from "../../../../constants/color/color";
+import cl from "src/constants/color/color";
 
-import { SectionTitle } from "../../../payment-form/style/PaymentForm.style";
-import { baseInput, baseLabel } from "../../../ReviewForm";
+import { SectionTitle } from "../payment-form/PaymentForm.style";
+import { baseInput, baseLabel } from "src/components/Product/Review/ReviewForm";
 
-import { countries } from "../../../../data/countries";
+import { countries } from "src/data/countries";
 import { getValidationData } from "./getValidationData";
 
-import Select from "../../../Select";
-import FieldErr from "../../../error/FieldErr";
+import Select from "src/components/Product/Select";
+import FieldErr from "src/components/error/FieldErr";
+
+interface FormValue {
+  firstName: string;
+  lastName: string;
+  address: string;
+  state: string;
+  zip: number;
+}
 
 const ShippingForm = () => {
   const [selectedCountry, setSelectedCountry] = useState("Taiwan");
   const [active, setActive] = useState(false);
-  const handleSetCountry = (params) => {
-    if (params) {
+  const handleSetCountry = (params: { name: string; val?: string }) => {
+    if (Object.keys(params).length) {
       setSelectedCountry(params.name);
       setActive(false);
       return;
@@ -30,9 +38,9 @@ const ShippingForm = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm<FormValue>();
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit: SubmitHandler<FormValue> = (data) => console.log(data);
   console.log(errors);
 
   return (
@@ -68,7 +76,7 @@ const ShippingForm = () => {
         <SingleInputBox>
           <Label>Country</Label>
           <Select
-            w_full={true}
+            fullWidth={true}
             listData={countries}
             handleActive={handleSetCountry}
             selectedName={selectedCountry}
@@ -114,7 +122,7 @@ const ShippingForm = () => {
 };
 const ShippingContainer = styled.div``;
 const FormContainer = styled.form``;
-const Label = styled.label`
+const Label = styled.label<{ error?: FieldError }>`
   ${baseLabel}
   display:block;
   color: ${({ error }) => error && `${cl.red}`};
@@ -146,7 +154,7 @@ export const SingleInputBox = styled.div`
   width: 100%;
   margin-top: 1.2rem;
 `;
-const Input = styled.input`
+const Input = styled.input<{ error?: FieldError }>`
   ${baseInput}
   border-color: ${({ error }) => (error ? `${cl.red}` : `${cl.gray}`)};
 `;

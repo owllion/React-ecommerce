@@ -1,14 +1,12 @@
 import React from "react";
-
 import styled from "styled-components";
-import cl from "../../constants/color/color";
 
 const Sponsors = () => {
   return (
     <Container>
       <Wrapper>
         {[...Array(4)].map((_, index) => {
-          const url = require(`../assets/sponsor/logo${index + 1}.png`);
+          const url = require(`../../assets/sponsor/logo${index + 1}.png`);
 
           return (
             <LogoBox key={index}>
