@@ -28,10 +28,15 @@ const productSlice = createSlice({
         state.selectedBrand = state.selectedBrand.filter(
           (el, _) => el !== payload
         );
-      else state.selectedCategory.push(payload);
+      else state.selectedBrand.push(payload);
     },
     setPrice(state, { payload }: PayloadAction<string>) {
       state.selectedPrice = payload;
+    },
+    clearAllState(state) {
+      state.selectedPrice = "";
+      state.selectedBrand = [];
+      state.selectedCategory = [];
     },
   },
 });

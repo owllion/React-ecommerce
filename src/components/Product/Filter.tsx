@@ -1,11 +1,12 @@
 import React from "react";
 import styled, { css, keyframes } from "styled-components";
-import cl from "../../constants/color/color";
+import { TiArrowSortedUp, TiArrowSortedDown } from "react-icons/ti";
 
+import { useAppDispatch } from "../../store/hooks";
+import cl from "../../constants/color/color";
 import FilterOptionList from "./FilterOptionList";
 import { apparelBrand } from "../../data/apparelBrand";
-
-import { TiArrowSortedUp, TiArrowSortedDown } from "react-icons/ti";
+import { productActions } from "../../store/slice/Product.slice";
 
 const priceOption = ["$10-$15", "$100-$200", "$200-300$", "$400-$500", "$500-"];
 
@@ -23,6 +24,7 @@ interface IProps {
   handleActive: React.MouseEventHandler<HTMLDivElement>;
 }
 const Filter = ({ active, handleActive }: IProps) => {
+  const dispatch = useAppDispatch();
   return (
     <Container>
       <SelectBtn onClick={(e) => handleActive(e)}>
@@ -36,7 +38,9 @@ const Filter = ({ active, handleActive }: IProps) => {
           <FilterOptionList title="Category" itemList={CategoryOption} />
           <FilterOptionList title="Brand" itemList={apparelBrand} />
           <FilterOptionList title="Price" itemList={priceOption} />
-          <SearchBtn>Clear</SearchBtn>
+          <SearchBtn onClick={() => dispatch(productActions.clearAllState())}>
+            Clear
+          </SearchBtn>
         </Options>
       )}
     </Container>

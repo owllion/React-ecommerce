@@ -1,12 +1,18 @@
 import React, { ChangeEventHandler } from "react";
 import styled, { keyframes } from "styled-components";
-
+import { useAppSelector } from "../../store/hooks";
+enum List {
+  Category = "selectedCategory",
+  Brand = "selectedBrand",
+  Price = "selectedPrice",
+}
 interface IProps {
   item: string;
   current: string;
   handleSetCheckVal: ChangeEventHandler<HTMLInputElement>;
 }
 const CheckBox = ({ item, current, handleSetCheckVal }: IProps) => {
+  const selectedList = useAppSelector((state) => state.product);
   return (
     <Container>
       <CheckBoxItem
@@ -14,6 +20,13 @@ const CheckBox = ({ item, current, handleSetCheckVal }: IProps) => {
         name={current !== "Price" ? item : "singleAns"}
         value={item}
         id={item}
+        checked={
+          selectedList[
+            List[current as keyof typeof List] as keyof typeof selectedList
+          ].includes(item)
+            ? true
+            : false
+        }
         onChange={(e) => handleSetCheckVal(e)}
       />
       <Label for={item}>{item}</Label>

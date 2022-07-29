@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import qs from "qs";
-import { useAppSelector } from "../store/hooks";
+import { useAppSelector, useAppDispatch } from "../store/hooks";
 
 import cl from "../constants/color/color";
 
@@ -15,11 +15,14 @@ import SingleProduct from "../components/Product/SingleProduct";
 import Select from "../components/Product/Select";
 import Filter from "../components/Product/Filter";
 import Pagination from "../components/Common/Pagination";
+import { dispatch } from "react-hot-toast/dist/core/store";
+import { productActions } from "../store/slice/Product.slice";
 
 const ProductList = () => {
   const { selectedBrand, selectedPrice, selectedCategory } = useAppSelector(
     (state) => state.product
   );
+  const dispatch = useAppDispatch();
   const [filterV, setFilter] = useState(1);
 
   const [activeSort, setActiveSort] = useState(false);
@@ -52,6 +55,9 @@ const ProductList = () => {
     console.log("now b", selectedBrand);
     console.log("now p", selectedPrice);
   }, [selectedCategory, selectedBrand, selectedPrice]);
+  useEffect(() => {
+    dispatch(productActions.clearAllState());
+  }, []);
   return (
     <Container as={motion.div} {...productListMotion}>
       <Wrapper>
