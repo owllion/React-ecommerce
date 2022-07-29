@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import cl from "../../constants/color/color";
+import { useAppDispatch } from "../../store/hooks";
+import { productActions } from "../../store/slice/Product.slice";
 
 import CheckBox from "./CheckBox";
 import { apparelBrand } from "../../data/apparelBrand";
@@ -12,15 +14,25 @@ interface IProps {
   itemList: string[];
 }
 const FilterOptionList = ({ title, itemList }: IProps) => {
-  const [range, setRange] = useState<number | undefined | void>(7);
+  const dispatch = useAppDispatch();
+  const [range, setRange] = useState<number | undefined | void>(4);
   const [listState, setListState] = useState("more");
-  const [checkVal, setCheckVal] = useState("");
+  const [checkedVal, setCheckedVal] = useState<string[]>([]);
+  // const handleSetCheckVal = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   const {
+  //     target: { value },
+  //   } = event;
+  //   if (checkedVal.includes(value))
+  //     return setCheckedVal((pre) => pre.filter((el, _) => el !== value));
+  //   setCheckedVal((pre) => [...pre, value]);
+  // };
   const handleSetCheckVal = (event: React.ChangeEvent<HTMLInputElement>) => {
     const {
       target: { value },
     } = event;
-    console.log({ checkVal });
-    setCheckVal(value);
+    console.log("now title", { title });
+    const nowSelectedType = `set${title}` as keyof typeof productActions;
+    dispatch(productActions[nowSelectedType](value));
   };
 
   useEffect(() => {
@@ -40,13 +52,13 @@ const FilterOptionList = ({ title, itemList }: IProps) => {
           />
         ))}
 
-        {itemList.length > 7 && (
+        {itemList.length > 4 && (
           <SeeMore>
             <span
               onClick={() =>
                 setRange((prev) => {
-                  if (prev === apparelBrand.length) return setRange(7);
-                  else setRange(apparelBrand.length);
+                  if (prev === itemList.length) return setRange(4);
+                  else setRange(itemList.length);
                 })
               }
             >

@@ -20,7 +20,7 @@ const navList = [
     name: "PRODUCTS",
   },
   {
-    route: "/account",
+    route: "/settings/account",
     name: "ACCOUNT",
   },
 ];

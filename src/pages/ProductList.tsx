@@ -1,24 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import { motion } from "framer-motion";
+import qs from "qs";
+import { useAppSelector } from "../store/hooks";
+
 import cl from "../constants/color/color";
 
-import { motion } from "framer-motion";
 import { productListMotion } from "../lib/motion";
 
+import { sortOptions } from "../data/sortOptions";
 import { popularProducts } from "../data/data";
+
 import SingleProduct from "../components/Product/SingleProduct";
 import Select from "../components/Product/Select";
 import Filter from "../components/Product/Filter";
 import Pagination from "../components/Common/Pagination";
-import { sortOptions } from "../data/sortOptions";
 
 const ProductList = () => {
+  const { selectedBrand, selectedPrice, selectedCategory } = useAppSelector(
+    (state) => state.product
+  );
   const [filterV, setFilter] = useState(1);
 
   const [activeSort, setActiveSort] = useState(false);
   const [activeFilter, setActiveFilter] = useState(false);
   const [selectedName, setSelectedName] = useState("");
   const [selectedVal, setSelectedVal] = useState("");
+  const [productList, setProductList] = useState([]);
 
   const handleActiveSort = () => {
     if (activeFilter) setActiveFilter(false);
@@ -33,8 +41,17 @@ const ProductList = () => {
       setSelectedName(params.name);
       setSelectedVal(params.val);
     }
+    handleActiveSort();
   };
 
+  // const getProductList = () => {
+  //   const { productList } = await getProductList();
+  // };
+  useEffect(() => {
+    console.log("now cate", selectedCategory);
+    console.log("now b", selectedBrand);
+    console.log("now p", selectedPrice);
+  }, [selectedCategory, selectedBrand, selectedPrice]);
   return (
     <Container as={motion.div} {...productListMotion}>
       <Wrapper>

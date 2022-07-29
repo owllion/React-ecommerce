@@ -7,13 +7,7 @@ import { apparelBrand } from "../../data/apparelBrand";
 
 import { TiArrowSortedUp, TiArrowSortedDown } from "react-icons/ti";
 
-const priceOption = [
-  "$10 to $15",
-  "$100 to $200",
-  "$200-300$",
-  "400 to $500",
-  "$500 above",
-];
+const priceOption = ["$10-$15", "$100-$200", "$200-300$", "$400-$500", "$500-"];
 
 const CategoryOption = [
   "Blazers",

@@ -14,6 +14,7 @@
     "framer-motion": "^6.3.11",
     "lottie-react": "^2.2.1",
     "prop-types": "^15.8.1",
+    "qs": "^6.11.0",
     "react": "^18.1.0",
     "react-animated-heart": "^0.0.7",
     "react-dom": "^18.1.0",
