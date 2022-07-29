@@ -9,7 +9,7 @@ import { baseInput, baseLabel } from "../Product/Review/ReviewForm";
 import EmailImg from "../../assets/login/at-sign.png";
 import FieldErr from "../error/FieldErr";
 import { getValidationData } from "../Checkout/form/shipping-form/getValidationData";
-import { checkIfAccountExists } from "../../api/auth.api.js";
+import { checkIfAccountExists } from "../../api/auth.api";
 
 interface FormValue {
   email: string;

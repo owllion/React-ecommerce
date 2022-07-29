@@ -1,5 +1,9 @@
 import React, { lazy } from "react";
 import { useRoutes } from "react-router-dom";
+import ProtectedRoute from "../components/Route/ProtectedRoute";
+import store from "../store/store";
+
+const { token } = store.getState().auth;
 
 const Home = lazy(() => import("../pages/Home"));
 
@@ -81,22 +85,36 @@ export const RouteConfig = () => {
     },
     { path: "/product-list", element: <ProductList /> },
     { path: "/product-detail/:id", element: <ProductDetail /> },
-    { path: "/cart", element: <Cart /> },
+
     {
       path: "/checkout",
-      element: <Checkout />,
+      element: (
+        <ProtectedRoute token={token}>
+          <Checkout />
+        </ProtectedRoute>
+      ),
       children: [
         {
           path: "cart",
           element: <Cart />,
         },
-        { path: "ship-and-pay", element: <ShipAndPay /> },
-        { path: "order-complete", element: <OrderComplete /> },
+        {
+          path: "ship-and-pay",
+          element: <ShipAndPay />,
+        },
+        {
+          path: "order-complete",
+          element: <OrderComplete />,
+        },
       ],
     },
     {
       path: "/settings",
-      element: <Settings />,
+      element: (
+        <ProtectedRoute token={token}>
+          <Settings />
+        </ProtectedRoute>
+      ),
       children: [
         {
           path: "account",
@@ -113,13 +131,16 @@ export const RouteConfig = () => {
         {
           path: "order-list",
           element: <OrderList />,
+          children: [
+            {
+              path: "order-detail/:id",
+              element: <OrderDetail />,
+            },
+          ],
         },
       ],
     },
-    {
-      path: "order/order-detail/:id",
-      element: <OrderDetail />,
-    },
+
     { path: "*", element: <NotFound /> },
   ]);
 

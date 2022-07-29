@@ -8,8 +8,10 @@ import hero2 from "../../assets/category/hero2.jpg";
 import { FiArrowRight } from "react-icons/fi";
 import { motion } from "framer-motion";
 import { heroMotion } from "../../lib/motion";
+import { useNavigate } from "react-router-dom";
 
 const Hero = () => {
+  const navigate = useNavigate();
   return (
     <Container hero={hero} as={motion.div} {...heroMotion}>
       <Left>
@@ -25,7 +27,7 @@ const Hero = () => {
         </TextContainer>
 
         <BtnContainer>
-          <ShopBtn>
+          <ShopBtn onClick={() => navigate("/product-list")}>
             <span>Shop Now</span>
             <FiArrowRight />
           </ShopBtn>

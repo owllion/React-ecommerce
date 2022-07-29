@@ -1,8 +1,8 @@
-import { useAppSelector } from "./../store/hooks";
 import axios, { AxiosError } from "axios";
 import { getRefreshToken } from "./auth.api";
-const token = useAppSelector((state) => state.auth.token);
-const refreshToken = useAppSelector((state) => state.auth.refreshToken);
+import store from "../store/store";
+
+const { token, refreshToken } = store.getState().auth;
 
 const instance = axios.create({
   baseURL: process.env.REACT_APP_BASE_URL,
@@ -46,15 +46,14 @@ instance.interceptors.response.use(
         } catch (error) {
           const err = error as AxiosError;
 
-          if (err.response && err.response.data) {
+          if (err.response && err.response.data)
             return Promise.reject(err.response.data);
-          }
+
           return Promise.reject(error);
         }
       }
-      if (err.response.status === 403 && err.response.data) {
+      if (err.response.status === 403 && err.response.data)
         return Promise.reject(err.response.data);
-      }
     }
     return Promise.reject(err);
   }
