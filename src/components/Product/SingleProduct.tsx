@@ -6,20 +6,13 @@ import { FiHeart } from "react-icons/fi";
 import { motion } from "framer-motion";
 
 import { productItemMotion } from "../../lib/motion";
+import { IProduct } from "../../interface/product.interface";
 
-interface IProps {
-  item: {
-    img: string;
-    name: string;
-    price: string;
-  };
-}
-
-const SingleProduct = ({ item: { img, name, price } }: IProps) => {
+const SingleProduct = ({ item }: { item: IProduct }) => {
   return (
     <Container as={motion.div} layout {...productItemMotion}>
       <Wrapper>
-        <Image src={img} alt="product" />
+        <Image src={item.imageList?.[0]} alt="product" />
         <Info>
           <Icon>
             <IoMdCart />
@@ -29,8 +22,8 @@ const SingleProduct = ({ item: { img, name, price } }: IProps) => {
           </Icon>
         </Info>
       </Wrapper>
-      <Name>{name}</Name>
-      <Price>{price}</Price>
+      <Name>{item.productName}</Name>
+      <Price>{item.price}</Price>
     </Container>
   );
 };

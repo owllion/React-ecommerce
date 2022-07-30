@@ -14,42 +14,9 @@ const FavList = () => {
       <Container>
         <SectionTitle title="Favorite" />
         <Wrapper>
-          <SingleBox>
+          {/* <SingleBox>
             <SingleProduct item={test} />
-          </SingleBox>
-          <SingleBox>
-            <SingleProduct item={test} />
-          </SingleBox>
-          <SingleBox>
-            <SingleProduct item={test} />
-          </SingleBox>
-          <SingleBox>
-            <SingleProduct item={test} />
-          </SingleBox>
-          <SingleBox>
-            <SingleProduct item={test} />
-          </SingleBox>
-          <SingleBox>
-            <SingleProduct item={test} />
-          </SingleBox>
-          <SingleBox>
-            <SingleProduct item={test} />
-          </SingleBox>
-          <SingleBox>
-            <SingleProduct item={test} />
-          </SingleBox>
-          <SingleBox>
-            <SingleProduct item={test} />
-          </SingleBox>
-          <SingleBox>
-            <SingleProduct item={test} />
-          </SingleBox>
-          <SingleBox>
-            <SingleProduct item={test} />
-          </SingleBox>
-          <SingleBox>
-            <SingleProduct item={test} />
-          </SingleBox>
+          </SingleBox> */}
         </Wrapper>
       </Container>
     </>

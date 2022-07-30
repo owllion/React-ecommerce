@@ -15,42 +15,42 @@ export const sortOptions = [
   },
   {
     name: "A-Z",
-    val: "a-z",
+    val: "productName-asc",
     icon: <FcAlphabeticalSortingAz />,
   },
   {
     name: "Z-A",
-    val: "z-a",
+    val: "productName-desc",
     icon: <FcAlphabeticalSortingZa />,
   },
   {
     name: "New-Old",
-    val: "new-old",
+    val: "createdAt-asc",
     icon: <FcClock />,
   },
   {
     name: "Old-New",
-    val: "old-new",
+    val: "createdAt-desc",
     icon: <FcClock />,
   },
   {
     name: "High-Low",
-    val: "sale-hl",
+    val: "sales-desc",
     icon: <FcSalesPerformance />,
   },
   {
     name: "Low-High",
-    val: "sale-lh",
+    val: "sales-asc",
     icon: <FcSalesPerformance />,
   },
   {
     name: "High-Low",
-    val: "price-hl",
+    val: "price-desc",
     icon: <MdOutlineAttachMoney />,
   },
   {
     name: "Low-High",
-    val: "price-lh",
+    val: "price-asc",
     icon: <MdOutlineAttachMoney />,
   },
 ];

@@ -1,4 +1,5 @@
+import { AxiosRequestConfig } from "axios";
 import instance from "./axios";
 
-export const getProductList = (config: any) =>
-  instance.post("/product-list", config);
+export const getProductListApi = (config: AxiosRequestConfig) =>
+  instance.get("/product-list", config);

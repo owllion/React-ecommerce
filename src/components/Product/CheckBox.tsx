@@ -6,30 +6,33 @@ enum List {
   Brand = "selectedBrand",
   Price = "selectedPrice",
 }
+type ListString = keyof typeof List;
+
 interface IProps {
-  item: string;
-  current: string;
+  item: { name: string; val: string };
+  current: ListString;
   handleSetCheckVal: ChangeEventHandler<HTMLInputElement>;
 }
 const CheckBox = ({ item, current, handleSetCheckVal }: IProps) => {
   const selectedList = useAppSelector((state) => state.product);
+  type selectedListString = keyof typeof selectedList;
   return (
     <Container>
+      {/* name -> for multi/single choose
+       id -> for label */}
       <CheckBoxItem
         type={current !== "Price" ? "checkbox" : "radio"}
-        name={current !== "Price" ? item : "singleAns"}
-        value={item}
-        id={item}
+        name={current !== "Price" ? item.name : "single"}
+        value={item.val}
+        id={item.val}
         checked={
-          selectedList[
-            List[current as keyof typeof List] as keyof typeof selectedList
-          ].includes(item)
+          selectedList[List[current] as selectedListString].includes(item.val)
             ? true
             : false
         }
         onChange={(e) => handleSetCheckVal(e)}
       />
-      <Label for={item}>{item}</Label>
+      <Label for={item.val}>{item.name}</Label>
     </Container>
   );
 };

@@ -1,5 +1,6 @@
 export interface IProduct {
   _id: string;
+  productId: string;
   productName: string;
   imageList: Array<string>;
   price: number;

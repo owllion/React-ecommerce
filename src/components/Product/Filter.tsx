@@ -5,20 +5,9 @@ import { TiArrowSortedUp, TiArrowSortedDown } from "react-icons/ti";
 import { useAppDispatch } from "../../store/hooks";
 import cl from "../../constants/color/color";
 import FilterOptionList from "./FilterOptionList";
-import { apparelBrand } from "../../data/apparelBrand";
+import * as FilterOptions from "../../data/filterOptions";
 import { productActions } from "../../store/slice/Product.slice";
 
-const priceOption = ["$10-$15", "$100-$200", "$200-300$", "$400-$500", "$500-"];
-
-const CategoryOption = [
-  "Blazers",
-  "Shirts",
-  "Knitwear",
-  "T-shirts",
-  "Coats",
-  "Hat",
-  "Trouser",
-];
 interface IProps {
   active: boolean;
   handleActive: React.MouseEventHandler<HTMLDivElement>;
@@ -35,9 +24,18 @@ const Filter = ({ active, handleActive }: IProps) => {
       </SelectBtn>
       {active && (
         <Options active={active}>
-          <FilterOptionList title="Category" itemList={CategoryOption} />
-          <FilterOptionList title="Brand" itemList={apparelBrand} />
-          <FilterOptionList title="Price" itemList={priceOption} />
+          <FilterOptionList
+            title="Category"
+            itemList={FilterOptions.categoryOptions}
+          />
+          <FilterOptionList
+            title="Brand"
+            itemList={FilterOptions.brandOptions}
+          />
+          <FilterOptionList
+            title="Price"
+            itemList={FilterOptions.priceOptions}
+          />
           <SearchBtn onClick={() => dispatch(productActions.clearAllState())}>
             Clear
           </SearchBtn>

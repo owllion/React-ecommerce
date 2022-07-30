@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+
 import cl from "../../constants/color/color";
 import { useAppDispatch } from "../../store/hooks";
 import { productActions } from "../../store/slice/Product.slice";
-
 import CheckBox from "./CheckBox";
-import { apparelBrand } from "../../data/apparelBrand";
-
-import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 
 interface IProps {
   title: string;
-  itemList: string[];
+  itemList: { name: string; val: string }[];
 }
+type Title = "Category" | "Brand" | "Price";
+
 const FilterOptionList = ({ title, itemList }: IProps) => {
   const dispatch = useAppDispatch();
   const [range, setRange] = useState<number | undefined | void>(4);
@@ -30,7 +30,7 @@ const FilterOptionList = ({ title, itemList }: IProps) => {
     const {
       target: { value },
     } = event;
-    console.log("now title", { title });
+    // console.log("now title", { title });
     const nowSelectedType = `set${title}` as keyof typeof productActions;
     dispatch(productActions[nowSelectedType](value));
   };
@@ -47,7 +47,7 @@ const FilterOptionList = ({ title, itemList }: IProps) => {
           <CheckBox
             item={item}
             key={index}
-            current={title}
+            current={title as Title}
             handleSetCheckVal={handleSetCheckVal}
           />
         ))}

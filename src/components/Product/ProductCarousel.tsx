@@ -54,7 +54,7 @@ const ProductCarousel = () => {
       >
         {popularProducts.map((item) => (
           <SwiperSlide key={item.id}>
-            <SingleProduct item={item} />
+            {/* <SingleProduct item={item} /> */}
           </SwiperSlide>
         ))}
       </Swiper>

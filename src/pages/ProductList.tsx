@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { AxiosRequestConfig } from "axios";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import qs from "qs";
 import { useAppSelector, useAppDispatch } from "../store/hooks";
 
 import cl from "../constants/color/color";
-
 import { productListMotion } from "../lib/motion";
 
 import { sortOptions } from "../data/sortOptions";
@@ -15,8 +15,12 @@ import SingleProduct from "../components/Product/SingleProduct";
 import Select from "../components/Product/Select";
 import Filter from "../components/Product/Filter";
 import Pagination from "../components/Common/Pagination";
-import { dispatch } from "react-hot-toast/dist/core/store";
 import { productActions } from "../store/slice/Product.slice";
+import { getProductListApi } from "../api/product.api";
+import { IProduct } from "../interface/product.interface";
+interface IProductList {
+  data: { productList: [{ count: [{ totalDoc: number }]; list: IProduct[] }] };
+}
 
 const ProductList = () => {
   const { selectedBrand, selectedPrice, selectedCategory } = useAppSelector(
@@ -29,7 +33,9 @@ const ProductList = () => {
   const [activeFilter, setActiveFilter] = useState(false);
   const [selectedName, setSelectedName] = useState("");
   const [selectedVal, setSelectedVal] = useState("");
-  const [productList, setProductList] = useState([]);
+  const [productList, setProductList] = useState<IProduct[]>([]);
+  const [curPage, setCurPage] = useState(1);
+  const [totalCount, setTotalCount] = useState(0);
 
   const handleActiveSort = () => {
     if (activeFilter) setActiveFilter(false);
@@ -47,28 +53,62 @@ const ProductList = () => {
     handleActiveSort();
   };
 
-  // const getProductList = () => {
-  //   const { productList } = await getProductList();
-  // };
+  const handlePageClick = (event: { selected: number }) => {
+    setCurPage(event.selected);
+    const newOffset = (event.selected * 10) % productList.length;
+    console.log(
+      `User requested page number ${event.selected}, which is offset ${newOffset}`
+    );
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const getSortAndOrderVal = (type: string) => {
+    return type === "sort"
+      ? selectedVal.substring(0, selectedVal.indexOf("-"))
+      : selectedVal.substring(selectedVal.indexOf("-") + 1);
+  };
+
+  const getProductList = async () => {
+    let config: AxiosRequestConfig = {
+      params: {
+        page: curPage || 1,
+        keyword: "",
+        sortBy: getSortAndOrderVal("sort"),
+        orderBy: getSortAndOrderVal("order"),
+        brands: selectedBrand || "",
+        categories: selectedCategory || "",
+        price: selectedPrice || "",
+      },
+      paramsSerializer: (params) =>
+        qs.stringify(params, { arrayFormat: "repeat" }),
+    };
+    try {
+      const {
+        data: { productList },
+      }: IProductList = await getProductListApi(config);
+      console.log({ productList });
+      const { count, list } = productList?.[0];
+      setTotalCount(count?.[0].totalDoc);
+      setProductList(list);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
-    console.log("now cate", selectedCategory);
-    console.log("now b", selectedBrand);
-    console.log("now p", selectedPrice);
-  }, [selectedCategory, selectedBrand, selectedPrice]);
+    getProductList();
+  }, [selectedCategory, selectedBrand, selectedPrice, selectedVal, curPage]);
+
   useEffect(() => {
     dispatch(productActions.clearAllState());
+    getProductList();
   }, []);
+
   return (
     <Container as={motion.div} {...productListMotion}>
       <Wrapper>
         <Top>
           <PageTitle>All Products</PageTitle>
-          <button style={{ color: "red" }} onClick={() => setFilter(5)}>
-            點我filter1
-          </button>
-          <button style={{ color: "orange" }} onClick={() => setFilter(10)}>
-            點我filter2
-          </button>
           <Func>
             <Filter active={activeFilter} handleActive={handleActiveFilter} />
             <Select
@@ -83,15 +123,17 @@ const ProductList = () => {
           </Func>
         </Top>
         <ItemContainer as={motion.div} layout>
-          {popularProducts
-            .filter((i) => (filterV < 6 ? i.id < 6 : i.id > 6))
-            .map((item) => (
-              <ItemBox>
-                <SingleProduct item={item} />
-              </ItemBox>
-            ))}
+          {productList.map((item) => (
+            <ItemBox key={item.productId}>
+              <SingleProduct item={item} />
+            </ItemBox>
+          ))}
         </ItemContainer>
-        <Pagination itemsPerPage={4} />
+        <Pagination
+          itemsPerPage={10}
+          itemsLength={totalCount}
+          handlePageClick={handlePageClick}
+        />
       </Wrapper>
     </Container>
   );
