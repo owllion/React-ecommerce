@@ -110,9 +110,6 @@ const ProductList = () => {
   isPadWidth.addEventListener("change", (event: MediaQueryListEvent) => {
     setTargetWidth(event.matches);
   });
-  useEffect(() => {
-    getProductList();
-  }, [isTargetWidth]);
 
   useEffect(() => {
     setCurPage(1);
@@ -121,7 +118,7 @@ const ProductList = () => {
 
   useEffect(() => {
     getProductList();
-  }, [curPage, selectedVal]);
+  }, [curPage, selectedVal, isTargetWidth]);
 
   useEffect(() => {
     dispatch(productActions.clearAllState());

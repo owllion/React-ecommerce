@@ -31,14 +31,15 @@ const Select = ({
     <Container fullWidth={fullWidth}>
       <SelectBtn onClick={(e) => handleActive?.(e)}>
         <SelectBtnText>
-          <div>
-            {selectedVal &&
-              sortOptions.find((item) => item.val === selectedVal)?.icon}
-
+          <SelectedValBox>
+            <OptionIcon>
+              {selectedVal &&
+                sortOptions.find((item) => item.val === selectedVal)?.icon}
+            </OptionIcon>
             <span>
               <span>{selectedName || "Sort"}</span>
             </span>
-          </div>
+          </SelectedValBox>
           {active ? <TiArrowSortedDown /> : <TiArrowSortedUp />}
         </SelectBtnText>
       </SelectBtn>
@@ -145,5 +146,9 @@ const OptionIcon = styled.div`
 const OptionText = styled.span`
   font-size: 1.2rem;
   color: #333;
+`;
+const SelectedValBox = styled.div`
+  display: flex;
+  align-items: center;
 `;
 export default Select;

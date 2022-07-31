@@ -2,21 +2,25 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import styled from "styled-components";
-import cl from "../../constants/color/color";
 
+import cl from "../../constants/color/color";
 import { IoMdCart, IoIosMenu, IoIosSearch, IoIosLogIn } from "react-icons/io";
 import { MdAccountCircle } from "react-icons/md";
-
 import SideNav from "./SideNav";
+import HeaderSearch from "./HeaderSearch";
+import { useAppDispatch } from "../../store/hooks";
+import { commonActions } from "../../store/slice/Common.slice";
+import { useAppSelector } from "../../store/hooks";
 
 const Navbar = () => {
+  const { showSearch } = useAppSelector((state) => state.common);
+  const dispatch = useAppDispatch();
   const [showSideNav, setShowSideNav] = useState(false);
   const [isLoggedIn, setLog] = useState(true);
 
   const handleShowSideNav = <T extends { id: string }>(
     e: React.MouseEvent<T>
   ) => {
-    // console.log((e.target as unknown as T).id);
     const target = ["backdrop", "close", "closeIcon", "navLink"];
     if (target.includes((e.target as unknown as T).id)) {
       setShowSideNav(false);
@@ -27,6 +31,7 @@ const Navbar = () => {
     <>
       <AnimatePresence>
         {showSideNav && <SideNav handleShowSideNav={handleShowSideNav} />}
+        {showSearch && <HeaderSearch />}
       </AnimatePresence>
 
       <Container>
@@ -64,7 +69,9 @@ const Navbar = () => {
                 </MenuItem> */}
               </LinkBox>
               <MenuItem>
-                <SearchIcon>
+                <SearchIcon
+                  onClick={() => dispatch(commonActions.setShowSearch(true))}
+                >
                   <IoIosSearch />
                 </SearchIcon>
               </MenuItem>

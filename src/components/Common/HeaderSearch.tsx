@@ -1,13 +1,18 @@
 import React from "react";
 import styled from "styled-components";
-import { IoMdClose, IoIosSearch } from "react-icons/io";
-import searchImg from "@/assets/search/search.svg";
+import { IoMdClose } from "react-icons/io";
+import { motion } from "framer-motion";
+import searchImg from "src/assets/search/search.svg";
+import { commonActions } from "../../store/slice/Common.slice";
+import { useAppDispatch } from "../../store/hooks";
+import { searchMotion } from "../../lib/motion";
 
 const Search = () => {
+  const dispatch = useAppDispatch();
   return (
-    <Container>
+    <Container as={motion.div} {...searchMotion}>
       <CloseBtnBox>
-        <CloseBtn>
+        <CloseBtn onClick={() => dispatch(commonActions.setShowSearch(false))}>
           <IoMdClose />
         </CloseBtn>
       </CloseBtnBox>
@@ -45,7 +50,6 @@ const CloseBtn = styled.button`
   font-size: 1rem;
   background: rgba(0, 0, 0, 0.04);
   border-radius: 50%;
-  width: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -60,12 +64,20 @@ const InputContainer = styled.div`
     padding: 2rem 1.2rem;
   }
 `;
-const InputBox = styled.div``;
+const InputBox = styled.div`
+  width: 50%;
+  @media (max-width: 767px) {
+    width: 70%;
+  }
+`;
 const SearchInput = styled.input`
   transition: all 0.7s cubic-bezier(0.4, 0.4, 0, 1);
   font-size: 3.5rem;
   border: none;
-  width: 70%;
+  width: 100%;
+  @media (max-width: 767px) {
+    font-size: 2.5rem;
+  }
   @media (max-width: 500px) {
     width: 100%;
     font-size: 1.5rem;
@@ -87,6 +99,7 @@ const ImgContainer = styled.div`
   right: 10px;
   bottom: 20px;
   padding: 5rem;
+  pointer-events: none;
   @media (max-width: 767px) {
     padding: 0;
   }

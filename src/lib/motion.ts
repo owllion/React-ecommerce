@@ -4,7 +4,15 @@ export const heroMotion = {
   whileInView: { y: 0 },
   transition: { type: "spring", stiffness: 100 },
 };
-
+export const searchMotion = {
+  initial: { opacity: 0 },
+  animate: { opacity: 1 },
+  transition: { duration: 0.2 },
+  exit: {
+    opacity: 0,
+    transition: { duration: 0.4 },
+  },
+};
 export const homeCategoryItemMotion = (index: number) => ({
   viewport: { once: true },
   initial: { opacity: 0, y: index * 120 },

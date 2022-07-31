@@ -1,15 +1,20 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface ILoading {
-  isLoading: boolean;
+interface IState {
+  errorMsg: string;
+  loading: boolean;
+  showSearch: boolean;
 }
+
+const initialState: IState = {
+  errorMsg: "",
+  loading: false,
+  showSearch: false,
+};
 
 const commonSlice = createSlice({
   name: "common",
-  initialState: {
-    errorMsg: "",
-    loading: false,
-  },
+  initialState,
   reducers: {
     setError(state, { payload }: PayloadAction<Error>) {
       state.errorMsg = payload.message;
@@ -17,8 +22,11 @@ const commonSlice = createSlice({
     setErrorClear(state) {
       state.errorMsg = "";
     },
-    setLoading(state, { payload }: PayloadAction<ILoading>) {
-      state.loading = payload.isLoading;
+    setLoading(state, { payload }: PayloadAction<boolean>) {
+      state.loading = payload;
+    },
+    setShowSearch(state, { payload }: PayloadAction<boolean>) {
+      state.showSearch = payload;
     },
   },
 });
