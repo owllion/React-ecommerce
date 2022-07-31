@@ -18,7 +18,7 @@ import Lottie from "../components/Common/Lottie";
 import { productActions } from "../store/slice/Product.slice";
 import { getProductListApi } from "../api/product.api";
 import { IProduct } from "../interface/product.interface";
-import notFound from "../assets/no-result/product-not-found.json";
+
 interface IProductList {
   data: {
     productList: [
@@ -42,6 +42,7 @@ const ProductList = () => {
   >([]);
   const [curPage, setCurPage] = useState(1);
   const [totalCount, setTotalCount] = useState(0);
+  const [isTargetWidth, setTargetWidth] = useState(false);
 
   const handleActiveSort = () => {
     if (activeFilter) setActiveFilter(false);
@@ -69,7 +70,6 @@ const ProductList = () => {
       ? selectedVal.substring(0, selectedVal.indexOf("-"))
       : selectedVal.substring(selectedVal.indexOf("-") + 1);
   };
-  const isPadWidth = window.matchMedia("(max-width: 1200px)").matches;
   const getProductList = async () => {
     let config: AxiosRequestConfig = {
       params: {
@@ -93,9 +93,11 @@ const ProductList = () => {
 
       setTotalCount(count?.[0]?.totalDoc);
 
-      if (list.length % (isPadWidth ? 3 : 4) !== 0) {
+      if (list.length % (isTargetWidth ? 3 : 4) !== 0) {
         [
-          ...Array((isPadWidth ? 3 : 4) - (list.length % (isPadWidth ? 3 : 4))),
+          ...Array(
+            (isTargetWidth ? 3 : 4) - (list.length % (isTargetWidth ? 3 : 4))
+          ),
         ].forEach((_, i) => list.push({}));
       }
       setProductList(list);
@@ -103,11 +105,20 @@ const ProductList = () => {
       console.log(error);
     }
   };
+  const isPadWidth = window.matchMedia("(max-width: 1200px)");
+
+  isPadWidth.addEventListener("change", (event: MediaQueryListEvent) => {
+    setTargetWidth(event.matches);
+  });
+  useEffect(() => {
+    getProductList();
+  }, [isTargetWidth]);
 
   useEffect(() => {
     setCurPage(1);
     getProductList();
   }, [selectedCategory, selectedBrand, selectedPrice]);
+
   useEffect(() => {
     getProductList();
   }, [curPage, selectedVal]);
@@ -156,7 +167,7 @@ const ProductList = () => {
               </ItemContainer>
 
               <Pagination
-                itemsPerPage={10}
+                itemsPerPage={12}
                 itemsLength={totalCount}
                 handlePageClick={handlePageClick}
               />
