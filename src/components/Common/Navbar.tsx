@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import styled from "styled-components";
@@ -15,7 +15,9 @@ import { useAppSelector } from "../../store/hooks";
 const Navbar = () => {
   const { showSearch } = useAppSelector((state) => state.common);
   const dispatch = useAppDispatch();
+
   const [showSideNav, setShowSideNav] = useState(false);
+  const [colorChange, setColorChange] = useState(false);
   const [isLoggedIn, setLog] = useState(true);
 
   const handleShowSideNav = <T extends { id: string }>(
@@ -27,6 +29,11 @@ const Navbar = () => {
     }
   };
 
+  const changeNavColor = () =>
+    window.scrollY >= 10 ? setColorChange(true) : setColorChange(false);
+  useEffect(() => {
+    window.addEventListener("scroll", changeNavColor);
+  });
   return (
     <>
       <AnimatePresence>
@@ -35,7 +42,7 @@ const Navbar = () => {
       </AnimatePresence>
 
       <Container>
-        <Wrapper>
+        <Wrapper change={colorChange}>
           <Left>
             <div className="logo">
               <Link to={"/"}>
@@ -61,12 +68,6 @@ const Navbar = () => {
                 <MenuItem>
                   <Link to={"/product-list"}>PRODUCTS</Link>
                 </MenuItem>
-                {/* <MenuItem>
-                  <Link to={"/product-detail/1"}>Detail</Link>
-                </MenuItem>
-                <MenuItem>
-                  <Link to={"/f"}>Notfound</Link>
-                </MenuItem> */}
               </LinkBox>
               <MenuItem>
                 <SearchIcon
@@ -82,13 +83,7 @@ const Navbar = () => {
                   </AccountIcon>
                 </Link>
               </MenuItem>
-              {/* <MenuItem>
-                <Link to={"/login/welcome"}>
-                  <AccountIcon>
-                    <IoIosLogIn />
-                  </AccountIcon>
-                </Link>
-              </MenuItem> */}
+
               <MenuItem>
                 <Link to={"/checkout/cart"}>
                   <CartContainer>
@@ -111,17 +106,16 @@ const Navbar = () => {
 
 const Container = styled.nav`
   height: 70px;
-  /* @media (max-width: 800px) {
-    height: 50px;
-  } */
+
   position: fixed;
   top: 0;
   left: 0;
-  /* background: ${cl.darkenGray}; */
   width: 100%;
   z-index: 50;
 `;
-const Wrapper = styled.div`
+const Wrapper = styled.div<{ change: boolean }>`
+  background: ${({ change }) => (change ? "white" : "transparent")};
+  transition: 0.8s all ease;
   padding: 10px 80px;
   width: 100%;
   display: flex;
