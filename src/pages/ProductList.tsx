@@ -19,7 +19,11 @@ import { productActions } from "../store/slice/Product.slice";
 import { getProductListApi } from "../api/product.api";
 import { IProduct } from "../interface/product.interface";
 interface IProductList {
-  data: { productList: [{ count: [{ totalDoc: number }]; list: IProduct[] }] };
+  data: {
+    productList: [
+      { count: [{ totalDoc: number }]; list: (IProduct | Partial<IProduct>)[] }
+    ];
+  };
 }
 
 const ProductList = () => {
@@ -27,13 +31,12 @@ const ProductList = () => {
     (state) => state.product
   );
   const dispatch = useAppDispatch();
-  const [filterV, setFilter] = useState(1);
 
   const [activeSort, setActiveSort] = useState(false);
   const [activeFilter, setActiveFilter] = useState(false);
   const [selectedName, setSelectedName] = useState("");
   const [selectedVal, setSelectedVal] = useState("");
-  const [productList, setProductList] = useState<IProduct[]>([]);
+  const [productList, setProductList] = useState<(IProduct | {})[]>([]);
   const [curPage, setCurPage] = useState(1);
   const [totalCount, setTotalCount] = useState(0);
 
@@ -54,11 +57,7 @@ const ProductList = () => {
   };
 
   const handlePageClick = (event: { selected: number }) => {
-    setCurPage(event.selected);
-    const newOffset = (event.selected * 10) % productList.length;
-    console.log(
-      `User requested page number ${event.selected}, which is offset ${newOffset}`
-    );
+    setCurPage(event.selected + 1);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -74,7 +73,7 @@ const ProductList = () => {
         page: curPage || 1,
         keyword: "",
         sortBy: getSortAndOrderVal("sort"),
-        orderBy: getSortAndOrderVal("order"),
+        orderBy: selectedVal === "all" ? "" : getSortAndOrderVal("order"),
         brands: selectedBrand || "",
         categories: selectedCategory || "",
         price: selectedPrice || "",
@@ -86,15 +85,22 @@ const ProductList = () => {
       const {
         data: { productList },
       }: IProductList = await getProductListApi(config);
-      console.log({ productList });
+
       const { count, list } = productList?.[0];
-      setTotalCount(count?.[0].totalDoc);
+
+      setTotalCount(count?.[0]?.totalDoc);
+
+      if (list.length % 4 !== 0) {
+        [...Array(4 - (list.length % 4))].forEach((_, i) => list.push({}));
+      }
       setProductList(list);
     } catch (error) {
       console.log(error);
     }
   };
-
+  const calculateSkip = () => {
+    return curPage > 1 ? (curPage - 1) * 10 : 10;
+  };
   useEffect(() => {
     getProductList();
   }, [selectedCategory, selectedBrand, selectedPrice, selectedVal, curPage]);
@@ -123,10 +129,16 @@ const ProductList = () => {
           </Func>
         </Top>
         <ItemContainer as={motion.div} layout>
-          {productList.map((item) => (
-            <ItemBox key={item.productId}>
-              <SingleProduct item={item} />
-            </ItemBox>
+          {productList.map((item, index) => (
+            <>
+              {Object.keys(item).length > 0 ? (
+                <ItemBox key={(item as IProduct).productId}>
+                  <SingleProduct item={item as IProduct} />
+                </ItemBox>
+              ) : (
+                <Spacer key={index} />
+              )}
+            </>
           ))}
         </ItemContainer>
         <Pagination
@@ -181,4 +193,10 @@ const ItemContainer = styled.div`
 const ItemBox = styled.div`
   flex-basis: 20%;
 `;
+const Spacer = styled.i.attrs({
+  "aria-hidden": "true",
+})`
+  flex-basis: 260px;
+`;
+
 export default ProductList;
