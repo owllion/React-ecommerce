@@ -4,20 +4,21 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import qs from "qs";
 import { useAppSelector, useAppDispatch } from "../store/hooks";
-
 import cl from "../constants/color/color";
-import { productListMotion } from "../lib/motion";
+import { productListMotion, productItemMotion } from "../lib/motion";
 
 import { sortOptions } from "../data/sortOptions";
-import { popularProducts } from "../data/data";
 
 import SingleProduct from "../components/Product/SingleProduct";
 import Select from "../components/Product/Select";
 import Filter from "../components/Product/Filter";
 import Pagination from "../components/Common/Pagination";
+import Lottie from "../components/Common/Lottie";
+
 import { productActions } from "../store/slice/Product.slice";
 import { getProductListApi } from "../api/product.api";
 import { IProduct } from "../interface/product.interface";
+import notFound from "../assets/no-result/product-not-found.json";
 interface IProductList {
   data: {
     productList: [
@@ -36,7 +37,9 @@ const ProductList = () => {
   const [activeFilter, setActiveFilter] = useState(false);
   const [selectedName, setSelectedName] = useState("");
   const [selectedVal, setSelectedVal] = useState("");
-  const [productList, setProductList] = useState<(IProduct | {})[]>([]);
+  const [productList, setProductList] = useState<
+    (IProduct | Partial<IProduct>)[]
+  >([]);
   const [curPage, setCurPage] = useState(1);
   const [totalCount, setTotalCount] = useState(0);
 
@@ -66,7 +69,7 @@ const ProductList = () => {
       ? selectedVal.substring(0, selectedVal.indexOf("-"))
       : selectedVal.substring(selectedVal.indexOf("-") + 1);
   };
-
+  const isPadWidth = window.matchMedia("(max-width: 1200px)").matches;
   const getProductList = async () => {
     let config: AxiosRequestConfig = {
       params: {
@@ -90,20 +93,24 @@ const ProductList = () => {
 
       setTotalCount(count?.[0]?.totalDoc);
 
-      if (list.length % 4 !== 0) {
-        [...Array(4 - (list.length % 4))].forEach((_, i) => list.push({}));
+      if (list.length % (isPadWidth ? 3 : 4) !== 0) {
+        [
+          ...Array((isPadWidth ? 3 : 4) - (list.length % (isPadWidth ? 3 : 4))),
+        ].forEach((_, i) => list.push({}));
       }
       setProductList(list);
     } catch (error) {
       console.log(error);
     }
   };
-  const calculateSkip = () => {
-    return curPage > 1 ? (curPage - 1) * 10 : 10;
-  };
+
+  useEffect(() => {
+    setCurPage(1);
+    getProductList();
+  }, [selectedCategory, selectedBrand, selectedPrice]);
   useEffect(() => {
     getProductList();
-  }, [selectedCategory, selectedBrand, selectedPrice, selectedVal, curPage]);
+  }, [curPage, selectedVal]);
 
   useEffect(() => {
     dispatch(productActions.clearAllState());
@@ -111,43 +118,55 @@ const ProductList = () => {
   }, []);
 
   return (
-    <Container as={motion.div} {...productListMotion}>
-      <Wrapper>
-        <Top>
-          <PageTitle>All Products</PageTitle>
-          <Func>
-            <Filter active={activeFilter} handleActive={handleActiveFilter} />
-            <Select
-              fullWidth={false}
-              listData={sortOptions}
-              selectedName={selectedName}
-              selectedVal={selectedVal}
-              active={activeSort}
-              handleActive={handleActiveSort}
-              handleSetSelected={handleSetSelected}
-            />
-          </Func>
-        </Top>
-        <ItemContainer as={motion.div} layout>
-          {productList.map((item, index) => (
+    <>
+      <Container as={motion.div} {...productListMotion}>
+        <Wrapper>
+          <Top>
+            <PageTitle>All Products</PageTitle>
+            <Func>
+              <Filter active={activeFilter} handleActive={handleActiveFilter} />
+              <Select
+                fullWidth={false}
+                listData={sortOptions}
+                selectedName={selectedName}
+                selectedVal={selectedVal}
+                active={activeSort}
+                handleActive={handleActiveSort}
+                handleSetSelected={handleSetSelected}
+              />
+            </Func>
+          </Top>
+          {productList.length > 0 ? (
             <>
-              {Object.keys(item).length > 0 ? (
-                <ItemBox key={(item as IProduct).productId}>
-                  <SingleProduct item={item as IProduct} />
-                </ItemBox>
-              ) : (
-                <Spacer key={index} />
-              )}
+              <ItemContainer as={motion.div} layout>
+                {productList.map((item, index) => (
+                  <ItemBox key={item.productId}>
+                    {Object.keys(item).length > 0 ? (
+                      <SingleProduct item={item as IProduct} />
+                    ) : (
+                      <Spacer
+                        key={index}
+                        as={motion.div}
+                        layout
+                        {...productItemMotion}
+                      />
+                    )}
+                  </ItemBox>
+                ))}
+              </ItemContainer>
+
+              <Pagination
+                itemsPerPage={10}
+                itemsLength={totalCount}
+                handlePageClick={handlePageClick}
+              />
             </>
-          ))}
-        </ItemContainer>
-        <Pagination
-          itemsPerPage={10}
-          itemsLength={totalCount}
-          handlePageClick={handlePageClick}
-        />
-      </Wrapper>
-    </Container>
+          ) : (
+            <Lottie jsonName={"productNotFound"} />
+          )}
+        </Wrapper>
+      </Container>
+    </>
   );
 };
 
@@ -196,7 +215,7 @@ const ItemBox = styled.div`
 const Spacer = styled.i.attrs({
   "aria-hidden": "true",
 })`
-  flex-basis: 260px;
+  min-width: 260px;
 `;
 
 export default ProductList;

@@ -47,7 +47,7 @@ const Wrapper = styled.div`
     width: auto;
   }
 `;
-const ImgBox = styled.div`
+export const ImgBox = styled.div`
   width: 100%;
   object-fit: contain;
 `;
