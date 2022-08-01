@@ -4,107 +4,38 @@ import cl from "src/constants/color/color";
 
 import ReviewForm from "./ReviewForm";
 import Rating from "./Rating";
+import { IReview } from "../../../interface/review.interface";
 
-const ReviewSection = () => {
+const ReviewSection = ({ reviews }: { reviews: IReview[] }) => {
   return (
     <Container>
       <Header>HEAR FROM OUR CUSTOMERS</Header>
       <MainSection>
         <ReviewContainer>
-          <SingleReviewContainer>
-            <LeftPartContainer>
-              <LeftAvatarBox>
-                <img
-                  src="https://cdn.britannica.com/36/231936-050-63D849FB/Timothee-Chalamet-2021.jpg"
-                  alt=""
-                />
-              </LeftAvatarBox>
-            </LeftPartContainer>
-            <RightReviewBody>
-              <SingleReviewHeader>
-                <Author>Miller Mike</Author>
-                <Date>2020.06.15</Date>
-              </SingleReviewHeader>
-              <StarsContainer>
-                <Rating readonly initialRating={4.5} />
-              </StarsContainer>
-              <ReviewContentContainer>
-                <ReviewContent>
-                  A small river named Duden flows by their place and supplies it
-                  with the necessary regelialia.
-                </ReviewContent>
-              </ReviewContentContainer>
-            </RightReviewBody>
-          </SingleReviewContainer>
-          <SingleReviewContainer>
-            <LeftPartContainer>
-              <LeftAvatarBox>
-                <img
-                  src="https://cdn.britannica.com/36/231936-050-63D849FB/Timothee-Chalamet-2021.jpg"
-                  alt=""
-                />
-              </LeftAvatarBox>
-            </LeftPartContainer>
-            <RightReviewBody>
-              <SingleReviewHeader>
-                <Author>Miller Mike</Author>
-                <Date>2020.06.15</Date>
-              </SingleReviewHeader>
-              <StarsContainer></StarsContainer>
-              <ReviewContentContainer>
-                <ReviewContent>
-                  A small river named Duden flows by their place and supplies it
-                  with the necessary regelialia.
-                </ReviewContent>
-              </ReviewContentContainer>
-            </RightReviewBody>
-          </SingleReviewContainer>
-          <SingleReviewContainer>
-            <LeftPartContainer>
-              <LeftAvatarBox>
-                <img
-                  src="https://cdn.britannica.com/36/231936-050-63D849FB/Timothee-Chalamet-2021.jpg"
-                  alt=""
-                />
-              </LeftAvatarBox>
-            </LeftPartContainer>
-            <RightReviewBody>
-              <SingleReviewHeader>
-                <Author>Miller Mike</Author>
-                <Date>2020.06.15</Date>
-              </SingleReviewHeader>
-              <StarsContainer></StarsContainer>
-              <ReviewContentContainer>
-                <ReviewContent>
-                  A small river named Duden flows by their place and supplies it
-                  with the necessary regelialia.
-                </ReviewContent>
-              </ReviewContentContainer>
-            </RightReviewBody>
-          </SingleReviewContainer>
-          <SingleReviewContainer>
-            <LeftPartContainer>
-              <LeftAvatarBox>
-                <img
-                  src="https://cdn.britannica.com/36/231936-050-63D849FB/Timothee-Chalamet-2021.jpg"
-                  alt=""
-                />
-              </LeftAvatarBox>
-            </LeftPartContainer>
-            <RightReviewBody>
-              <SingleReviewHeader>
-                <Author>Miller Mike</Author>
-                <Date>2020.06.15</Date>
-              </SingleReviewHeader>
-              <StarsContainer></StarsContainer>
-              <ReviewContentContainer>
-                <ReviewContent>
-                  A small river named Duden flows by their place and supplies it
-                  with the necessary regelialia.
-                </ReviewContent>
-              </ReviewContentContainer>
-            </RightReviewBody>
-          </SingleReviewContainer>
+          {reviews.map((review, index) => (
+            <SingleReviewContainer key={review.reviewId}>
+              <LeftPartContainer>
+                <LeftAvatarBox>
+                  <img
+                    src={review.user.avatarUpload || review.user.avatarDefault}
+                    alt="avatar"
+                  />
+                </LeftAvatarBox>
+              </LeftPartContainer>
+              <RightReviewBody>
+                <SingleReviewHeader>
+                  <Author>{`${review.user.firstName} ${review.user.lastName}`}</Author>
+                  <Date>{review.createdAt}</Date>
+                </SingleReviewHeader>
+                <StarsContainer>
+                  <Rating readonly initialRating={review.rating} />
+                </StarsContainer>
+                <ReviewContentContainer>
+                  <ReviewContent>{review.comment}</ReviewContent>
+                </ReviewContentContainer>
+              </RightReviewBody>
+            </SingleReviewContainer>
+          ))}
         </ReviewContainer>
         <ReviewForm />
       </MainSection>

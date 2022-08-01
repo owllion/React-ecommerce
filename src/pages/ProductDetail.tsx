@@ -1,18 +1,56 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import styled, { css } from "styled-components";
-import cl from "../constants/color/color";
+import { useNavigate, useParams } from "react-router-dom";
 
+import cl from "../constants/color/color";
 import PlusMinusBtn from "../components/Common/PlusMinusBtn";
 import AddToCartBtn from "../components/Product/AddToCartBtn";
 import ReviewSection from "../components/Product/Review/ReviewSection";
+import { getProductDetailApi } from "../api/product.api";
+import { IProduct } from "../interface/product.interface";
+import { IReview } from "../interface/review.interface";
+import { BsRecord } from "react-icons/bs";
+import { string } from "prop-types";
 
-const imgList = ["t1", "t2", "t3", "t4"];
 const sizeList = ["XS", "S", "M", "L", "XL"];
-
 const ProductDetail = () => {
-  const [mainImg, setMainImg] = useState("t1");
+  const { id } = useParams();
+
+  const [mainImg, setMainImg] = useState("");
   const [selectedSizeIndex, setSelectedSizeIndex] = useState(0);
+  const [detail, setDetail] = useState<IProduct>({
+    _id: "",
+    productId: "",
+    productName: "",
+    imageList: [],
+    price: 0,
+    salePrice: 0,
+    brand: "",
+    category: "",
+    description: "",
+    stock: 0,
+    availability: false,
+    sales: 0,
+    size: "",
+    reviews: [],
+  });
+
+  const getDetail = async () => {
+    try {
+      const {
+        data: { productDetail },
+      } = await getProductDetailApi({ productId: id });
+      console.log(productDetail, "這是detail");
+      setDetail(productDetail);
+      setMainImg(productDetail.imageList[0]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getDetail();
+  }, []);
 
   return (
     <Container>
@@ -20,23 +58,23 @@ const ProductDetail = () => {
         <TopSection>
           <Left>
             <MainImgBox>
-              <MainImg src={require(`../assets/temp/${mainImg}.jpg`)} />
+              <MainImg src={mainImg} />
             </MainImgBox>
             <Thumbs>
-              {imgList.map((img, index) => (
-                <Thumb onClick={() => setMainImg(img)} key={index}>
-                  <ThumbImg src={require(`../assets/temp/${img}.jpg`)} />
+              {detail.imageList.map((url, index) => (
+                <Thumb onClick={() => setMainImg(url)} key={index}>
+                  <ThumbImg src={url} />
                 </Thumb>
               ))}
             </Thumbs>
           </Left>
           <Right>
-            <Name>RAVEN JACKET</Name>
-            <Price>$105.99</Price>
+            <Name>{detail.productName}</Name>
+            <Price>${detail.price}</Price>
             <Spacer />
             <ColorContainer>
               <ColorTitle>Color</ColorTitle>
-              <SelectedColor>Black</SelectedColor>
+              <SelectedColor>Blue</SelectedColor>
             </ColorContainer>
             <SizeContainer>
               <SizeTitle>Size</SizeTitle>
@@ -62,16 +100,11 @@ const ProductDetail = () => {
               </AddToCartBtnBox>
             </BtnBox>
             <DetailSection>
-              <Detail>
-                The HANSON mid-length wool coat is a must-have item every autumn
-                and winter. It follows the classic, and the wool blend is
-                slightly narrower. It is a single-breasted design item with a
-                unique ALLSAINTS brand tone.
-              </Detail>
+              <Detail>{detail.description}</Detail>
             </DetailSection>
           </Right>
         </TopSection>
-        <ReviewSection />
+        <ReviewSection reviews={detail.reviews} />
       </Wrapper>
     </Container>
   );
@@ -118,12 +151,14 @@ const Thumbs = styled.ul`
   justify-content: space-between;
 `;
 const Thumb = styled.li`
-  width: 23%;
+  width: 30%;
+
   margin-top: 5%;
   background: ${cl.white};
 `;
 const ThumbImg = styled.img`
   width: 100%;
+  height: 100%;
   object-fit: contain;
   cursor: pointer;
 `;
@@ -192,6 +227,7 @@ const SizeItem = styled.li<{ nowSelected: number; nowIndex: number }>`
   @media (max-width: 500px) {
     margin-right: 0.4rem;
   }
+  cursor: pointer;
   border-radius: 50%;
   width: 40px;
   height: 40px;

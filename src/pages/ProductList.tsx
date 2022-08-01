@@ -3,6 +3,7 @@ import { AxiosRequestConfig } from "axios";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import qs from "qs";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "../store/hooks";
 import cl from "../constants/color/color";
 import { productListMotion, productItemMotion } from "../lib/motion";
@@ -32,6 +33,7 @@ const ProductList = () => {
     (state) => state.product
   );
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const [activeSort, setActiveSort] = useState(false);
   const [activeFilter, setActiveFilter] = useState(false);
@@ -63,6 +65,11 @@ const ProductList = () => {
   const handlePageClick = (event: { selected: number }) => {
     setCurPage(event.selected + 1);
     window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleNavigate = (id: string | undefined) => {
+    //can be undefined coz  <Spacer/> have no data.
+    navigate(`/product-detail/${id}`);
   };
 
   const getSortAndOrderVal = (type: string) => {
@@ -148,7 +155,10 @@ const ProductList = () => {
             <>
               <ItemContainer as={motion.div} layout>
                 {productList.map((item, index) => (
-                  <ItemBox key={item.productId}>
+                  <ItemBox
+                    key={item.productId}
+                    onClick={() => handleNavigate(item.productId)}
+                  >
                     {Object.keys(item).length > 0 ? (
                       <SingleProduct item={item as IProduct} />
                     ) : (

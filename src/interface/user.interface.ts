@@ -7,14 +7,24 @@ export interface Data {
     user: {
       name: string;
       email: string;
-      avatarRnDefault: string;
+      avatarDefault: string;
+      avatarUpload: string;
       favList: IProduct[];
       couponList: ICoupon[];
       cartList: IProduct[];
     };
   };
 }
-
+export interface IUser {
+  firstName: string;
+  lastName: string;
+  email: string;
+  avatarDefault: string;
+  avatarUpload: string;
+  favList: IProduct[];
+  couponList: ICoupon[];
+  cartList: IProduct[];
+}
 export interface IUpload {
   file: string | Blob | Buffer;
 }

@@ -1,3 +1,5 @@
+import { IReview } from "./review.interface";
+
 export interface IProduct {
   _id: string;
   productId: string;
@@ -11,8 +13,10 @@ export interface IProduct {
   stock: number;
   availability: boolean;
   sales: number;
+  size: string;
+  reviews: IReview[];
 }
 
-export interface getProductDetail {
-  productId: string;
+export interface IGetProductDetail {
+  productId: string | undefined;
 }
