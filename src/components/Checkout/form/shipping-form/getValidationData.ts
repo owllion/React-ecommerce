@@ -9,8 +9,8 @@ const validationRulesList = [
   {
     name: "maxLength",
     maxLength: {
-      value: 20,
-      message: "Input cannot exceed 20 characters",
+      value: 30,
+      message: "Input cannot exceed 30 characters",
     },
   },
   {

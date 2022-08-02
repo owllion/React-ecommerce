@@ -16,7 +16,7 @@ import {
   RowFlexBox,
   LeftInputBox,
   RightInputBox,
-} from "../Checkout/form/shipping-form/ShippingForm";
+} from "../Checkout/form/shipping-form/ShippingForm.style";
 import { getValidationData } from "../Checkout/form/shipping-form/getValidationData";
 import { baseInput, baseLabel } from "../Product/Review/ReviewForm";
 import RegistrationImg from "../../assets/login/signup.png";

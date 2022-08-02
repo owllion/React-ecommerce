@@ -1,41 +1,87 @@
-import React, { useState } from "react";
-
+import React, { ChangeEvent, useState } from "react";
 import styled, { css } from "styled-components";
-import cl from "../../../constants/color/color";
+import { useForm, SubmitHandler, FieldError } from "react-hook-form";
 
+import cl from "src/constants/color/color";
 import { ShopBtn } from "../../Home/Hero";
+import FieldErr from "src/components/error/FieldErr";
+import { getValidationData } from "../../Checkout/form/shipping-form/getValidationData";
 import Rating from "./Rating";
 
+interface FormValue {
+  name: string;
+  email: string;
+  comment: string;
+}
 const ReviewForm = () => {
   const [rating, setRating] = useState(5);
+  const [count, setCount] = useState(0);
+
   const handleRating = (res: number) => setRating(res);
+  const handleCountCharacters = (
+    event: React.ChangeEvent<HTMLTextAreaElement>
+  ) => setCount(event.target.value.length);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isDirty, isValid },
+  } = useForm<FormValue>();
+
+  const onSubmit: SubmitHandler<FormValue> = (data) => console.log(data);
+  console.log(errors);
+  const { onChange, name, ref } = register(
+    "comment",
+    getValidationData(["required"])
+  );
 
   return (
     <RightWritingReviewContainer>
       <ReviewTitle>Add Your Review</ReviewTitle>
-      <ReviewFormContainer>
+
+      <FormContainer onSubmit={handleSubmit(onSubmit)}>
         <UserRatingContainer>
           <Rating handleRating={handleRating} initialRating={rating} />
           <Score>{rating}</Score>
         </UserRatingContainer>
         <ReviewAreaBox>
-          <ReviewAreaLabel>How was your overall experience?</ReviewAreaLabel>
-          <ReviewArea rows={5} cols={10}></ReviewArea>
+          <Label error={errors.comment}>How was your overall experience?</Label>
+          <ReviewArea
+            error={errors.comment}
+            {...register("comment", {
+              onChange: (e) => handleCountCharacters(e),
+              ...getValidationData(["required"]),
+            })}
+          />
+          <CountCharactersContainer>
+            <Count count={count}>{count}/300</Count>
+          </CountCharactersContainer>
+          <FieldErr errors={errors} field="comment" />
         </ReviewAreaBox>
         <InputContainer>
           <ReviewUserNameBox>
-            <ReviewUserNameLabel>Name</ReviewUserNameLabel>
-            <ReviewUserName></ReviewUserName>
+            <Label error={errors.name}>Name</Label>
+            <Input
+              error={errors.name}
+              {...register("name", {
+                ...getValidationData(["required", "maxLength"]),
+              })}
+            />
+            <FieldErr errors={errors} field="name" />
           </ReviewUserNameBox>
 
           <ReviewEmailBox>
-            <ReviewEmailLabel>Email</ReviewEmailLabel>
-            <ReviewEmail></ReviewEmail>
+            <Label error={errors.email}>Email</Label>
+            <Input
+              error={errors.email}
+              {...register("email", getValidationData(["email", "required"]))}
+            />
+            <FieldErr errors={errors} field="email" />
           </ReviewEmailBox>
         </InputContainer>
 
         <SubmitBtn>Submit</SubmitBtn>
-      </ReviewFormContainer>
+      </FormContainer>
     </RightWritingReviewContainer>
   );
 };
@@ -50,9 +96,28 @@ export const baseInput = css`
     outline: transparent;
   }
 `;
+export const baseLabel = css`
+  color: ${cl.darkenGray};
+  font-size: 0.8rem;
+`;
+export const Label = styled.label<{ error?: FieldError }>`
+  ${baseLabel}
+  display:block;
+  color: ${({ error }) => error && `${cl.red}`};
+`;
+export const Input = styled.input<{ error?: FieldError }>`
+  ${baseInput}
+  border-color: ${({ error }) => (error ? `${cl.red}` : `${cl.gray}`)};
+`;
 
+const CountCharactersContainer = styled.div`
+  padding-top: 0.7rem;
+`;
+const Count = styled.span`
+  color: ${({ count }: { count: number }) =>
+    count >= 270 ? `${cl.red}` : `${cl.dark}`};
+`;
 const RightWritingReviewContainer = styled.div`
-  /* width: calc(40%-24px); */
   flex: 1;
   @media (max-width: 768px) {
     margin-right: 0;
@@ -64,7 +129,7 @@ const ReviewTitle = styled.h3`
   font-weight: 600;
   line-height: 2rem;
 `;
-const ReviewFormContainer = styled.div``;
+const FormContainer = styled.form``;
 const UserRatingContainer = styled.div`
   margin: 2rem 0;
   font-size: 2rem;
@@ -77,26 +142,20 @@ const Score = styled.span`
   font-weight: 600;
 `;
 
-export const baseLabel = css`
-  color: ${cl.darkenGray};
-  font-size: 0.8rem;
-`;
 const ReviewAreaBox = styled.div`
   display: flex;
   flex-direction: column;
 `;
-const ReviewAreaLabel = styled.label`
-  ${baseLabel}
-`;
-const ReviewArea = styled.textarea.attrs(
-  ({ cols, rows }: { cols: number; rows: number }) => ({
-    cols,
-    rows,
-  })
-)`
+const ReviewArea = styled.textarea.attrs(() => ({
+  cols: "5",
+  rows: "5",
+  maxLength: "300",
+}))`
   padding: 1rem;
   border-radius: 5px;
-  border: 1px solid ${cl.gray};
+  border: 1px solid
+    ${(props: { error?: FieldError }) =>
+      props.error ? `${cl.red}` : `${cl.gray}`};
   min-height: 40%;
   &:focus {
     outline: transparent;
@@ -121,13 +180,6 @@ const ReviewUserNameBox = styled.div`
   margin-top: 1rem;
 `;
 
-const ReviewUserName = styled.input`
-  ${baseInput}
-`;
-const ReviewUserNameLabel = styled.label`
-  ${baseLabel}
-`;
-
 const ReviewEmailBox = styled.div`
   width: 100%;
   @media (min-width: 768px) {
@@ -136,12 +188,6 @@ const ReviewEmailBox = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 1rem;
-`;
-const ReviewEmail = styled.input`
-  ${baseInput}
-`;
-const ReviewEmailLabel = styled.label`
-  ${baseLabel}
 `;
 
 const SubmitBtn = styled(ShopBtn)`

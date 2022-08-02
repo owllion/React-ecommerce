@@ -5,7 +5,7 @@ import { IoIosCamera } from "react-icons/io";
 
 import { baseInput, baseLabel } from "../Product/Review/ReviewForm";
 import cl from "../../constants/color/color";
-import { SingleInputBox } from "../Checkout/form/shipping-form/ShippingForm";
+import { SingleInputBox } from "../Checkout/form/shipping-form/ShippingForm.style";
 import SectionTitle from "./SectionTitle";
 import SaveBtn from "./SaveBtn";
 import avatar from "../../assets/avatar/avatar1.svg";

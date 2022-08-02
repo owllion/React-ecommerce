@@ -1,18 +1,15 @@
-import React, { useState } from "react";
-
-import { useForm, SubmitHandler, FieldError } from "react-hook-form";
-import styled, { css } from "styled-components";
-
-import cl from "src/constants/color/color";
+import { useState } from "react";
+import { useForm, SubmitHandler } from "react-hook-form";
 
 import { SectionTitle } from "../payment-form/PaymentForm.style";
-import { baseInput, baseLabel } from "src/components/Product/Review/ReviewForm";
 
 import { countries } from "src/data/countries";
 import { getValidationData } from "./getValidationData";
 
 import Select from "src/components/Product/Select";
 import FieldErr from "src/components/error/FieldErr";
+
+import * as SC from "./ShippingForm.style";
 
 interface FormValue {
   firstName: string;
@@ -44,13 +41,13 @@ const ShippingForm = () => {
   console.log(errors);
 
   return (
-    <ShippingContainer>
+    <SC.ShippingContainer>
       <SectionTitle>SHIPPING ADDRESS</SectionTitle>
-      <FormContainer onSubmit={handleSubmit(onSubmit)}>
-        <RowFlexBox>
-          <LeftInputBox>
-            <Label error={errors.firstName}>First Name</Label>
-            <Input
+      <SC.FormContainer onSubmit={handleSubmit(onSubmit)}>
+        <SC.RowFlexBox>
+          <SC.LeftInputBox>
+            <SC.Label error={errors.firstName}>First Name</SC.Label>
+            <SC.Input
               error={errors.firstName}
               {...register(
                 "firstName",
@@ -58,11 +55,11 @@ const ShippingForm = () => {
               )}
             />
             <FieldErr errors={errors} field="firstName" />
-          </LeftInputBox>
+          </SC.LeftInputBox>
 
-          <RightInputBox>
-            <Label error={errors.lastName}>Last Name</Label>
-            <Input
+          <SC.RightInputBox>
+            <SC.Label error={errors.lastName}>Last Name</SC.Label>
+            <SC.Input
               error={errors.lastName}
               {...register(
                 "lastName",
@@ -70,11 +67,11 @@ const ShippingForm = () => {
               )}
             />
             <FieldErr errors={errors} field="lastName" />
-          </RightInputBox>
-        </RowFlexBox>
+          </SC.RightInputBox>
+        </SC.RowFlexBox>
 
-        <SingleInputBox>
-          <Label>Country</Label>
+        <SC.SingleInputBox>
+          <SC.Label>Country</SC.Label>
           <Select
             fullWidth={true}
             listData={countries}
@@ -82,21 +79,21 @@ const ShippingForm = () => {
             selectedName={selectedCountry}
             active={active}
           />
-        </SingleInputBox>
+        </SC.SingleInputBox>
 
-        <SingleInputBox>
-          <Label>Address</Label>
-          <Input
+        <SC.SingleInputBox>
+          <SC.Label>Address</SC.Label>
+          <SC.Input
             error={errors.address}
             {...register("address", getValidationData(["required"]))}
           />
           <FieldErr errors={errors} field="address" />
-        </SingleInputBox>
+        </SC.SingleInputBox>
 
-        <RowFlexBox>
-          <LeftInputBox>
-            <Label error={errors.state}>State/County</Label>
-            <Input
+        <SC.RowFlexBox>
+          <SC.LeftInputBox>
+            <SC.Label error={errors.state}>State/County</SC.Label>
+            <SC.Input
               error={errors.state}
               {...register(
                 "state",
@@ -104,58 +101,21 @@ const ShippingForm = () => {
               )}
             />
             <FieldErr errors={errors} field="state" />
-          </LeftInputBox>
-          <RightInputBox>
-            <Label error={errors.zip}>Zip code</Label>
-            <Input
+          </SC.LeftInputBox>
+          <SC.RightInputBox>
+            <SC.Label error={errors.zip}>Zip code</SC.Label>
+            <SC.Input
               error={errors.zip}
               {...register("zip", getValidationData(["required", "numeric"]))}
             />
             <FieldErr errors={errors} field="zip" />
-          </RightInputBox>
-        </RowFlexBox>
+          </SC.RightInputBox>
+        </SC.RowFlexBox>
 
         <button type="submit">submit</button>
-      </FormContainer>
-    </ShippingContainer>
+      </SC.FormContainer>
+    </SC.ShippingContainer>
   );
 };
-const ShippingContainer = styled.div``;
-const FormContainer = styled.form``;
-const Label = styled.label<{ error?: FieldError }>`
-  ${baseLabel}
-  display:block;
-  color: ${({ error }) => error && `${cl.red}`};
-`;
 
-export const RowFlexBox = styled.div`
-  display: flex;
-  margin-top: 1.2rem;
-  @media (max-width: 500px) {
-    flex-direction: column;
-  }
-`;
-const baseInputBox = css`
-  width: 50%;
-  @media (max-width: 500px) {
-    width: 100%;
-    margin-right: 0;
-    margin-top: 1.2rem;
-  }
-`;
-export const LeftInputBox = styled.div`
-  ${baseInputBox}
-  margin-right: 2rem;
-`;
-export const RightInputBox = styled.div`
-  ${baseInputBox}
-`;
-export const SingleInputBox = styled.div`
-  width: 100%;
-  margin-top: 1.2rem;
-`;
-const Input = styled.input<{ error?: FieldError }>`
-  ${baseInput}
-  border-color: ${({ error }) => (error ? `${cl.red}` : `${cl.gray}`)};
-`;
 export default ShippingForm;

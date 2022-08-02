@@ -12,7 +12,7 @@ import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { FormContainer, PayBtn } from "../form/payment-form/PaymentForm.style";
 import { baseInput, baseLabel } from "../../Product/Review/ReviewForm";
 import { useOptions } from "src/hooks/useOptions";
-import { SingleInputBox } from "../form/shipping-form/ShippingForm";
+import { SingleInputBox } from "../form/shipping-form/ShippingForm.style";
 import { getValidationData } from "../form/shipping-form/getValidationData";
 
 interface FormValue {
