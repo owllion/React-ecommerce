@@ -12,6 +12,7 @@
     "@testing-library/user-event": "^13.5.0",
     "@types/react-lottie": "^1.2.6",
     "axios": "^0.27.2",
+    "dayjs": "^1.11.4",
     "framer-motion": "^6.3.11",
     "lottie-react": "^2.2.1",
     "prop-types": "^15.8.1",

@@ -1,16 +1,19 @@
 import React from "react";
 import ReactLottie from "react-lottie";
-
+import { motion } from "framer-motion";
 import styled from "styled-components";
+
+import { productListMotion } from "../../lib/motion";
 import productNotFound from "../../assets/no-result/product-not-found.json";
 import sleepingAnt from "../../assets/no-result/sleeping-ant.json";
 import coupon from "../../assets/no-result/coupon.json";
-
+import noData from "../../assets/no-result/no-data.json";
 const Lottie = ({ jsonName }: { jsonName: string }) => {
   const Json = {
     productNotFound,
     sleepingAnt,
     coupon,
+    noData,
   };
   const options = {
     loop: true,
@@ -21,7 +24,7 @@ const Lottie = ({ jsonName }: { jsonName: string }) => {
     },
   };
   return (
-    <Container>
+    <Container as={motion.div} {...productListMotion}>
       <ReactLottie
         options={options}
         height={220}

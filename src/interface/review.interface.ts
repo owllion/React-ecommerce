@@ -12,5 +12,5 @@ export interface IReview {
   reviewId: string;
   comment: string;
   user: IUser;
-  createdAt: string;
+  createdAt: Date;
 }

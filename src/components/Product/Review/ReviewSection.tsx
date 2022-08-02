@@ -1,9 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import cl from "src/constants/color/color";
+import dayjs from "dayjs";
 
+import cl from "src/constants/color/color";
 import ReviewForm from "./ReviewForm";
 import Rating from "./Rating";
+import Lottie from "../../Common/Lottie";
 import { IReview } from "../../../interface/review.interface";
 
 const ReviewSection = ({ reviews }: { reviews: IReview[] }) => {
@@ -12,30 +14,38 @@ const ReviewSection = ({ reviews }: { reviews: IReview[] }) => {
       <Header>HEAR FROM OUR CUSTOMERS</Header>
       <MainSection>
         <ReviewContainer>
-          {reviews.map((review, index) => (
-            <SingleReviewContainer key={review.reviewId}>
-              <LeftPartContainer>
-                <LeftAvatarBox>
-                  <img
-                    src={review.user.avatarUpload || review.user.avatarDefault}
-                    alt="avatar"
-                  />
-                </LeftAvatarBox>
-              </LeftPartContainer>
-              <RightReviewBody>
-                <SingleReviewHeader>
-                  <Author>{`${review.user.firstName} ${review.user.lastName}`}</Author>
-                  <Date>{review.createdAt}</Date>
-                </SingleReviewHeader>
-                <StarsContainer>
-                  <Rating readonly initialRating={review.rating} />
-                </StarsContainer>
-                <ReviewContentContainer>
-                  <ReviewContent>{review.comment}</ReviewContent>
-                </ReviewContentContainer>
-              </RightReviewBody>
-            </SingleReviewContainer>
-          ))}
+          {!reviews.length ? (
+            <Lottie jsonName="noData" />
+          ) : (
+            reviews.map((review) => (
+              <SingleReviewContainer key={review.reviewId}>
+                <LeftPartContainer>
+                  <LeftAvatarBox>
+                    <img
+                      src={
+                        review.user.avatarUpload || review.user.avatarDefault
+                      }
+                      alt="avatar"
+                    />
+                  </LeftAvatarBox>
+                </LeftPartContainer>
+                <RightReviewBody>
+                  <SingleReviewHeader>
+                    <Author>{`${review.user.firstName} ${review.user.lastName}`}</Author>
+                    <Date>
+                      {dayjs(review.createdAt).format("YYYY MMMM DD")}
+                    </Date>
+                  </SingleReviewHeader>
+                  <StarsContainer>
+                    <Rating readonly initialRating={review.rating} />
+                  </StarsContainer>
+                  <ReviewContentContainer>
+                    <ReviewContent>{review.comment}</ReviewContent>
+                  </ReviewContentContainer>
+                </RightReviewBody>
+              </SingleReviewContainer>
+            ))
+          )}
         </ReviewContainer>
         <ReviewForm />
       </MainSection>
