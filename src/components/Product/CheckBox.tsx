@@ -1,4 +1,4 @@
-import React, { ChangeEventHandler } from "react";
+import { ChangeEventHandler } from "react";
 import styled, { keyframes } from "styled-components";
 import { useAppSelector } from "../../store/hooks";
 enum List {
@@ -15,7 +15,10 @@ interface IProps {
 }
 const CheckBox = ({ item, current, handleSetCheckVal }: IProps) => {
   const selectedList = useAppSelector((state) => state.product);
-  type selectedListString = keyof typeof selectedList;
+  type selectedListString =
+    | "selectedCategory"
+    | "selectedBrand"
+    | "selectedPrice";
   return (
     <Container>
       {/* name -> for multi/single choose

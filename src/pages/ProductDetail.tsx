@@ -1,20 +1,19 @@
-import React, { useState, useEffect } from "react";
-
+import { useState, useEffect } from "react";
 import styled, { css } from "styled-components";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
+import { useAppDispatch } from "../store/hooks";
 import cl from "../constants/color/color";
 import PlusMinusBtn from "../components/Common/PlusMinusBtn";
 import AddToCartBtn from "../components/Product/AddToCartBtn";
 import ReviewSection from "../components/Product/Review/ReviewSection";
 import { getProductDetailApi } from "../api/product.api";
 import { IProduct } from "../interface/product.interface";
-import { IReview } from "../interface/review.interface";
-import { BsRecord } from "react-icons/bs";
-import { string } from "prop-types";
+import { productActions } from "../store/slice/Product.slice";
 
 const sizeList = ["XS", "S", "M", "L", "XL"];
 const ProductDetail = () => {
+  const dispatch = useAppDispatch();
   const { id } = useParams();
 
   const [mainImg, setMainImg] = useState("");
@@ -41,9 +40,11 @@ const ProductDetail = () => {
       const {
         data: { productDetail },
       } = await getProductDetailApi({ productId: id });
-      console.log(productDetail, "這是detail");
+
       setDetail(productDetail);
+      dispatch(productActions.setProductReviews(productDetail.reviews));
       setMainImg(productDetail.imageList[0]);
+      dispatch(productActions.setProductId(productDetail._id));
     } catch (error) {
       console.log(error);
     }
@@ -104,7 +105,7 @@ const ProductDetail = () => {
             </DetailSection>
           </Right>
         </TopSection>
-        <ReviewSection reviews={detail.reviews} />
+        <ReviewSection />
       </Wrapper>
     </Container>
   );
@@ -119,7 +120,6 @@ const Container = styled.div`
 const Wrapper = styled.div`
   max-width: 1100px;
   margin: 0 auto;
-  /* background-color: coral; */
   display: flex;
   flex-direction: column;
 `;

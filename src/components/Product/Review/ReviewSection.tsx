@@ -6,16 +6,17 @@ import cl from "src/constants/color/color";
 import ReviewForm from "./ReviewForm";
 import Rating from "./Rating";
 import Lottie from "../../Common/Lottie";
-import { IReview } from "../../../interface/review.interface";
+import { useAppSelector } from "../../../store/hooks";
 
-const ReviewSection = ({ reviews }: { reviews: IReview[] }) => {
+const ReviewSection = () => {
+  const { reviews } = useAppSelector((state) => state.product);
   return (
     <Container>
       <Header>HEAR FROM OUR CUSTOMERS</Header>
       <MainSection>
         <ReviewContainer>
-          {!reviews.length ? (
-            <Lottie jsonName="noData" />
+          {!reviews?.length ? (
+            <Lottie jsonName="noData" text="Be the first one to comment!" />
           ) : (
             reviews.map((review) => (
               <SingleReviewContainer key={review.reviewId}>

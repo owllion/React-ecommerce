@@ -8,7 +8,7 @@ import productNotFound from "../../assets/no-result/product-not-found.json";
 import sleepingAnt from "../../assets/no-result/sleeping-ant.json";
 import coupon from "../../assets/no-result/coupon.json";
 import noData from "../../assets/no-result/no-data.json";
-const Lottie = ({ jsonName }: { jsonName: string }) => {
+const Lottie = ({ jsonName, text }: { jsonName: string; text?: string }) => {
   const Json = {
     productNotFound,
     sleepingAnt,
@@ -32,7 +32,7 @@ const Lottie = ({ jsonName }: { jsonName: string }) => {
         isPaused={false}
         isStopped={false}
       />
-      <Text>No Data Found</Text>
+      <Text>{text || "No data found"}</Text>
     </Container>
   );
 };

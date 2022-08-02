@@ -30,8 +30,11 @@ const FilterOptionList = ({ title, itemList }: IProps) => {
     const {
       target: { value },
     } = event;
-    // console.log("now title", { title });
-    const nowSelectedType = `set${title}` as keyof typeof productActions;
+
+    const nowSelectedType = `set${title}` as
+      | "setCategory"
+      | "setBrand"
+      | "setPrice";
     dispatch(productActions[nowSelectedType](value));
   };
 

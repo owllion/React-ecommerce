@@ -1,12 +1,15 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import { useForm, SubmitHandler, FieldError } from "react-hook-form";
 
 import cl from "src/constants/color/color";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { ShopBtn } from "../../Home/Hero";
 import FieldErr from "src/components/error/FieldErr";
 import { getValidationData } from "../../Checkout/form/shipping-form/getValidationData";
 import Rating from "./Rating";
+import { createReview } from "../../../api/user.api";
+import { productActions } from "../../../store/slice/Product.slice";
 
 interface FormValue {
   name: string;
@@ -14,6 +17,9 @@ interface FormValue {
   comment: string;
 }
 const ReviewForm = () => {
+  const dispatch = useAppDispatch();
+  const { productId } = useAppSelector((state) => state.product);
+
   const [rating, setRating] = useState(5);
   const [count, setCount] = useState(0);
 
@@ -25,15 +31,24 @@ const ReviewForm = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isDirty, isValid },
+    formState: { errors },
   } = useForm<FormValue>();
 
-  const onSubmit: SubmitHandler<FormValue> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<FormValue> = async (data) => {
+    try {
+      const {
+        data: { review },
+      } = await createReview({
+        comment: data.comment,
+        rating,
+        product: productId,
+      });
+      dispatch(productActions.updateProductReviews(review));
+    } catch (error) {
+      console.log(error);
+    }
+  };
   console.log(errors);
-  const { onChange, name, ref } = register(
-    "comment",
-    getValidationData(["required"])
-  );
 
   return (
     <RightWritingReviewContainer>

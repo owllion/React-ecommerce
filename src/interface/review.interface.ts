@@ -1,10 +1,9 @@
 import { IProduct } from "../interface/product.interface";
 import { IUser } from "./user.interface";
-export interface CreateReviewInterface {
+export interface ICreateReview {
   comment: string;
   rating: number;
-  user: string;
-  product: IProduct;
+  product: string;
 }
 
 export interface IReview {
