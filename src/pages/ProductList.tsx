@@ -3,11 +3,16 @@ import { AxiosRequestConfig } from "axios";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import qs from "qs";
-import { useLocation, useNavigate } from "react-router-dom";
+import {
+  useLocation,
+  useNavigate,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
+
 import { useAppSelector, useAppDispatch } from "../store/hooks";
 import cl from "../constants/color/color";
 import { productListMotion, productItemMotion } from "../lib/motion";
-
 import { sortOptions } from "../data/sortOptions";
 
 import SingleProduct from "../components/Product/SingleProduct";
@@ -27,13 +32,24 @@ interface IProductList {
     ];
   };
 }
-
+interface ILocation {
+  state: {
+    keyword: string;
+  };
+}
 const ProductList = () => {
   const { selectedBrand, selectedPrice, selectedCategory } = useAppSelector(
     (state) => state.product
   );
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const [keyword, setKeyword] = useState("");
+  const [searchParams] = useSearchParams();
+
+  // const params = useParams<{
+  //   category: string;
+  // }>();
+  // console.log(params.category);
 
   const [activeSort, setActiveSort] = useState(false);
   const [activeFilter, setActiveFilter] = useState(false);
@@ -42,6 +58,8 @@ const ProductList = () => {
   const [productList, setProductList] = useState<
     (IProduct | Partial<IProduct>)[]
   >([]);
+  // Partial because there might be some <Spacer/> which have no data.
+
   const [curPage, setCurPage] = useState(1);
   const [totalCount, setTotalCount] = useState(0);
   const [isTargetWidth, setTargetWidth] = useState(false);
@@ -81,7 +99,7 @@ const ProductList = () => {
     let config: AxiosRequestConfig = {
       params: {
         page: curPage || 1,
-        keyword: "",
+        keyword: keyword || "",
         sortBy: getSortAndOrderVal("sort"),
         orderBy: selectedVal === "all" ? "" : getSortAndOrderVal("order"),
         brands: selectedBrand || "",
@@ -91,6 +109,7 @@ const ProductList = () => {
       paramsSerializer: (params) =>
         qs.stringify(params, { arrayFormat: "repeat" }),
     };
+    console.log("來看看config", { config });
     try {
       const {
         data: { productList },
@@ -107,37 +126,61 @@ const ProductList = () => {
           ),
         ].forEach((_, i) => list.push({}));
       }
+
+      console.log("這是拿到的list", list);
       setProductList(list);
+      setCurPage(1);
     } catch (error) {
       console.log(error);
     }
   };
   const isPadWidth = window.matchMedia("(max-width: 1200px)");
 
-  isPadWidth.addEventListener("change", (event: MediaQueryListEvent) => {
-    setTargetWidth(event.matches);
+  useEffect(() => {
+    isPadWidth.addEventListener("change", (event: MediaQueryListEvent) => {
+      setTargetWidth(event.matches);
+    });
+    return () =>
+      isPadWidth.removeEventListener("change", (event: MediaQueryListEvent) => {
+        setTargetWidth(event.matches);
+      });
   });
 
-  useEffect(() => {
-    setCurPage(1);
-    getProductList();
-  }, [selectedCategory, selectedBrand, selectedPrice]);
+  // useEffect(() => {
+  //   setCurPage(1);
+  //   getProductList();
+  // }, [selectedCategory, selectedBrand, selectedPrice]);
+
+  // useEffect(() => {
+  //   getProductList();
+  // }, [curPage, selectedVal, isTargetWidth]);
 
   useEffect(() => {
-    getProductList();
-  }, [curPage, selectedVal, isTargetWidth]);
+    const currentParams = Object.fromEntries([...searchParams]);
 
-  useEffect(() => {
+    console.log("useEffect", currentParams);
+
     dispatch(productActions.clearAllState());
+
+    currentParams.keyword && setKeyword(currentParams.keyword);
+    currentParams.category &&
+      dispatch(productActions.setCategory(currentParams.category));
+
     getProductList();
-  }, []);
+    console.log("這是searchParams");
+  }, [searchParams]);
+
+  // useEffect(() => {
+  //   getProductList();
+  //   console.log("一進來的呼叫 []");
+  // }, []);
 
   return (
     <>
       <Container as={motion.div} {...productListMotion}>
         <Wrapper>
           <Top>
-            <PageTitle>All Products</PageTitle>
+            <PageTitle>All Products {selectedVal}</PageTitle>
             <Func>
               <Filter active={activeFilter} handleActive={handleActiveFilter} />
               <Select

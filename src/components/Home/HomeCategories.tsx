@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import { categories } from "../../data/data";
 import HomeCategoryItem from "./HomeCategoryItem";
-import { motion } from "framer-motion";
 
 const HomeCategories = () => {
   return (

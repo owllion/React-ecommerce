@@ -1,22 +1,30 @@
 import React from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+
 import cl from "../../constants/color/color";
 import { ShopBtn } from "./Hero";
 import { motion } from "framer-motion";
 import { homeCategoryItemMotion } from "../../lib/motion";
 
 interface IProps {
-  item: { title: string; img: string };
+  item: { title: string; img: string; category: string };
   index: number;
 }
 
-const HomeCategoryItem = ({ item: { title, img }, index }: IProps) => {
+const HomeCategoryItem = ({
+  item: { title, img, category },
+  index,
+}: IProps) => {
+  const navigate = useNavigate();
   return (
     <Container as={motion.div} {...homeCategoryItemMotion(index)}>
       <Bg url={img} />
       <Info>
         <Title>{title}</Title>
-        <ShopBtn>SHOP NOW</ShopBtn>
+        <ShopBtn onClick={() => navigate(`/product-list?category=${category}`)}>
+          SHOP NOW
+        </ShopBtn>
       </Info>
     </Container>
   );

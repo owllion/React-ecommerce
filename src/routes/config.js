@@ -84,6 +84,7 @@ export const RouteConfig = () => {
       element: <ResetPassword />,
     },
     { path: "/product-list", element: <ProductList /> },
+    // { path: "/product-list/:category", element: <ProductList /> },
     { path: "/product-detail/:id", element: <ProductDetail /> },
 
     {
