@@ -3,16 +3,10 @@ import { AnyAction } from "redux";
 import { RootState } from "../../store";
 import { ThunkAction } from "redux-thunk";
 import qs from "qs";
-import { IProduct } from "../../../interface/product.interface";
+import { IProductList } from "../../../interface/product.interface";
 import { getProductListApi } from "../../../api/product.api";
 import { commonActions } from "../../slice/Common.slice";
-interface IProductList {
-  data: {
-    productList: [
-      { count: [{ totalDoc: number }]; list: (IProduct | Partial<IProduct>)[] }
-    ];
-  };
-}
+
 const getSortAndOrderVal = (type: string) => {
   return type === "sort"
     ? selectedVal.substring(0, selectedVal.indexOf("-"))
@@ -40,7 +34,7 @@ export const getProductList = (
           qs.stringify(params, { arrayFormat: "repeat" }),
       };
 
-      dispatch(commonActions.setLoading({ isLoading: true }));
+      dispatch(commonActions.setLoading(true));
 
       const {
         data: { productList },
@@ -58,13 +52,13 @@ export const getProductList = (
         ].forEach((_, i) => list.push({}));
       }
 
-      console.log("這是拿到的list", list);
+      //   console.log("這是拿到的list", list);
       setProductList(list);
       setCurPage(1);
-      dispatch(commonActions.setLoading({ isLoading: false }));
+      dispatch(commonActions.setLoading(false));
     } catch (error) {
       const err = error as AxiosError;
-      dispatch(commonActions.setLoading({ isLoading: false }));
+      dispatch(commonActions.setLoading(false));
 
       if (err.response && err.response.data)
         console.log((err.response.data as { msg: string }).msg);

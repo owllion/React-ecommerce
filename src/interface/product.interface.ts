@@ -16,7 +16,13 @@ export interface IProduct {
   size: string;
   reviews: IReview[];
 }
-
+export interface IProductList {
+  data: {
+    productList: [
+      { count: [{ totalDoc: number }]; list: (IProduct | Partial<IProduct>)[] }
+    ];
+  };
+}
 export interface IGetProductDetail {
   productId: string | undefined;
 }
