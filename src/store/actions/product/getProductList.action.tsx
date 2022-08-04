@@ -1,31 +1,40 @@
 import { AxiosRequestConfig, AxiosError } from "axios";
-import { AnyAction } from "redux";
-import { RootState } from "../../store";
-import { ThunkAction } from "redux-thunk";
+// import { AnyAction } from "redux";
+import { AppThunk } from "../../store";
+// import { ThunkAction } from "redux-thunk";
 import qs from "qs";
-import { IProductList } from "../../../interface/product.interface";
+import { IProductList, IProduct } from "../../../interface/product.interface";
 import { getProductListApi } from "../../../api/product.api";
 import { commonActions } from "../../slice/Common.slice";
+import { productActions } from "../../slice/Product.slice";
 
-const getSortAndOrderVal = (type: string) => {
-  return type === "sort"
-    ? selectedVal.substring(0, selectedVal.indexOf("-"))
-    : selectedVal.substring(selectedVal.indexOf("-") + 1);
-};
-
-export const getProductList = (
-  params: string
-): ThunkAction<void, RootState, unknown, AnyAction> => {
+const getProductList = (keyword: string): AppThunk => {
   return async (dispatch, getState) => {
-    const state = getState().product;
-    const { selectedBrand, selectedCategory, selectedPrice } = state;
     try {
+      console.log("有被呼叫嗎");
+      const state = getState().product;
+      const {
+        curPage,
+        selectedSort,
+        selectedBrand,
+        selectedCategory,
+        selectedPrice,
+        isTargetWidth,
+      } = state;
+      const getSortAndOrderVal = (type: string, val: string) => {
+        return type === "sort"
+          ? val.substring(0, val.indexOf("-"))
+          : val.substring(val.indexOf("-") + 1);
+      };
       let config: AxiosRequestConfig = {
         params: {
           page: curPage || 1,
           keyword: keyword || "",
-          sortBy: getSortAndOrderVal("sort"),
-          orderBy: selectedVal === "all" ? "" : getSortAndOrderVal("order"),
+          sortBy: getSortAndOrderVal("sort", selectedSort),
+          orderBy:
+            selectedSort === "all"
+              ? ""
+              : getSortAndOrderVal("order", selectedSort),
           brands: selectedBrand || "",
           categories: selectedCategory || "",
           price: selectedPrice || "",
@@ -41,8 +50,7 @@ export const getProductList = (
       }: IProductList = await getProductListApi(config);
 
       const { count, list } = productList?.[0];
-
-      setTotalCount(count?.[0]?.totalDoc);
+      dispatch(productActions.setTotalProductNum(count?.[0]?.totalDoc));
 
       if (list.length % (isTargetWidth ? 3 : 4) !== 0) {
         [
@@ -52,9 +60,7 @@ export const getProductList = (
         ].forEach((_, i) => list.push({}));
       }
 
-      //   console.log("這是拿到的list", list);
-      setProductList(list);
-      setCurPage(1);
+      dispatch(productActions.setProductList(list as IProduct[]));
       dispatch(commonActions.setLoading(false));
     } catch (error) {
       const err = error as AxiosError;
@@ -65,3 +71,5 @@ export const getProductList = (
     }
   };
 };
+
+export default getProductList;

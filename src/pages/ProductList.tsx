@@ -9,7 +9,7 @@ import {
   useParams,
   useSearchParams,
 } from "react-router-dom";
-
+import { AnyAction } from "redux";
 import { useAppSelector, useAppDispatch } from "../store/hooks";
 import cl from "../constants/color/color";
 import { productListMotion, productItemMotion } from "../lib/motion";
@@ -24,23 +24,23 @@ import Lottie from "../components/Common/Lottie";
 import { productActions } from "../store/slice/Product.slice";
 import { getProductListApi } from "../api/product.api";
 import { IProduct } from "../interface/product.interface";
-
-interface IProductList {
-  data: {
-    productList: [
-      { count: [{ totalDoc: number }]; list: (IProduct | Partial<IProduct>)[] }
-    ];
-  };
-}
+import getProductList from "../store/actions/product/getProductList.action";
 interface ILocation {
   state: {
     keyword: string;
   };
 }
 const ProductList = () => {
-  const { selectedBrand, selectedPrice, selectedCategory } = useAppSelector(
-    (state) => state.product
-  );
+  const {
+    totalNum,
+    productList,
+    selectedSort,
+    curPage,
+    isTargetWidth,
+    selectedCategory,
+    selectedBrand,
+    selectedPrice,
+  } = useAppSelector((state) => state.product);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [keyword, setKeyword] = useState("");
@@ -53,16 +53,16 @@ const ProductList = () => {
 
   const [activeSort, setActiveSort] = useState(false);
   const [activeFilter, setActiveFilter] = useState(false);
-  const [selectedName, setSelectedName] = useState("");
-  const [selectedVal, setSelectedVal] = useState("");
-  const [productList, setProductList] = useState<
-    (IProduct | Partial<IProduct>)[]
-  >([]);
+  const [sortBy, setSortBy] = useState("");
+  // const [selectedVal, setSelectedVal] = useState("");
+  // const [productList, setProductList] = useState<
+  //   (IProduct | Partial<IProduct>)[]
+  // >([]);
   // Partial because there might be some <Spacer/> which have no data.
 
-  const [curPage, setCurPage] = useState(1);
-  const [totalCount, setTotalCount] = useState(0);
-  const [isTargetWidth, setTargetWidth] = useState(false);
+  // const [curPage, setCurPage] = useState(1);
+  // const [totalCount, setTotalCount] = useState(0);
+  // const [isTargetWidth, setTargetWidth] = useState(false);
 
   const handleActiveSort = () => {
     if (activeFilter) setActiveFilter(false);
@@ -74,14 +74,15 @@ const ProductList = () => {
   };
   const handleSetSelected = (params: { name: string; val: string }) => {
     if (params.name && params.val) {
-      setSelectedName(params.name);
-      setSelectedVal(params.val);
+      setSortBy(params.name);
+      dispatch(productActions.setSort(params.val));
     }
     handleActiveSort();
   };
 
   const handlePageClick = (event: { selected: number }) => {
-    setCurPage(event.selected + 1);
+    dispatch(productActions.setCurPage(event.selected + 1));
+
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -90,72 +91,68 @@ const ProductList = () => {
     navigate(`/product-detail/${id}`);
   };
 
-  const getSortAndOrderVal = (type: string) => {
-    return type === "sort"
-      ? selectedVal.substring(0, selectedVal.indexOf("-"))
-      : selectedVal.substring(selectedVal.indexOf("-") + 1);
-  };
-  const getProductList = async () => {
-    let config: AxiosRequestConfig = {
-      params: {
-        page: curPage || 1,
-        keyword: keyword || "",
-        sortBy: getSortAndOrderVal("sort"),
-        orderBy: selectedVal === "all" ? "" : getSortAndOrderVal("order"),
-        brands: selectedBrand || "",
-        categories: selectedCategory || "",
-        price: selectedPrice || "",
-      },
-      paramsSerializer: (params) =>
-        qs.stringify(params, { arrayFormat: "repeat" }),
-    };
-    console.log("來看看config", { config });
-    try {
-      const {
-        data: { productList },
-      }: IProductList = await getProductListApi(config);
+  // const getProductList = async () => {
+  //   let config: AxiosRequestConfig = {
+  //     params: {
+  //       page: curPage || 1,
+  //       keyword: keyword || "",
+  //       sortBy: getSortAndOrderVal("sort"),
+  //       orderBy: selectedVal === "all" ? "" : getSortAndOrderVal("order"),
+  //       brands: selectedBrand || "",
+  //       categories: selectedCategory || "",
+  //       price: selectedPrice || "",
+  //     },
+  //     paramsSerializer: (params) =>
+  //       qs.stringify(params, { arrayFormat: "repeat" }),
+  //   };
+  //   console.log("來看看config", { config });
+  //   try {
+  //     const {
+  //       data: { productList },
+  //     }: IProductList = await getProductListApi(config);
 
-      const { count, list } = productList?.[0];
+  //     const { count, list } = productList?.[0];
 
-      setTotalCount(count?.[0]?.totalDoc);
+  //     setTotalCount(count?.[0]?.totalDoc);
 
-      if (list.length % (isTargetWidth ? 3 : 4) !== 0) {
-        [
-          ...Array(
-            (isTargetWidth ? 3 : 4) - (list.length % (isTargetWidth ? 3 : 4))
-          ),
-        ].forEach((_, i) => list.push({}));
-      }
+  //     if (list.length % (isTargetWidth ? 3 : 4) !== 0) {
+  //       [
+  //         ...Array(
+  //           (isTargetWidth ? 3 : 4) - (list.length % (isTargetWidth ? 3 : 4))
+  //         ),
+  //       ].forEach((_, i) => list.push({}));
+  //     }
 
-      console.log("這是拿到的list", list);
-      setProductList(list);
-      setCurPage(1);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //     console.log("這是拿到的list", list);
+  //     setProductList(list);
+  //     setCurPage(1);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
   const isPadWidth = window.matchMedia("(max-width: 1200px)");
 
   useEffect(() => {
     isPadWidth.addEventListener("change", (event: MediaQueryListEvent) => {
-      setTargetWidth(event.matches);
+      dispatch(productActions.setIsTargetWidth(event.matches));
     });
     return () =>
       isPadWidth.removeEventListener("change", (event: MediaQueryListEvent) => {
-        setTargetWidth(event.matches);
+        dispatch(productActions.setIsTargetWidth(event.matches));
       });
   });
 
-  // useEffect(() => {
-  //   setCurPage(1);
-  //   getProductList();
-  // }, [selectedCategory, selectedBrand, selectedPrice]);
-
-  // useEffect(() => {
-  //   getProductList();
-  // }, [curPage, selectedVal, isTargetWidth]);
+  useEffect(() => {
+    dispatch(productActions.setCurPage(1));
+    dispatch(getProductList(keyword) as unknown as AnyAction);
+  }, [selectedCategory, selectedBrand, selectedPrice]);
 
   useEffect(() => {
+    dispatch(getProductList(keyword) as unknown as AnyAction);
+  }, [curPage, selectedSort, isTargetWidth]);
+
+  useEffect(() => {
+    dispatch(getProductList(keyword) as unknown as AnyAction);
     const currentParams = Object.fromEntries([...searchParams]);
 
     console.log("useEffect", currentParams);
@@ -165,13 +162,12 @@ const ProductList = () => {
     currentParams.keyword && setKeyword(currentParams.keyword);
     currentParams.category &&
       dispatch(productActions.setCategory(currentParams.category));
-
-    getProductList();
+    dispatch(productActions.setCurPage(1));
     console.log("這是searchParams");
   }, [searchParams]);
 
   // useEffect(() => {
-  //   getProductList();
+  //   getProductList(keyword);
   //   console.log("一進來的呼叫 []");
   // }, []);
 
@@ -180,14 +176,14 @@ const ProductList = () => {
       <Container as={motion.div} {...productListMotion}>
         <Wrapper>
           <Top>
-            <PageTitle>All Products {selectedVal}</PageTitle>
+            <PageTitle>All Products</PageTitle>
             <Func>
               <Filter active={activeFilter} handleActive={handleActiveFilter} />
               <Select
                 fullWidth={false}
                 listData={sortOptions}
-                selectedName={selectedName}
-                selectedVal={selectedVal}
+                selectedName={sortBy}
+                selectedVal={selectedSort}
                 active={activeSort}
                 handleActive={handleActiveSort}
                 handleSetSelected={handleSetSelected}
@@ -218,7 +214,7 @@ const ProductList = () => {
 
               <Pagination
                 itemsPerPage={12}
-                itemsLength={totalCount}
+                itemsLength={totalNum}
                 handlePageClick={handlePageClick}
               />
             </>

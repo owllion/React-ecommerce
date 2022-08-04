@@ -3,7 +3,7 @@ import { IReview } from "../../interface/review.interface";
 import { IProduct } from "../../interface/product.interface";
 interface ProductState {
   productId: string;
-  productList: IProduct[];
+  productList: (IProduct | Partial<IProduct>)[];
   reviews: IReview[];
   selectedCategory: string[];
   selectedBrand: string[];
@@ -76,6 +76,7 @@ const productSlice = createSlice({
       state.selectedPrice = "";
       state.selectedBrand = [];
       state.selectedCategory = [];
+      state.selectedSort = "";
     },
   },
 });

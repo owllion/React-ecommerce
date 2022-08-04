@@ -4,6 +4,8 @@ import { configureStore } from "@reduxjs/toolkit";
 import { combineReducers } from "redux";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import { ThunkAction, ThunkDispatch } from "redux-thunk";
+import { AnyAction } from "redux";
 
 import authSlice from "./slice/Auth.slice";
 import orderSlice from "./slice/Order.slice";
@@ -38,4 +40,11 @@ export type RootState = ReturnType<typeof store.getState>;
 // Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
 export type AppDispatch = typeof store.dispatch;
 
+//Redux Thunk type
+export type AppThunk<ReturnType = void> = ThunkAction<
+  ReturnType,
+  RootState,
+  unknown,
+  AnyAction
+>;
 export default store;
