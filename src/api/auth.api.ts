@@ -2,15 +2,15 @@ import instance from "./axios";
 import * as AuthInterface from "../interface/auth.interface";
 
 export const login = (data: AuthInterface.ILogin) =>
-  instance.post("/login", data);
+  instance.post("/auth/login", data);
 
 export const checkIfAccountExists = (data: AuthInterface.ICheckAccount) =>
-  instance.post("/check-account", data);
+  instance.post("/auth/check-account", data);
 
-export const register = (data: AuthInterface.IRegister) =>
-  instance.post("/register", data);
+export const registerApi = (data: AuthInterface.IRegister) =>
+  instance.post("/auth/register", data);
 
 export const getRefreshToken = (data: AuthInterface.IGetRefreshToken) =>
-  instance.post("/getRefreshToken", data);
+  instance.post("/auth/getRefreshToken", data);
 
 export const logout = () => instance.get("/logout");

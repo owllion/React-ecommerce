@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import {
   useForm,
   FormProvider,
@@ -20,22 +20,78 @@ import {
 import { getValidationData } from "../Checkout/form/shipping-form/getValidationData";
 import { baseInput, baseLabel } from "../Product/Review/ReviewForm";
 import RegistrationImg from "../../assets/login/signup.png";
+import { registerApi } from "src/api/auth.api";
+import { useAppDispatch } from "../../store/hooks";
+import { cartActions } from "../../store/slice/Cart.slice";
+import { userActions } from "../../store/slice/User.slice";
+import { IUser } from "../../interface/user.interface";
+import { authActions } from "../../store/slice/Auth.slice";
 
 interface FormValue {
   email: string;
   firstName: string;
   lastName: string;
-  password: string;
+  registerPwd: string;
 }
-
+interface IUserInfo extends IUser {
+  cartLength: number;
+}
+interface IRegisterVal {
+  token: string;
+  refreshToken: string;
+  result: IUserInfo;
+}
 const Registration = () => {
+  const location = useLocation();
+  const dispatch = useAppDispatch();
+
+  const emailParam = (location.state as Pick<FormValue, "email">)?.email;
+
   const methods = useForm<FormValue>();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = methods;
-  const onSubmit: SubmitHandler<FormValue> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<FormValue> = async (data) => {
+    try {
+      const {
+        data: {
+          token,
+          refreshToken,
+          result: {
+            cartLength,
+            avatarUpload,
+            avatarDefault,
+            email,
+            firstName,
+            lastName,
+          },
+        },
+      }: {
+        data: IRegisterVal;
+      } = await registerApi({
+        email: emailParam,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        password: data.registerPwd,
+      });
+      dispatch(authActions.setToken(token));
+      dispatch(authActions.setRefreshToken(refreshToken));
+      dispatch(cartActions.setCartLength(cartLength));
+      dispatch(
+        userActions.setUserInfo({
+          firstName,
+          lastName,
+          email,
+          avatarUpload,
+          avatarDefault,
+        } as IUser)
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
   console.log(errors);
 
   return (
@@ -48,7 +104,7 @@ const Registration = () => {
         <SubTitle>Create your account</SubTitle>
         <InputBox>
           <Label>Email</Label>
-          <Input value="test@gmail.com" />
+          <Input value={emailParam} />
         </InputBox>
         <RowFlexBox>
           <RegistrationLeftInputBox>
@@ -79,7 +135,7 @@ const Registration = () => {
         <PwdInput
           label="Password"
           errors={errors}
-          field="loginPwd"
+          field="registerPwd"
           validation={["required", "passwordValidation"]}
         />
         <BtnBox>

@@ -8,11 +8,11 @@ const authSlice = createSlice({
     refreshToken: "",
   },
   reducers: {
-    login(state, { payload }: PayloadAction<AuthInterface.ILogin>) {},
-    // register(state, { payload }: PayloadAction<Data>) {},
-
-    logout(state) {
-      state.token = "";
+    setToken(state, { payload }: PayloadAction<string>) {
+      state.token = payload;
+    },
+    setRefreshToken(state, { payload }: PayloadAction<string>) {
+      state.refreshToken = payload;
     },
   },
 });

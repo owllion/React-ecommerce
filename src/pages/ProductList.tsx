@@ -89,6 +89,7 @@ const ProductList = () => {
   }, [curPage, selectedSort, isTargetWidth]);
 
   useEffect(() => {
+    //This will execute on the first render
     dispatch(getProductList(keyword) as unknown as AnyAction);
     const currentParams = Object.fromEntries([...searchParams]);
 

@@ -11,7 +11,6 @@ import { productActions } from "../../slice/Product.slice";
 const getProductList = (keyword: string): AppThunk => {
   return async (dispatch, getState) => {
     try {
-      console.log("有被呼叫嗎");
       const state = getState().product;
       const {
         curPage,

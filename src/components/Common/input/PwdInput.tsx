@@ -20,7 +20,6 @@ interface IProps {
 }
 
 const PwdInput = ({ label, field, errors, validation }: IProps) => {
-  console.log(validation);
   const [showPwd, setShowPwd] = useState(false);
   const { register } = useFormContext();
 

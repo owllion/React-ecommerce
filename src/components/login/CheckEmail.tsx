@@ -15,7 +15,6 @@ interface FormValue {
   email: string;
 }
 const CheckEmail = () => {
-  const [email, setEmail] = useState("");
   const navigate = useNavigate();
   const methods = useForm<FormValue>();
   const {
@@ -23,15 +22,20 @@ const CheckEmail = () => {
     handleSubmit,
     formState: { errors },
   } = methods;
-  const onSubmit: SubmitHandler<FormValue> = (data) => setEmail(data.email);
-  console.log(errors);
+  const onSubmit: SubmitHandler<FormValue> = async (email) => {
+    try {
+      const {
+        data: { hasAccount },
+      } = await checkIfAccountExists(email);
 
-  const checkAccountHandler = async () => {
-    const hasAccount = await checkIfAccountExists({ email });
-    hasAccount
-      ? navigate("/login/user-login")
-      : navigate("/login/registration");
+      hasAccount
+        ? navigate("/login/user-login", { state: { email: email.email } })
+        : navigate("/login/registration", { state: { email: email.email } });
+    } catch (error) {
+      console.log(error);
+    }
   };
+  console.log(errors);
 
   return (
     <FormContainer onSubmit={handleSubmit(onSubmit)}>
@@ -49,11 +53,9 @@ const CheckEmail = () => {
         <FieldErr errors={errors} field="email" />
       </InputBox>
       <BtnBox>
-        <Link to={"/login/send-link-notification"}>
-          <Btn bgColor={`${cl.dark}`} onClick={checkAccountHandler}>
-            <BtnText color={`${cl.white}`}>Continue</BtnText>
-          </Btn>
-        </Link>
+        <Btn bgColor={`${cl.dark}`}>
+          <BtnText color={`${cl.white}`}>Continue</BtnText>
+        </Btn>
       </BtnBox>
     </FormContainer>
   );

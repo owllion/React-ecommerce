@@ -10,7 +10,6 @@ interface IProps {
 }
 
 const FieldErr = ({ errors, field }: IProps) => {
-  console.log(errors);
   return (
     <ErrMsgContainer>
       {errors?.[field] && <Msg>{errors[field].message}</Msg>}
