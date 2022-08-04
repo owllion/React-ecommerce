@@ -1,16 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { AxiosRequestConfig } from "axios";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import qs from "qs";
-import {
-  useLocation,
-  useNavigate,
-  useParams,
-  useSearchParams,
-} from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { AnyAction } from "redux";
-import { useAppSelector, useAppDispatch } from "../store/hooks";
+
 import cl from "../constants/color/color";
 import { productListMotion, productItemMotion } from "../lib/motion";
 import { sortOptions } from "../data/sortOptions";
@@ -21,48 +14,31 @@ import Filter from "../components/Product/Filter";
 import Pagination from "../components/Common/Pagination";
 import Lottie from "../components/Common/Lottie";
 
+import { useAppSelector, useAppDispatch } from "../store/hooks";
 import { productActions } from "../store/slice/Product.slice";
-import { getProductListApi } from "../api/product.api";
-import { IProduct } from "../interface/product.interface";
 import getProductList from "../store/actions/product/getProductList.action";
-interface ILocation {
-  state: {
-    keyword: string;
-  };
-}
+import { IProduct } from "../interface/product.interface";
+
 const ProductList = () => {
   const {
+    curPage,
     totalNum,
     productList,
     selectedSort,
-    curPage,
     isTargetWidth,
-    selectedCategory,
     selectedBrand,
     selectedPrice,
+    selectedCategory,
   } = useAppSelector((state) => state.product);
+
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
   const [keyword, setKeyword] = useState("");
   const [searchParams] = useSearchParams();
-
-  // const params = useParams<{
-  //   category: string;
-  // }>();
-  // console.log(params.category);
-
   const [activeSort, setActiveSort] = useState(false);
   const [activeFilter, setActiveFilter] = useState(false);
   const [sortBy, setSortBy] = useState("");
-  // const [selectedVal, setSelectedVal] = useState("");
-  // const [productList, setProductList] = useState<
-  //   (IProduct | Partial<IProduct>)[]
-  // >([]);
-  // Partial because there might be some <Spacer/> which have no data.
-
-  // const [curPage, setCurPage] = useState(1);
-  // const [totalCount, setTotalCount] = useState(0);
-  // const [isTargetWidth, setTargetWidth] = useState(false);
 
   const handleActiveSort = () => {
     if (activeFilter) setActiveFilter(false);
@@ -91,45 +67,6 @@ const ProductList = () => {
     navigate(`/product-detail/${id}`);
   };
 
-  // const getProductList = async () => {
-  //   let config: AxiosRequestConfig = {
-  //     params: {
-  //       page: curPage || 1,
-  //       keyword: keyword || "",
-  //       sortBy: getSortAndOrderVal("sort"),
-  //       orderBy: selectedVal === "all" ? "" : getSortAndOrderVal("order"),
-  //       brands: selectedBrand || "",
-  //       categories: selectedCategory || "",
-  //       price: selectedPrice || "",
-  //     },
-  //     paramsSerializer: (params) =>
-  //       qs.stringify(params, { arrayFormat: "repeat" }),
-  //   };
-  //   console.log("來看看config", { config });
-  //   try {
-  //     const {
-  //       data: { productList },
-  //     }: IProductList = await getProductListApi(config);
-
-  //     const { count, list } = productList?.[0];
-
-  //     setTotalCount(count?.[0]?.totalDoc);
-
-  //     if (list.length % (isTargetWidth ? 3 : 4) !== 0) {
-  //       [
-  //         ...Array(
-  //           (isTargetWidth ? 3 : 4) - (list.length % (isTargetWidth ? 3 : 4))
-  //         ),
-  //       ].forEach((_, i) => list.push({}));
-  //     }
-
-  //     console.log("這是拿到的list", list);
-  //     setProductList(list);
-  //     setCurPage(1);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
   const isPadWidth = window.matchMedia("(max-width: 1200px)");
 
   useEffect(() => {
@@ -163,13 +100,7 @@ const ProductList = () => {
     currentParams.category &&
       dispatch(productActions.setCategory(currentParams.category));
     dispatch(productActions.setCurPage(1));
-    console.log("這是searchParams");
   }, [searchParams]);
-
-  // useEffect(() => {
-  //   getProductList(keyword);
-  //   console.log("一進來的呼叫 []");
-  // }, []);
 
   return (
     <>
@@ -235,7 +166,6 @@ const Container = styled.div`
 const Wrapper = styled.div`
   margin: 0 auto;
   max-width: 1400px;
-  /* background: coral; */
 `;
 const Top = styled.div`
   display: flex;
@@ -245,21 +175,16 @@ const Top = styled.div`
   justify-content: space-between;
   align-items: center;
   max-width: 1150px;
-  /* background: red; */
   margin: 0 auto 2rem auto;
   padding: 2rem;
 `;
-const PageTitle = styled.h1`
-  /* margin-bottom: 2rem;
-  padding-left: 7.5rem; */
-`;
+const PageTitle = styled.h1``;
 const Func = styled.div`
   display: flex;
   @media (max-width: 950px) {
     display: block;
   }
 `;
-
 const ItemContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
