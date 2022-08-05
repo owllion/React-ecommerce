@@ -1,6 +1,6 @@
 import React, { Suspense, useEffect } from "react";
 import { BrowserRouter } from "react-router-dom";
-
+import toast, { Toaster } from "react-hot-toast";
 import { RouteConfig } from "./routes/config";
 import GlobalCss from "./styles/global.css";
 import Navbar from "./components/Common/Navbar";
@@ -10,6 +10,7 @@ import ScrollToTop from "./components/Common/ScrollToTop";
 const App = () => {
   return (
     <BrowserRouter>
+      <Toaster position="top-right" reverseOrder={false} />
       <ScrollToTop>
         <Navbar />
         <GlobalCss />

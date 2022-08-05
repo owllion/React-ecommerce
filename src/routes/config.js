@@ -12,8 +12,8 @@ const WelcomeView = lazy(() => import("../components/Login/WelcomeView.tsx"));
 const CheckEmail = lazy(() => import("../components/Login/CheckEmail.tsx"));
 const HaveAccount = lazy(() => import("../components/Login/HaveAccount.tsx"));
 const Registration = lazy(() => import("../components/Login/Registration.tsx"));
-const SendResetLinkNotification = lazy(() =>
-  import("../components/Login/SendResetLinkNotification")
+const SendLinkNotification = lazy(() =>
+  import("../components/Login/SendLinkNotification")
 );
 const ForgotPassword = lazy(() =>
   import("../components/Login/ForgotPassword.tsx")
@@ -73,18 +73,17 @@ export const RouteConfig = () => {
           path: "forgot-password",
           element: <ForgotPassword />,
         },
-        {
-          path: "send-link-notification",
-          element: <SendResetLinkNotification />,
-        },
       ],
     },
     {
-      path: "reset-password",
+      path: "/reset-password",
       element: <ResetPassword />,
     },
+    {
+      path: "/:linkType/notification",
+      element: <SendLinkNotification />,
+    },
     { path: "/product-list", element: <ProductList /> },
-    // { path: "/product-list/:category", element: <ProductList /> },
     { path: "/product-detail/:id", element: <ProductDetail /> },
 
     {

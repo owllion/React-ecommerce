@@ -1,12 +1,18 @@
-import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 
 import cl from "../../constants/color/color.js";
-import { MainTitle, SubTitle, Btn, BtnText } from "../Login/Common.style";
+import { MainTitle, SubTitle, Btn, BtnText } from "./Common.style";
 import EmailImg from "../../assets/login/at-sign.png";
 
-const SendResetLinkNotification = () => {
+const SendLinkNotification = () => {
+  const params = useParams();
+  const { linkType } = params;
+
+  const location = useLocation();
+  const { email } = location.state as { email: string };
+
   return (
     <Container>
       <IconContainer>
@@ -14,11 +20,11 @@ const SendResetLinkNotification = () => {
       </IconContainer>
       <MainTitle>Check your email</MainTitle>
       <BreakSubTitle>
-        <span>A password reset link was sent.</span>
+        <span>A {linkType} link was sent.</span>
         <span>Don't forget to check your spam box.</span>
       </BreakSubTitle>
       <BtnBox>
-        <Link to={"/login/welcome"}>
+        <Link to={"/login/user-login"} state={{ email }}>
           <Btn bgColor={`${cl.dark}`}>
             <BtnText color={`${cl.white}`}>Back To Login</BtnText>
           </Btn>
@@ -41,4 +47,4 @@ const Icon = styled.img``;
 const BtnBox = styled.div`
   margin-top: 1.3rem;
 `;
-export default SendResetLinkNotification;
+export default SendLinkNotification;

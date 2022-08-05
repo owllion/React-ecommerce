@@ -1,12 +1,12 @@
-import React from "react";
 import styled from "styled-components";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   useForm,
   FormProvider,
   SubmitHandler,
   FieldError,
 } from "react-hook-form";
+import { AnyAction } from "@reduxjs/toolkit";
 
 import cl from "src/constants/color/color.js";
 import { MainTitle, SubTitle, Btn, BtnText } from "../Login/Common.style";
@@ -21,29 +21,25 @@ import { getValidationData } from "../Checkout/form/shipping-form/getValidationD
 import { baseInput, baseLabel } from "../Product/Review/ReviewForm";
 import RegistrationImg from "../../assets/login/signup.png";
 import { registerApi } from "src/api/auth.api";
-import { useAppDispatch } from "../../store/hooks";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { cartActions } from "../../store/slice/Cart.slice";
 import { userActions } from "../../store/slice/User.slice";
 import { IUser } from "../../interface/user.interface";
 import { authActions } from "../../store/slice/Auth.slice";
+import signInOrSignUp from "../../store/actions/auth/signInOrSignUp.action";
 
-interface FormValue {
+export interface FormValue {
   email: string;
+  password: string;
   firstName: string;
   lastName: string;
-  registerPwd: string;
 }
-interface IUserInfo extends IUser {
-  cartLength: number;
-}
-interface IRegisterVal {
-  token: string;
-  refreshToken: string;
-  result: IUserInfo;
-}
+
 const Registration = () => {
+  const { isLoading } = useAppSelector((state) => state.common);
   const location = useLocation();
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const emailParam = (location.state as Pick<FormValue, "email">)?.email;
 
@@ -55,43 +51,18 @@ const Registration = () => {
   } = methods;
   const onSubmit: SubmitHandler<FormValue> = async (data) => {
     try {
-      const {
-        data: {
-          token,
-          refreshToken,
-          result: {
-            cartLength,
-            avatarUpload,
-            avatarDefault,
-            email,
-            firstName,
-            lastName,
-          },
-        },
-      }: {
-        data: IRegisterVal;
-      } = await registerApi({
-        email: emailParam,
-        firstName: data.firstName,
-        lastName: data.lastName,
-        password: data.registerPwd,
-      });
-      dispatch(authActions.setToken(token));
-      dispatch(authActions.setRefreshToken(refreshToken));
-      dispatch(cartActions.setCartLength(cartLength));
-      dispatch(
-        userActions.setUserInfo({
-          firstName,
-          lastName,
-          email,
-          avatarUpload,
-          avatarDefault,
-        } as IUser)
+      await dispatch(
+        signInOrSignUp({
+          ...data,
+          email: emailParam,
+        }) as unknown as AnyAction
       );
-    } catch (error) {
+      navigate("/verify-email/notification", { state: { email: emailParam } });
+    } catch (error: any) {
       console.log(error);
     }
   };
+
   console.log(errors);
 
   return (
@@ -135,12 +106,14 @@ const Registration = () => {
         <PwdInput
           label="Password"
           errors={errors}
-          field="registerPwd"
+          field="password"
           validation={["required", "passwordValidation"]}
         />
         <BtnBox>
-          <Btn bgColor={`${cl.dark}`}>
-            <BtnText color={`${cl.white}`}>Sign Up</BtnText>
+          <Btn bgColor={`${cl.dark}`} disabled={isLoading}>
+            <BtnText color={`${cl.white}`}>
+              {isLoading ? "loading" : "Sign Up"}
+            </BtnText>
           </Btn>
         </BtnBox>
       </FormContainer>

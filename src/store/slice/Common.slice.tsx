@@ -2,13 +2,13 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface IState {
   errorMsg: string;
-  loading: boolean;
+  isLoading: boolean;
   showSearch: boolean;
 }
 
 const initialState: IState = {
   errorMsg: "",
-  loading: false,
+  isLoading: false,
   showSearch: false,
 };
 
@@ -16,14 +16,14 @@ const commonSlice = createSlice({
   name: "common",
   initialState,
   reducers: {
-    setError(state, { payload }: PayloadAction<Error>) {
-      state.errorMsg = payload.message;
+    setError(state, { payload }: PayloadAction<string>) {
+      state.errorMsg = payload;
     },
     setErrorClear(state) {
       state.errorMsg = "";
     },
     setLoading(state, { payload }: PayloadAction<boolean>) {
-      state.loading = payload;
+      state.isLoading = payload;
     },
     setShowSearch(state, { payload }: PayloadAction<boolean>) {
       state.showSearch = payload;

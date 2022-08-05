@@ -1,27 +1,33 @@
 import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
 
 import cl from "../../constants/color/color.js";
 import { MainTitle, SubTitle, Btn, BtnText } from "../Login/Common.style";
 import PwdInput from "../Common/input/PwdInput";
-import { baseInput, baseLabel } from "../Product/Review/ReviewForm";
 import LoginImg from "../../assets/login/login-with-pwd.png";
 import FieldErr from "../error/FieldErr";
 
 interface FormValue {
   email: string;
-  loginPwd: string;
+  password: string;
 }
 
 const HaveAccount = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const emailParam = (location.state as Pick<FormValue, "email">)?.email;
+
   const methods = useForm<FormValue>();
   const {
     handleSubmit,
     formState: { errors },
   } = methods;
-  const onSubmit: SubmitHandler<FormValue> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<FormValue> = async (data) => {
+    try {
+    } catch (error) {}
+  };
   console.log(errors);
 
   return (
@@ -34,7 +40,7 @@ const HaveAccount = () => {
         <SubTitle>Have your money ready.</SubTitle>
 
         <UserEmailBox>
-          <UserEmail>test@gmail.com</UserEmail>
+          <UserEmail>{emailParam}</UserEmail>
           <ForgotPasswordLink to={"/login/forgot-password"}>
             Forgot Password?
           </ForgotPasswordLink>
@@ -43,10 +49,10 @@ const HaveAccount = () => {
         <PwdInput
           label="Password"
           errors={errors}
-          field="loginPwd"
+          field="password"
           validation={["required"]}
         />
-        <FieldErr errors={errors} field="loginPwd" />
+        <FieldErr errors={errors} field="password" />
         <BtnBox>
           <Btn bgColor={`${cl.dark}`}>
             <BtnText color={`${cl.white}`}>Login</BtnText>
