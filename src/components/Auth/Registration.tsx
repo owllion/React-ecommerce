@@ -9,7 +9,7 @@ import {
 import { AnyAction } from "@reduxjs/toolkit";
 
 import cl from "src/constants/color/color.js";
-import { MainTitle, SubTitle, Btn, BtnText } from "../Login/Common.style";
+import { MainTitle, SubTitle, Btn, BtnText } from "./Common.style";
 import FieldErr from "../error/FieldErr";
 import PwdInput from "../Common/input/PwdInput";
 import {
@@ -20,12 +20,7 @@ import {
 import { getValidationData } from "../Checkout/form/shipping-form/getValidationData";
 import { baseInput, baseLabel } from "../Product/Review/ReviewForm";
 import RegistrationImg from "../../assets/login/signup.png";
-import { registerApi } from "src/api/auth.api";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { cartActions } from "../../store/slice/Cart.slice";
-import { userActions } from "../../store/slice/User.slice";
-import { IUser } from "../../interface/user.interface";
-import { authActions } from "../../store/slice/Auth.slice";
 import signInOrSignUp from "../../store/actions/auth/signInOrSignUp.action";
 
 export interface FormValue {
@@ -57,8 +52,11 @@ const Registration = () => {
           email: emailParam,
         }) as unknown as AnyAction
       );
-      navigate("/verify-email/notification", { state: { email: emailParam } });
-    } catch (error: any) {
+      navigate("/auth/verify-email/notification", {
+        state: { email: emailParam },
+        replace: true,
+      });
+    } catch (error) {
       console.log(error);
     }
   };

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 import BackBtn from "../Common/button/BackBtn";
 import cl from "../../constants/color/color.js";
-import { MainTitle, SubTitle, Btn, BtnText } from "../Login/Common.style";
+import { MainTitle, SubTitle, Btn, BtnText } from "./Common.style";
 import { baseInput, baseLabel } from "../Product/Review/ReviewForm";
 import ForgotPwd from "../../assets/login/forgot-pwd.png";
 
@@ -28,7 +28,7 @@ const ForgotPassword = () => {
           <BtnText color={`${cl.white}`}>Reset Password</BtnText>
         </Btn>
       </BtnBox>
-      <BackToLoginLink to={"/login/welcome"}>Back to Login</BackToLoginLink>
+      <BackToLoginLink to={"/auth/welcome"}>Back to Login</BackToLoginLink>
     </FormContainer>
   );
 };

@@ -2,12 +2,12 @@ import React from "react";
 import styled from "styled-components";
 import { Outlet } from "react-router-dom";
 
-const Login = () => {
+const Auth = () => {
   return (
     <Container>
-      <LoginContainer>
+      <AuthContainer>
         <Outlet />
-      </LoginContainer>
+      </AuthContainer>
     </Container>
   );
 };
@@ -18,7 +18,7 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
 `;
-export const LoginContainer = styled.div`
+export const AuthContainer = styled.div`
   padding: 40px 24px;
   width: 100%;
   max-width: 400px;
@@ -33,4 +33,4 @@ export const LoginContainer = styled.div`
     box-shadow: 0 0.1rem 0.5rem rgba(0, 0, 0, 0.15);
   }
 `;
-export default Login;
+export default Auth;

@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import cl from "../../constants/color/color";
-import { MainTitle, SubTitle, Btn, BtnText } from "../Login/Common.style";
+import { MainTitle, SubTitle, Btn, BtnText } from "./Common.style";
 const WelcomeView = () => {
   return (
     <Container>
@@ -20,7 +20,7 @@ const WelcomeView = () => {
       </LoginBtnBox>
       <Divider>OR</Divider>
       <LoginBtnBox>
-        <Link to={"/login/check-email"}>
+        <Link to={"/auth/check-email"}>
           <Btn border>
             <BtnText>Login with Email</BtnText>
           </Btn>

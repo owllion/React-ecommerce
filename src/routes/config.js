@@ -7,19 +7,19 @@ const { token } = store.getState().auth;
 
 const Home = lazy(() => import("../pages/Home"));
 
-const Login = lazy(() => import("../pages/Login.tsx"));
-const WelcomeView = lazy(() => import("../components/Login/WelcomeView.tsx"));
-const CheckEmail = lazy(() => import("../components/Login/CheckEmail.tsx"));
-const HaveAccount = lazy(() => import("../components/Login/HaveAccount.tsx"));
-const Registration = lazy(() => import("../components/Login/Registration.tsx"));
+const Auth = lazy(() => import("../pages/Auth.tsx"));
+const WelcomeView = lazy(() => import("../components/Auth/WelcomeView.tsx"));
+const CheckEmail = lazy(() => import("../components/Auth/CheckEmail.tsx"));
+const HaveAccount = lazy(() => import("../components/Auth/HaveAccount.tsx"));
+const Registration = lazy(() => import("../components/Auth/Registration.tsx"));
 const SendLinkNotification = lazy(() =>
-  import("../components/Login/SendLinkNotification")
+  import("../components/Auth/SendLinkNotification")
 );
 const ForgotPassword = lazy(() =>
-  import("../components/Login/ForgotPassword.tsx")
+  import("../components/Auth/ForgotPassword.tsx")
 );
 const ResetPassword = lazy(() =>
-  import("../components/Login/ResetPassword.tsx")
+  import("../components/Auth/ResetPassword.tsx")
 );
 
 const ProductList = lazy(() => import("../pages/ProductList.tsx"));
@@ -50,8 +50,8 @@ export const RouteConfig = () => {
       element: <Home />,
     },
     {
-      path: "/login",
-      element: <Login />,
+      path: "/auth",
+      element: <Auth />,
       children: [
         {
           path: "welcome",
@@ -73,16 +73,17 @@ export const RouteConfig = () => {
           path: "forgot-password",
           element: <ForgotPassword />,
         },
+        {
+          path: "reset-password",
+          element: <ResetPassword />,
+        },
+        {
+          path: ":linkType/notification",
+          element: <SendLinkNotification />,
+        },
       ],
     },
-    {
-      path: "/reset-password",
-      element: <ResetPassword />,
-    },
-    {
-      path: "/:linkType/notification",
-      element: <SendLinkNotification />,
-    },
+
     { path: "/product-list", element: <ProductList /> },
     { path: "/product-detail/:id", element: <ProductDetail /> },
 

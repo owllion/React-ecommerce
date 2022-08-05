@@ -29,8 +29,8 @@ const CheckEmail = () => {
       } = await checkIfAccountExists(email);
 
       hasAccount
-        ? navigate("/login/user-login", { state: { email: email.email } })
-        : navigate("/login/registration", { state: { email: email.email } });
+        ? navigate("/auth/user-login", { state: { email: email.email } })
+        : navigate("/auth/registration", { state: { email: email.email } });
     } catch (error) {
       console.log(error);
     }

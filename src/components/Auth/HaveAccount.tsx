@@ -4,7 +4,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
 
 import cl from "../../constants/color/color.js";
-import { MainTitle, SubTitle, Btn, BtnText } from "../Login/Common.style";
+import { MainTitle, SubTitle, Btn, BtnText } from "./Common.style";
 import PwdInput from "../Common/input/PwdInput";
 import LoginImg from "../../assets/login/login-with-pwd.png";
 import FieldErr from "../error/FieldErr";
@@ -41,7 +41,7 @@ const HaveAccount = () => {
 
         <UserEmailBox>
           <UserEmail>{emailParam}</UserEmail>
-          <ForgotPasswordLink to={"/login/forgot-password"}>
+          <ForgotPasswordLink to={"/auth/forgot-password"}>
             Forgot Password?
           </ForgotPasswordLink>
         </UserEmailBox>
