@@ -13,11 +13,6 @@ import userSlice from "./slice/User.slice";
 import productSlice from "./slice/Product.slice";
 import commonSlice from "./slice/Common.slice";
 
-const persistConfig = {
-  key: "root",
-  storage,
-};
-
 const reducers = combineReducers({
   auth: authSlice.reducer,
   order: orderSlice.reducer,
@@ -25,6 +20,12 @@ const reducers = combineReducers({
   common: commonSlice.reducer,
   product: productSlice.reducer,
 });
+
+const persistConfig = {
+  key: "root",
+  storage,
+  blacklist: ["common"],
+};
 
 const persistedReducer = persistReducer(persistConfig, reducers);
 //persistedReducer, which is an enhanced reducer with configuration to persist the userReducer state to local storage.

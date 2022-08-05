@@ -1,13 +1,18 @@
-import React from "react";
+import { useEffect } from "react";
 import styled from "styled-components";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
+import { AnyAction } from "@reduxjs/toolkit";
+import toast from "react-hot-toast";
 
+import { useAppDispatch } from "../../store/hooks";
 import cl from "../../constants/color/color.js";
 import { MainTitle, SubTitle, Btn, BtnText } from "./Common.style";
 import PwdInput from "../Common/input/PwdInput";
 import LoginImg from "../../assets/login/login-with-pwd.png";
-import FieldErr from "../error/FieldErr";
+import ApiError from "../error/ApiError";
+import signInOrSignUp from "src/store/actions/auth/signInOrSignUp.action";
+import { commonActions } from "../../store/slice/Common.slice";
 
 interface FormValue {
   email: string;
@@ -15,6 +20,7 @@ interface FormValue {
 }
 
 const HaveAccount = () => {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const emailParam = (location.state as Pick<FormValue, "email">)?.email;
@@ -26,9 +32,22 @@ const HaveAccount = () => {
   } = methods;
   const onSubmit: SubmitHandler<FormValue> = async (data) => {
     try {
-    } catch (error) {}
+      await dispatch(
+        signInOrSignUp({
+          ...data,
+          email: emailParam,
+        }) as unknown as AnyAction
+      );
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
   };
   console.log(errors);
+
+  useEffect(() => {
+    dispatch(commonActions.setErrorClear());
+  }, []);
 
   return (
     <FormProvider {...methods}>
@@ -52,7 +71,8 @@ const HaveAccount = () => {
           field="password"
           validation={["required"]}
         />
-        <FieldErr errors={errors} field="password" />
+        <ApiError />
+
         <BtnBox>
           <Btn bgColor={`${cl.dark}`}>
             <BtnText color={`${cl.white}`}>Login</BtnText>

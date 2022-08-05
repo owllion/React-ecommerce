@@ -46,7 +46,7 @@ const Registration = () => {
   } = methods;
   const onSubmit: SubmitHandler<FormValue> = async (data) => {
     try {
-      await dispatch(
+      dispatch(
         signInOrSignUp({
           ...data,
           email: emailParam,

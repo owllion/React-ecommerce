@@ -9,13 +9,15 @@ import { authActions } from "src/store/slice/Auth.slice";
 import { cartActions } from "src/store/slice/Cart.slice";
 import { userActions } from "src/store/slice/User.slice";
 
-interface IUserInfo extends IUser {
+interface IUserInfo extends Omit<IUser, "favList" | "couponList" | "cartList"> {
   cartLength: number;
 }
 interface IAuthResult {
-  token: string;
-  refreshToken: string;
-  result: IUserInfo;
+  result: {
+    token: string;
+    refreshToken: string;
+    user: IUserInfo;
+  };
 }
 
 const isLogin = (data: Record<string, string>) =>
@@ -28,15 +30,17 @@ const signInOrSignUp = (data: IProps): AppThunk => {
     try {
       const {
         data: {
-          token,
-          refreshToken,
           result: {
-            cartLength,
-            avatarUpload,
-            avatarDefault,
-            email,
-            firstName,
-            lastName,
+            token,
+            refreshToken,
+            user: {
+              cartLength,
+              avatarUpload,
+              avatarDefault,
+              email,
+              firstName,
+              lastName,
+            },
           },
         },
       }: {
@@ -52,6 +56,8 @@ const signInOrSignUp = (data: IProps): AppThunk => {
             lastName: data.lastName,
             password: data.password,
           });
+
+      console.log(token, firstName);
       dispatch(authActions.setToken(token));
       dispatch(authActions.setRefreshToken(refreshToken));
       dispatch(cartActions.setCartLength(cartLength));
@@ -65,7 +71,7 @@ const signInOrSignUp = (data: IProps): AppThunk => {
         } as IUser)
       );
       dispatch(commonActions.setLoading(false));
-      toast.success("Success!");
+      toast.success("You have signed in successfully!");
     } catch (error) {
       const err = error as AxiosError;
 
@@ -73,7 +79,7 @@ const signInOrSignUp = (data: IProps): AppThunk => {
 
       if (err.response && err.response.data) {
         const errMsg = (err.response?.data as { msg: string }).msg;
-        toast.error(errMsg);
+        dispatch(commonActions.setError(errMsg));
         throw new Error(errMsg);
       }
     }
