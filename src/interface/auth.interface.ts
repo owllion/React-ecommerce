@@ -12,3 +12,6 @@ export interface ICheckAccount extends Pick<IRegister, "email"> {}
 export interface IGetRefreshToken {
   refresh: string;
 }
+export interface IVerifyUserEmail {
+  token: string;
+}

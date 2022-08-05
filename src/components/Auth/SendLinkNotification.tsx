@@ -24,7 +24,7 @@ const SendLinkNotification = () => {
         <span>Don't forget to check your spam box.</span>
       </BreakSubTitle>
       <BtnBox>
-        <Link to={"/login/user-login"} state={{ email }}>
+        <Link to={"/auth/user-login"} state={{ email }}>
           <Btn bgColor={`${cl.dark}`}>
             <BtnText color={`${cl.white}`}>Back To Login</BtnText>
           </Btn>
