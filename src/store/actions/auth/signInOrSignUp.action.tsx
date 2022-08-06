@@ -38,6 +38,7 @@ const signInOrSignUp = (data: IProps): AppThunk => {
               avatarUpload,
               avatarDefault,
               email,
+              phone,
               firstName,
               lastName,
             },
@@ -66,6 +67,7 @@ const signInOrSignUp = (data: IProps): AppThunk => {
           firstName,
           lastName,
           email,
+          phone,
           avatarUpload,
           avatarDefault,
         } as IUser)

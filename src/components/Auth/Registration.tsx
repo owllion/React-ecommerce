@@ -133,11 +133,11 @@ const RegistrationLeftInputBox = styled(LeftInputBox)`
   margin-right: 1rem;
 `;
 
-const Input = styled.input<{ error?: FieldError }>`
+export const Input = styled.input<{ error?: FieldError }>`
   ${baseInput}
   border-color: ${({ error }) => (error ? `${cl.red}` : `${cl.gray}`)};
 `;
-const Label = styled.label<{ error?: FieldError }>`
+export const Label = styled.label<{ error?: FieldError }>`
   ${baseLabel}
   color: ${({ error }) => error && `${cl.red}`};
 `;

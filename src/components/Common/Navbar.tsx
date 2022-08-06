@@ -8,17 +8,15 @@ import { IoMdCart, IoIosMenu, IoIosSearch, IoIosLogIn } from "react-icons/io";
 import { MdAccountCircle } from "react-icons/md";
 import SideNav from "./SideNav";
 import HeaderSearch from "./HeaderSearch";
-import { useAppDispatch } from "../../store/hooks";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { commonActions } from "../../store/slice/Common.slice";
-import { useAppSelector } from "../../store/hooks";
 
 const Navbar = () => {
   const { showSearch } = useAppSelector((state) => state.common);
   const dispatch = useAppDispatch();
-
+  const { cartLength } = useAppSelector((state) => state.cart);
   const [showSideNav, setShowSideNav] = useState(false);
   const [colorChange, setColorChange] = useState(false);
-  const [isLoggedIn, setLog] = useState(true);
 
   const handleShowSideNav = <T extends { id: string }>(
     e: React.MouseEvent<T>
@@ -90,7 +88,7 @@ const Navbar = () => {
                     <CartInnerContainer>
                       <IoMdCart />
                       <Badge>
-                        <span>5</span>
+                        <span>{cartLength}</span>
                       </Badge>
                     </CartInnerContainer>
                   </CartContainer>

@@ -12,6 +12,7 @@ import orderSlice from "./slice/Order.slice";
 import userSlice from "./slice/User.slice";
 import productSlice from "./slice/Product.slice";
 import commonSlice from "./slice/Common.slice";
+import cartSlice from "./slice/Cart.slice";
 
 const reducers = combineReducers({
   auth: authSlice.reducer,
@@ -19,6 +20,7 @@ const reducers = combineReducers({
   user: userSlice.reducer,
   common: commonSlice.reducer,
   product: productSlice.reducer,
+  cart: cartSlice.reducer,
 });
 
 const persistConfig = {

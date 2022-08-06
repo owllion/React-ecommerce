@@ -1,9 +1,6 @@
-import React, { lazy } from "react";
+import { lazy } from "react";
 import { useRoutes } from "react-router-dom";
 import ProtectedRoute from "../components/Route/ProtectedRoute";
-import store from "../store/store";
-
-const { token } = store.getState().auth;
 
 const Home = lazy(() => import("../pages/Home"));
 
@@ -44,7 +41,7 @@ const OrderComplete = lazy(() =>
 
 const NotFound = lazy(() => import("../pages/NotFound.tsx"));
 
-export const RouteConfig = () => {
+export const RouteConfig = ({ token }) => {
   let element = useRoutes([
     {
       path: "/",

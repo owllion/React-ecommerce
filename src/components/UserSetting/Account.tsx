@@ -1,27 +1,39 @@
-import React from "react";
-import { useForm, SubmitHandler, FieldError } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import styled from "styled-components";
 import { IoIosCamera } from "react-icons/io";
 
-import { baseInput, baseLabel } from "../Product/Review/ReviewForm";
-import cl from "../../constants/color/color";
 import { SingleInputBox } from "../Checkout/form/shipping-form/ShippingForm.style";
 import SectionTitle from "./SectionTitle";
 import SaveBtn from "./SaveBtn";
 import avatar from "../../assets/avatar/avatar1.svg";
+import FieldErr from "../../components/error/FieldErr";
+import { Label, Input } from "../Auth/Registration";
+import { getValidationData } from "../Checkout/form/shipping-form/getValidationData";
+import { useAppSelector } from "src/store/hooks";
 
 interface FormValue {
-  name: string;
+  firstName: string;
+  lastName: string;
   email: string;
-  phone: number;
+  phone: string;
 }
 
 const Account = () => {
+  const { email, firstName, lastName, phone } = useAppSelector(
+    (state) => state.user
+  );
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormValue>();
+  } = useForm<FormValue>({
+    defaultValues: {
+      firstName,
+      lastName,
+      email,
+      phone,
+    },
+  });
 
   const onSubmit: SubmitHandler<FormValue> = (data) => console.log(data);
   console.log(errors);
@@ -40,12 +52,30 @@ const Account = () => {
 
         <RightForm onSubmit={handleSubmit(onSubmit)}>
           <SingleInputBox>
-            <Label>Name</Label>
-            <Input></Input>
+            <Label error={errors.firstName}>First Name</Label>
+            <Input
+              error={errors.firstName}
+              {...register(
+                "firstName",
+                getValidationData(["required", "maxLength", "alphabetical"])
+              )}
+            />
+            <FieldErr errors={errors} field="firstName" />
+          </SingleInputBox>
+          <SingleInputBox>
+            <Label error={errors.lastName}>Last Name</Label>
+            <Input
+              error={errors.lastName}
+              {...register(
+                "lastName",
+                getValidationData(["required", "alphabetical"])
+              )}
+            />
+            <FieldErr errors={errors} field="lastName" />
           </SingleInputBox>
           <SingleInputBox>
             <Label>Email</Label>
-            <Input disabled value="Test@gmai.com"></Input>
+            <Input readOnly></Input>
           </SingleInputBox>
           <SingleInputBox>
             <Label>Phone</Label>
@@ -112,15 +142,6 @@ const RightForm = styled.form`
     width: 100%;
     padding: 0 0 4.5rem 0;
   }
-`;
-
-const Label = styled.label<{ error?: FieldError }>`
-  ${baseLabel}
-  color: ${({ error }) => error && `${cl.red}`};
-`;
-const Input = styled.input<{ error?: FieldError }>`
-  ${baseInput}
-  border-color: ${({ error }) => (error ? `${cl.red}` : `${cl.gray}`)};
 `;
 
 export default Account;
