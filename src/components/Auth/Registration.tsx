@@ -53,7 +53,7 @@ const Registration = () => {
         }) as unknown as AnyAction
       );
       navigate("/auth/verify-email/notification", {
-        state: { email: emailParam },
+        state: { email: emailParam, type: "verify email" },
         replace: true,
       });
     } catch (error) {

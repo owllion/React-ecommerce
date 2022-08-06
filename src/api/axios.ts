@@ -1,8 +1,10 @@
 import axios, { AxiosError } from "axios";
 import { getRefreshToken } from "./auth.api";
-import store from "../store/store";
+import toast from "react-hot-toast";
 
-const { token, refreshToken } = store.getState().auth;
+const token = localStorage.getItem("token") || "";
+const refreshToken = localStorage.getItem("refreshToken") || "";
+console.log({ token, refreshToken });
 
 const instance = axios.create({
   baseURL: process.env.REACT_APP_BASE_URL,
@@ -14,7 +16,7 @@ const instance = axios.create({
 instance.interceptors.request.use(
   (config) => {
     if (token && config.headers) {
-      config.headers["Authorization"] = !!token;
+      config.headers["Authorization"] = token;
     }
     return config;
   },
@@ -27,16 +29,22 @@ instance.interceptors.response.use(
     return res;
   },
   async (err) => {
-    console.log("originalConfig印出", err.config);
+    console.log("originalConfig", err.config);
     if (err.response) {
       // Access Token was expired
       if (
         err.response.status === 401 &&
-        !err.config &&
-        !err.config.__isRetryRequest
+        err.config &&
+        !err.config.__isRetryRequest &&
+        err.config.url !== "/refresh-token"
       ) {
         try {
-          const token = await getRefreshToken({ refresh: refreshToken });
+          const {
+            data: { token, refreshToken: reToken },
+          } = await getRefreshToken({ refresh: refreshToken });
+
+          localStorage.setItem("token", token);
+          localStorage.setItem("refreshToken", reToken);
 
           err.config.__isRetryRequest = true;
           err.config.headers["Authorization"] = "Bearer " + token;
@@ -45,15 +53,16 @@ instance.interceptors.response.use(
           return await instance(err.config);
         } catch (error) {
           const err = error as AxiosError;
-
-          if (err.response && err.response.data)
+          if (err.response && err.response.data) {
+            // fail to update access_token (refreshToken is expired->cause 401 error)
+            window.location.href = "/auth/welcome";
+            toast.error(`${err.response.status}: Please login again`);
             return Promise.reject(err.response.data);
+          }
 
           return Promise.reject(error);
         }
       }
-      if (err.response.status === 403 && err.response.data)
-        return Promise.reject(err.response.data);
     }
     return Promise.reject(err);
   }

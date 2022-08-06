@@ -7,11 +7,8 @@ import { MainTitle, SubTitle, Btn, BtnText } from "./Common.style";
 import EmailImg from "../../assets/login/at-sign.png";
 
 const SendLinkNotification = () => {
-  const params = useParams();
-  const { linkType } = params;
-
   const location = useLocation();
-  const { email } = location.state as { email: string };
+  const { email, type } = location.state as { email: string; type: string };
 
   return (
     <Container>
@@ -20,7 +17,7 @@ const SendLinkNotification = () => {
       </IconContainer>
       <MainTitle>Check your email</MainTitle>
       <BreakSubTitle>
-        <span>A {linkType} link was sent.</span>
+        <span>A {type} link was sent.</span>
         <span>Don't forget to check your spam box.</span>
       </BreakSubTitle>
       <BtnBox>

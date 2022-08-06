@@ -1,13 +1,14 @@
 import { AxiosError } from "axios";
 import toast from "react-hot-toast";
 
-import { AppThunk } from "../../store";
 import { commonActions } from "../../slice/Common.slice";
 import { IUser } from "../../../interface/user.interface";
+import { AppThunk } from "../../store";
 import { registerApi, loginApi } from "src/api/auth.api";
 import { authActions } from "src/store/slice/Auth.slice";
 import { cartActions } from "src/store/slice/Cart.slice";
 import { userActions } from "src/store/slice/User.slice";
+import localStorage from "redux-persist/es/storage";
 
 interface IUserInfo extends Omit<IUser, "favList" | "couponList" | "cartList"> {
   cartLength: number;
@@ -58,9 +59,10 @@ const signInOrSignUp = (data: IProps): AppThunk => {
             password: data.password,
           });
 
-      console.log(token, firstName);
       dispatch(authActions.setToken(token));
       dispatch(authActions.setRefreshToken(refreshToken));
+      localStorage.setItem("token", token);
+      localStorage.setItem("refreshToken", refreshToken);
       dispatch(cartActions.setCartLength(cartLength));
       dispatch(
         userActions.setUserInfo({
@@ -81,6 +83,8 @@ const signInOrSignUp = (data: IProps): AppThunk => {
 
       if (err.response && err.response.data) {
         const errMsg = (err.response?.data as { msg: string }).msg;
+
+        toast.error(errMsg);
         dispatch(commonActions.setError(errMsg));
         throw new Error(errMsg);
       }

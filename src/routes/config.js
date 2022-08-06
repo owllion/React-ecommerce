@@ -72,7 +72,7 @@ export const RouteConfig = ({ token }) => {
           element: <ForgotPassword />,
         },
         {
-          path: "reset-password",
+          path: "reset-password/token/:token",
           element: <ResetPassword />,
         },
         {

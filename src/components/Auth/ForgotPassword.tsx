@@ -1,16 +1,44 @@
 import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useForm, SubmitHandler, FieldError } from "react-hook-form";
 
 import BackBtn from "../Common/button/BackBtn";
 import cl from "../../constants/color/color.js";
 import { MainTitle, SubTitle, Btn, BtnText } from "./Common.style";
 import { baseInput, baseLabel } from "../Product/Review/ReviewForm";
 import ForgotPwd from "../../assets/login/forgot-pwd.png";
+import { Label, Input } from "./Registration";
+import FieldErr from "../error/FieldErr";
+import { getValidationData } from "../Checkout/form/shipping-form/getValidationData";
+import { forgotPassword } from "src/api/user.api";
 
+interface FormValue {
+  email: string;
+}
 const ForgotPassword = () => {
+  const navigate = useNavigate();
+  const methods = useForm<FormValue>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = methods;
+
+  const onSubmit: SubmitHandler<FormValue> = async (data) => {
+    try {
+      await forgotPassword({ ...data });
+      navigate("/auth/reset-password/notification", {
+        state: { email: data.email, type: "reset password" },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  console.log(errors);
+
   return (
-    <FormContainer>
+    <FormContainer onSubmit={handleSubmit(onSubmit)}>
       <IconContainer>
         <Icon src={ForgotPwd} />
       </IconContainer>
@@ -21,11 +49,15 @@ const ForgotPassword = () => {
       </BreakSubTitle>
       <InputBox>
         <Label>Email</Label>
-        <Input />
+        <Input
+          error={errors.email}
+          {...register("email", getValidationData(["required", "email"]))}
+        />
+        <FieldErr errors={errors} field="email" />
       </InputBox>
       <BtnBox>
         <Btn bgColor={`${cl.dark}`}>
-          <BtnText color={`${cl.white}`}>Reset Password</BtnText>
+          <BtnText color={`${cl.white}`}>Send me reset Link</BtnText>
         </Btn>
       </BtnBox>
       <BackToLoginLink to={"/auth/welcome"}>Back to Login</BackToLoginLink>
@@ -48,12 +80,12 @@ const InputBox = styled.div`
   margin: 0 0 1rem;
 `;
 
-const Input = styled.input`
-  ${baseInput}
-`;
-const Label = styled.label`
-  ${baseLabel}
-`;
+// const Input = styled.input`
+//   ${baseInput}
+// `;
+// const Label = styled.label`
+//   ${baseLabel}
+// `;
 const BtnBox = styled.div`
   margin-top: 1.3rem;
 `;

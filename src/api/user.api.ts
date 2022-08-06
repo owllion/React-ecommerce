@@ -7,10 +7,13 @@ export const upload = (data: UserInterface.IUpload) =>
 
 // export const deleteAvatar = (data) => instance.delete("/user/upload", data);
 
-// export const userInfo = () => instance.get("/user/me");
+// export const userInfo = () => instance.get("/user/:id");
 
 export const forgotPassword = (data: UserInterface.IForgotPassword) =>
   instance.post("/forgot-password", data);
+
+export const resetPassword = (data: UserInterface.IResetPassword) =>
+  instance.post("/reset-password", data);
 
 export const userInfoModify = (data: UserInterface.IUserInfoModify) =>
   instance.patch("/user/info", data);

@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Outlet } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { IoLogOutOutline } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
 
 import cl from "../constants/color/color";
 import { Title } from "./Cart";
@@ -12,11 +13,14 @@ import { logoutApi } from "../api/auth.api";
 
 const Settings = () => {
   const [sureToLogout, setSureToLogout] = useState(false);
-
+  const navigate = useNavigate();
   useEffect(() => {
     const logout = async () => {
       try {
         await logoutApi();
+        navigate("/");
+        localStorage.clear();
+        console.log(localStorage.getItem("token"));
       } catch (error) {
         console.log(error);
       }
