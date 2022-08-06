@@ -75,11 +75,15 @@ const Account = () => {
           </SingleInputBox>
           <SingleInputBox>
             <Label>Email</Label>
-            <Input readOnly></Input>
+            <Input readOnly {...register("email")} />
           </SingleInputBox>
           <SingleInputBox>
-            <Label>Phone</Label>
-            <Input></Input>
+            <Label error={errors.phone}>Phone</Label>
+            <Input
+              error={errors.phone}
+              {...register("phone", getValidationData(["phone"]))}
+            />
+            <FieldErr errors={errors} field="phone" />
           </SingleInputBox>
           <SaveBtn />
         </RightForm>

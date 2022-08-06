@@ -28,6 +28,13 @@ const validationRulesList = [
     },
   },
   {
+    name: "phone",
+    pattern: {
+      value: /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/,
+      message: "Please enter a valid phone number",
+    },
+  },
+  {
     name: "email",
     pattern: {
       value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g,

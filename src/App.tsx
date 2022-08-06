@@ -7,6 +7,7 @@ import Navbar from "./components/Common/Navbar";
 import Footer from "./components/Common/Footer";
 import ScrollToTop from "./components/Common/ScrollToTop";
 import { useAppSelector } from "./store/hooks";
+import "react-confirm-alert/src/react-confirm-alert.css";
 
 const App = () => {
   const { token } = useAppSelector((state) => state.auth);

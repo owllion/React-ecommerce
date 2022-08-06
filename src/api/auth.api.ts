@@ -16,4 +16,4 @@ export const getRefreshToken = (data: AuthInterface.IGetRefreshToken) =>
 export const verifyUserEmailApi = (data: AuthInterface.IVerifyUserEmail) =>
   instance.post("/auth/verify-user", data);
 
-export const logout = () => instance.get("/logout");
+export const logoutApi = () => instance.get("/logout");

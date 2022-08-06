@@ -1,18 +1,46 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
-
-import { IoIosHeart } from "react-icons/io";
-import { IoPersonSharp, IoLogOutOutline } from "react-icons/io5";
-import { FaClipboardList } from "react-icons/fa";
-
-import { RiLockPasswordFill } from "react-icons/ri";
+import { Outlet } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { IoLogOutOutline } from "react-icons/io5";
 
 import cl from "../constants/color/color";
 import { Title } from "./Cart";
+import { sideNavLinks } from "../data/settingSideNavLink";
+import { confirmAlert } from "react-confirm-alert"; // Import
+import { logoutApi } from "../api/auth.api";
 
-import { Outlet } from "react-router-dom";
-import { Link } from "react-router-dom";
 const Settings = () => {
+  const [sureToLogout, setSureToLogout] = useState(false);
+
+  useEffect(() => {
+    const logout = async () => {
+      try {
+        await logoutApi();
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    sureToLogout && logout();
+  }, [sureToLogout]);
+
+  const checkForLogout = () => {
+    confirmAlert({
+      title: "Confirm to logout",
+      message: "Are you sure to do this?",
+      buttons: [
+        {
+          label: "Sure",
+          onClick: () => setSureToLogout(true),
+        },
+        {
+          label: "No",
+          onClick: () => setSureToLogout(false),
+        },
+      ],
+    });
+  };
+
   return (
     <Container>
       <Wrapper>
@@ -20,35 +48,14 @@ const Settings = () => {
         <DesktopWrapper>
           <SideBar>
             <BarItems>
-              <BarItemLink to="/settings/account">
-                <BarItem>
-                  <ItemIcon>
-                    <IoPersonSharp />
-                  </ItemIcon>
-                </BarItem>
-              </BarItemLink>
-              <BarItemLink to="/settings/account-reset-pwd">
-                <BarItem>
-                  <ItemIcon>
-                    <RiLockPasswordFill />
-                  </ItemIcon>
-                </BarItem>
-              </BarItemLink>
-              <BarItemLink to="/settings/fav-list">
-                <BarItem>
-                  <ItemIcon>
-                    <IoIosHeart />
-                  </ItemIcon>
-                </BarItem>
-              </BarItemLink>
-              <BarItemLink to="/settings/order-list">
-                <BarItem>
-                  <ItemIcon>
-                    <FaClipboardList />
-                  </ItemIcon>
-                </BarItem>
-              </BarItemLink>
-              <BarItem>
+              {sideNavLinks.map((item, _) => (
+                <BarItemLink to={item.link} key={item.link}>
+                  <BarItem>
+                    <ItemIcon>{item.icon}</ItemIcon>
+                  </BarItem>
+                </BarItemLink>
+              ))}
+              <BarItem onClick={() => checkForLogout()}>
                 <ItemIcon>
                   <IoLogOutOutline />
                 </ItemIcon>
@@ -77,8 +84,6 @@ const SettingTitle = styled(Title)`
 const Wrapper = styled.div`
   max-width: 1300px;
   margin: 0 auto;
-  /* background-color: coral; */
-
   padding: 0 5rem;
   @media (max-width: 1330px) {
     padding: 0 2rem;
@@ -101,7 +106,6 @@ const DesktopMain = styled.div`
   width: 100%;
   display: flex;
   @media (max-width: 700px) {
-    /* flex-direction: column; */
     padding: 1.5rem;
   }
 `;
@@ -145,7 +149,6 @@ const BarItems = styled.ul`
   }
   @media (max-width: 500px) {
     overflow: scroll;
-    /* padding: 0 0 1.2rem 2rem; */
   }
   @media (max-width: 380px) {
     padding: 0 0 1.2rem 5rem;
