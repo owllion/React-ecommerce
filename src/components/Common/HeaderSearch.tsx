@@ -1,14 +1,22 @@
-import React from "react";
 import styled from "styled-components";
 import { IoMdClose } from "react-icons/io";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+
 import searchImg from "src/assets/search/search.svg";
 import { commonActions } from "../../store/slice/Common.slice";
 import { useAppDispatch } from "../../store/hooks";
 import { searchMotion } from "../../lib/motion";
 
-const Search = () => {
+const HeaderSearch = () => {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const search = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      dispatch(commonActions.setShowSearch(false));
+      navigate(`/product-list?keyword=${event.target.value}`);
+    }
+  };
   return (
     <Container as={motion.div} {...searchMotion}>
       <CloseBtnBox>
@@ -18,7 +26,7 @@ const Search = () => {
       </CloseBtnBox>
       <InputContainer>
         <InputBox>
-          <SearchInput placeholder="Type your search here" />
+          <SearchInput placeholder="Type your search here" onKeyDown={search} />
         </InputBox>
         <SearchSubLine>Enter your search & hit enter</SearchSubLine>
       </InputContainer>
@@ -116,4 +124,4 @@ const ImgBox = styled.div`
 const Img = styled.img`
   width: 100%;
 `;
-export default Search;
+export default HeaderSearch;
