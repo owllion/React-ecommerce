@@ -19,6 +19,7 @@ interface FormValue {
 const ReviewForm = () => {
   const dispatch = useAppDispatch();
   const { productId } = useAppSelector((state) => state.product);
+  const { token } = useAppSelector((state) => state.auth);
 
   const [rating, setRating] = useState(5);
   const [count, setCount] = useState(0);
@@ -95,7 +96,9 @@ const ReviewForm = () => {
           </ReviewEmailBox>
         </InputContainer>
 
-        <SubmitBtn>Submit</SubmitBtn>
+        <SubmitBtn disabled={!token} haveToken={token}>
+          {token ? "Submit" : "Login to leave a comment"}
+        </SubmitBtn>
       </FormContainer>
     </RightWritingReviewContainer>
   );
@@ -205,9 +208,10 @@ const ReviewEmailBox = styled.div`
   margin-top: 1rem;
 `;
 
-const SubmitBtn = styled(ShopBtn)`
+const SubmitBtn = styled(ShopBtn)<{ haveToken: string }>`
   margin-top: 2.5rem;
-  background: #000;
+  background: ${({ haveToken }) => (haveToken ? `${cl.dark}` : `${cl.gray}`)};
+  cursor: ${({ haveToken }) => (haveToken ? "pointer" : "not-allowed")};
   color: ${cl.white};
   display: inline-block;
   padding: 0.7rem 2.3rem;

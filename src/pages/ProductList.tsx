@@ -90,17 +90,18 @@ const ProductList = () => {
 
   useEffect(() => {
     //This will execute on the first render
-    dispatch(getProductList(keyword) as unknown as AnyAction);
     const currentParams = Object.fromEntries([...searchParams]);
 
     console.log("useEffect", currentParams);
 
     dispatch(productActions.clearAllState());
 
-    currentParams.keyword && setKeyword(currentParams.keyword);
+    // currentParams.keyword && setKeyword(currentParams.keyword);
     currentParams.category &&
       dispatch(productActions.setCategory(currentParams.category));
+
     dispatch(productActions.setCurPage(1));
+    dispatch(getProductList(currentParams.keyword) as unknown as AnyAction);
   }, [searchParams]);
 
   return (

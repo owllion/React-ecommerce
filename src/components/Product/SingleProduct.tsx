@@ -23,7 +23,7 @@ const SingleProduct = ({ item }: { item: IProduct }) => {
         </Info>
       </Wrapper>
       <Name>{item.productName}</Name>
-      <Price>{item.price}</Price>
+      <Price>${item.price}</Price>
     </Container>
   );
 };
