@@ -9,6 +9,7 @@ import ScrollToTop from "./components/Common/ScrollToTop";
 import ProtectedRoute from "./components/Route/ProtectedRoute";
 import { useAppSelector } from "./store/hooks";
 import "react-confirm-alert/src/react-confirm-alert.css";
+import "react-loading-skeleton/dist/skeleton.css";
 import {
   Routes,
   Route,

@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import styled, { css } from "styled-components";
 import { useParams } from "react-router-dom";
+import Skeleton from "react-loading-skeleton";
 
-import { useAppDispatch } from "../store/hooks";
+import { useAppDispatch, useAppSelector } from "../store/hooks";
 import cl from "../constants/color/color";
 import PlusMinusBtn from "../components/Common/PlusMinusBtn";
 import AddToCartBtn from "../components/Product/AddToCartBtn";
@@ -10,10 +11,12 @@ import ReviewSection from "../components/Product/Review/ReviewSection";
 import { getProductDetailApi } from "../api/product.api";
 import { IProduct } from "../interface/product.interface";
 import { productActions } from "../store/slice/Product.slice";
+import { commonActions } from "../store/slice/Common.slice";
 
 const sizeList = ["XS", "S", "M", "L", "XL"];
 const ProductDetail = () => {
   const dispatch = useAppDispatch();
+  const { isLoading } = useAppSelector((state) => state.common);
   const { id } = useParams();
 
   const [mainImg, setMainImg] = useState("");
@@ -36,6 +39,7 @@ const ProductDetail = () => {
   });
 
   const getDetail = async () => {
+    dispatch(commonActions.setLoading(true));
     try {
       const {
         data: { productDetail },
@@ -45,7 +49,9 @@ const ProductDetail = () => {
       dispatch(productActions.setProductReviews(productDetail.reviews));
       setMainImg(productDetail.imageList[0]);
       dispatch(productActions.setProductId(productDetail._id));
+      dispatch(commonActions.setLoading(false));
     } catch (error) {
+      dispatch(commonActions.setLoading(false));
       console.log(error);
     }
   };
@@ -59,7 +65,11 @@ const ProductDetail = () => {
         <TopSection>
           <Left>
             <MainImgBox>
-              <MainImg src={mainImg} />
+              {isLoading ? (
+                <Skeleton height={500} />
+              ) : (
+                <MainImg src={mainImg} />
+              )}
             </MainImgBox>
             <Thumbs>
               {detail.imageList.map((url, index) => (
@@ -70,8 +80,8 @@ const ProductDetail = () => {
             </Thumbs>
           </Left>
           <Right>
-            <Name>{detail.productName}</Name>
-            <Price>${detail.price}</Price>
+            <Name>{isLoading ? <Skeleton /> : detail.productName}</Name>
+            <Price> {isLoading ? <Skeleton /> : `$${detail.price}`} </Price>
             <Spacer />
             <ColorContainer>
               <ColorTitle>Color</ColorTitle>
@@ -101,7 +111,9 @@ const ProductDetail = () => {
               </AddToCartBtnBox>
             </BtnBox>
             <DetailSection>
-              <Detail>{detail.description}</Detail>
+              <Detail>
+                {isLoading ? <Skeleton count={6} /> : detail.description}
+              </Detail>
             </DetailSection>
           </Right>
         </TopSection>
@@ -134,12 +146,13 @@ const TopSection = styled.section`
 const Left = styled.div`
   flex: 1;
   width: 100%;
-  @media (max-width: 1000px) {
+  /* @media (max-width: 1000px) {
     width: 100%;
-  }
+  } */
 `;
 const MainImgBox = styled.div`
   width: 100%;
+  /* min-height: 100%; */
 `;
 const MainImg = styled.img`
   width: 100%;

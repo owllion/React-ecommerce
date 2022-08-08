@@ -19,9 +19,8 @@ interface FormValue {
 }
 
 const Account = () => {
-  const { email, firstName, lastName, phone } = useAppSelector(
-    (state) => state.user
-  );
+  const { email, firstName, lastName, phone, avatarDefault, avatarUpload } =
+    useAppSelector((state) => state.user);
   const {
     register,
     handleSubmit,
@@ -43,7 +42,7 @@ const Account = () => {
       <SectionTitle title="Account" />
       <Wrapper>
         <LeftAvatar>
-          <DropAvatarBox avatar={avatar}>
+          <DropAvatarBox avatar={avatarUpload || avatarDefault}>
             <CameraIconBox>
               <IoIosCamera />
             </CameraIconBox>
@@ -114,7 +113,7 @@ const LeftAvatar = styled.div`
   justify-content: center;
   padding-top: 5rem;
 `;
-const DropAvatarBox = styled.div<{ avatar: string }>`
+const DropAvatarBox = styled.div<{ avatar: string | undefined }>`
   position: relative;
   cursor: pointer;
   width: 300px;

@@ -21,11 +21,18 @@ const Navbar = () => {
   const [showSideNav, setShowSideNav] = useState(false);
   const [colorChange, setColorChange] = useState(false);
 
-  const handleShowSideNav = <T extends { id: string }>(
-    e: React.MouseEvent<T> | React.KeyboardEvent<T>
-  ) => {
+  const isKeyboardEvent = (
+    event: React.KeyboardEvent | React.MouseEvent
+  ): event is React.KeyboardEvent => {
+    return event && "code" in event;
+  };
+
+  const handleShowSideNav = (event: React.MouseEvent | React.KeyboardEvent) => {
     const target = ["backdrop", "close", "closeIcon", "navLink"];
-    if (target.includes((e.target as unknown as T).id)) {
+    if (
+      isKeyboardEvent(event) ||
+      target.includes((event.target as HTMLDivElement | HTMLAnchorElement)?.id)
+    ) {
       setShowSideNav(false);
     }
   };
@@ -200,21 +207,20 @@ const SearchIcon = styled.div`
     display: none;
   }
 `;
-// const AccountIcon = styled.div`
-//   font-size: 1.5rem;
-//   @media (max-width: 700px) {
-//     display: none;
-//   }
-// `;
+
 const AvatarBox = styled.div`
   border-radius: 50%;
-  height: 64px;
-  width: 64px;
+  height: 50px;
+  width: 50px;
+  @media (max-width: 700px) {
+    display: none;
+  }
 `;
 const Avatar = styled.img`
   border-radius: 50%;
   height: 100%;
   width: 100%;
+  object-fit: cover;
 `;
 const LoginBtn = styled(ShopBtn)`
   border-radius: 5px;

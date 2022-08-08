@@ -8,40 +8,61 @@ import Rating from "./Rating";
 import Lottie from "../../Common/Lottie";
 import { useAppSelector } from "../../../store/hooks";
 
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+
 const ReviewSection = () => {
   const { reviews } = useAppSelector((state) => state.product);
+  const { isLoading } = useAppSelector((state) => state.common);
   return (
     <Container>
       <Header>HEAR FROM OUR CUSTOMERS</Header>
       <MainSection>
         <ReviewContainer>
-          {!reviews?.length ? (
+          {!isLoading && !reviews?.length ? (
             <Lottie jsonName="noData" text="Be the first one to comment!" />
           ) : (
             reviews.map((review) => (
               <SingleReviewContainer key={review.reviewId}>
                 <LeftPartContainer>
                   <LeftAvatarBox>
-                    <img
-                      src={
-                        review.user.avatarUpload || review.user.avatarDefault
-                      }
-                      alt="avatar"
-                    />
+                    {isLoading ? (
+                      <Skeleton
+                        circle
+                        height="100%"
+                        containerClassName="avatar-skeleton"
+                      />
+                    ) : (
+                      <img
+                        src={
+                          review.user.avatarUpload || review.user.avatarDefault
+                        }
+                        alt="avatar"
+                      />
+                    )}
                   </LeftAvatarBox>
                 </LeftPartContainer>
                 <RightReviewBody>
-                  <SingleReviewHeader>
-                    <Author>{`${review.user.firstName} ${review.user.lastName}`}</Author>
-                    <Date>
-                      {dayjs(review.createdAt).format("YYYY MMMM DD")}
-                    </Date>
-                  </SingleReviewHeader>
+                  {isLoading ? (
+                    <Skeleton width={300} />
+                  ) : (
+                    <SingleReviewHeader>
+                      <Author>{`${review.user.firstName} ${review.user.lastName}`}</Author>
+                      <Date>
+                        {dayjs(review.createdAt).format("YYYY MMMM DD")}
+                      </Date>
+                    </SingleReviewHeader>
+                  )}
                   <StarsContainer>
-                    <Rating readonly initialRating={review.rating} />
+                    {isLoading ? (
+                      <Skeleton width={100} />
+                    ) : (
+                      <Rating readonly initialRating={review.rating} />
+                    )}
                   </StarsContainer>
                   <ReviewContentContainer>
-                    <ReviewContent>{review.comment}</ReviewContent>
+                    <ReviewContent>
+                      {isLoading ? <Skeleton count={5} /> : review.comment}
+                    </ReviewContent>
                   </ReviewContentContainer>
                 </RightReviewBody>
               </SingleReviewContainer>
@@ -134,7 +155,9 @@ const Date = styled.span`
 
 const StarsContainer = styled.div``;
 
-const ReviewContentContainer = styled.div``;
+const ReviewContentContainer = styled.div`
+  margin-top: 0.8rem;
+`;
 const ReviewContent = styled.p`
   margin: 0;
 `;
