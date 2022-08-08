@@ -24,7 +24,13 @@ const navList = [
 ];
 
 interface IProps {
+<<<<<<< HEAD
   handleShowSideNav: (e: React.MouseEvent | React.KeyboardEvent) => void;
+=======
+  handleShowSideNav: <T extends { id: string }>(
+    e: React.MouseEvent<T> | React.KeyboardEvent<T>
+  ) => void;
+>>>>>>> 2ae9bf63c87856fc7ad02494d335a20548a1e8a1
 }
 const SideNav = ({ handleShowSideNav }: IProps) => {
   const navigate = useNavigate();
