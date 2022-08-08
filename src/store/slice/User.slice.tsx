@@ -104,6 +104,10 @@ const userSlice = createSlice({
       state.avatarUpload = payload.avatarUpload;
       state.avatarDefault = payload.avatarDefault;
     },
+    clearUserAvatar(state) {
+      state.avatarUpload = "";
+      state.avatarDefault = "";
+    },
   },
 });
 

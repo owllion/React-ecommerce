@@ -21,7 +21,6 @@ const Navbar = () => {
   const [showSideNav, setShowSideNav] = useState(false);
   const [colorChange, setColorChange] = useState(false);
 
-<<<<<<< HEAD
   const isKeyboardEvent = (
     event: React.KeyboardEvent | React.MouseEvent
   ): event is React.KeyboardEvent => {
@@ -29,11 +28,6 @@ const Navbar = () => {
   };
 
   const handleShowSideNav = (event: React.MouseEvent | React.KeyboardEvent) => {
-=======
-  const handleShowSideNav = <T extends { id: string }>(
-    e: React.MouseEvent<T> | React.KeyboardEvent<T>
-  ) => {
->>>>>>> 2ae9bf63c87856fc7ad02494d335a20548a1e8a1
     const target = ["backdrop", "close", "closeIcon", "navLink"];
     if (
       isKeyboardEvent(event) ||
@@ -198,7 +192,6 @@ const LinkBox = styled.div`
   }
 `;
 const MenuItem = styled.li`
-  font-size: 0.9rem;
   font-weight: bold;
   padding-right: 2rem;
   @media (max-width: 700px) {
@@ -209,11 +202,13 @@ const MenuItem = styled.li`
 `;
 const SearchIcon = styled.div`
   font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   @media (max-width: 700px) {
     display: none;
   }
 `;
-<<<<<<< HEAD
 
 const AvatarBox = styled.div`
   border-radius: 50%;
@@ -222,27 +217,12 @@ const AvatarBox = styled.div`
   @media (max-width: 700px) {
     display: none;
   }
-=======
-// const AccountIcon = styled.div`
-//   font-size: 1.5rem;
-//   @media (max-width: 700px) {
-//     display: none;
-//   }
-// `;
-const AvatarBox = styled.div`
-  border-radius: 50%;
-  height: 64px;
-  width: 64px;
->>>>>>> 2ae9bf63c87856fc7ad02494d335a20548a1e8a1
 `;
 const Avatar = styled.img`
   border-radius: 50%;
   height: 100%;
   width: 100%;
-<<<<<<< HEAD
   object-fit: cover;
-=======
->>>>>>> 2ae9bf63c87856fc7ad02494d335a20548a1e8a1
 `;
 const LoginBtn = styled(ShopBtn)`
   border-radius: 5px;

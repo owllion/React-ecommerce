@@ -1,7 +1,9 @@
 import axios, { AxiosError } from "axios";
 import { getRefreshToken } from "./auth.api";
 import toast from "react-hot-toast";
-
+import store from "../store/store";
+import { authActions } from "../store/slice/Auth.slice";
+import { userActions } from "../store/slice/User.slice";
 const getToken = () => {
   const token = localStorage.getItem("token") || "";
   const refreshToken = localStorage.getItem("refreshToken") || "";
@@ -56,8 +58,14 @@ instance.interceptors.response.use(
           const err = error as AxiosError;
           if (err.response && err.response.data) {
             // fail to update access_token (refreshToken is expired->cause 401 error)
-            // window.location.href = "/auth/welcome";
-            toast.error(`${err.response.status}: ${err.response.data}`);
+            const errMsg = (err.response?.data as { msg: string }).msg;
+            toast.error(
+              `${err.response.status}: ${errMsg},please login again.`
+            );
+            localStorage.removeItem("token");
+            localStorage.removeItem("refreshToken");
+            store.dispatch(authActions.clearToken);
+            window.location.href = "/auth/welcome";
             return Promise.reject(err.response.data);
           }
 

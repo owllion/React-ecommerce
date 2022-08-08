@@ -26,6 +26,7 @@ const Settings = () => {
       dispatch(authActions.clearToken());
     } catch (error) {
       console.log(error);
+      // if((error as {msg:string}).msg.includes('expired'))
     }
   };
   useEffect(() => {
@@ -157,6 +158,7 @@ const BarItems = styled.ul`
   }
   @media (max-width: 500px) {
     overflow: scroll;
+    overflow-y: hidden;
   }
   @media (max-width: 380px) {
     padding: 0 0 1.2rem 5rem;

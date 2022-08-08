@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { IoMdClose, IoIosSearch } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 
+import { useAppSelector } from "../../store/hooks";
 import { sideNavMotion } from "../../lib/motion";
 import cl from "../../constants/color/color";
 
@@ -24,16 +25,12 @@ const navList = [
 ];
 
 interface IProps {
-<<<<<<< HEAD
   handleShowSideNav: (e: React.MouseEvent | React.KeyboardEvent) => void;
-=======
-  handleShowSideNav: <T extends { id: string }>(
-    e: React.MouseEvent<T> | React.KeyboardEvent<T>
-  ) => void;
->>>>>>> 2ae9bf63c87856fc7ad02494d335a20548a1e8a1
 }
 const SideNav = ({ handleShowSideNav }: IProps) => {
   const navigate = useNavigate();
+  const { token } = useAppSelector((state) => state.auth);
+  const getToken = () => localStorage.getItem("token") || "";
 
   const search = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
@@ -59,9 +56,19 @@ const SideNav = ({ handleShowSideNav }: IProps) => {
               <SearchIcon />
             </SearchBarBox>
           </SearchBarContainer>
-
-          {navList.map((item, index) => (
-            <Nav key={index}>
+          {(!getToken() || !token) && (
+            <NavItem>
+              <LoginLink
+                to={"/auth/welcome"}
+                onClick={(e) => handleShowSideNav(e)}
+                id="navLink"
+              >
+                LOG IN
+              </LoginLink>
+            </NavItem>
+          )}
+          {navList.map((item, _) => (
+            <NavItem key={item.name}>
               <Link
                 to={item.route}
                 onClick={(e) => handleShowSideNav(e)}
@@ -69,7 +76,7 @@ const SideNav = ({ handleShowSideNav }: IProps) => {
               >
                 {item.name}
               </Link>
-            </Nav>
+            </NavItem>
           ))}
         </NavBox>
       </Menu>
@@ -149,10 +156,14 @@ const SearchIcon = styled(IoIosSearch)`
   color: #6e80a5;
 `;
 const NavBox = styled.ul``;
-const Nav = styled.li`
+const NavItem = styled.li`
   padding: 1rem 1rem 1rem 1.5rem;
   border-bottom: 1px solid rgb(0, 0, 0, 0.1);
   letter-spacing: 1.2px;
   font-weight: 500;
+`;
+const LoginLink = styled(Link)`
+  font-weight: 800;
+  color: ${cl.lightBlue};
 `;
 export default SideNav;
