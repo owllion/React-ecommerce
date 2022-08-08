@@ -1,14 +1,12 @@
 import React from "react";
-
 import { Link } from "react-router-dom";
-
-import { motion } from "framer-motion";
-import { sideNavMotion } from "../../lib/motion";
-
 import styled from "styled-components";
-import cl from "../../constants/color/color";
-
+import { motion } from "framer-motion";
 import { IoMdClose, IoIosSearch } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
+
+import { sideNavMotion } from "../../lib/motion";
+import cl from "../../constants/color/color";
 
 const navList = [
   {
@@ -26,9 +24,19 @@ const navList = [
 ];
 
 interface IProps {
-  handleShowSideNav: <T extends { id: string }>(e: React.MouseEvent<T>) => void;
+  handleShowSideNav: <T extends { id: string }>(
+    e: React.MouseEvent<T> | React.KeyboardEvent<T>
+  ) => void;
 }
 const SideNav = ({ handleShowSideNav }: IProps) => {
+  const navigate = useNavigate();
+
+  const search = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      handleShowSideNav(event);
+      navigate(`/product-list?keyword=${event.target.value}`);
+    }
+  };
   return (
     <>
       <Backdrop onClick={handleShowSideNav} id="backdrop" />
@@ -46,7 +54,7 @@ const SideNav = ({ handleShowSideNav }: IProps) => {
         <NavBox>
           <SearchBarContainer>
             <SearchBarBox>
-              <SearchBar type="search" />
+              <SearchBar type="search" onKeyDown={search} />
               <SearchIcon />
             </SearchBarBox>
           </SearchBarContainer>

@@ -58,7 +58,7 @@ const ProductList = () => {
 
   const handlePageClick = (event: { selected: number }) => {
     dispatch(productActions.setCurPage(event.selected + 1));
-
+    dispatch(getProductList("") as unknown as AnyAction);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -84,9 +84,9 @@ const ProductList = () => {
     dispatch(getProductList(keyword) as unknown as AnyAction);
   }, [selectedCategory, selectedBrand, selectedPrice]);
 
-  useEffect(() => {
-    dispatch(getProductList(keyword) as unknown as AnyAction);
-  }, [curPage, selectedSort, isTargetWidth]);
+  // useEffect(() => {
+  //   dispatch(getProductList(keyword) as unknown as AnyAction);
+  // }, [selectedSort, isTargetWidth]);
 
   useEffect(() => {
     //This will execute on the first render

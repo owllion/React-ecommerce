@@ -10,16 +10,19 @@ import SideNav from "./SideNav";
 import HeaderSearch from "./HeaderSearch";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { commonActions } from "../../store/slice/Common.slice";
+import { ShopBtn } from "../Home/Hero";
 
 const Navbar = () => {
   const { showSearch } = useAppSelector((state) => state.common);
+  const { avatarUpload, avatarDefault } = useAppSelector((state) => state.user);
+  const { token } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
   const { cartLength } = useAppSelector((state) => state.cart);
   const [showSideNav, setShowSideNav] = useState(false);
   const [colorChange, setColorChange] = useState(false);
 
   const handleShowSideNav = <T extends { id: string }>(
-    e: React.MouseEvent<T>
+    e: React.MouseEvent<T> | React.KeyboardEvent<T>
   ) => {
     const target = ["backdrop", "close", "closeIcon", "navLink"];
     if (target.includes((e.target as unknown as T).id)) {
@@ -61,26 +64,26 @@ const Navbar = () => {
             <RightInner>
               <LinkBox>
                 <MenuItem>
+                  <SearchIcon
+                    onClick={() => dispatch(commonActions.setShowSearch(true))}
+                  >
+                    <IoIosSearch />
+                  </SearchIcon>
+                </MenuItem>
+                <MenuItem>
                   <Link to={"/"}>HOME</Link>
                 </MenuItem>
                 <MenuItem>
                   <Link to={"/product-list"}>PRODUCTS</Link>
                 </MenuItem>
               </LinkBox>
-              <MenuItem>
+              {/* <MenuItem>
                 <SearchIcon
                   onClick={() => dispatch(commonActions.setShowSearch(true))}
                 >
                   <IoIosSearch />
                 </SearchIcon>
-              </MenuItem>
-              <MenuItem>
-                <Link to={"/settings/account"}>
-                  <AccountIcon>
-                    <MdAccountCircle />
-                  </AccountIcon>
-                </Link>
-              </MenuItem>
+              </MenuItem> */}
 
               <MenuItem>
                 <Link to={"/checkout/cart"}>
@@ -92,6 +95,17 @@ const Navbar = () => {
                       </Badge>
                     </CartInnerContainer>
                   </CartContainer>
+                </Link>
+              </MenuItem>
+              <MenuItem>
+                <Link to={token ? "/settings/account" : "/auth/welcome"}>
+                  {token ? (
+                    <AvatarBox>
+                      <Avatar src={avatarUpload || avatarDefault} />
+                    </AvatarBox>
+                  ) : (
+                    <LoginBtn>Log In</LoginBtn>
+                  )}
                 </Link>
               </MenuItem>
             </RightInner>
@@ -186,8 +200,28 @@ const SearchIcon = styled.div`
     display: none;
   }
 `;
-const AccountIcon = styled.div`
-  font-size: 1.5rem;
+// const AccountIcon = styled.div`
+//   font-size: 1.5rem;
+//   @media (max-width: 700px) {
+//     display: none;
+//   }
+// `;
+const AvatarBox = styled.div`
+  border-radius: 50%;
+  height: 64px;
+  width: 64px;
+`;
+const Avatar = styled.img`
+  border-radius: 50%;
+  height: 100%;
+  width: 100%;
+`;
+const LoginBtn = styled(ShopBtn)`
+  border-radius: 5px;
+  background: ${cl.dark};
+  cursor: pointer;
+  color: ${cl.white};
+  padding: 0.7rem 1.5rem;
   @media (max-width: 700px) {
     display: none;
   }

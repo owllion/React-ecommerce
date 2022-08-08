@@ -5,7 +5,7 @@ import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
 import { AnyAction } from "@reduxjs/toolkit";
 import toast from "react-hot-toast";
 
-import { useAppDispatch } from "../../store/hooks";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import cl from "../../constants/color/color.js";
 import { MainTitle, SubTitle, Btn, BtnText } from "./Common.style";
 import PwdInput from "../Common/input/PwdInput";
@@ -24,7 +24,7 @@ const HaveAccount = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const emailParam = (location.state as Pick<FormValue, "email">)?.email;
-
+  const { errorMsg } = useAppSelector((state) => state.common);
   const methods = useForm<FormValue>();
   const {
     handleSubmit,

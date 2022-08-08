@@ -1,9 +1,20 @@
 import React from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
+import { useAppSelector } from "../../store/hooks";
+// type IProps = React.PropsWithChildren;
+const ProtectedRoute = ({ children }: { children?: JSX.Element }) => {
+  const accessToken = localStorage.getItem("token");
+  const refreshToken = localStorage.getItem("refreshToken");
+  const [isAuthenticated, setIsAuthenticated] = React.useState(false);
+  React.useEffect(() => {
+    if (accessToken && refreshToken) {
+      setIsAuthenticated(true);
+    }
+  }, [accessToken, refreshToken]);
+  const { token } = useAppSelector((x) => x.auth);
+  if (!token) return <Navigate replace to="/auth/welcome" />;
 
-type IProps = React.PropsWithChildren<{ token: string; redirectPath?: string }>;
-const ProtectedRoute = ({ children, token }: IProps) => {
-  return !token ? <Navigate replace to="/auth/welcome" /> : children;
+  return children ? children : <Outlet />;
 };
 
 export default ProtectedRoute;

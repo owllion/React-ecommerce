@@ -84,9 +84,9 @@ const signInOrSignUp = (data: IProps): AppThunk => {
       if (err.response && err.response.data) {
         const errMsg = (err.response?.data as { msg: string }).msg;
 
-        toast.error(errMsg);
         dispatch(commonActions.setError(errMsg));
-        throw new Error(errMsg);
+        toast.error(errMsg);
+        throw new Error("fuck");
       }
     }
   };

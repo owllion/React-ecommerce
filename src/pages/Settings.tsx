@@ -8,23 +8,27 @@ import { useNavigate } from "react-router-dom";
 import cl from "../constants/color/color";
 import { Title } from "./Cart";
 import { sideNavLinks } from "../data/settingSideNavLink";
-import { confirmAlert } from "react-confirm-alert"; // Import
+import { confirmAlert } from "react-confirm-alert";
 import { logoutApi } from "../api/auth.api";
+import { useAppDispatch } from "../store/hooks";
+import { commonActions } from "../store/slice/Common.slice";
+import { authActions } from "../store/slice/Auth.slice";
 
 const Settings = () => {
   const [sureToLogout, setSureToLogout] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  const logout = async () => {
+    try {
+      await logoutApi();
+      localStorage.clear();
+      dispatch(authActions.clearToken());
+    } catch (error) {
+      console.log(error);
+    }
+  };
   useEffect(() => {
-    const logout = async () => {
-      try {
-        await logoutApi();
-        navigate("/");
-        localStorage.clear();
-        console.log(localStorage.getItem("token"));
-      } catch (error) {
-        console.log(error);
-      }
-    };
     sureToLogout && logout();
   }, [sureToLogout]);
 

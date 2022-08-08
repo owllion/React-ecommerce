@@ -13,6 +13,10 @@ const authSlice = createSlice({
     setRefreshToken(state, { payload }: PayloadAction<string>) {
       state.refreshToken = payload;
     },
+    clearToken(state) {
+      state.token = "";
+      state.refreshToken = "";
+    },
   },
 });
 
