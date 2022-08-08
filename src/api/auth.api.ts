@@ -11,7 +11,7 @@ export const checkIfAccountExists = (data: AuthInterface.ICheckAccount) =>
   instance.post("/auth/check-account", data);
 
 export const getRefreshToken = (data: AuthInterface.IGetRefreshToken) =>
-  instance.post("/auth/getRefreshToken", data);
+  instance.post("/refresh-token", data);
 
 export const verifyUserEmailApi = (data: AuthInterface.IVerifyUserEmail) =>
   instance.post("/auth/verify-user", data);

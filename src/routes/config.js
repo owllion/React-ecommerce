@@ -41,7 +41,7 @@ const OrderComplete = lazy(() =>
 
 const NotFound = lazy(() => import("../pages/NotFound.tsx"));
 
-export const RouteConfig = ({ token }) => {
+export const RouteConfig = () => {
   let element = useRoutes([
     {
       path: "/",
@@ -92,7 +92,7 @@ export const RouteConfig = ({ token }) => {
     {
       path: "/checkout",
       element: (
-        <ProtectedRoute token={token}>
+        <ProtectedRoute>
           <Checkout />
         </ProtectedRoute>
       ),
@@ -114,7 +114,7 @@ export const RouteConfig = ({ token }) => {
     {
       path: "/settings",
       element: (
-        <ProtectedRoute token={token}>
+        <ProtectedRoute>
           <Settings />
         </ProtectedRoute>
       ),

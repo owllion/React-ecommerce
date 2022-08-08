@@ -44,7 +44,7 @@ const Registration = () => {
     handleSubmit,
     formState: { errors },
   } = methods;
-  const onSubmit: SubmitHandler<FormValue> = async (data) => {
+  const onSubmit: SubmitHandler<FormValue> = (data) => {
     try {
       dispatch(
         signInOrSignUp({
@@ -56,6 +56,7 @@ const Registration = () => {
         state: { email: emailParam, type: "verify email" },
         replace: true,
       });
+      window.location.reload();
     } catch (error) {
       console.log(error);
     }
