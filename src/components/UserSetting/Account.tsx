@@ -1,26 +1,33 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import styled from "styled-components";
 import { IoIosCamera } from "react-icons/io";
+import toast from "react-hot-toast";
+import { AxiosError } from "axios";
 
 import { SingleInputBox } from "../Checkout/form/shipping-form/ShippingForm.style";
+import { userInfoModify } from "../../api/user.api";
 import SectionTitle from "./SectionTitle";
 import SaveBtn from "./SaveBtn";
 import avatar from "../../assets/avatar/avatar1.svg";
 import FieldErr from "../../components/error/FieldErr";
 import { Label, Input } from "../Auth/Registration";
 import { getValidationData } from "../Checkout/form/shipping-form/getValidationData";
-import { useAppSelector } from "src/store/hooks";
+import { useAppSelector, useAppDispatch } from "src/store/hooks";
+import { userActions } from "../../store/slice/User.slice";
+import { commonActions } from "../../store/slice/Common.slice";
 
 interface FormValue {
   firstName: string;
   lastName: string;
-  email: string;
   phone: string;
 }
 
 const Account = () => {
   const { email, firstName, lastName, phone, avatarDefault, avatarUpload } =
     useAppSelector((state) => state.user);
+  const { isLoading } = useAppSelector((state) => state.common);
+
+  const dispatch = useAppDispatch();
   const {
     register,
     handleSubmit,
@@ -29,12 +36,27 @@ const Account = () => {
     defaultValues: {
       firstName,
       lastName,
-      email,
       phone,
     },
   });
 
-  const onSubmit: SubmitHandler<FormValue> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<FormValue> = async (data) => {
+    try {
+      dispatch(commonActions.setLoading(true));
+      await userInfoModify({ ...data });
+      dispatch(userActions.updateUserInfo({ ...data }));
+      dispatch(commonActions.setLoading(false));
+      toast.success("Profile updated successfully");
+    } catch (error) {
+      dispatch(commonActions.setLoading(false));
+
+      const err = error as AxiosError;
+      if (err.response && err.response.data) {
+        const errMsg = (err.response?.data as { msg: string }).msg;
+        toast.error(errMsg);
+      }
+    }
+  };
   console.log(errors);
 
   return (
@@ -74,7 +96,8 @@ const Account = () => {
           </SingleInputBox>
           <SingleInputBox>
             <Label>Email</Label>
-            <Input readOnly {...register("email")} />
+            {/* <Input readOnly {...register("email")} /> */}
+            <Input value={email} disabled />
           </SingleInputBox>
           <SingleInputBox>
             <Label error={errors.phone}>Phone</Label>

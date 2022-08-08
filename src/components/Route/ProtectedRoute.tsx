@@ -3,16 +3,16 @@ import { Navigate, Outlet } from "react-router-dom";
 import { useAppSelector } from "../../store/hooks";
 // type IProps = React.PropsWithChildren;
 const ProtectedRoute = ({ children }: { children?: JSX.Element }) => {
-  const accessToken = localStorage.getItem("token");
-  const refreshToken = localStorage.getItem("refreshToken");
+  const accessToken = () => localStorage.getItem("token");
+  const refreshToken = () => localStorage.getItem("refreshToken");
   const [isAuthenticated, setIsAuthenticated] = React.useState(false);
   React.useEffect(() => {
-    if (accessToken && refreshToken) {
+    if (accessToken() && refreshToken()) {
       setIsAuthenticated(true);
     }
-  }, [accessToken, refreshToken]);
+  }, [accessToken(), refreshToken()]);
   const { token } = useAppSelector((x) => x.auth);
-  if (!token) return <Navigate replace to="/auth/welcome" />;
+  if (!accessToken()) return <Navigate replace to="/auth/welcome" />;
 
   return children ? children : <Outlet />;
 };

@@ -59,13 +59,14 @@ instance.interceptors.response.use(
           if (err.response && err.response.data) {
             // fail to update access_token (refreshToken is expired->cause 401 error)
             const errMsg = (err.response?.data as { msg: string }).msg;
-            toast.error(
-              `${err.response.status}: ${errMsg},please login again.`
-            );
+
             localStorage.removeItem("token");
             localStorage.removeItem("refreshToken");
             store.dispatch(authActions.clearToken);
-            window.location.href = "/auth/welcome";
+            // window.location.href = "/auth/welcome";
+            toast.error(
+              `${err.response.status}: ${errMsg},please login again.`
+            );
             return Promise.reject(err.response.data);
           }
 
