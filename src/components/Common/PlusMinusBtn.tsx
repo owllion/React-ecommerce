@@ -7,7 +7,7 @@ const PlusMinusBtn = () => {
     <Container>
       <Wrapper>
         <Plus>+</Plus>
-        <Input value="1" maxLength={2} min="1" max="99" />
+        <Input defaultValue="1" maxLength={2} min="1" max="99" />
         <Minus>-</Minus>
       </Wrapper>
     </Container>

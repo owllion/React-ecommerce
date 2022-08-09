@@ -152,7 +152,8 @@ const Left = styled.div`
 `;
 const MainImgBox = styled.div`
   width: 100%;
-  /* min-height: 100%; */
+  /* height: 100%; */
+  min-height: 100%;
 `;
 const MainImg = styled.img`
   width: 100%;

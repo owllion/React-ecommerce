@@ -201,7 +201,7 @@ const MenuItem = styled.li`
   list-style: none;
 `;
 const SearchIcon = styled.div`
-  font-size: 1.5rem;
+  font-size: 1.7rem;
   display: flex;
   align-items: center;
   justify-content: center;

@@ -18,6 +18,7 @@ import { useAppSelector, useAppDispatch } from "../store/hooks";
 import { productActions } from "../store/slice/Product.slice";
 import getProductList from "../store/actions/product/getProductList.action";
 import { IProduct } from "../interface/product.interface";
+import { useUpdateEffect } from "../hooks/useUpdateEffect";
 
 const ProductList = () => {
   const {
@@ -79,20 +80,20 @@ const ProductList = () => {
       });
   });
 
-  useEffect(() => {
+  useUpdateEffect(() => {
     dispatch(productActions.setCurPage(1));
     dispatch(getProductList(keyword) as unknown as AnyAction);
   }, [selectedCategory, selectedBrand, selectedPrice]);
 
-  // useEffect(() => {
-  //   dispatch(getProductList(keyword) as unknown as AnyAction);
-  // }, [selectedSort, isTargetWidth]);
+  useUpdateEffect(() => {
+    dispatch(getProductList(keyword) as unknown as AnyAction);
+  }, [selectedSort, isTargetWidth]);
 
   useEffect(() => {
     //This will execute on the first render
     const currentParams = Object.fromEntries([...searchParams]);
 
-    console.log("useEffect", currentParams);
+    console.log("現在路由有變化喔!");
 
     dispatch(productActions.clearAllState());
 
