@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IReview } from "../../interface/review.interface";
 import { IProduct } from "../../interface/product.interface";
-interface ProductState {
+export interface ProductState {
   productId: string;
   productList: (IProduct | Partial<IProduct>)[];
   reviews: IReview[];

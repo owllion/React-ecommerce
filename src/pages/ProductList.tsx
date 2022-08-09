@@ -86,7 +86,10 @@ const ProductList = () => {
   }, [selectedCategory, selectedBrand, selectedPrice]);
 
   useUpdateEffect(() => {
-    dispatch(getProductList(keyword) as unknown as AnyAction);
+    console.log("現在width改變了 kw是:", keyword);
+    if (isTargetWidth) {
+      dispatch(getProductList(keyword) as unknown as AnyAction);
+    }
   }, [selectedSort, isTargetWidth]);
 
   useEffect(() => {
@@ -97,10 +100,13 @@ const ProductList = () => {
 
     dispatch(productActions.clearAllState());
 
-    // currentParams.keyword && setKeyword(currentParams.keyword);
+    currentParams.keyword && setKeyword(currentParams.keyword);
     currentParams.category &&
       dispatch(productActions.setCategory(currentParams.category));
-
+    console.log(
+      "!!!!!!!!!!!!!!!!!!!!!!!!這是現在的currentParams.keyword",
+      currentParams.keyword
+    );
     dispatch(productActions.setCurPage(1));
     dispatch(getProductList(currentParams.keyword) as unknown as AnyAction);
   }, [searchParams]);
@@ -127,7 +133,7 @@ const ProductList = () => {
           {productList.length > 0 ? (
             <>
               <ItemContainer as={motion.div} layout>
-                {productList.map((item, index) => (
+                {productList.map((item, _) => (
                   <ItemBox
                     key={item.productId}
                     onClick={() => handleNavigate(item.productId)}
@@ -135,12 +141,7 @@ const ProductList = () => {
                     {Object.keys(item).length > 0 ? (
                       <SingleProduct item={item as IProduct} />
                     ) : (
-                      <Spacer
-                        key={index}
-                        as={motion.div}
-                        layout
-                        {...productItemMotion}
-                      />
+                      <Spacer as={motion.div} layout {...productItemMotion} />
                     )}
                   </ItemBox>
                 ))}

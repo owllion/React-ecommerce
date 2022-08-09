@@ -1,17 +1,21 @@
-import React from "react";
 import styled from "styled-components";
-
 import { IoMdCart } from "react-icons/io";
 import { FiHeart } from "react-icons/fi";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 import { productItemMotion } from "../../lib/motion";
 import { IProduct } from "../../interface/product.interface";
 
 const SingleProduct = ({ item }: { item: IProduct }) => {
+  const navigate = useNavigate();
+  const handleNavigate = (id: string) => {
+    navigate(`/product-detail/${id}`);
+  };
+
   return (
     <Container as={motion.div} layout {...productItemMotion}>
-      <Wrapper>
+      <Wrapper onClick={() => handleNavigate(item.productId)}>
         <Image src={item.imageList?.[0]} alt="product" />
         <Info>
           <Icon>

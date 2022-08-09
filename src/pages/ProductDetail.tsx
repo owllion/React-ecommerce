@@ -65,7 +65,7 @@ const ProductDetail = () => {
         <TopSection>
           <Left>
             <MainImgBox>
-              {isLoading ? (
+              {isLoading && !mainImg ? (
                 <Skeleton height={500} />
               ) : (
                 <MainImg src={mainImg} />
@@ -152,8 +152,6 @@ const Left = styled.div`
 `;
 const MainImgBox = styled.div`
   width: 100%;
-  /* height: 100%; */
-  min-height: 100%;
 `;
 const MainImg = styled.img`
   width: 100%;

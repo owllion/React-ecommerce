@@ -63,10 +63,11 @@ instance.interceptors.response.use(
             localStorage.removeItem("token");
             localStorage.removeItem("refreshToken");
             store.dispatch(authActions.clearToken);
-            // window.location.href = "/auth/welcome";
+            // console.log(store.dispatch(authActions.clearToken));
             toast.error(
               `${err.response.status}: ${errMsg},please login again.`
             );
+            // window.location.href = "/auth/welcome";
             return Promise.reject(err.response.data);
           }
 

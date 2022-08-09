@@ -129,7 +129,7 @@ const LeftAvatar = styled.div`
   width: 50%;
   @media (max-width: 700px) {
     width: 100%;
-    padding-left: 0.8rem;
+    /* padding-left: 0.8rem; */
   }
   display: flex;
   align-items: flex-start;

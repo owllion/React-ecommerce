@@ -1,19 +1,22 @@
-import { useRef, useEffect } from "react";
-
+import { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
-
-import SingleProduct from "./SingleProduct";
-import SliderBtn from "./SliderBtn";
-
-import { popularProducts } from "../../data/data";
-
+import { AxiosError } from "axios";
+import toast from "react-hot-toast";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Lazy, Navigation } from "swiper";
 import "swiper/css";
 import "swiper/css/lazy";
 import "swiper/css/navigation";
 
+import SliderBtn from "./SliderBtn";
+import SingleProduct from "./SingleProduct";
+import { getBestSellerApi } from "../../api/product.api";
+import { ProductState } from "../../store/slice/Product.slice";
+import { IProduct } from "../../interface/product.interface";
+
 const ProductCarousel = () => {
+  const [bestSellerList, setBestSellerList] = useState<IProduct[]>([]);
+
   const swiperRef = useRef<{ slidePrev: () => void; slideNext: () => void }>();
   const toPrev = () => {
     swiperRef.current?.slidePrev();
@@ -21,6 +24,23 @@ const ProductCarousel = () => {
   const toNext = () => {
     swiperRef.current?.slideNext();
   };
+
+  const getBestSeller = async () => {
+    try {
+      const {
+        data: { list },
+      } = await getBestSellerApi();
+      setBestSellerList(list);
+    } catch (error) {
+      const err = error as AxiosError;
+      const msg = (err.response?.data as { msg: string }).msg;
+      toast.error(msg);
+    }
+  };
+  useEffect(() => {
+    getBestSeller();
+  }, []);
+
   return (
     <>
       <Swiper
@@ -52,9 +72,9 @@ const ProductCarousel = () => {
         lazy={true}
         navigation={true}
       >
-        {popularProducts.map((item) => (
-          <SwiperSlide key={item.id}>
-            {/* <SingleProduct item={item} /> */}
+        {bestSellerList.map((item) => (
+          <SwiperSlide key={item.productId}>
+            <SingleProduct item={item} />
           </SwiperSlide>
         ))}
       </Swiper>
