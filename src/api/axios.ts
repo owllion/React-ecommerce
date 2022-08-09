@@ -3,7 +3,7 @@ import { getRefreshToken } from "./auth.api";
 import toast from "react-hot-toast";
 import store from "../store/store";
 import { authActions } from "../store/slice/Auth.slice";
-import { userActions } from "../store/slice/User.slice";
+
 const getToken = () => {
   const token = localStorage.getItem("token") || "";
   const refreshToken = localStorage.getItem("refreshToken") || "";
@@ -63,7 +63,6 @@ instance.interceptors.response.use(
             localStorage.removeItem("token");
             localStorage.removeItem("refreshToken");
             store.dispatch(authActions.clearToken);
-            // console.log(store.dispatch(authActions.clearToken));
             toast.error(
               `${err.response.status}: ${errMsg},please login again.`
             );

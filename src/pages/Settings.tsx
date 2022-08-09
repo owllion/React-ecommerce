@@ -57,7 +57,7 @@ const Settings = () => {
         <DesktopWrapper>
           <SideBar>
             <BarItems>
-              {sideNavLinks.map((item, _) => (
+              {sideNavLinks.map((item) => (
                 <BarItemLink to={item.link} key={item.link}>
                   <BarItem>
                     <ItemIcon>{item.icon}</ItemIcon>
