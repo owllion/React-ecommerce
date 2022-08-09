@@ -19,7 +19,7 @@ export interface IUser {
   firstName: string;
   lastName: string;
   email: string;
-  phone: string;
+  phone: string | null;
   avatarDefault: string;
   avatarUpload: string;
   favList: IProduct[];
@@ -41,7 +41,7 @@ export interface IResetPassword {
 export interface IUserInfoModify {
   firstName?: string;
   lastName?: string;
-  phone?: string;
+  phone?: string | null;
 }
 export interface IUserPasswordModify {
   password: string;

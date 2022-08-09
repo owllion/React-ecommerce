@@ -19,7 +19,7 @@ import { commonActions } from "../../store/slice/Common.slice";
 interface FormValue {
   firstName: string;
   lastName: string;
-  phone: string;
+  phone: string | null;
 }
 
 const Account = () => {
@@ -43,8 +43,10 @@ const Account = () => {
   const onSubmit: SubmitHandler<FormValue> = async (data) => {
     try {
       dispatch(commonActions.setLoading(true));
-      await userInfoModify({ ...data });
-      dispatch(userActions.updateUserInfo({ ...data }));
+      const params = { ...data, phone: data.phone ? data.phone : null };
+
+      await userInfoModify(params);
+      dispatch(userActions.updateUserInfo(params));
       dispatch(commonActions.setLoading(false));
       toast.success("Profile updated successfully");
     } catch (error) {

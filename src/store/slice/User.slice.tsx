@@ -91,6 +91,7 @@ const initialState: Partial<IUser> = {
   lastName: "",
   avatarUpload: "",
   avatarDefault: "",
+  phone: "",
 };
 
 const userSlice = createSlice({
@@ -101,6 +102,7 @@ const userSlice = createSlice({
       state.firstName = payload.firstName;
       state.lastName = payload.lastName;
       state.email = payload.email;
+      state.phone = payload.phone;
       state.avatarUpload = payload.avatarUpload;
       state.avatarDefault = payload.avatarDefault;
     },

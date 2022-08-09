@@ -21,15 +21,10 @@ const Settings = () => {
 
   const logout = async () => {
     try {
-      /**
-       * logoutApi may fail(cause of refreshToken's expiration)
-       * so we need to clear the store token first.
-       * (in axios's interceptor, do not know why it cannot dispatch  clear token action as expected.)
-       */
       dispatch(authActions.clearToken());
       await logoutApi();
       localStorage.clear();
-      navigate("/auth/welcome");
+      window.location.href = "/auth/welcome";
     } catch (error) {
       console.log(error);
     }

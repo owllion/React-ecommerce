@@ -15,7 +15,8 @@ import { ShopBtn } from "../Home/Hero";
 const Navbar = () => {
   const { showSearch } = useAppSelector((state) => state.common);
   const { avatarUpload, avatarDefault } = useAppSelector((state) => state.user);
-  const { token } = useAppSelector((state) => state.auth);
+  // const { token } = useAppSelector((state) => state.auth);
+  const getToken = () => localStorage.getItem("token") || "";
   const dispatch = useAppDispatch();
   const { cartLength } = useAppSelector((state) => state.cart);
   const [showSideNav, setShowSideNav] = useState(false);
@@ -105,8 +106,8 @@ const Navbar = () => {
                 </Link>
               </MenuItem>
               <MenuItem>
-                <Link to={token ? "/settings/account" : "/auth/welcome"}>
-                  {token ? (
+                <Link to={getToken() ? "/settings/account" : "/auth/welcome"}>
+                  {getToken() ? (
                     <AvatarBox>
                       <Avatar src={avatarUpload || avatarDefault} />
                     </AvatarBox>

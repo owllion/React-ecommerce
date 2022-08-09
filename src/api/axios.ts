@@ -67,7 +67,7 @@ instance.interceptors.response.use(
             toast.error(
               `${err.response.status}: ${errMsg},please login again.`
             );
-            // window.location.href = "/auth/welcome";
+            window.location.href = "/auth/welcome";
             return Promise.reject(err.response.data);
           }
 
