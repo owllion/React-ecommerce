@@ -7,8 +7,6 @@ export const upload = (data: UserInterface.IUpload) =>
 
 // export const deleteAvatar = (data) => instance.delete("/user/upload", data);
 
-// export const userInfo = () => instance.get("/user/:id");
-
 export const forgotPassword = (data: UserInterface.IForgotPassword) =>
   instance.post("/forgot-password", data);
 
@@ -27,7 +25,9 @@ export const addToFav = (data: UserInterface.IAddToFav) =>
 export const removeFromFav = (data: UserInterface.IRemoveFromFav) =>
   instance.post("/user/fav/remove", data);
 
-export const getCart = () => instance.get("/cartList");
+export const getCartList = () => instance.get("/user/cartList");
+
+export const getOrderOrReviewList = () => instance.get("/user/cartList");
 
 export const addToCart = (data: UserInterface.IAddToCart) =>
   instance.post("/user/cart/add", data);

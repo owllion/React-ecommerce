@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import { useForm, SubmitHandler, FieldError } from "react-hook-form";
+import { toast } from "react-hot-toast";
 
 import cl from "src/constants/color/color";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
@@ -10,10 +11,9 @@ import { getValidationData } from "../../Checkout/form/shipping-form/getValidati
 import Rating from "./Rating";
 import { createReview } from "../../../api/user.api";
 import { productActions } from "../../../store/slice/Product.slice";
+import { AxiosError } from "axios";
 
 interface FormValue {
-  name: string;
-  email: string;
   comment: string;
 }
 const ReviewForm = () => {
@@ -46,7 +46,9 @@ const ReviewForm = () => {
       });
       dispatch(productActions.updateProductReviews(review));
     } catch (error) {
-      console.log(error);
+      const err = ((error as AxiosError)?.response?.data as { msg: string })
+        ?.msg;
+      toast.error(err);
     }
   };
   console.log(errors);
@@ -74,7 +76,7 @@ const ReviewForm = () => {
           </CountCharactersContainer>
           <FieldErr errors={errors} field="comment" />
         </ReviewAreaBox>
-        <InputContainer>
+        {/* <InputContainer>
           <ReviewUserNameBox>
             <Label error={errors.name}>Name</Label>
             <Input
@@ -94,7 +96,7 @@ const ReviewForm = () => {
             />
             <FieldErr errors={errors} field="email" />
           </ReviewEmailBox>
-        </InputContainer>
+        </InputContainer> */}
 
         <SubmitBtn disabled={!token} haveToken={token}>
           {token ? "Submit" : "Login to leave a comment"}

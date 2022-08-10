@@ -62,9 +62,9 @@ const signInOrSignUp = (data: IProps): AppThunk => {
       dispatch(authActions.setToken(token));
       dispatch(authActions.setRefreshToken(refreshToken));
       dispatch(cartActions.setCartLength(cartLength));
-      localStorage.setItem("token", JSON.stringify(token));
-      localStorage.setItem("refreshToken", JSON.stringify(refreshToken));
-      localStorage.setItem("cartLength", JSON.stringify(String(cartLength)));
+      localStorage.setItem("token", token);
+      localStorage.setItem("refreshToken", refreshToken);
+      localStorage.setItem("cartLength", String(cartLength));
       dispatch(
         userActions.setUserInfo({
           firstName,

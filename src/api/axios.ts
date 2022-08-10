@@ -5,8 +5,8 @@ import store from "../store/store";
 import { authActions } from "../store/slice/Auth.slice";
 
 const getToken = () => {
-  const token = JSON.parse(localStorage.getItem("token")!) || "";
-  const refreshToken = JSON.parse(localStorage.getItem("refreshToken")!) || "";
+  const token = localStorage.getItem("token") || "";
+  const refreshToken = localStorage.getItem("refreshToken") || "";
   return { token, refreshToken };
 };
 const instance = axios.create({
@@ -46,8 +46,8 @@ instance.interceptors.response.use(
             data: { token: newToken, refreshToken: reToken },
           } = await getRefreshToken({ refresh: getToken().refreshToken });
 
-          localStorage.setItem("token", JSON.stringify(newToken));
-          localStorage.setItem("refreshToken", JSON.stringify(reToken));
+          localStorage.setItem("token", newToken);
+          localStorage.setItem("refreshToken", reToken);
 
           err.config.__isRetryRequest = true;
           err.config.headers["Authorization"] = "Bearer " + newToken;

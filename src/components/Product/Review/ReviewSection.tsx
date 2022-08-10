@@ -8,7 +8,7 @@ import Rating from "./Rating";
 import Lottie from "../../Common/Lottie";
 import { useAppSelector } from "../../../store/hooks";
 
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import Skeleton from "react-loading-skeleton";
 
 const ReviewSection = () => {
   const { reviews } = useAppSelector((state) => state.product);
