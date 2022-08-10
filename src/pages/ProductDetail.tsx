@@ -146,9 +146,6 @@ const TopSection = styled.section`
 const Left = styled.div`
   flex: 1;
   width: 100%;
-  /* @media (max-width: 1000px) {
-    width: 100%;
-  } */
 `;
 const MainImgBox = styled.div`
   width: 100%;

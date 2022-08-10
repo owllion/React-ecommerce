@@ -20,7 +20,6 @@ interface FormValue {
 const ReviewForm = () => {
   const dispatch = useAppDispatch();
   const { productId } = useAppSelector((state) => state.product);
-  const { token } = useAppSelector((state) => state.auth);
   const userInfo = useAppSelector((state) => state.user);
 
   const [rating, setRating] = useState(5);
@@ -30,6 +29,7 @@ const ReviewForm = () => {
   const handleCountCharacters = (
     event: React.ChangeEvent<HTMLTextAreaElement>
   ) => setCount(event.target.value.length);
+  const getToken = () => localStorage.getItem("token") || "";
 
   const {
     register,
@@ -94,8 +94,8 @@ const ReviewForm = () => {
           </CountCharactersContainer>
           <FieldErr errors={errors} field="comment" />
         </ReviewAreaBox>
-        <SubmitBtn disabled={!token} haveToken={token}>
-          {token ? "Submit" : "Login to leave a comment"}
+        <SubmitBtn disabled={!getToken()} haveToken={getToken()}>
+          {getToken() ? "Submit" : "Login to leave a comment"}
         </SubmitBtn>
       </FormContainer>
     </RightWritingReviewContainer>

@@ -10,6 +10,7 @@ import ProtectedRoute from "./components/Route/ProtectedRoute";
 import { useAppSelector } from "./store/hooks";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import "react-loading-skeleton/dist/skeleton.css";
+import Lottie from "./components/Common/Lottie";
 import {
   Routes,
   Route,
@@ -67,7 +68,7 @@ const App = () => {
       <ScrollToTop>
         <Navbar />
         <GlobalCss />
-        <Suspense fallback={<div>loading The Page</div>}>
+        <Suspense fallback={<Lottie jsonName="loading" text="loading" />}>
           <RouteConfig />
           {/* <Routes>
             <Route path="/" element={<Home />} />

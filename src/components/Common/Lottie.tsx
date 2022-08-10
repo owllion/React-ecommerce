@@ -8,12 +8,15 @@ import productNotFound from "../../assets/no-result/product-not-found.json";
 import sleepingAnt from "../../assets/no-result/sleeping-ant.json";
 import coupon from "../../assets/no-result/coupon.json";
 import noData from "../../assets/no-result/no-data.json";
+import loading from "../../assets/loading/loading.json";
+
 const Lottie = ({ jsonName, text }: { jsonName: string; text?: string }) => {
   const Json = {
     productNotFound,
     sleepingAnt,
     coupon,
     noData,
+    loading,
   };
   const options = {
     loop: true,
@@ -44,7 +47,6 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
   padding-top: 4rem;
 `;
 const Text = styled.p`

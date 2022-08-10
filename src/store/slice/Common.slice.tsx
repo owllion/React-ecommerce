@@ -4,12 +4,18 @@ interface IState {
   errorMsg: string;
   isLoading: boolean;
   showSearch: boolean;
+  itemNum: number;
+}
+interface IItemNum {
+  type: string;
+  num: number;
 }
 
 const initialState: IState = {
   errorMsg: "",
   isLoading: false,
   showSearch: false,
+  itemNum: 1,
 };
 
 const commonSlice = createSlice({
@@ -27,6 +33,9 @@ const commonSlice = createSlice({
     },
     setShowSearch(state, { payload }: PayloadAction<boolean>) {
       state.showSearch = payload;
+    },
+    setItemNum(state, { payload }: PayloadAction<IItemNum>) {
+      payload.type === "inc" ? (state.itemNum += 1) : (state.itemNum -= 1);
     },
   },
 });

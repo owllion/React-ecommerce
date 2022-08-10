@@ -31,6 +31,7 @@ const ProductList = () => {
     selectedPrice,
     selectedCategory,
   } = useAppSelector((state) => state.product);
+  const { isLoading } = useAppSelector((state) => state.common);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -130,7 +131,11 @@ const ProductList = () => {
               />
             </Func>
           </Top>
-          {productList.length > 0 ? (
+          {isLoading && productList.length === 0 && (
+            <Lottie jsonName={"loading"} text="" />
+          )}
+
+          {productList.length > 0 && (
             <>
               <ItemContainer as={motion.div} layout>
                 {productList.map((item, _) => (
@@ -153,7 +158,9 @@ const ProductList = () => {
                 handlePageClick={handlePageClick}
               />
             </>
-          ) : (
+          )}
+
+          {!isLoading && productList.length === 0 && (
             <Lottie jsonName={"productNotFound"} />
           )}
         </Wrapper>
