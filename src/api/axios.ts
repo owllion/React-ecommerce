@@ -62,7 +62,9 @@ instance.interceptors.response.use(
 
             localStorage.removeItem("token");
             localStorage.removeItem("refreshToken");
+            localStorage.removeItem("cartLength");
             store.dispatch(authActions.clearToken);
+
             toast.error(
               `${err.response.status}: ${errMsg},please login again.`
             );
