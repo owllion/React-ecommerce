@@ -12,6 +12,7 @@ import Rating from "./Rating";
 import { createReview } from "../../../api/user.api";
 import { productActions } from "../../../store/slice/Product.slice";
 import { AxiosError } from "axios";
+import { IReview } from "../../../interface/review.interface";
 
 interface FormValue {
   comment: string;
@@ -20,6 +21,7 @@ const ReviewForm = () => {
   const dispatch = useAppDispatch();
   const { productId } = useAppSelector((state) => state.product);
   const { token } = useAppSelector((state) => state.auth);
+  const userInfo = useAppSelector((state) => state.user);
 
   const [rating, setRating] = useState(5);
   const [count, setCount] = useState(0);
@@ -32,23 +34,39 @@ const ReviewForm = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<FormValue>();
 
-  const onSubmit: SubmitHandler<FormValue> = async (data) => {
+  const onSubmit: SubmitHandler<FormValue> = async (data, e) => {
     try {
-      const {
-        data: { review },
-      } = await createReview({
+      await createReview({
         comment: data.comment,
         rating,
         product: productId,
       });
+      const review = {
+        user: {
+          ...userInfo,
+        },
+        rating,
+        comment: data.comment,
+        createdAt: Date.now(),
+      } as IReview;
+
       dispatch(productActions.updateProductReviews(review));
+
+      reset({
+        comment: "",
+      });
     } catch (error) {
-      const err = ((error as AxiosError)?.response?.data as { msg: string })
+      const err = ((error as AxiosError).response?.data as { msg: string })
         ?.msg;
       toast.error(err);
+
+      reset({
+        comment: "",
+      });
     }
   };
   console.log(errors);
@@ -76,28 +94,6 @@ const ReviewForm = () => {
           </CountCharactersContainer>
           <FieldErr errors={errors} field="comment" />
         </ReviewAreaBox>
-        {/* <InputContainer>
-          <ReviewUserNameBox>
-            <Label error={errors.name}>Name</Label>
-            <Input
-              error={errors.name}
-              {...register("name", {
-                ...getValidationData(["required", "maxLength"]),
-              })}
-            />
-            <FieldErr errors={errors} field="name" />
-          </ReviewUserNameBox>
-
-          <ReviewEmailBox>
-            <Label error={errors.email}>Email</Label>
-            <Input
-              error={errors.email}
-              {...register("email", getValidationData(["email", "required"]))}
-            />
-            <FieldErr errors={errors} field="email" />
-          </ReviewEmailBox>
-        </InputContainer> */}
-
         <SubmitBtn disabled={!token} haveToken={token}>
           {token ? "Submit" : "Login to leave a comment"}
         </SubmitBtn>

@@ -8,8 +8,8 @@ export interface ICreateReview {
 
 export interface IReview {
   rating: number;
-  reviewId: string;
+  reviewId?: string;
   comment: string;
   user: IUser;
-  createdAt: Date;
+  createdAt: number | Date;
 }
