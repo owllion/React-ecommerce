@@ -13,6 +13,11 @@ import { commonActions } from "../../store/slice/Common.slice";
 import { ShopBtn } from "../Home/Hero";
 
 const Navbar = () => {
+  const dispatch = useAppDispatch();
+
+  const [showSideNav, setShowSideNav] = useState(false);
+  const [colorChange, setColorChange] = useState(false);
+
   const { showSearch } = useAppSelector((state) => state.common);
   const { avatarUpload, avatarDefault } = useAppSelector((state) => state.user);
   const { cartLength } = useAppSelector((state) => state.cart);
@@ -33,10 +38,6 @@ const Navbar = () => {
   useEffect(() => {
     getCartLength();
   }, [cartLength]);
-
-  const dispatch = useAppDispatch();
-  const [showSideNav, setShowSideNav] = useState(false);
-  const [colorChange, setColorChange] = useState(false);
 
   const getToken = () => localStorage.getItem("token") || "";
   const isKeyboardEvent = (
