@@ -10,7 +10,7 @@ import { cartActions } from "src/store/slice/Cart.slice";
 import { userActions } from "src/store/slice/User.slice";
 import localStorage from "redux-persist/es/storage";
 
-interface IUserInfo extends Omit<IUser, "favList" | "couponList" | "cartList"> {
+export interface IUserInfo extends Omit<IUser, "couponList" | "cartList"> {
   cartLength: number;
 }
 interface IAuthResult {
@@ -31,19 +31,7 @@ const signInOrSignUp = (data: IProps): AppThunk => {
     try {
       const {
         data: {
-          result: {
-            token,
-            refreshToken,
-            user: {
-              cartLength,
-              avatarUpload,
-              avatarDefault,
-              email,
-              phone,
-              firstName,
-              lastName,
-            },
-          },
+          result: { token, refreshToken, user },
         },
       }: {
         data: IAuthResult;
@@ -61,21 +49,15 @@ const signInOrSignUp = (data: IProps): AppThunk => {
 
       dispatch(authActions.setToken(token));
       dispatch(authActions.setRefreshToken(refreshToken));
-      dispatch(cartActions.setCartLength(cartLength));
+      dispatch(cartActions.setCartLength(user.cartLength));
+
       localStorage.setItem("token", token);
       localStorage.setItem("refreshToken", refreshToken);
-      localStorage.setItem("cartLength", String(cartLength));
-      dispatch(
-        userActions.setUserInfo({
-          firstName,
-          lastName,
-          email,
-          phone,
-          avatarUpload,
-          avatarDefault,
-        } as IUser)
-      );
+      localStorage.setItem("cartLength", String(user.cartLength));
+
+      dispatch(userActions.setUserInfo({ ...user }));
       dispatch(commonActions.setLoading(false));
+
       toast.success("You have signed in successfully!");
     } catch (error) {
       const err = error as AxiosError;
@@ -87,7 +69,7 @@ const signInOrSignUp = (data: IProps): AppThunk => {
 
         dispatch(commonActions.setError(errMsg));
         toast.error(errMsg);
-        throw new Error("fuck");
+        throw new Error(errMsg);
       }
     }
   };

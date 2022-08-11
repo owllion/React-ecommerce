@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
 import styled, { css } from "styled-components";
 import cl from "../../constants/color/color";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { commonActions } from "../../store/slice/Common.slice";
+
 const PlusMinusBtn = () => {
   const dispatch = useAppDispatch();
   const { itemQty } = useAppSelector((state) => state.common);
@@ -32,7 +32,6 @@ const baseBtn = css`
   width: 28px;
   height: 28px;
   font-size: 1.3rem;
-  /* font-weight: 600; */
   line-height: 25px;
   border-radius: 50%;
   background: #e3e2e27b;
@@ -42,9 +41,7 @@ const baseBtn = css`
 const Container = styled.div``;
 const Wrapper = styled.div`
   display: flex;
-  /* background: ${cl.lightGray}; */
   border-radius: 12px;
-  /* padding: 8px; */
   padding: 10px 8px 10px 5px;
   width: 7rem;
 `;

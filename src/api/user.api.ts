@@ -29,7 +29,7 @@ export const getCartList = () => instance.get("/user/cartList");
 
 export const getOrderOrReviewList = () => instance.get("/user/cartList");
 
-export const addToCart = (data: UserInterface.IAddToCart) =>
+export const addToCartApi = (data: UserInterface.IAddToCart) =>
   instance.post("/user/cart/add", data);
 
 export const removeItemInCart = (data: UserInterface.IRemoveItemFromCart) =>

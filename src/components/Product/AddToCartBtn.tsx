@@ -1,7 +1,30 @@
+import { AxiosError } from "axios";
+import toast from "react-hot-toast";
+import { dispatch } from "react-hot-toast/dist/core/store";
 import styled from "styled-components";
+import { addToCartApi } from "../../api/user.api";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { cartActions } from "../../store/slice/Cart.slice";
 
-const AddToCartBtn = () => {
-  return <Container>Add To Cart</Container>;
+interface IProps {
+  productId: string;
+  size: string;
+}
+const AddToCartBtn = ({ productId, size }: IProps) => {
+  const dispatch = useAppDispatch();
+  const { itemQty } = useAppSelector((state) => state.common);
+  const addToCart = async () => {
+    try {
+      await addToCartApi({ productId, qty: itemQty, size });
+      // localStorage.setItem("cartLength", String(itemQty));
+      dispatch(cartActions.setCartLength(itemQty));
+      toast.success("Add Product To Cart");
+    } catch (error) {
+      const err = ((error as AxiosError).response?.data as { msg: string }).msg;
+      toast.error(err);
+    }
+  };
+  return <Container onClick={() => addToCart()}>Add To Cart</Container>;
 };
 
 const Container = styled.button`

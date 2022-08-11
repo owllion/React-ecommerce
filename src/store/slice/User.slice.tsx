@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IUser } from "../../interface/user.interface";
+import { IUserInfo } from "../actions/auth/signInOrSignUp.action";
 
 // export interface Data {
 //   result: {
@@ -92,19 +93,21 @@ const initialState: Partial<IUser> = {
   avatarUpload: "",
   avatarDefault: "",
   phone: "",
+  favList: [],
 };
 
 const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    setUserInfo(state, { payload }: PayloadAction<IUser>) {
+    setUserInfo(state, { payload }: PayloadAction<IUserInfo>) {
       state.firstName = payload.firstName;
       state.lastName = payload.lastName;
       state.email = payload.email;
       state.phone = payload.phone;
       state.avatarUpload = payload.avatarUpload;
       state.avatarDefault = payload.avatarDefault;
+      state.favList = payload.favList;
     },
     updateUserInfo(state, { payload }: PayloadAction<Partial<IUser>>) {
       state.phone = payload.phone;

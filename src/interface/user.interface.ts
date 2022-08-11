@@ -67,4 +67,5 @@ export interface IUpdateQty {
 export interface IAddToCart {
   productId: string;
   qty: number;
+  size: string;
 }

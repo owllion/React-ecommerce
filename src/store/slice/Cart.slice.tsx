@@ -13,7 +13,7 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     setCartLength(state, { payload }: PayloadAction<number>) {
-      state.cartLength = payload;
+      state.cartLength += payload;
     },
   },
 });

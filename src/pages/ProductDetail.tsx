@@ -12,8 +12,11 @@ import { getProductDetailApi } from "../api/product.api";
 import { IProduct } from "../interface/product.interface";
 import { productActions } from "../store/slice/Product.slice";
 import { commonActions } from "../store/slice/Common.slice";
+import toast from "react-hot-toast";
+import { AxiosError } from "axios";
 
 const sizeList = ["XS", "S", "M", "L", "XL"];
+
 const ProductDetail = () => {
   const dispatch = useAppDispatch();
   const { isLoading } = useAppSelector((state) => state.common);
@@ -46,13 +49,15 @@ const ProductDetail = () => {
       } = await getProductDetailApi({ productId: id });
 
       setDetail(productDetail);
-      dispatch(productActions.setProductReviews(productDetail.reviews));
       setMainImg(productDetail.imageList[0]);
+
+      dispatch(productActions.setProductReviews(productDetail.reviews));
       dispatch(productActions.setProductId(productDetail._id));
       dispatch(commonActions.setLoading(false));
     } catch (error) {
       dispatch(commonActions.setLoading(false));
-      console.log(error);
+      const err = ((error as AxiosError).response?.data as { msg: string }).msg;
+      toast.error(err);
     }
   };
   useEffect(() => {
@@ -107,7 +112,10 @@ const ProductDetail = () => {
                 <PlusMinusBtn />
               </PlusMinusBtnBox>
               <AddToCartBtnBox>
-                <AddToCartBtn />
+                <AddToCartBtn
+                  productId={detail._id}
+                  size={sizeList[selectedSizeIndex]}
+                />
               </AddToCartBtnBox>
             </BtnBox>
             <DetailSection>

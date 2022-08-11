@@ -15,8 +15,20 @@ import { ShopBtn } from "../Home/Hero";
 const Navbar = () => {
   const { showSearch } = useAppSelector((state) => state.common);
   const { avatarUpload, avatarDefault } = useAppSelector((state) => state.user);
+  const { cartLength } = useAppSelector((state) => state.cart);
+  const getCartLength = () => {
+    const localLen = localStorage.getItem("cartLength") || 0;
+
+    if (localLen && cartLength) return cartLength;
+    if (!localLen && cartLength) return localLen;
+    if (!localLen && !cartLength) return 0;
+  };
+  useEffect(() => {
+    getCartLength();
+  }, [cartLength]);
+
   const getToken = () => localStorage.getItem("token") || "";
-  const getCartLength = () => localStorage.getItem("cartLength") || 0;
+
   const dispatch = useAppDispatch();
   const [showSideNav, setShowSideNav] = useState(false);
   const [colorChange, setColorChange] = useState(false);
