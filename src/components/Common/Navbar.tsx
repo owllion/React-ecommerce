@@ -27,11 +27,7 @@ const Navbar = () => {
     )
       return cartLength;
 
-    if (localLen === null && cartLength !== null) return 0;
-    //not correctly clear store'value when logout
-
-    if (localLen === null && cartLength === null) return 0;
-    //logout
+    return 0;
   };
 
   useEffect(() => {
