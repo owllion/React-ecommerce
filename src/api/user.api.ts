@@ -19,10 +19,10 @@ export const userInfoModify = (data: UserInterface.IUserInfoModify) =>
 export const userPasswordModify = (data: UserInterface.IUserPasswordModify) =>
   instance.put("/user/password-modify", data);
 
-export const addToFav = (data: UserInterface.IAddToFav) =>
+export const addToFavApi = (data: UserInterface.IAddToFav) =>
   instance.post("/user/fav/add", data);
 
-export const removeFromFav = (data: UserInterface.IRemoveFromFav) =>
+export const removeFromFavApi = (data: UserInterface.IRemoveFromFav) =>
   instance.post("/user/fav/remove", data);
 
 export const getCartList = () => instance.get("/user/cartList");

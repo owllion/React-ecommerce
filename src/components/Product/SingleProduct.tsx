@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { IoMdCart } from "react-icons/io";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { FiSearch } from "react-icons/fi";
 
 import { productItemMotion } from "../../lib/motion";
 import { IProduct } from "../../interface/product.interface";
@@ -15,13 +16,16 @@ const SingleProduct = ({ item }: { item: IProduct }) => {
 
   return (
     <Container as={motion.div} layout {...productItemMotion}>
-      <Wrapper onClick={() => handleNavigate(item.productId)}>
+      <Wrapper>
         <Image src={item.imageList?.[0]} alt="product" />
         <Info>
+          <Icon onClick={() => handleNavigate(item.productId)}>
+            <FiSearch />
+          </Icon>
           <Icon>
             <IoMdCart />
           </Icon>
-          <Heart />
+          <Heart item={item} />
         </Info>
       </Wrapper>
       <Name>{item.productName}</Name>
@@ -58,7 +62,7 @@ const Wrapper = styled.div`
   justify-content: center;
   position: relative;
   border-radius: 15px;
-  background-color: #ece5d833;
+  /* background-color: #ece5d833; */
   &:hover ${Info} {
     opacity: 1;
   }
@@ -70,11 +74,12 @@ const Image = styled.img`
   height: 100%;
 `;
 
-export const Icon = styled.div`
+export const Icon = styled.button`
   width: 40px;
   height: 40px;
   border-radius: 50%;
   background-color: white;
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;

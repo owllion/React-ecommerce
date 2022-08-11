@@ -136,10 +136,7 @@ const ProductList = () => {
             <>
               <ItemContainer as={motion.div} layout>
                 {productList.map((item, _) => (
-                  <ItemBox
-                    key={item.productId}
-                    onClick={() => handleNavigate(item.productId)}
-                  >
+                  <ItemBox key={item.productId}>
                     {Object.keys(item).length > 0 ? (
                       <SingleProduct item={item as IProduct} />
                     ) : (

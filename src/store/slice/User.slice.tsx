@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { IProduct } from "../../interface/product.interface";
 import { IUser } from "../../interface/user.interface";
 import { IUserInfo } from "../actions/auth/signInOrSignUp.action";
 
@@ -113,6 +114,14 @@ const userSlice = createSlice({
       state.phone = payload.phone;
       state.firstName = payload.firstName;
       state.lastName = payload.lastName;
+    },
+    addToFav(state, { payload }: PayloadAction<IProduct>) {
+      state.favList?.push(payload);
+    },
+    removeFromFav(state, { payload }: PayloadAction<IProduct>) {
+      state.favList = state.favList?.filter(
+        (item) => item?.productId !== payload.productId
+      );
     },
   },
 });

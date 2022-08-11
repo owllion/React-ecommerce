@@ -47,25 +47,19 @@ export interface IUserPasswordModify {
   password: string;
 }
 
-export interface IAddToFav {
-  productId: string;
-}
-export interface IRemoveFromFav {
-  productId: string;
-  favList: IProduct[];
-}
-
-export interface IRemoveItemFromCart {
-  productId: string;
-  cartList: IProduct[];
-}
-export interface IUpdateQty {
-  productId: string;
-  cartList: IProduct[];
-  qty: number;
-}
-export interface IAddToCart {
+interface IBaseProductInfo {
   productId: string;
   qty: number;
   size: string;
+  cartList: IProduct[];
 }
+
+export interface IAddToFav extends Pick<IBaseProductInfo, "productId"> {}
+export interface IRemoveFromFav extends Pick<IBaseProductInfo, "productId"> {}
+
+export interface IRemoveItemFromCart
+  extends Pick<IBaseProductInfo, "productId" | "cartList"> {}
+export interface IUpdateQty
+  extends Pick<IBaseProductInfo, "productId" | "qty" | "cartList"> {}
+export interface IAddToCart
+  extends Pick<IBaseProductInfo, "productId" | "qty" | "size"> {}
