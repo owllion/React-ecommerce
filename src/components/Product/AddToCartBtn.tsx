@@ -1,7 +1,7 @@
 import { AxiosError } from "axios";
 import toast from "react-hot-toast";
-import { dispatch } from "react-hot-toast/dist/core/store";
 import styled from "styled-components";
+
 import { addToCartApi } from "../../api/user.api";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { cartActions } from "../../store/slice/Cart.slice";
@@ -13,10 +13,11 @@ interface IProps {
 const AddToCartBtn = ({ productId, size }: IProps) => {
   const dispatch = useAppDispatch();
   const { itemQty } = useAppSelector((state) => state.common);
+  const getToken = () => localStorage.getItem("token");
   const addToCart = async () => {
+    if (!getToken()) return toast.error("You need to login");
     try {
       await addToCartApi({ productId, qty: itemQty, size });
-      // localStorage.setItem("cartLength", String(itemQty));
       dispatch(cartActions.setCartLength(itemQty));
       toast.success("Add Product To Cart");
     } catch (error) {
