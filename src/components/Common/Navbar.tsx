@@ -16,23 +16,33 @@ const Navbar = () => {
   const { showSearch } = useAppSelector((state) => state.common);
   const { avatarUpload, avatarDefault } = useAppSelector((state) => state.user);
   const { cartLength } = useAppSelector((state) => state.cart);
-  const getCartLength = () => {
-    const localLen = localStorage.getItem("cartLength") || 0;
 
-    if (localLen && cartLength) return cartLength;
-    if (!localLen && cartLength) return localLen;
-    if (!localLen && !cartLength) return 0;
+  const getCartLength = () => {
+    const localLen = localStorage.getItem("cartLength");
+
+    //read cartItem's total -> store's state
+    if (
+      (localLen || Number(localLen) === 0) &&
+      (cartLength || cartLength === 0)
+    )
+      return cartLength;
+
+    if (localLen === null && cartLength !== null) return 0;
+    //not correctly clear store'value when logout
+
+    if (localLen === null && cartLength === null) return 0;
+    //logout
   };
+
   useEffect(() => {
     getCartLength();
   }, [cartLength]);
-
-  const getToken = () => localStorage.getItem("token") || "";
 
   const dispatch = useAppDispatch();
   const [showSideNav, setShowSideNav] = useState(false);
   const [colorChange, setColorChange] = useState(false);
 
+  const getToken = () => localStorage.getItem("token") || "";
   const isKeyboardEvent = (
     event: React.KeyboardEvent | React.MouseEvent
   ): event is React.KeyboardEvent => {
@@ -96,13 +106,6 @@ const Navbar = () => {
                   <Link to={"/product-list"}>PRODUCTS</Link>
                 </MenuItem>
               </LinkBox>
-              {/* <MenuItem>
-                <SearchIcon
-                  onClick={() => dispatch(commonActions.setShowSearch(true))}
-                >
-                  <IoIosSearch />
-                </SearchIcon>
-              </MenuItem> */}
 
               <MenuItem>
                 <Link to={"/checkout/cart"}>

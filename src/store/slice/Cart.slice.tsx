@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface IState {
-  cartLength: number;
+  cartLength: number | null;
 }
 
 const initialState: IState = {
-  cartLength: 0,
+  cartLength: null,
 };
 
 const cartSlice = createSlice({
@@ -13,7 +13,7 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     setCartLength(state, { payload }: PayloadAction<number>) {
-      state.cartLength += payload;
+      state.cartLength = payload;
     },
   },
 });

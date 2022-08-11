@@ -10,7 +10,7 @@ import store2 from "src/assets/footer/store/footerstore2.png";
 const contact = [
   {
     el: <ImLocation />,
-    info: "contact@lama.dev",
+    info: "Lofoten Links, Tore Hjortsvei, Gimsøysand",
   },
   {
     el: <ImPhone />,

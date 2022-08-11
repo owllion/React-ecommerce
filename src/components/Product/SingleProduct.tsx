@@ -1,11 +1,11 @@
 import styled from "styled-components";
 import { IoMdCart } from "react-icons/io";
-import { FiHeart } from "react-icons/fi";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 
 import { productItemMotion } from "../../lib/motion";
 import { IProduct } from "../../interface/product.interface";
+import Heart from "./Heart";
 
 const SingleProduct = ({ item }: { item: IProduct }) => {
   const navigate = useNavigate();
@@ -21,9 +21,7 @@ const SingleProduct = ({ item }: { item: IProduct }) => {
           <Icon>
             <IoMdCart />
           </Icon>
-          <Icon>
-            <FiHeart />
-          </Icon>
+          <Heart />
         </Info>
       </Wrapper>
       <Name>{item.productName}</Name>
@@ -72,7 +70,7 @@ const Image = styled.img`
   height: 100%;
 `;
 
-const Icon = styled.div`
+export const Icon = styled.div`
   width: 40px;
   height: 40px;
   border-radius: 50%;
