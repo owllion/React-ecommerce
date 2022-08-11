@@ -3,6 +3,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 interface IState {
   errorMsg: string;
   isLoading: boolean;
+  favLoading: boolean;
   showSearch: boolean;
   itemQty: number;
 }
@@ -13,6 +14,7 @@ interface IItemQty {
 const initialState: IState = {
   errorMsg: "",
   isLoading: false,
+  favLoading: false,
   showSearch: false,
   itemQty: 1,
 };
@@ -29,6 +31,9 @@ const commonSlice = createSlice({
     },
     setLoading(state, { payload }: PayloadAction<boolean>) {
       state.isLoading = payload;
+    },
+    setFavLoading(state, { payload }: PayloadAction<boolean>) {
+      state.favLoading = payload;
     },
     setShowSearch(state, { payload }: PayloadAction<boolean>) {
       state.showSearch = payload;

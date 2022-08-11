@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import styled, { css } from "styled-components";
 import { useParams } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
+import toast from "react-hot-toast";
+import { AxiosError } from "axios";
 
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import cl from "../constants/color/color";
@@ -12,8 +14,7 @@ import { getProductDetailApi } from "../api/product.api";
 import { IProduct } from "../interface/product.interface";
 import { productActions } from "../store/slice/Product.slice";
 import { commonActions } from "../store/slice/Common.slice";
-import toast from "react-hot-toast";
-import { AxiosError } from "axios";
+import Heart from "../components/Product/Heart";
 
 const sizeList = ["XS", "S", "M", "L", "XL"];
 
@@ -88,10 +89,15 @@ const ProductDetail = () => {
             <Name>{isLoading ? <Skeleton /> : detail.productName}</Name>
             <Price> {isLoading ? <Skeleton /> : `$${detail.price}`} </Price>
             <Spacer />
-            <ColorContainer>
-              <ColorTitle>Color</ColorTitle>
-              <SelectedColor>Blue</SelectedColor>
-            </ColorContainer>
+            <ColorAndFavContainer>
+              <InnerBox>
+                <ColorTitle>Color</ColorTitle>
+                <SelectedColor>Blue</SelectedColor>
+              </InnerBox>
+              <InnerBox>
+                <Heart item={detail} />
+              </InnerBox>
+            </ColorAndFavContainer>
             <SizeContainer>
               <SizeTitle>Size</SizeTitle>
               <SizeItems>
@@ -208,9 +214,14 @@ const Price = styled.p`
   }
   font-size: 1.4rem;
 `;
-const ColorContainer = styled.div`
+const ColorAndFavContainer = styled.div`
   padding: 0.4rem 0.4rem 0.4rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
+const InnerBox = styled.div``;
+
 const ColorTitle = styled.span`
   font-size: 1.2rem;
   width: 60px;

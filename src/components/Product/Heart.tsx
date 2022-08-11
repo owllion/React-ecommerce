@@ -16,7 +16,7 @@ import { commonActions } from "../../store/slice/Common.slice";
 const Heart = ({ item }: { item: IProduct }) => {
   const dispatch = useAppDispatch();
   const { favList } = useAppSelector((state) => state.user);
-  const { isLoading } = useAppSelector((state) => state.common);
+  const { favLoading } = useAppSelector((state) => state.common);
 
   const getToken = () => localStorage.getItem("token");
   const isInList = () => {
@@ -25,13 +25,13 @@ const Heart = ({ item }: { item: IProduct }) => {
   const addToFav = async () => {
     if (!getToken()) return toast.error("You need to login");
     try {
-      dispatch(commonActions.setLoading(true));
+      dispatch(commonActions.setFavLoading(true));
       await addToFavApi({ productId: item.productId });
       dispatch(userActions.addToFav(item));
       toast.success("Add to Fav");
-      dispatch(commonActions.setLoading(false));
+      dispatch(commonActions.setFavLoading(false));
     } catch (error) {
-      dispatch(commonActions.setLoading(false));
+      dispatch(commonActions.setFavLoading(false));
       const errMsg = ((error as AxiosError).response?.data as { msg: string })
         .msg;
       toast.error(errMsg);
@@ -41,13 +41,13 @@ const Heart = ({ item }: { item: IProduct }) => {
   const removeFromFav = async () => {
     if (!getToken()) return toast.error("You need to login");
     try {
-      dispatch(commonActions.setLoading(true));
+      dispatch(commonActions.setFavLoading(true));
       await removeFromFavApi({ productId: item.productId });
       dispatch(userActions.removeFromFav(item));
       toast.success("Remove From Fav");
-      dispatch(commonActions.setLoading(false));
+      dispatch(commonActions.setFavLoading(false));
     } catch (error) {
-      dispatch(commonActions.setLoading(false));
+      dispatch(commonActions.setFavLoading(false));
       const errMsg = ((error as AxiosError).response?.data as { msg: string })
         .msg;
       toast.error(errMsg);
@@ -57,7 +57,7 @@ const Heart = ({ item }: { item: IProduct }) => {
     <>
       <Icon
         onClick={() => (isInList() ? removeFromFav() : addToFav())}
-        disabled={isLoading}
+        disabled={favLoading}
       >
         {isInList() ? <IoIosHeart /> : <FiHeart />}
       </Icon>
