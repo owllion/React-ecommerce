@@ -1,14 +1,28 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import styled, { css } from "styled-components";
 import cl from "../../constants/color/color";
-
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { commonActions } from "../../store/slice/Common.slice";
 const PlusMinusBtn = () => {
+  const dispatch = useAppDispatch();
+  const { itemQty } = useAppSelector((state) => state.common);
+
+  const increaseHandler = () => {
+    if (itemQty === 10) return;
+    dispatch(commonActions.setItemQty({ type: "inc" }));
+  };
+
+  const minusHandler = () => {
+    if (itemQty === 1) return;
+    dispatch(commonActions.setItemQty({ type: "minus" }));
+  };
+
   return (
     <Container>
       <Wrapper>
-        <Plus>+</Plus>
-        <Input defaultValue="1" maxLength={2} min="1" max="99" />
-        <Minus>-</Minus>
+        <Plus onClick={() => increaseHandler()}>+</Plus>
+        <Input defaultValue={1} value={itemQty} />
+        <Minus onClick={() => minusHandler()}>-</Minus>
       </Wrapper>
     </Container>
   );

@@ -131,9 +131,6 @@ const ProductList = () => {
               />
             </Func>
           </Top>
-          {isLoading && productList.length === 0 && (
-            <Lottie jsonName={"loading"} text="" />
-          )}
 
           {productList.length > 0 && (
             <>
