@@ -1,9 +1,8 @@
-import React from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
-
 import styled, { css } from "styled-components";
-import cl from "../constants/color/color";
 
+import cl from "../constants/color/color";
 import DesktopCartItem from "../components/Checkout/Cart/DesktopCartItem";
 import TabletCartItem from "../components/Checkout/Cart/TabletCartItem";
 

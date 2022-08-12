@@ -1,10 +1,8 @@
-import { AxiosError } from "axios";
-import toast from "react-hot-toast";
 import styled from "styled-components";
+import { AnyAction } from "@reduxjs/toolkit";
 
-import { addToCartApi } from "../../api/user.api";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { cartActions } from "../../store/slice/Cart.slice";
+import addToCart from "../../store/actions/product/addToCart.action";
+import { useAppDispatch } from "../../store/hooks";
 
 interface IProps {
   productId: string;
@@ -12,20 +10,16 @@ interface IProps {
 }
 const AddToCartBtn = ({ productId, size }: IProps) => {
   const dispatch = useAppDispatch();
-  const { itemQty } = useAppSelector((state) => state.common);
-  const getToken = () => localStorage.getItem("token");
-  const addToCart = async () => {
-    if (!getToken()) return toast.error("You need to login");
+  const handleAddToCart = async () => {
     try {
-      await addToCartApi({ productId, qty: itemQty, size });
-      dispatch(cartActions.setCartLength(itemQty));
-      toast.success("Add Product To Cart");
+      await dispatch(
+        addToCart({ productId, addOne: false, size }) as unknown as AnyAction
+      );
     } catch (error) {
-      const err = ((error as AxiosError).response?.data as { msg: string }).msg;
-      toast.error(err);
+      console.log(error);
     }
   };
-  return <Container onClick={() => addToCart()}>Add To Cart</Container>;
+  return <Container onClick={() => handleAddToCart()}>Add To Cart</Container>;
 };
 
 const Container = styled.button`
