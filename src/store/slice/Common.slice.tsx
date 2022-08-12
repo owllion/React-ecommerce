@@ -5,6 +5,7 @@ interface IState {
   isLoading: boolean;
   favLoading: boolean;
   showSearch: boolean;
+  showPopup: boolean;
   itemQty: number;
 }
 interface IItemQty {
@@ -16,6 +17,7 @@ const initialState: IState = {
   isLoading: false,
   favLoading: false,
   showSearch: false,
+  showPopup: false,
   itemQty: 1,
 };
 
@@ -40,6 +42,9 @@ const commonSlice = createSlice({
     },
     setItemQty(state, { payload }: PayloadAction<IItemQty>) {
       payload.type === "inc" ? (state.itemQty += 1) : (state.itemQty -= 1);
+    },
+    setShowPopup(state, { payload }: PayloadAction<boolean>) {
+      state.showPopup = payload;
     },
   },
 });

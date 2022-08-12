@@ -102,22 +102,8 @@ const ProductDetail = () => {
                 <Heart item={detail} />
               </InnerBox>
             </ColorAndFavContainer>
-            {/* <SizeContainer>
-              <SizeTitle>Size</SizeTitle>
-              <SizeItems>
-                {sizeList.map((size, index) => (
-                  <SizeItem
-                    key={index}
-                    onClick={() => setSelectedSizeIndex(index)}
-                    nowIndex={index}
-                    nowSelected={selectedSizeIndex}
-                  >
-                    {size}
-                  </SizeItem>
-                ))}
-              </SizeItems>
-            </SizeContainer> */}
             <SizeSelect
+              isPopup={false}
               selectedSizeIndex={selectedSizeIndex}
               setSizeHandler={setSizeHandler}
             />

@@ -10,17 +10,18 @@ import Navbar from "./components/Common/Navbar";
 import Footer from "./components/Common/Footer";
 import ScrollToTop from "./components/Common/ScrollToTop";
 import Lottie from "./components/Common/Lottie";
+import Popup from "./components/Common/Popup";
 
 const App = () => {
   return (
     <BrowserRouter>
       <Toaster position="top-right" reverseOrder={false} />
+      <Popup />
       <ScrollToTop>
         <Navbar />
         <GlobalCss />
         <Suspense fallback={<Lottie jsonName="loading" text="loading" />}>
           <RouteConfig />
-
           <Footer />
         </Suspense>
       </ScrollToTop>
