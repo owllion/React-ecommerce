@@ -120,6 +120,7 @@ export const ClearBtn = styled.button`
   padding: 0.8rem;
   font-weight: bold;
   color: ${cl.white};
+  cursor: pointer;
   background: ${cl.primary};
   &:focus {
     outline: transparent;

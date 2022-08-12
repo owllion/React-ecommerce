@@ -10,13 +10,16 @@ import Navbar from "./components/Common/Navbar";
 import Footer from "./components/Common/Footer";
 import ScrollToTop from "./components/Common/ScrollToTop";
 import Lottie from "./components/Common/Lottie";
-import Popup from "./components/Common/Popup";
+import SelectSizePopup from "./components/Product/SelectSizePopup";
+import { useAppSelector } from "./store/hooks";
 
 const App = () => {
+  const { showPopup } = useAppSelector((state) => state.common);
   return (
     <BrowserRouter>
       <Toaster position="top-right" reverseOrder={false} />
-      <Popup />
+      {showPopup && <SelectSizePopup />}
+
       <ScrollToTop>
         <Navbar />
         <GlobalCss />

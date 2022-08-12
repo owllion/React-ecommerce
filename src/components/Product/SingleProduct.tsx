@@ -7,31 +7,46 @@ import { FiSearch } from "react-icons/fi";
 import { productItemMotion } from "../../lib/motion";
 import { IProduct } from "../../interface/product.interface";
 import Heart from "./Heart";
-import addToCart from "../../store/actions/product/addToCart.action";
+import { commonActions } from "../../store/slice/Common.slice";
+import { useAppDispatch } from "../../store/hooks";
+import toast from "react-hot-toast";
 
 const SingleProduct = ({ item }: { item: IProduct }) => {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const handleNavigate = (id: string) => {
     navigate(`/product-detail/${id}`);
   };
+  const handleShowPopup = () => {
+    localStorage.getItem("token")
+      ? dispatch(commonActions.setShowPopup(true))
+      : toast.error("You need to login");
+  };
 
   return (
-    <Container as={motion.div} layout {...productItemMotion}>
-      <Wrapper>
-        <Image src={item.imageList?.[0]} alt="product" />
-        <Info>
-          <Icon onClick={() => handleNavigate(item.productId)}>
-            <FiSearch />
-          </Icon>
-          <Icon>
-            <IoMdCart />
-          </Icon>
-          <Heart item={item} />
-        </Info>
-      </Wrapper>
-      <Name>{item.productName}</Name>
-      <Price>${item.price}</Price>
-    </Container>
+    <>
+      <Container as={motion.div} layout {...productItemMotion}>
+        <Wrapper>
+          <Image src={item.imageList?.[0]} alt="product" />
+          <Info>
+            <Icon onClick={() => handleNavigate(item.productId)}>
+              <FiSearch />
+            </Icon>
+            <Icon
+              onClick={() => {
+                handleShowPopup();
+                dispatch(commonActions.setCurrentProductId(item._id));
+              }}
+            >
+              <IoMdCart />
+            </Icon>
+            <Heart item={item} />
+          </Info>
+        </Wrapper>
+        <Name>{item.productName}</Name>
+        <Price>${item.price}</Price>
+      </Container>
+    </>
   );
 };
 

@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
 import { AnyAction } from "@reduxjs/toolkit";
-import toast from "react-hot-toast";
 
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import cl from "../../constants/color/color.js";
@@ -24,7 +23,7 @@ const HaveAccount = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const emailParam = (location.state as Pick<FormValue, "email">)?.email;
-  const { errorMsg } = useAppSelector((state) => state.common);
+
   const methods = useForm<FormValue>();
   const {
     handleSubmit,

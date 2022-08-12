@@ -7,6 +7,7 @@ interface IState {
   showSearch: boolean;
   showPopup: boolean;
   itemQty: number;
+  currentProductId: string;
 }
 interface IItemQty {
   type: string;
@@ -19,6 +20,7 @@ const initialState: IState = {
   showSearch: false,
   showPopup: false,
   itemQty: 1,
+  currentProductId: "",
 };
 
 const commonSlice = createSlice({
@@ -45,6 +47,9 @@ const commonSlice = createSlice({
     },
     setShowPopup(state, { payload }: PayloadAction<boolean>) {
       state.showPopup = payload;
+    },
+    setCurrentProductId(state, { payload }: PayloadAction<string>) {
+      state.currentProductId = payload;
     },
   },
 });

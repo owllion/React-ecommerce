@@ -7,24 +7,19 @@ import { commonActions } from "../../slice/Common.slice";
 import { cartActions } from "../../slice/Cart.slice";
 
 interface IProps {
-  /**
-   * cartBtnPosition -->
-   * productList's each item has one cartBtn,default is to add only one item to cart.
-   * ProductDetail page has another one. THe number of product is not fixed. So we need this value to decide which value we should pass.
-   */
-  cartBtnPosition: string;
   productId: string;
+  addOne?: boolean;
   size: string;
 }
-const addToCart = ({ cartBtnPosition, productId, size }: IProps): AppThunk => {
+const addToCart = ({ productId, addOne, size }: IProps): AppThunk => {
   const getToken = () => localStorage.getItem("token");
 
   return async (dispatch, getState) => {
     if (!getToken()) return toast.error("You need to login");
 
     const { itemQty } = getState().common;
-    let addOneToCart = cartBtnPosition === "card" ? true : false;
-    const qty = addOneToCart ? 1 : itemQty;
+
+    const qty = addOne ? 1 : itemQty;
 
     try {
       dispatch(commonActions.setLoading(true));
@@ -33,6 +28,8 @@ const addToCart = ({ cartBtnPosition, productId, size }: IProps): AppThunk => {
       dispatch(cartActions.setCartLength(qty));
 
       toast.success("Add Product To Cart");
+
+      dispatch(commonActions.setShowPopup(false));
 
       dispatch(commonActions.setLoading(false));
     } catch (error) {
