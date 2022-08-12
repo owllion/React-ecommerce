@@ -15,6 +15,7 @@ import { IProduct } from "../interface/product.interface";
 import { productActions } from "../store/slice/Product.slice";
 import { commonActions } from "../store/slice/Common.slice";
 import Heart from "../components/Product/Heart";
+import SizeSelect from "../components/Product/SizeSelect";
 
 const sizeList = ["XS", "S", "M", "L", "XL"];
 
@@ -41,6 +42,9 @@ const ProductDetail = () => {
     size: "",
     reviews: [],
   });
+  const setSizeHandler = (index: number) => {
+    setSelectedSizeIndex(index);
+  };
 
   const getDetail = async () => {
     dispatch(commonActions.setLoading(true));
@@ -98,7 +102,7 @@ const ProductDetail = () => {
                 <Heart item={detail} />
               </InnerBox>
             </ColorAndFavContainer>
-            <SizeContainer>
+            {/* <SizeContainer>
               <SizeTitle>Size</SizeTitle>
               <SizeItems>
                 {sizeList.map((size, index) => (
@@ -112,7 +116,11 @@ const ProductDetail = () => {
                   </SizeItem>
                 ))}
               </SizeItems>
-            </SizeContainer>
+            </SizeContainer> */}
+            <SizeSelect
+              selectedSizeIndex={selectedSizeIndex}
+              setSizeHandler={setSizeHandler}
+            />
             <BtnBox>
               <PlusMinusBtnBox>
                 <PlusMinusBtn />

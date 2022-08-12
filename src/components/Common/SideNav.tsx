@@ -102,7 +102,7 @@ const SideNav = ({ handleShowSideNav }: IProps) => {
   );
 };
 
-const Backdrop = styled.div`
+export const Backdrop = styled.div`
   width: 100%;
   height: 100%;
   position: fixed;

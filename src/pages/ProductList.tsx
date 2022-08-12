@@ -87,10 +87,7 @@ const ProductList = () => {
   }, [selectedCategory, selectedBrand, selectedPrice]);
 
   useUpdateEffect(() => {
-    console.log("現在width改變了 kw是:", keyword);
-    if (isTargetWidth) {
-      dispatch(getProductList(keyword) as unknown as AnyAction);
-    }
+    dispatch(getProductList(keyword) as unknown as AnyAction);
   }, [selectedSort, isTargetWidth]);
 
   useEffect(() => {

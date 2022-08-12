@@ -7,6 +7,7 @@ import { FiSearch } from "react-icons/fi";
 import { productItemMotion } from "../../lib/motion";
 import { IProduct } from "../../interface/product.interface";
 import Heart from "./Heart";
+import addToCart from "../../store/actions/product/addToCart.action";
 
 const SingleProduct = ({ item }: { item: IProduct }) => {
   const navigate = useNavigate();

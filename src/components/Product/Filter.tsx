@@ -36,9 +36,9 @@ const Filter = ({ active, handleActive }: IProps) => {
             title="Price"
             itemList={FilterOptions.priceOptions}
           />
-          <SearchBtn onClick={() => dispatch(productActions.clearAllState())}>
+          <ClearBtn onClick={() => dispatch(productActions.clearAllState())}>
             Clear
-          </SearchBtn>
+          </ClearBtn>
         </Options>
       )}
     </Container>
@@ -91,7 +91,6 @@ const SelectBtnText = styled.div`
 const Options = styled.ul<{ active: boolean }>`
   overflow-y: scroll;
   height: 500px;
-  /* background: #000; */
   position: absolute;
   width: 100%;
   z-index: 10;
@@ -114,7 +113,7 @@ const Options = styled.ul<{ active: boolean }>`
     }
   }}
 `;
-const SearchBtn = styled.button`
+export const ClearBtn = styled.button`
   border: none;
   width: 100%;
   border-radius: 8px;
@@ -123,7 +122,7 @@ const SearchBtn = styled.button`
   color: ${cl.white};
   background: ${cl.primary};
   &:focus {
-    outline: none;
+    outline: transparent;
   }
 `;
 export default Filter;
