@@ -60,6 +60,13 @@ export interface IRemoveFromFav extends Pick<IBaseProductInfo, "productId"> {}
 export interface IRemoveItemFromCart
   extends Pick<IBaseProductInfo, "productId" | "cartList"> {}
 export interface IUpdateQty
-  extends Pick<IBaseProductInfo, "productId" | "qty" | "cartList"> {}
+  extends Pick<IBaseProductInfo, "productId" | "qty"> {}
 export interface IAddToCart
   extends Pick<IBaseProductInfo, "productId" | "qty" | "size"> {}
+
+export interface IGetPopulatedList {
+  type: "order" | "review";
+}
+export interface IGetNormalList {
+  type: "cartList" | "favList" | "couponList";
+}

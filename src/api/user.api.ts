@@ -25,9 +25,11 @@ export const addToFavApi = (data: UserInterface.IAddToFav) =>
 export const removeFromFavApi = (data: UserInterface.IRemoveFromFav) =>
   instance.post("/user/fav/remove", data);
 
-export const getCartList = () => instance.get("/user/cartList");
+export const getPopulatedList = (data: UserInterface.IGetPopulatedList) =>
+  instance.get(`/user/populate/${data.type}/list`);
 
-export const getOrderOrReviewList = () => instance.get("/user/cartList");
+export const getNormalList = (data: UserInterface.IGetNormalList) =>
+  instance.get(`/user/${data.type}/list`);
 
 export const addToCartApi = (data: UserInterface.IAddToCart) =>
   instance.post("/user/cart/add", data);
@@ -36,7 +38,7 @@ export const removeItemInCart = (data: UserInterface.IRemoveItemFromCart) =>
   instance.post("/cart/remove", data);
 
 export const updateQty = (data: UserInterface.IUpdateQty) =>
-  instance.post("/cart/update-qty", data);
+  instance.post("/user/cart/update-qty", data);
 
 export const clearCart = () => instance.get("/clearCart");
 

@@ -1,28 +1,50 @@
+import { AxiosError } from "axios";
+import toast from "react-hot-toast";
 import styled, { css } from "styled-components";
+
 import cl from "../../constants/color/color";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { commonActions } from "../../store/slice/Common.slice";
+import { updateQty } from "src/api/user.api";
+import { cartActions } from "../../store/slice/Cart.slice";
 
-const PlusMinusBtn = () => {
+interface IProps {
+  cartItemQty?: number;
+  productId?: string;
+}
+
+const PlusMinusBtn = ({ cartItemQty, productId }: IProps) => {
   const dispatch = useAppDispatch();
   const { itemQty } = useAppSelector((state) => state.common);
-
-  const increaseHandler = () => {
-    if (itemQty === 10) return;
-    dispatch(commonActions.setItemQty({ type: "inc" }));
+  const updateQtyHandler = async (cartItemQty: number, productId: string) => {
+    try {
+      await updateQty({ qty: cartItemQty, productId: productId });
+    } catch (error) {
+      const err = ((error as AxiosError).response?.data as { msg: string }).msg;
+      toast.error(err);
+    }
   };
-
-  const minusHandler = () => {
-    if (itemQty === 1) return;
-    dispatch(commonActions.setItemQty({ type: "minus" }));
+  const actionHandler = async (type: string) => {
+    if (cartItemQty) {
+      dispatch(
+        cartActions.updateCartListItemQty({
+          type,
+          productId: productId!,
+        })
+      );
+      await updateQtyHandler(cartItemQty, productId!);
+      return;
+    }
+    if (type === "inc" ? itemQty === 10 : itemQty === 1) return;
+    dispatch(commonActions.setItemQty({ type }));
   };
 
   return (
     <Container>
       <Wrapper>
-        <Plus onClick={() => increaseHandler()}>+</Plus>
-        <Input defaultValue={1} value={itemQty} />
-        <Minus onClick={() => minusHandler()}>-</Minus>
+        <Plus onClick={() => actionHandler("inc")}>+</Plus>
+        <Input defaultValue={1} value={cartItemQty ? cartItemQty : itemQty} />
+        <Minus onClick={() => actionHandler("dec")}>-</Minus>
       </Wrapper>
     </Container>
   );

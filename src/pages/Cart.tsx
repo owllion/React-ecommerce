@@ -1,12 +1,33 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
 
 import cl from "../constants/color/color";
 import DesktopCartItem from "../components/Checkout/Cart/DesktopCartItem";
 import TabletCartItem from "../components/Checkout/Cart/TabletCartItem";
+import { getNormalList } from "../api/user.api";
+import { IProduct } from "../interface/product.interface";
+
+interface IResult {
+  data: { cartList: IProduct[] };
+}
 
 const Cart = () => {
+  const [cartList, setCartList] = useState<IProduct[]>([]);
+  const getCartList = async () => {
+    try {
+      const {
+        data: { cartList },
+      }: IResult = await getNormalList({ type: "cartList" });
+      console.log({ cartList });
+      setCartList(cartList);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getCartList();
+  }, []);
   return (
     <Container>
       <Wrapper>
@@ -21,17 +42,17 @@ const Cart = () => {
               <Item5>Remove</Item5>
             </CartTableHeader>
             <SingleItemContainer>
-              <DesktopCartItem />
-              <TabletCartItem />
+              <DesktopCartItem cartList={cartList} />
+              <TabletCartItem cartList={cartList} />
             </SingleItemContainer>
           </CartTableContainer>
 
           <CheckInfoContainer>
             <TotalBox>
               <p>
-                Total{" "}
+                Total
                 <span className="symbol">
-                  $ <span className="price">285.00</span>{" "}
+                  $ <span className="price">285.00</span>
                 </span>
               </p>
             </TotalBox>
@@ -50,16 +71,10 @@ const Cart = () => {
     </Container>
   );
 };
-const Container = styled.div`
-  /* @media (min-width: 1000px) {
-    padding: 10rem 0;
-  }
-  padding: 2rem 0; */
-`;
+const Container = styled.div``;
 const Wrapper = styled.div`
   max-width: 1300px;
   margin: 0 auto;
-  /* background-color: coral; */
   display: flex;
   padding: 2rem 5rem 4rem;
   @media (max-width: 768px) {
@@ -146,9 +161,6 @@ const TotalBox = styled.div`
     justify-content: flex-end;
     font-size: 1.3rem;
     font-weight: bold;
-    /* @media (max-width: 1024px) {
-      font-size: 1.6rem;
-    } */
     .symbol {
       padding-left: 1.2rem;
       font-size: 1rem;
@@ -184,7 +196,6 @@ const baseBtn = css`
   display: flex;
   align-items: center;
   justify-content: center;
-  /* text-align: center; */
   cursor: pointer;
   border-radius: 5px;
   @media (max-width: 600x) {

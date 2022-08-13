@@ -3,40 +3,43 @@ import { IoMdTrash } from "react-icons/io";
 
 import PlusMinusBtn from "../../Common/PlusMinusBtn";
 import styled, { css } from "styled-components";
-
-const TabletCartItem = () => {
+import { IProps } from "./DesktopCartItem";
+const TabletCartItem = ({ cartList }: IProps) => {
   return (
     <TabletSingleItemContainer>
-      <ItemInfo>
-        <ItemInfoBox>
-          <ItemInfoImgBox>
-            <ItemImg
-              src={"https://i.kfs.io/album/global/86789321,3v1/fit/500x500.jpg"}
-            />
-          </ItemInfoImgBox>
+      {cartList.map((item) => (
+        <>
+          <ItemInfo key={item.productId}>
+            <ItemInfoBox>
+              <ItemInfoImgBox>
+                <ItemImg src={item.imageList[0]} />
+              </ItemInfoImgBox>
+              <ItemInfoTextBox>
+                <h3>{item.productName}</h3>
+              </ItemInfoTextBox>
+            </ItemInfoBox>
+            <ItemDeleteBox>
+              <IoMdTrash />
+            </ItemDeleteBox>
+          </ItemInfo>
           <ItemInfoTextBox>
-            <h3>raven cool Jacket</h3>
+            <ItemInfoColor>Black</ItemInfoColor>
+            <ItemInfoSize>{item.size}</ItemInfoSize>
           </ItemInfoTextBox>
-        </ItemInfoBox>
-        <ItemDeleteBox>
-          <IoMdTrash />
-        </ItemDeleteBox>
-      </ItemInfo>
-      <ItemInfoTextBox>
-        <ItemInfoColor>Black</ItemInfoColor>
-        <ItemInfoSize>Xl</ItemInfoSize>
-      </ItemInfoTextBox>
-      <ItemInfoPriceBox>
-        <ItemInfoPrice>$285.00</ItemInfoPrice>
-        <CounterAndSubtotalBox>
-          <ItemInfoCounterBox>
-            <PlusMinusBtn />
-          </ItemInfoCounterBox>
-          <ItemInfoSubTotalBox>
-            <ItemInfoSubTotal>$570.00</ItemInfoSubTotal>
-          </ItemInfoSubTotalBox>
-        </CounterAndSubtotalBox>
-      </ItemInfoPriceBox>
+
+          <ItemInfoPriceBox>
+            <ItemInfoPrice>${item.price}</ItemInfoPrice>
+            <CounterAndSubtotalBox>
+              <ItemInfoCounterBox>
+                <PlusMinusBtn />
+              </ItemInfoCounterBox>
+              <ItemInfoSubTotalBox>
+                <ItemInfoSubTotal>${item.price * item.qty!}</ItemInfoSubTotal>
+              </ItemInfoSubTotalBox>
+            </CounterAndSubtotalBox>
+          </ItemInfoPriceBox>
+        </>
+      ))}
     </TabletSingleItemContainer>
   );
 };
@@ -106,6 +109,7 @@ const ItemDeleteBox = styled.div`
   align-items: center;
   justify-content: center;
   margin-right: 2%;
+  cursor: pointer;
 `;
 
 const ItemInfoPriceBox = styled.div`
