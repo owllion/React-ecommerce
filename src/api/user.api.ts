@@ -34,7 +34,7 @@ export const getNormalList = (data: UserInterface.IGetNormalList) =>
 export const addToCartApi = (data: UserInterface.IAddToCart) =>
   instance.post("/user/cart/add", data);
 
-export const removeFromCart = (data: UserInterface.IRemoveFromCart) =>
+export const removeFromCartApi = (data: UserInterface.IRemoveFromCart) =>
   instance.post("user/cart/remove", data);
 
 export const updateQty = (data: UserInterface.IUpdateQty) =>

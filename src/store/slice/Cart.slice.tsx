@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IProduct } from "src/interface/product.interface";
-import { IRemoveFromCart } from "../../components/Checkout/Cart/DesktopCartItem";
+import { IRemoveFromCartAction } from "../actions/product/removeFromCart.action";
 interface IState {
   cartLength: number | null;
   cartList: IProduct[];
@@ -28,7 +28,7 @@ const cartSlice = createSlice({
     },
     removeFromCart(
       state,
-      { payload }: PayloadAction<Omit<IRemoveFromCart, "qty">>
+      { payload }: PayloadAction<Omit<IRemoveFromCartAction, "qty">>
     ) {
       const index = state.cartList.findIndex(
         (item) =>

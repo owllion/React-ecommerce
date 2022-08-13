@@ -1,10 +1,30 @@
-import React from "react";
 import { IoMdTrash } from "react-icons/io";
 
 import PlusMinusBtn from "../../Common/PlusMinusBtn";
 import styled, { css } from "styled-components";
 import { IProps } from "./DesktopCartItem";
+import removeFromCart, {
+  IRemoveFromCartAction,
+} from "src/store/actions/product/removeFromCart.action";
+import { useAppDispatch } from "../../../store/hooks";
+import { AnyAction } from "@reduxjs/toolkit";
+
 const TabletCartItem = ({ cartList }: IProps) => {
+  const dispatch = useAppDispatch();
+  const removeFromCartHandler = ({
+    qty,
+    productId,
+    size,
+  }: IRemoveFromCartAction) => {
+    dispatch(
+      removeFromCart({
+        productId,
+        qty,
+        size,
+      }) as unknown as AnyAction
+    );
+  };
+
   return (
     <TabletSingleItemContainer>
       {cartList.map((item, index) => (
@@ -19,7 +39,15 @@ const TabletCartItem = ({ cartList }: IProps) => {
               </ItemInfoTextBox>
             </ItemInfoBox>
             <ItemDeleteBox>
-              <IoMdTrash />
+              <IoMdTrash
+                onClick={() =>
+                  removeFromCartHandler({
+                    productId: item.productId,
+                    qty: item.qty!,
+                    size: item.size,
+                  })
+                }
+              />
             </ItemDeleteBox>
           </ItemInfo>
           <ItemInfoTextBox>

@@ -2,38 +2,54 @@ import { Fragment } from "react";
 import styled, { css } from "styled-components";
 import { IoMdTrash } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
+import { AxiosError } from "axios";
+import toast from "react-hot-toast";
 
 import PlusMinusBtn from "../../Common/PlusMinusBtn";
 import { IProduct } from "src/interface/product.interface";
-import { removeFromCart } from "../../../api/user.api";
-import { commonActions } from "../../../store/slice/Common.slice";
 import { cartActions } from "../../../store/slice/Cart.slice";
 import { useAppDispatch } from "../../../store/hooks";
+import removeFromCart, {
+  IRemoveFromCartAction,
+} from "../../../store/actions/product/removeFromCart.action";
+import { AnyAction } from "@reduxjs/toolkit";
+
 export interface IProps {
   cartList: IProduct[];
 }
 
-export interface IRemoveFromCart {
-  qty: number;
-  productId: string;
-  size: string;
-}
 const DesktopCartItem = ({ cartList }: IProps) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const handleNavigate = (id: string) => {
     navigate(`/product-detail/${id}`);
   };
-  const removeFromCartHandler = async ({
+  // const removeFromCartHandler = async ({
+  //   qty,
+  //   productId,
+  //   size,
+  // }: IRemoveFromCart) => {
+  //   try {
+  //     await removeFromCart({ productId, size });
+  //     dispatch(cartActions.removeFromCart({ productId, size }));
+  //     dispatch(cartActions.setCartLength(qty * -1));
+  //   } catch (error) {
+  //     const err = ((error as AxiosError).response?.data as { msg: string }).msg;
+  //     toast.error(err);
+  //   }
+  // };
+  const removeFromCartHandler = ({
     qty,
     productId,
     size,
-  }: IRemoveFromCart) => {
-    try {
-      await removeFromCart({ productId, size });
-      dispatch(cartActions.removeFromCart({ productId, size }));
-      dispatch(cartActions.setCartLength(qty * -1));
-    } catch (error) {}
+  }: IRemoveFromCartAction) => {
+    dispatch(
+      removeFromCart({
+        productId,
+        qty,
+        size,
+      }) as unknown as AnyAction
+    );
   };
   return (
     <DesktopSingleItemContainer>
