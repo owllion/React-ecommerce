@@ -51,6 +51,9 @@ const commonSlice = createSlice({
     setItemQty(state, { payload }: PayloadAction<IItemQty>) {
       payload.type === "inc" ? (state.itemQty += 1) : (state.itemQty -= 1);
     },
+    resetItemQty(state) {
+      state.itemQty = 1;
+    },
     setShowPopup(state, { payload }: PayloadAction<boolean>) {
       state.showPopup = payload;
     },

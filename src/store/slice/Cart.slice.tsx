@@ -30,10 +30,6 @@ const cartSlice = createSlice({
       state,
       { payload }: PayloadAction<Omit<IRemoveFromCart, "qty">>
     ) {
-      // state.cartList = state.cartList.filter(
-      //   (item) =>
-      //     item.productId !== payload.productId && item.size !== payload.size
-      // );
       const index = state.cartList.findIndex(
         (item) =>
           item.productId === payload.productId && item.size === payload.size

@@ -17,7 +17,7 @@ const App = () => {
   const { showPopup } = useAppSelector((state) => state.common);
   return (
     <BrowserRouter>
-      <Toaster position="top-right" reverseOrder={false} />
+      <Toaster position="top-center" reverseOrder={false} />
       {showPopup && <SelectSizePopup />}
 
       <ScrollToTop>
