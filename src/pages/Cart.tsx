@@ -9,6 +9,8 @@ import { getNormalList } from "../api/user.api";
 import { IProduct } from "../interface/product.interface";
 import { cartActions } from "../store/slice/Cart.slice";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
+import { commonActions } from "../store/slice/Common.slice";
+import Lottie from "../components/Common/Lottie";
 
 interface IResult {
   data: { cartList: IProduct[] };
@@ -27,11 +29,14 @@ const Cart = () => {
   };
   const getCartList = async () => {
     try {
+      dispatch(commonActions.setLoading(true));
       const {
         data: { cartList },
       }: IResult = await getNormalList({ type: "cartList" });
       dispatch(cartActions.setCartList(cartList));
+      dispatch(commonActions.setLoading(false));
     } catch (error) {
+      dispatch(commonActions.setLoading(false));
       console.log(error);
     }
   };
@@ -46,39 +51,48 @@ const Cart = () => {
       <Wrapper>
         <CartContent>
           <Title>Cart</Title>
-          <CartTableContainer>
-            <CartTableHeader>
-              <HeaderItem>Product</HeaderItem>
-              <Item2>Price</Item2>
-              <Item3>Quantity</Item3>
-              <Item4>Subtotal</Item4>
-              <Item5>Remove</Item5>
-            </CartTableHeader>
-            <SingleItemContainer>
-              <DesktopCartItem cartList={cartList ? cartList : []} />
-              <TabletCartItem cartList={cartList ? cartList : []} />
-            </SingleItemContainer>
-          </CartTableContainer>
+          {cartList.length > 0 && (
+            <>
+              <CartTableContainer>
+                <CartTableHeader>
+                  <HeaderItem>Product</HeaderItem>
+                  <Item2>Price</Item2>
+                  <Item3>Quantity</Item3>
+                  <Item4>Subtotal</Item4>
+                  <Item5>Remove</Item5>
+                </CartTableHeader>
+                <SingleItemContainer>
+                  <DesktopCartItem cartList={cartList} />
+                  <TabletCartItem cartList={cartList} />
+                </SingleItemContainer>
+              </CartTableContainer>
 
-          <CheckInfoContainer>
-            <TotalBox>
-              <p>
-                Total
-                <span className="symbol">
-                  $ <span className="price">{total}</span>
-                </span>
-              </p>
-            </TotalBox>
-          </CheckInfoContainer>
+              <CheckInfoContainer>
+                <TotalBox>
+                  <p>
+                    Total
+                    <span className="symbol">
+                      $ <span className="price">{total}</span>
+                    </span>
+                  </p>
+                </TotalBox>
+              </CheckInfoContainer>
 
-          <BtnSetBox>
-            <BtnSetInnerBox>
-              <ContinueShoppingBtn to={"/product-list"}>
-                Back to shopping
-              </ContinueShoppingBtn>
-              <CheckoutBtn to={"/checkout/ship-and-pay"}>Checkout </CheckoutBtn>
-            </BtnSetInnerBox>
-          </BtnSetBox>
+              <BtnSetBox>
+                <BtnSetInnerBox>
+                  <ContinueShoppingBtn to={"/product-list"}>
+                    Back to shopping
+                  </ContinueShoppingBtn>
+                  <CheckoutBtn to={"/checkout/ship-and-pay"}>
+                    Checkout{" "}
+                  </CheckoutBtn>
+                </BtnSetInnerBox>
+              </BtnSetBox>
+            </>
+          )}
+          {cartList.length === 0 && (
+            <Lottie jsonName={"sleepingAnt"} text="Your cart is empty" />
+          )}
         </CartContent>
       </Wrapper>
     </Container>

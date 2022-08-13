@@ -52,5 +52,7 @@ const Container = styled.div`
 const Text = styled.p`
   margin: 2rem 0;
   padding: 1rem;
+  font-size: 2rem;
   font-weight: 800;
+  text-align: center;
 `;
