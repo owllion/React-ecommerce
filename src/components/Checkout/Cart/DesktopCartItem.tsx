@@ -1,27 +1,48 @@
+import { Fragment } from "react";
 import styled, { css } from "styled-components";
 import { IoMdTrash } from "react-icons/io";
-import PlusMinusBtn from "../../Common/PlusMinusBtn";
-import { IProduct } from "src/interface/product.interface";
-import { Item } from "framer-motion/types/components/Reorder/Item";
 import { useNavigate } from "react-router-dom";
 
+import PlusMinusBtn from "../../Common/PlusMinusBtn";
+import { IProduct } from "src/interface/product.interface";
+import { removeFromCart } from "../../../api/user.api";
+import { commonActions } from "../../../store/slice/Common.slice";
+import { cartActions } from "../../../store/slice/Cart.slice";
+import { useAppDispatch } from "../../../store/hooks";
 export interface IProps {
   cartList: IProduct[];
 }
 
+export interface IRemoveFromCart {
+  qty: number;
+  productId: string;
+  size: string;
+}
 const DesktopCartItem = ({ cartList }: IProps) => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const handleNavigate = (id: string) => {
     navigate(`/product-detail/${id}`);
   };
+  const removeFromCartHandler = async ({
+    qty,
+    productId,
+    size,
+  }: IRemoveFromCart) => {
+    try {
+      await removeFromCart({ productId, size });
+      dispatch(cartActions.removeFromCart({ productId, size }));
+      dispatch(cartActions.setCartLength(qty * -1));
+    } catch (error) {}
+  };
   return (
     <DesktopSingleItemContainer>
-      {cartList.map((item) => (
-        <>
+      {cartList.map((item, index) => (
+        <Fragment key={index * 2}>
           <ItemInfoContainer>
             <ItemInfo>
               <ItemInfoImgBox onClick={() => handleNavigate(item.productId)}>
-                <ItemImg src={item.imageList[0]} />
+                <ItemImg src={item.imageList?.[0]} />
               </ItemInfoImgBox>
               <ItemInfoTextBox>
                 <h3>{item.productName}</h3>
@@ -35,15 +56,27 @@ const DesktopCartItem = ({ cartList }: IProps) => {
             <ItemInfoPrice>${item.price}</ItemInfoPrice>
           </ItemInfoPriceBox>
           <ItemInfoCounterBox>
-            <PlusMinusBtn cartItemQty={item.qty!} productId={item.productId} />
+            <PlusMinusBtn
+              cartItemQty={item.qty!}
+              productId={item.productId}
+              size={item.size}
+            />
           </ItemInfoCounterBox>
           <ItemInfoSubTotalBox>
             <ItemInfoSubTotal>${item.price * item.qty!}</ItemInfoSubTotal>
           </ItemInfoSubTotalBox>
           <ItemDeleteBox>
-            <IoMdTrash />
+            <IoMdTrash
+              onClick={() =>
+                removeFromCartHandler({
+                  productId: item.productId,
+                  qty: item.qty!,
+                  size: item.size,
+                })
+              }
+            />
           </ItemDeleteBox>
-        </>
+        </Fragment>
       ))}
     </DesktopSingleItemContainer>
   );

@@ -7,20 +7,30 @@ import DesktopCartItem from "../components/Checkout/Cart/DesktopCartItem";
 import TabletCartItem from "../components/Checkout/Cart/TabletCartItem";
 import { getNormalList } from "../api/user.api";
 import { IProduct } from "../interface/product.interface";
+import { cartActions } from "../store/slice/Cart.slice";
+import { useAppDispatch, useAppSelector } from "../store/hooks";
 
 interface IResult {
   data: { cartList: IProduct[] };
 }
 
 const Cart = () => {
-  const [cartList, setCartList] = useState<IProduct[]>([]);
+  const [total, setTotal] = useState(0);
+  const dispatch = useAppDispatch();
+  const { cartList } = useAppSelector((state) => state.cart);
+  const getTotal = () => {
+    const res = cartList.reduce(
+      (total, cur) => total + cur.qty! * cur.price,
+      0
+    );
+    setTotal(res);
+  };
   const getCartList = async () => {
     try {
       const {
         data: { cartList },
       }: IResult = await getNormalList({ type: "cartList" });
-      console.log({ cartList });
-      setCartList(cartList);
+      dispatch(cartActions.setCartList(cartList));
     } catch (error) {
       console.log(error);
     }
@@ -28,6 +38,9 @@ const Cart = () => {
   useEffect(() => {
     getCartList();
   }, []);
+  useEffect(() => {
+    getTotal();
+  }, [cartList]);
   return (
     <Container>
       <Wrapper>
@@ -42,8 +55,8 @@ const Cart = () => {
               <Item5>Remove</Item5>
             </CartTableHeader>
             <SingleItemContainer>
-              <DesktopCartItem cartList={cartList} />
-              <TabletCartItem cartList={cartList} />
+              <DesktopCartItem cartList={cartList ? cartList : []} />
+              <TabletCartItem cartList={cartList ? cartList : []} />
             </SingleItemContainer>
           </CartTableContainer>
 
@@ -52,7 +65,7 @@ const Cart = () => {
               <p>
                 Total
                 <span className="symbol">
-                  $ <span className="price">285.00</span>
+                  $ <span className="price">{total}</span>
                 </span>
               </p>
             </TotalBox>

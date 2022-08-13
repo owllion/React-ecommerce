@@ -4,6 +4,7 @@ interface IState {
   errorMsg: string;
   isLoading: boolean;
   favLoading: boolean;
+  cartLoading: boolean;
   showSearch: boolean;
   showPopup: boolean;
   itemQty: number;
@@ -17,6 +18,7 @@ const initialState: IState = {
   errorMsg: "",
   isLoading: false,
   favLoading: false,
+  cartLoading: false,
   showSearch: false,
   showPopup: false,
   itemQty: 1,
@@ -39,6 +41,10 @@ const commonSlice = createSlice({
     setFavLoading(state, { payload }: PayloadAction<boolean>) {
       state.favLoading = payload;
     },
+    setCartLoading(state, { payload }: PayloadAction<boolean>) {
+      state.cartLoading = payload;
+    },
+
     setShowSearch(state, { payload }: PayloadAction<boolean>) {
       state.showSearch = payload;
     },

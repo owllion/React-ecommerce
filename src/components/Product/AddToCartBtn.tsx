@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { AnyAction } from "@reduxjs/toolkit";
 
 import addToCart from "../../store/actions/product/addToCart.action";
-import { useAppDispatch } from "../../store/hooks";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 
 interface IProps {
   productId: string;
@@ -10,8 +10,12 @@ interface IProps {
 }
 const AddToCartBtn = ({ productId, size }: IProps) => {
   const dispatch = useAppDispatch();
+  const { cartLoading } = useAppSelector((state) => state.common);
   const handleAddToCart = async () => {
     try {
+      /**
+       * Here need to 'await' so that we can catch Promise Error.
+       */
       await dispatch(
         addToCart({ productId, addOne: false, size }) as unknown as AnyAction
       );
@@ -19,7 +23,11 @@ const AddToCartBtn = ({ productId, size }: IProps) => {
       console.log(error);
     }
   };
-  return <Container onClick={() => handleAddToCart()}>Add To Cart</Container>;
+  return (
+    <Container disabled={cartLoading} onClick={() => handleAddToCart()}>
+      Add To Cart
+    </Container>
+  );
 };
 
 const Container = styled.button`

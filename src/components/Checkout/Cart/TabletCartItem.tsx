@@ -7,12 +7,12 @@ import { IProps } from "./DesktopCartItem";
 const TabletCartItem = ({ cartList }: IProps) => {
   return (
     <TabletSingleItemContainer>
-      {cartList.map((item) => (
+      {cartList.map((item, index) => (
         <>
-          <ItemInfo key={item.productId}>
+          <ItemInfo key={index * 2}>
             <ItemInfoBox>
               <ItemInfoImgBox>
-                <ItemImg src={item.imageList[0]} />
+                <ItemImg src={item.imageList?.[0]} />
               </ItemInfoImgBox>
               <ItemInfoTextBox>
                 <h3>{item.productName}</h3>
@@ -31,7 +31,11 @@ const TabletCartItem = ({ cartList }: IProps) => {
             <ItemInfoPrice>${item.price}</ItemInfoPrice>
             <CounterAndSubtotalBox>
               <ItemInfoCounterBox>
-                <PlusMinusBtn />
+                <PlusMinusBtn
+                  cartItemQty={item.qty!}
+                  productId={item.productId}
+                  size={item.size}
+                />
               </ItemInfoCounterBox>
               <ItemInfoSubTotalBox>
                 <ItemInfoSubTotal>${item.price * item.qty!}</ItemInfoSubTotal>

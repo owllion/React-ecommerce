@@ -11,40 +11,71 @@ import { cartActions } from "../../store/slice/Cart.slice";
 interface IProps {
   cartItemQty?: number;
   productId?: string;
+  size?: string;
 }
 
-const PlusMinusBtn = ({ cartItemQty, productId }: IProps) => {
+const PlusMinusBtn = ({ cartItemQty, size, productId }: IProps) => {
   const dispatch = useAppDispatch();
-  const { itemQty } = useAppSelector((state) => state.common);
-  const updateQtyHandler = async (cartItemQty: number, productId: string) => {
+  const { itemQty, cartLoading } = useAppSelector((state) => state.common);
+
+  const updateQtyHandler = async (
+    type: string,
+    cartItemQty: number,
+    productId: string,
+    size: string
+  ) => {
     try {
-      await updateQty({ qty: cartItemQty, productId: productId });
+      dispatch(commonActions.setCartLoading(true));
+      await updateQty({
+        type,
+        qty: cartItemQty,
+        productId: productId,
+        size: size,
+      });
+
+      dispatch(cartActions.setCartLength(type === "inc" ? 1 : -1));
+
+      dispatch(commonActions.setCartLoading(false));
     } catch (error) {
+      dispatch(commonActions.setCartLoading(false));
+
       const err = ((error as AxiosError).response?.data as { msg: string }).msg;
       toast.error(err);
     }
   };
-  const actionHandler = async (type: string) => {
+  const actionHandler = async (type: string, size: string) => {
     if (cartItemQty) {
       dispatch(
         cartActions.updateCartListItemQty({
           type,
+          size,
           productId: productId!,
         })
       );
-      await updateQtyHandler(cartItemQty, productId!);
+      await updateQtyHandler(type, cartItemQty, productId!, size);
       return;
     }
-    if (type === "inc" ? itemQty === 10 : itemQty === 1) return;
     dispatch(commonActions.setItemQty({ type }));
   };
 
   return (
     <Container>
       <Wrapper>
-        <Plus onClick={() => actionHandler("inc")}>+</Plus>
+        <Plus
+          disabled={cartLoading || cartItemQty! === 99 || itemQty === 20}
+          onClick={() => actionHandler("inc", size!)}
+        >
+          +
+        </Plus>
         <Input defaultValue={1} value={cartItemQty ? cartItemQty : itemQty} />
-        <Minus onClick={() => actionHandler("dec")}>-</Minus>
+        <Minus
+          disabled={
+            cartLoading || cartItemQty! === 1 || (!cartItemQty && itemQty === 1)
+          }
+          onClick={() => actionHandler("dec", size!)}
+        >
+          -
+        </Minus>
       </Wrapper>
     </Container>
   );

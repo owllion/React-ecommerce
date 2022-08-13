@@ -57,10 +57,12 @@ interface IBaseProductInfo {
 export interface IAddToFav extends Pick<IBaseProductInfo, "productId"> {}
 export interface IRemoveFromFav extends Pick<IBaseProductInfo, "productId"> {}
 
-export interface IRemoveItemFromCart
-  extends Pick<IBaseProductInfo, "productId" | "cartList"> {}
+export interface IRemoveFromCart
+  extends Pick<IBaseProductInfo, "productId" | "size"> {}
 export interface IUpdateQty
-  extends Pick<IBaseProductInfo, "productId" | "qty"> {}
+  extends Pick<IBaseProductInfo, "productId" | "qty" | "size"> {
+  type: string;
+}
 export interface IAddToCart
   extends Pick<IBaseProductInfo, "productId" | "qty" | "size"> {}
 
