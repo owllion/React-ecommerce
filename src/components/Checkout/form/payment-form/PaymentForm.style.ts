@@ -28,9 +28,7 @@ export const FormContainer = styled.form`
   }
 `;
 
-export const PayBtn = styled.button.attrs((props) => ({
-  type: "submit",
-}))`
+export const PayBtn = styled.button`
   background: ${cl.dark};
   color: ${cl.white};
   padding: 0.2rem;
@@ -41,4 +39,7 @@ export const PayBtn = styled.button.attrs((props) => ({
   margin-top: 2rem;
   box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
   cursor: pointer;
+  &:not([disabled]):active {
+    transform: translate(2px, 2px);
+  }
 `;

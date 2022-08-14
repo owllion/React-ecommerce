@@ -2,17 +2,14 @@ import { Fragment } from "react";
 import styled, { css } from "styled-components";
 import { IoMdTrash } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
-import { AxiosError } from "axios";
-import toast from "react-hot-toast";
+import { AnyAction } from "@reduxjs/toolkit";
 
 import PlusMinusBtn from "../../Common/PlusMinusBtn";
 import { IProduct } from "src/interface/product.interface";
-import { cartActions } from "../../../store/slice/Cart.slice";
 import { useAppDispatch } from "../../../store/hooks";
 import removeFromCart, {
   IRemoveFromCartAction,
 } from "../../../store/actions/product/removeFromCart.action";
-import { AnyAction } from "@reduxjs/toolkit";
 
 export interface IProps {
   cartList: IProduct[];
@@ -24,32 +21,23 @@ const DesktopCartItem = ({ cartList }: IProps) => {
   const handleNavigate = (id: string) => {
     navigate(`/product-detail/${id}`);
   };
-  // const removeFromCartHandler = async ({
-  //   qty,
-  //   productId,
-  //   size,
-  // }: IRemoveFromCart) => {
-  //   try {
-  //     await removeFromCart({ productId, size });
-  //     dispatch(cartActions.removeFromCart({ productId, size }));
-  //     dispatch(cartActions.setCartLength(qty * -1));
-  //   } catch (error) {
-  //     const err = ((error as AxiosError).response?.data as { msg: string }).msg;
-  //     toast.error(err);
-  //   }
-  // };
-  const removeFromCartHandler = ({
+
+  const removeFromCartHandler = async ({
     qty,
     productId,
     size,
   }: IRemoveFromCartAction) => {
-    dispatch(
-      removeFromCart({
-        productId,
-        qty,
-        size,
-      }) as unknown as AnyAction
-    );
+    try {
+      await dispatch(
+        removeFromCart({
+          productId,
+          qty,
+          size,
+        }) as unknown as AnyAction
+      );
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <DesktopSingleItemContainer>
@@ -123,7 +111,6 @@ const ItemInfoImgBox = styled.div`
   min-width: 120px;
   height: 120px;
   margin-right: 1rem;
-  /* position: relative; */
 `;
 const ItemImg = styled.img`
   width: 100%;
@@ -176,7 +163,7 @@ const ItemInfoCounterBox = styled.div`
   width: 15%;
   min-width: 120px;
   flex-grow: 1;
-  padding-right: 1.2rem; //20px 數量小記一樣!
+  padding-right: 1.2rem;
   padding-bottom: 0.8rem;
 `;
 const ItemDeleteBox = styled.div`
@@ -184,7 +171,7 @@ const ItemDeleteBox = styled.div`
   width: 10%;
   min-width: 65px;
   flex-grow: 1;
-  text-align: center; //基本和header都一樣
+  text-align: center;
   font-size: 2rem;
   cursor: pointer;
 `;

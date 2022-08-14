@@ -112,7 +112,7 @@ const ShippingForm = () => {
           </SC.RightInputBox>
         </SC.RowFlexBox>
 
-        <button type="submit">submit</button>
+        <button>submit</button>
       </SC.FormContainer>
     </SC.ShippingContainer>
   );

@@ -10,7 +10,6 @@ const COLORS = {
   red: "#ff0000",
   transparent: "rgba(0,0,0,0)",
   green: "#008080",
-
   textLightGray: "#A3A3A3", // review Date
   gray: "#d3d3d3", //lighter than above
   darkenGray: "#868e96",

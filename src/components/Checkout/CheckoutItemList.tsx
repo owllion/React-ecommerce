@@ -64,9 +64,8 @@ const CheckoutItemList = () => {
         </CodeInputBox>
         <ApplyBtn>APPLY</ApplyBtn>
       </PromoCodeContainer>
-      <PayBtn type="submit" onClick={() => toComplete()}>
-        Pay
-      </PayBtn>
+      {/* <PayBtn onClick={() => toComplete()}>Pay</PayBtn> */}
+      <PayBtn>Pay</PayBtn>
     </Container>
   );
 };

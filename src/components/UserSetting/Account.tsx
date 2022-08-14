@@ -8,7 +8,6 @@ import { SingleInputBox } from "../Checkout/form/shipping-form/ShippingForm.styl
 import { userInfoModify } from "../../api/user.api";
 import SectionTitle from "./SectionTitle";
 import SaveBtn from "./SaveBtn";
-import avatar from "../../assets/avatar/avatar1.svg";
 import FieldErr from "../../components/error/FieldErr";
 import { Label, Input } from "../Auth/Registration";
 import { getValidationData } from "../Checkout/form/shipping-form/getValidationData";
@@ -25,7 +24,6 @@ interface FormValue {
 const Account = () => {
   const { email, firstName, lastName, phone, avatarDefault, avatarUpload } =
     useAppSelector((state) => state.user);
-  const { isLoading } = useAppSelector((state) => state.common);
 
   const dispatch = useAppDispatch();
   const {

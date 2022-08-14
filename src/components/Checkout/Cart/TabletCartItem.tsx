@@ -11,18 +11,22 @@ import { AnyAction } from "@reduxjs/toolkit";
 
 const TabletCartItem = ({ cartList }: IProps) => {
   const dispatch = useAppDispatch();
-  const removeFromCartHandler = ({
+  const removeFromCartHandler = async ({
     qty,
     productId,
     size,
   }: IRemoveFromCartAction) => {
-    dispatch(
-      removeFromCart({
-        productId,
-        qty,
-        size,
-      }) as unknown as AnyAction
-    );
+    try {
+      await dispatch(
+        removeFromCart({
+          productId,
+          qty,
+          size,
+        }) as unknown as AnyAction
+      );
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

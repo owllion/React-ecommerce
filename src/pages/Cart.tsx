@@ -233,6 +233,12 @@ const ContinueShoppingBtn = styled(Link)`
   ${baseBtn};
   border: 1px solid ${cl.dark};
   margin-right: 1.2rem;
+  transition: all 0.3s ease;
+  &:hover {
+    color: ${cl.white};
+    background: ${cl.green};
+    border: none;
+  }
   @media (max-width: 400px) {
     font-size: 0.8rem;
   }
@@ -241,5 +247,10 @@ const CheckoutBtn = styled(Link)`
   ${baseBtn};
   color: ${cl.white};
   background: ${cl.dark};
+  transition: all 0.3s ease;
+  &:hover {
+    color: ${cl.white};
+    background: ${cl.green};
+  }
 `;
 export default Cart;

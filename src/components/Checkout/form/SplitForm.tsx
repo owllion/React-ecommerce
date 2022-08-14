@@ -50,11 +50,7 @@ const SplitForm = () => {
     <FormContainer onSubmit={handleSubmit(onSubmit)}>
       <SingleInputBox>
         <Label>Card number</Label>
-        {/* <NumberInput
-          options={options}
-          error={errors.number}
-          {...register("number", getValidationData(["required"]))}
-        /> */}
+
         <Controller
           name="number"
           control={control}
@@ -64,12 +60,7 @@ const SplitForm = () => {
       </SingleInputBox>
       <SingleInputBox>
         <Label>Expiration date</Label>
-        {/* <ExpiryInput
-          options={options}
-          onChange={(event) => {
-            console.log("ex", event);
-          }}
-        /> */}
+
         <Controller
           name="expire"
           control={control}
@@ -85,12 +76,6 @@ const SplitForm = () => {
           rules={getValidationData(["required"])}
           render={({ field }) => <CvcInput {...field} />}
         />
-        {/* <CvcInput
-          options={options}
-          onChange={(event) => {
-            console.log("cvc", event);
-          }}
-        /> */}
       </SingleInputBox>
       {/* <PayBtn type="submit">Pay</PayBtn> */}
     </FormContainer>

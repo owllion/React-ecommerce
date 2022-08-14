@@ -9,9 +9,5 @@ const SaveBtn = () => {
 
   return <Save disabled={isLoading}>{isLoading ? "loading" : "SAVE"}</Save>;
 };
-export const Save = styled(PayBtn)`
-  &:not([disabled]):active {
-    transform: translate(2px, 2px);
-  }
-`;
+export const Save = styled(PayBtn)``;
 export default SaveBtn;
