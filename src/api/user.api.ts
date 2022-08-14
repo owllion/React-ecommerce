@@ -1,6 +1,7 @@
 import instance from "./axios";
 import * as UserInterface from "../interface/user.interface";
 import { ICreateReview } from "../interface/review.interface";
+import { ICreateOrder } from "../interface/order.interface";
 
 export const upload = (data: UserInterface.IUpload) =>
   instance.post("/user/upload", data);
@@ -44,3 +45,6 @@ export const clearCart = () => instance.get("/clearCart");
 
 export const createReview = (data: ICreateReview) =>
   instance.post("/review", data);
+
+export const createOrder = (data: ICreateOrder) =>
+  instance.post("/order", data);

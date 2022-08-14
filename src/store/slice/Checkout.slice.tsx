@@ -23,9 +23,6 @@ const checkoutSlice = createSlice({
       state[`is${payload.form}Ready` as "isShippingReady" | "isPaymentReady"] =
         payload.isReady;
     },
-    setTriggerBtn(state, { payload }: PayloadAction<boolean>) {
-      state.triggerBtn = payload;
-    },
   },
 });
 

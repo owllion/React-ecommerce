@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useForm, SubmitHandler, FormProvider } from "react-hook-form";
+import { AxiosError } from "axios";
+import { useNavigate } from "react-router-dom";
 
 import { useAppSelector, useAppDispatch } from "../../../../store/hooks";
 import { SectionTitle } from "../payment-form/PaymentForm.style";
@@ -8,9 +10,12 @@ import { getValidationData } from "./getValidationData";
 import Select from "src/components/Product/Select";
 import FieldErr from "src/components/error/FieldErr";
 import * as SC from "./ShippingForm.style";
-import { checkoutActions } from "src/store/slice/Checkout.slice";
 import PaymentForm from "../PaymentForm";
 import { PayBtn } from "../payment-form/PaymentForm.style";
+import { createOrder } from "src/api/user.api";
+import toast from "react-hot-toast";
+import { commonActions } from "../../../../store/slice/Common.slice";
+
 interface FormValue {
   firstName: string;
   lastName: string;
@@ -20,9 +25,30 @@ interface FormValue {
 }
 
 const ShippingForm = () => {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const { cartList } = useAppSelector((state) => state.cart);
   const [selectedCountry, setSelectedCountry] = useState("Taiwan");
   const [active, setActive] = useState(false);
 
+  const createOrderHandler = async (info: FormValue) => {
+    try {
+      dispatch(commonActions.setLoading(true));
+      await createOrder({
+        orderItem: cartList,
+        deliveryAddress: `${info.zip} ${selectedCountry} ${info.state} ${info.address}`,
+        totalPrice: 100,
+        receiverName: `${info.firstName} ${info.lastName}`,
+      });
+      dispatch(commonActions.setLoading(false));
+      navigate("/checkout/order-complete");
+    } catch (error) {
+      dispatch(commonActions.setLoading(false));
+
+      const err = ((error as AxiosError).response?.data as { msg: string }).msg;
+      toast.error(err);
+    }
+  };
   const handleActive = () => {
     setActive(!active);
   };
@@ -39,7 +65,8 @@ const ShippingForm = () => {
     handleSubmit,
     formState: { errors },
   } = methods;
-  const onSubmit: SubmitHandler<FormValue> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<FormValue> = async (data) =>
+    await createOrderHandler(data);
   console.log(errors);
 
   return (
@@ -109,6 +136,7 @@ const ShippingForm = () => {
             <SC.RightInputBox>
               <SC.Label error={errors.zip}>Zip code</SC.Label>
               <SC.Input
+                maxLength={8}
                 error={errors.zip}
                 {...register("zip", getValidationData(["required", "numeric"]))}
               />

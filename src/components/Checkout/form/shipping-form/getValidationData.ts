@@ -46,7 +46,7 @@ const validationRulesList = [
     pattern: {
       value:
         /^((4\d{3})|(5[1-5]\d{2})|(6011)|(34\d{1})|(37\d{1}))-?\s?\d{4}-?\s?\d{4}-?\s?\d{4}|3[4,7][\d\s-]{15}$/,
-      message: "Invalid card number",
+      message: "Please enter 4242 4242 4242 4242",
     },
   },
   {

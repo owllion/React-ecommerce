@@ -21,10 +21,11 @@ interface IAuthResult {
   };
 }
 
+interface IProps extends Record<string, string> {}
+
 const isLogin = (data: Record<string, string>) =>
   Object.keys(data).length === 2 ? true : false;
 
-interface IProps extends Record<string, string> {}
 const signInOrSignUp = (data: IProps): AppThunk => {
   return async (dispatch) => {
     dispatch(commonActions.setLoading(true));

@@ -7,7 +7,12 @@ export interface IOrder {
   discount?: number;
   discountCode?: string;
 }
-
+export interface ICreateOrder {
+  orderItem: IProduct[];
+  totalPrice: number;
+  deliveryAddress: string;
+  receiverName: string;
+}
 export interface IGetOrderDetail {
   orderId: string;
 }
