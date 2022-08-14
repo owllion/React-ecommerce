@@ -4,7 +4,7 @@ import {
   PaymentFormContainer,
 } from "./PaymentForm.style";
 
-import SplitFrom from "../SplitForm";
+import SplitFrom from "../PaymentForm";
 
 const PaymentForm = () => {
   return (

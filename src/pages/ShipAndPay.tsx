@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import { Title } from "./Cart";
 import CheckoutItemList from "../components/Checkout/CheckoutItemList";
-import PaymentForm from "../components/Checkout/form/payment-form/PaymentForm";
+import PaymentForm from "../components/Checkout/form/payment-form/PaymentForm2";
 import ShippingForm from "../components/Checkout/form/shipping-form/ShippingForm";
 
 const ShipAndPay = () => {
@@ -14,7 +14,7 @@ const ShipAndPay = () => {
         <ContentContainer>
           <LeftContentContainer>
             <ShippingForm />
-            <PaymentForm />
+            {/* <PaymentForm /> */}
           </LeftContentContainer>
           <RightContentContainer>
             <CheckoutItemList />

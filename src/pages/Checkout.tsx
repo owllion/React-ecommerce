@@ -52,6 +52,7 @@ const Checkout = () => {
         ?.pathname.substring(10)
     );
   }, [pathname]);
+
   return (
     <Container>
       <ProgressTrack>
