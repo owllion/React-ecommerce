@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 
 import { SectionTitle } from "../payment-form/PaymentForm.style";
@@ -22,13 +22,15 @@ interface FormValue {
 const ShippingForm = () => {
   const [selectedCountry, setSelectedCountry] = useState("Taiwan");
   const [active, setActive] = useState(false);
+  const btnRef = useRef<HTMLButtonElement>(null);
+  const handleActive = () => {
+    setActive(!active);
+  };
   const handleSetCountry = (params: { name: string; val?: string }) => {
     if (Object.keys(params).length) {
       setSelectedCountry(params.name);
       setActive(false);
-      return;
     }
-    setActive(!active);
   };
 
   const {
@@ -76,6 +78,7 @@ const ShippingForm = () => {
             fullWidth={true}
             listData={countries}
             handleSetSelected={handleSetCountry}
+            handleActive={handleActive}
             selectedName={selectedCountry}
             active={active}
           />
@@ -112,7 +115,7 @@ const ShippingForm = () => {
           </SC.RightInputBox>
         </SC.RowFlexBox>
 
-        <button>submit</button>
+        <button ref={btnRef}>submit</button>
       </SC.FormContainer>
     </SC.ShippingContainer>
   );

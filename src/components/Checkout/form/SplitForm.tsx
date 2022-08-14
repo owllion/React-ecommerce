@@ -14,7 +14,7 @@ import { baseInput, baseLabel } from "../../Product/Review/ReviewForm";
 import { useOptions } from "src/hooks/useOptions";
 import { SingleInputBox } from "../form/shipping-form/ShippingForm.style";
 import { getValidationData } from "../form/shipping-form/getValidationData";
-
+import FieldErr from "src/components/error/FieldErr";
 interface FormValue {
   number: number;
   expire: Date;
@@ -26,47 +26,54 @@ const SplitForm = () => {
   const elements = useElements();
   const options = useOptions();
 
-  // const paymentHandler = async (event) => {
-  //   event.preventDefault();
+  const paymentHandler = async (event: React.FormEvent) => {
+    event.preventDefault();
 
-  //   if (!stripe || !elements) return;
+    if (!stripe || !elements) return;
 
-  //   const payload = await stripe.createPaymentMethod({
-  //     type: "card",
-  //     card: elements.getElement(CardNumberElement),
-  //   });
-  //   console.log("[PaymentMethod]", payload);
-  // };
+    const payload = await stripe.createPaymentMethod({
+      type: "card",
+      card: elements.getElement(CardNumberElement)!,
+    });
+    console.log("[PaymentMethod]", payload);
+  };
 
   const {
     control,
     handleSubmit,
+    register,
     formState: { errors },
   } = useForm<FormValue>();
 
   const onSubmit: SubmitHandler<FormValue> = (data) => console.log(data);
   console.log({ errors });
   return (
-    <FormContainer onSubmit={handleSubmit(onSubmit)}>
+    <FormContainer onSubmit={paymentHandler}>
       <SingleInputBox>
         <Label>Card number</Label>
-
-        <Controller
+        {/* <Controller
           name="number"
           control={control}
           rules={getValidationData(["required"])}
           render={({ field }) => <NumberInput {...field} />}
+        /> */}
+        <NumberInput
+          onChange={(event) => {
+            console.log("CardNumberElement [change]", event);
+          }}
+          options={options}
         />
+        <FieldErr errors={errors} field="number" />
       </SingleInputBox>
       <SingleInputBox>
         <Label>Expiration date</Label>
-
         <Controller
           name="expire"
           control={control}
           rules={getValidationData(["required"])}
           render={({ field }) => <ExpiryInput {...field} />}
         />
+        <FieldErr errors={errors} field="expire" />
       </SingleInputBox>
       <SingleInputBox>
         <Label>CVC</Label>
@@ -76,8 +83,12 @@ const SplitForm = () => {
           rules={getValidationData(["required"])}
           render={({ field }) => <CvcInput {...field} />}
         />
+        <FieldErr errors={errors} field="cvc" />
       </SingleInputBox>
-      {/* <PayBtn type="submit">Pay</PayBtn> */}
+      {/* <PayBtn onClick={() => toComplete()}>Pay</PayBtn> */}
+      <PayBtn type="submit" onClick={() => console.log("Hello")}>
+        Pay
+      </PayBtn>
     </FormContainer>
   );
 };

@@ -44,16 +44,18 @@ const commonSlice = createSlice({
     setCartLoading(state, { payload }: PayloadAction<boolean>) {
       state.cartLoading = payload;
     },
-
     setShowSearch(state, { payload }: PayloadAction<boolean>) {
       state.showSearch = payload;
     },
+
+    //productDetail's item qty
     setItemQty(state, { payload }: PayloadAction<IItemQty>) {
       payload.type === "inc" ? (state.itemQty += 1) : (state.itemQty -= 1);
     },
     resetItemQty(state) {
       state.itemQty = 1;
     },
+    //click cart button in the singleProduct component will show the popup
     setShowPopup(state, { payload }: PayloadAction<boolean>) {
       state.showPopup = payload;
     },

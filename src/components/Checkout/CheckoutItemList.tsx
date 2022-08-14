@@ -1,12 +1,8 @@
-import React from "react";
 import styled from "styled-components";
 import { useNavigate, Link } from "react-router-dom";
 
 import cl from "src/constants/color/color";
-
-import { PayBtn } from "../Checkout/form/payment-form/PaymentForm.style";
 import { baseInput } from "../Product/Review/ReviewForm";
-
 import { SectionTitle } from "../Checkout/form/payment-form/PaymentForm.style";
 import {
   ItemImg,
@@ -64,8 +60,6 @@ const CheckoutItemList = () => {
         </CodeInputBox>
         <ApplyBtn>APPLY</ApplyBtn>
       </PromoCodeContainer>
-      {/* <PayBtn onClick={() => toComplete()}>Pay</PayBtn> */}
-      <PayBtn>Pay</PayBtn>
     </Container>
   );
 };
