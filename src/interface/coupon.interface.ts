@@ -5,3 +5,8 @@ export interface ICoupon {
   expiryDate: Date;
   minimumAmount: number;
 }
+
+export interface IApplyCoupon {
+  code: string;
+  totalPrice: number;
+}

@@ -3,10 +3,14 @@ import styled from "styled-components";
 import { IoIosClose } from "react-icons/io";
 import cl from "../../../constants/color/color";
 
-const ClearInputBtn = () => {
+interface IProps {
+  clearInputHandler: () => void;
+}
+
+const ClearInputBtn = ({ clearInputHandler }: IProps) => {
   return (
     <ClearBtn>
-      <IconBox>
+      <IconBox onClick={clearInputHandler}>
         <IoIosClose />
       </IconBox>
     </ClearBtn>
