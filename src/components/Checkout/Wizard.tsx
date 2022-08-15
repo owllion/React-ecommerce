@@ -58,6 +58,18 @@ const afterAnimation = css`
   animation: ${nextStep} 1s;
   animation-fill-mode: forwards;
 `;
+const pulse = keyframes`
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 128 ,128, 0.4);
+  }
+  70% {
+      box-shadow: 0 0 0 12px rgba(0, 128 ,128, 0);
+  }
+  100% {
+      box-shadow: 0 0 0 0 rgba(0, 128 ,128, 0);
+  }
+
+`;
 const StageItem = styled.li<{
   currentPath: string | null | undefined;
   isLast?: boolean;
@@ -66,27 +78,30 @@ const StageItem = styled.li<{
   width: 100%;
   position: relative;
   z-index: 1;
-  font-weight: 500;
-
+  font-weight: 900;
+  color: ${cl.green};
   &:before {
-    /* 
+    content: " ";
+    background-color: rgb(155, 155, 155);
+    border: 10px solid #fff;
+    border-radius: 50%;
     display: block;
-    font-size: 5rem;
-    line-height: 24px;
-    color: #d5dbdb;
-    background: #ffffff;
-    width: 80px;
-    margin: 0 auto 5px auto;  */
+    width: 30px;
+    height: 30px;
+    margin: 9px auto;
+    box-shadow: 1px 1px 3px #606060;
+    transition: all;
 
     font-family: "Font Awesome 5 free";
     content: "\f00c";
-    font-size: 0.9rem;
+    font-size: 11px;
     font-weight: 600;
     color: #fff;
     padding: 6px;
-    background-color: #763cb0;
-    border: 1px solid #763cb0;
-    box-shadow: 0 0 0 7.5px rgb(118 60 176 / 11%);
+    background-color: ${cl.green};
+    border: 1px solid ${cl.green};
+    box-shadow: 0 0 0 7.5px rgb(0 128 128 / 11%);
+    animation: ${pulse} 1.5s infinite;
   }
   &:after {
     content: "";
@@ -96,7 +111,7 @@ const StageItem = styled.li<{
     position: absolute;
     margin: auto;
     left: 50%;
-    top: 35px;
+    top: 26px;
     z-index: -1;
     transition: width 1s ease-in;
   }
