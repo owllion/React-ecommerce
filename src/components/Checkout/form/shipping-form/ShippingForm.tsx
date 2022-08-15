@@ -41,7 +41,9 @@ const ShippingForm = () => {
         receiverName: `${info.firstName} ${info.lastName}`,
       });
       dispatch(commonActions.setLoading(false));
-      navigate("/checkout/order-complete");
+      navigate("/checkout/order-complete", {
+        replace: true,
+      });
     } catch (error) {
       dispatch(commonActions.setLoading(false));
 
