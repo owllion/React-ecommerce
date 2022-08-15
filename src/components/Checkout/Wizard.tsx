@@ -1,26 +1,24 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import styled, { keyframes, css } from "styled-components";
 import { IconType } from "react-icons";
 import cl from "../../constants/color/color";
-// const ProgressList = [
-//   {
-//     icon: ImCart,
-//     name: "Cart",
-//   },
-//   {
-//     icon: MdLocalShipping,
-//     name: "Information",
-//   },
-//   {
-//     icon: BsFillBagCheckFill,
-//     name: "Finish",
-//   },
-// ];
+import { useLocation, matchPath, useNavigate, PathMatch } from "react-router";
 
-interface IProps {
-  currentPath: string | null | undefined;
+enum pathNameList {
+  "ship-and-pay" = "ship-and-pay",
+  "cart" = "cart",
+  "order-complete" = "order-complete",
 }
-const Wizard = ({ currentPath }: IProps) => {
+
+const Wizard = () => {
+  const [currentPath, setCurrentPath] = useState("");
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    const newPathName = pathname.substring(pathname.lastIndexOf("/") + 1);
+    setCurrentPath(pathNameList[newPathName as keyof typeof pathNameList]);
+  }, [pathname]);
+
   return (
     <ProgressTrack>
       <StageItem
@@ -31,7 +29,9 @@ const Wizard = ({ currentPath }: IProps) => {
         Step1
       </StageItem>
       <StageItem
-        fillTitle={currentPath === "ship-and-pay" || currentPath === "complete"}
+        fillTitle={
+          currentPath === "ship-and-pay" || currentPath === "order-complete"
+        }
         fillConnector={currentPath === "order-complete"}
         fillIndicator={
           currentPath === "ship-and-pay" || currentPath === "order-complete"

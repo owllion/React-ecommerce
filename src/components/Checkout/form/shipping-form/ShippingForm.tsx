@@ -15,6 +15,7 @@ import { PayBtn } from "../payment-form/PaymentForm.style";
 import { createOrder } from "src/api/user.api";
 import toast from "react-hot-toast";
 import { commonActions } from "../../../../store/slice/Common.slice";
+import { cartActions } from "../../../../store/slice/Cart.slice";
 
 interface FormValue {
   firstName: string;
@@ -33,17 +34,19 @@ const ShippingForm = () => {
 
   const createOrderHandler = async (info: FormValue) => {
     try {
-      dispatch(commonActions.setLoading(true));
-      await createOrder({
-        orderItem: cartList,
-        deliveryAddress: `${info.zip} ${selectedCountry} ${info.state} ${info.address}`,
-        totalPrice: 100,
-        receiverName: `${info.firstName} ${info.lastName}`,
-      });
-      dispatch(commonActions.setLoading(false));
-      navigate("/checkout/order-complete", {
-        replace: true,
-      });
+      // dispatch(commonActions.setLoading(true));
+      // await createOrder({
+      //   orderItem: cartList,
+      //   deliveryAddress: `${info.zip} ${selectedCountry} ${info.state} ${info.address}`,
+      //   totalPrice: 100,
+      //   receiverName: `${info.firstName} ${info.lastName}`,
+      // });
+      // dispatch(commonActions.setLoading(false));
+      // navigate("/checkout/order-complete", {
+      //   replace: true,
+      // });
+      navigate("/checkout/order-complete");
+      dispatch(cartActions.setCartLength(0));
     } catch (error) {
       dispatch(commonActions.setLoading(false));
 
@@ -148,6 +151,16 @@ const ShippingForm = () => {
 
           <SectionTitle>Payment Info</SectionTitle>
           <PaymentForm />
+          <button
+            style={{ color: "red " }}
+            type="button"
+            onClick={(e) => {
+              e.preventDefault();
+              navigate("/checkout/order-complete");
+            }}
+          >
+            我是按鈕 來點我
+          </button>
           <PayBtn>Pay</PayBtn>
         </SC.FormContainer>
       </SC.ShippingContainer>

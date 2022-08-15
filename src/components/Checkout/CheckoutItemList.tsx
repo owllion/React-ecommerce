@@ -55,6 +55,7 @@ const CheckoutItemList = () => {
       setDiscount(discount);
       setCode("");
       dispatch(commonActions.setLoading(false));
+      dispatch(commonActions.setErrorClear());
     } catch (error) {
       dispatch(commonActions.setLoading(false));
 
@@ -63,7 +64,9 @@ const CheckoutItemList = () => {
       dispatch(commonActions.setError(err));
     }
   };
+
   useEffect(() => {
+    dispatch(commonActions.setErrorClear());
     setShipping(total > 2000 ? 0 : 20);
   }, [total]);
   return (
@@ -122,6 +125,7 @@ const CheckoutItemList = () => {
       <PromoCodeContainer>
         <CodeInputBox>
           <CodeInput
+            disabled={discount !== 0}
             value={code}
             placeholder="Your promo code"
             onChange={(e) => codeHandler(e)}
@@ -220,7 +224,7 @@ const PromoCodeContainer = styled.div`
   align-items: center;
   margin-top: 3rem;
   width: 100%;
-  padding: 1.2rem 0;
+  /* padding: 1.2rem 0; */
   @media (max-width: 1024px) {
     padding: 0;
   }

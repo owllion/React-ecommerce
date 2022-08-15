@@ -19,7 +19,9 @@ const OrderComplete = () => {
       <Wrapper>
         <ImgBox>{View}</ImgBox>
         <RightBox>
-          <Msg>Order Completed!</Msg>
+          <Msg>
+            Thank you for your purchase. We love having customers like you.
+          </Msg>
           <RouteBtn onClick={() => navigate("/settings/order-list")}>
             Check My Order
           </RouteBtn>
@@ -40,8 +42,6 @@ const Wrapper = styled.div`
   max-width: 800px;
   min-height: 50vh;
   margin: 0 auto;
-  border-radius: 5px;
-  background-color: #f5f1ef;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -72,6 +72,8 @@ const Msg = styled.p`
   font-weight: 800;
   font-size: 2rem;
   color: ${cl.green};
+  text-align: center;
+  margin: 1rem 0 4rem 0;
   @media (max-width: 500px) {
     font-size: 1.5rem;
   }
@@ -79,7 +81,10 @@ const Msg = styled.p`
 const RightBox = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
 `;
-const RouteBtn = styled(ApplyBtn)``;
+const RouteBtn = styled(ApplyBtn)`
+  width: 235px;
+`;
 
 export default OrderComplete;
