@@ -19,6 +19,11 @@ import Wizard from "../components/Checkout/Wizard";
 //   `data:image/svg+xml,${encodeURIComponent(
 //     renderToStaticMarkup(createElement(Component, props))
 //   )}`;
+enum pathNameList {
+  "ship-and-pay" = "ship-and-pay",
+  "cart" = "cart",
+  "order-completed" = "order-completed",
+}
 const Checkout = () => {
   const [currentPath, setCurrentPath] = useState<string | null>();
   const res = useLocation();
@@ -33,12 +38,14 @@ const Checkout = () => {
 
   useEffect(() => {
     console.log("pathName變動", pathname);
-
-    setCurrentPath(
-      [isCart, isShipping, isComplete]
-        .find((item) => item)
-        ?.pathname.substring(10)
-    );
+    const newPathName = pathname.substring(pathname.lastIndexOf("/") + 1);
+    console.log({ newPathName });
+    // setCurrentPath(
+    //   [isCart, isShipping, isComplete]
+    //     .find((item) => item)
+    //     ?.pathname.substring(10)
+    // );
+    setCurrentPath(pathNameList[newPathName as keyof typeof pathNameList]);
   }, [pathname]);
 
   return (

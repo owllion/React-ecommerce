@@ -23,13 +23,28 @@ interface IProps {
 const Wizard = ({ currentPath }: IProps) => {
   return (
     <ProgressTrack>
-      <StageItem color="black" currentPath={currentPath}>
+      <StageItem
+        fillConnector={currentPath !== "cart"}
+        fillIndicator={true}
+        fillTitle={true}
+      >
         Step1
       </StageItem>
-      <StageItem color="black" currentPath={currentPath}>
+      <StageItem
+        fillTitle={currentPath === "ship-and-pay" || currentPath === "complete"}
+        fillConnector={currentPath === "order-complete"}
+        fillIndicator={
+          currentPath === "ship-and-pay" || currentPath === "order-complete"
+        }
+      >
         Step2
       </StageItem>
-      <StageItem isLast={true} color="black" currentPath={currentPath}>
+      <StageItem
+        fillConnector={false}
+        fillIndicator={currentPath === "order-complete"}
+        fillTitle={currentPath === "order-complete"}
+        isLast={true}
+      >
         Done
       </StageItem>
     </ProgressTrack>
@@ -59,7 +74,7 @@ const afterAnimation = css`
   animation-fill-mode: forwards;
 `;
 const pulse = keyframes`
-  0% {
+   0% {
     box-shadow: 0 0 0 0 rgba(0, 128 ,128, 0.4);
   }
   70% {
@@ -71,15 +86,18 @@ const pulse = keyframes`
 
 `;
 const StageItem = styled.li<{
-  currentPath: string | null | undefined;
   isLast?: boolean;
+  fillConnector: boolean;
+  fillIndicator: boolean;
+  fillTitle: boolean;
 }>`
   font-size: 1rem;
   width: 100%;
   position: relative;
   z-index: 1;
   font-weight: 900;
-  color: ${cl.green};
+  color: ${({ fillTitle }) =>
+    fillTitle ? ` ${cl.green}` : ` ${cl.textLightGray}`};
   &:before {
     content: " ";
     background-color: rgb(155, 155, 155);
@@ -91,17 +109,20 @@ const StageItem = styled.li<{
     margin: 9px auto;
     box-shadow: 1px 1px 3px #606060;
     transition: all;
-
-    font-family: "Font Awesome 5 free";
-    content: "\f00c";
-    font-size: 11px;
-    font-weight: 600;
-    color: #fff;
-    padding: 6px;
-    background-color: ${cl.green};
-    border: 1px solid ${cl.green};
-    box-shadow: 0 0 0 7.5px rgb(0 128 128 / 11%);
-    animation: ${pulse} 1.5s infinite;
+    ${({ fillIndicator }) =>
+      fillIndicator &&
+      css`
+        font-family: "Font Awesome 5 free";
+        content: "\f00c";
+        font-size: 11px;
+        font-weight: 600;
+        color: #fff;
+        padding: 6px;
+        background-color: ${cl.green};
+        border: 1px solid ${cl.green};
+        box-shadow: 0 0 0 7.5px rgb(0 128 128 / 11%);
+        animation: ${pulse} 1.5s infinite;
+      `}
   }
   &:after {
     content: "";
@@ -114,27 +135,17 @@ const StageItem = styled.li<{
     top: 26px;
     z-index: -1;
     transition: width 1s ease-in;
+    ${({ fillConnector }) =>
+      fillConnector &&
+      css`
+        ${afterAnimation}
+      `}
   }
   ${({ isLast }) =>
     isLast &&
     `&:last-child:after {
     display: none;
   }`}
-  ${({ currentPath }) => {
-    if (currentPath === "ship-and-pay") {
-      return css`
-        &:first-child:after {
-          ${afterAnimation}
-        }
-      `;
-    }
-    if (currentPath === "order-complete") {
-      return css`
-        :nth-child(2):after {
-          ${afterAnimation}
-        }
-      `;
-    }
-  }}
 `;
+
 export default Wizard;
