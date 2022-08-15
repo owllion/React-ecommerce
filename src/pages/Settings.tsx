@@ -97,9 +97,9 @@ const Wrapper = styled.div`
   @media (max-width: 1330px) {
     padding: 0 2rem;
   }
-  @media (max-width: 768px) {
+  /* @media (max-width: 768px) {
     padding: 0 1rem;
-  }
+  } */
 `;
 const DesktopWrapper = styled.div`
   display: flex;

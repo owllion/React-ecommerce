@@ -34,19 +34,18 @@ const ShippingForm = () => {
 
   const createOrderHandler = async (info: FormValue) => {
     try {
-      // dispatch(commonActions.setLoading(true));
-      // await createOrder({
-      //   orderItem: cartList,
-      //   deliveryAddress: `${info.zip} ${selectedCountry} ${info.state} ${info.address}`,
-      //   totalPrice: 100,
-      //   receiverName: `${info.firstName} ${info.lastName}`,
-      // });
-      // dispatch(commonActions.setLoading(false));
-      // navigate("/checkout/order-complete", {
-      //   replace: true,
-      // });
-      navigate("/checkout/order-complete");
-      dispatch(cartActions.setCartLength(0));
+      dispatch(commonActions.setLoading(true));
+      await createOrder({
+        orderItem: cartList,
+        deliveryAddress: `${info.zip} ${selectedCountry} ${info.state} ${info.address}`,
+        totalPrice: 100,
+        receiverName: `${info.firstName} ${info.lastName}`,
+      });
+      dispatch(cartActions.resetCartLength());
+      dispatch(commonActions.setLoading(false));
+      navigate("/checkout/order-complete", {
+        replace: true,
+      });
     } catch (error) {
       dispatch(commonActions.setLoading(false));
 

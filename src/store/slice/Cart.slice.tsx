@@ -23,6 +23,9 @@ const cartSlice = createSlice({
     setCartLength(state, { payload }: PayloadAction<number>) {
       state.cartLength! += payload;
     },
+    resetCartLength(state) {
+      state.cartLength = 0;
+    },
     setCartList(state, { payload }: PayloadAction<IProduct[]>) {
       state.cartList = payload;
     },

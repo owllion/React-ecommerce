@@ -57,14 +57,13 @@ const ContentContainer = styled.div`
 const LeftContentContainer = styled.div`
   display: flex;
   flex-direction: column;
-  order: 2;
   flex-basis: 50%;
   @media (min-width: 1024px) {
     margin-right: 2rem;
   }
-  /* @media (max-width: 1024px) {
+  @media (max-width: 1024px) {
     order: 2;
-  } */
+  }
 `;
 const RightContentContainer = styled.div`
   flex-basis: 50%;
