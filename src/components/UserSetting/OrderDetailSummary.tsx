@@ -9,24 +9,23 @@ import {
   ItemInfoSize,
 } from "../Checkout/Cart/TabletCartItem";
 import { IProduct } from "../../interface/product.interface";
-import { IOrder } from "../../interface/order.interface";
 
 interface IProps {
   needContainer: boolean;
   itemList: IProduct[];
-  subTotal: number;
+  total: number;
   shipping: number;
-  finalTotal: number;
   discount: number;
+  discountTotal: number;
 }
 const OrderDetailSummary = (props: IProps) => {
-  const { needContainer, itemList, subTotal, shipping, finalTotal, discount } =
+  const { needContainer, itemList, total, shipping, discountTotal, discount } =
     props;
   return (
     <Container needContainer={needContainer}>
-      {itemList.length && (
+      {itemList?.length && (
         <>
-          {itemList.map((item) => (
+          {itemList?.map((item) => (
             <ItemInfoBox>
               <ItemWrapper>
                 <ItemInfoImgBox>
@@ -58,7 +57,7 @@ const OrderDetailSummary = (props: IProps) => {
       <SummarySection>
         <SummaryItemBox>
           <SummaryType>Subtotal</SummaryType>
-          <SummaryVal>${subTotal}</SummaryVal>
+          <SummaryVal>${total}</SummaryVal>
         </SummaryItemBox>
         <SummaryItemBox>
           <SummaryType>Shipping</SummaryType>
@@ -70,7 +69,9 @@ const OrderDetailSummary = (props: IProps) => {
         </SummaryItemBox>
         <SummaryItemBox bigger>
           <SummaryType>Total</SummaryType>
-          <SummaryVal>${finalTotal || subTotal! + shipping!}</SummaryVal>
+          <SummaryVal>
+            ${(discountTotal ? discountTotal : total) + shipping}
+          </SummaryVal>
         </SummaryItemBox>
       </SummarySection>
     </Container>
@@ -105,9 +106,6 @@ const TextBox = styled(ItemInfoTextBox)`
   @media (max-width: 500px) {
     flex: 2;
   }
-  /* @media (min-width: 1000px) {
-    flex: 4;
-  } */
 `;
 const ItemInfoBox = styled.div`
   display: flex;
@@ -124,9 +122,6 @@ const ItemNumber = styled.div`
   align-items: center;
   justify-content: center;
   flex: 1;
-  /* span {
-    font-weight: bold;
-  } */
 `;
 const ItemSubTotal = styled.div`
   display: flex;

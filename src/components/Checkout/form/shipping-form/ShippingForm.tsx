@@ -30,7 +30,8 @@ const ShippingForm = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { cartList } = useAppSelector((state) => state.cart);
-  const { finalTotal, discount } = useAppSelector((state) => state.checkout);
+  const { total, shipping, discountTotal, discount, discountCode } =
+    useAppSelector((state) => state.checkout);
   const [selectedCountry, setSelectedCountry] = useState("Taiwan");
   const [active, setActive] = useState(false);
 
@@ -39,12 +40,16 @@ const ShippingForm = () => {
       dispatch(commonActions.setLoading(true));
       await createOrder({
         orderItem: cartList,
-        deliveryAddress: `${info.zip} ${selectedCountry} ${info.state} ${info.address}`,
-        totalPrice: finalTotal,
         receiverName: `${info.firstName} ${info.lastName}`,
+        deliveryAddress: `${info.zip} ${selectedCountry} ${info.state} ${info.address}`,
+        shipping,
+        total, //就是subtotal
+        discountTotal, //打完折的總價
         discount,
+        discountCode,
       });
       dispatch(cartActions.resetCartLength());
+      dispatch(checkoutActions.clearInfo());
       dispatch(commonActions.setLoading(false));
       navigate("/checkout/order-complete", {
         replace: true,

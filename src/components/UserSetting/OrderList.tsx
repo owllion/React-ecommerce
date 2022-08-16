@@ -61,7 +61,11 @@ const OrderList = () => {
                     </Link>
                   </ID>
 
-                  <Total>${item.totalPrice}</Total>
+                  <Total>
+                    $
+                    {(item.discountTotal ? item.discountTotal : item.total) +
+                      item.shipping}
+                  </Total>
                   <Status>
                     <Chip>
                       {item.orderStatus === 0 ? "completed" : "canceled"}

@@ -18,7 +18,6 @@ import { useUpdateEffect } from "../hooks/useUpdateEffect";
 const OrderDetail = () => {
   const { id } = useParams();
   const [detail, setDetail] = useState<IOrder>();
-  const [shipping, setShipping] = useState(0);
   const getOrderDetailHandler = async () => {
     try {
       const {
@@ -33,9 +32,7 @@ const OrderDetail = () => {
   useEffect(() => {
     getOrderDetailHandler();
   }, []);
-  useUpdateEffect(() => {
-    setShipping(detail?.totalPrice! > 1000 ? 0 : 20);
-  }, [detail]);
+
   return (
     <Container>
       <Wrapper>
@@ -101,10 +98,10 @@ const OrderDetail = () => {
           <OrderDetailSummary
             needContainer={true}
             itemList={detail?.orderItem!}
-            shipping={shipping}
+            shipping={detail?.shipping!}
             discount={detail?.discount!}
-            subTotal={detail?.totalPrice! - shipping}
-            finalTotal={detail?.totalPrice!}
+            total={detail?.total!}
+            discountTotal={detail?.discountTotal!}
           />
         </Main>
       </Wrapper>

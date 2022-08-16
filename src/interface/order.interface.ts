@@ -6,17 +6,22 @@ export interface IOrder {
   receiverName: string;
   orderItem: IProduct[];
   deliveryAddress: string;
-  totalPrice: number;
+  total: number;
+  discountTotal: number;
+  shipping: number;
   createdAt: number;
-  discount?: number;
-  discountCode?: string;
+  discount: number;
+  discountCode: string;
 }
 export interface ICreateOrder {
   orderItem: IProduct[];
-  totalPrice: number;
+  total: number;
+  discountTotal: number;
+  shipping: number;
   deliveryAddress: string;
   receiverName: string;
   discount: number;
+  discountCode: string;
 }
 export interface IGetOrderDetail {
   orderId: string;
