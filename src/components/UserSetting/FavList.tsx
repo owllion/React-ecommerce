@@ -1,25 +1,54 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import SingleProduct from "../Product/SingleProduct";
 import SectionTitle from "./SectionTitle";
+import { getNormalList } from "../../api/user.api";
+import { AxiosError } from "axios";
+import toast from "react-hot-toast";
+import { IProduct } from "../../interface/product.interface";
+import { commonActions } from "../../store/slice/Common.slice";
+import { userActions } from "../../store/slice/User.slice";
+
 const FavList = () => {
-  const test = {
-    img: "https://i.imgur.com/BSDsZcH.png",
-    name: "my Jacket",
-    price: "$199.00",
+  const dispatch = useAppDispatch();
+  const { favList } = useAppSelector((state) => state.user);
+  // const [favList, setFavList] = useState<IProduct[]>();
+
+  const getFavListHandler = async () => {
+    try {
+      dispatch(commonActions.setLoading(true));
+      const {
+        data: { favList },
+      } = await getNormalList({ type: "favList" });
+      dispatch(userActions.setFavList(favList));
+      dispatch(commonActions.setLoading(false));
+    } catch (error) {
+      dispatch(commonActions.setLoading(false));
+
+      const err = ((error as AxiosError).response?.data as { msg: string }).msg;
+      toast.error(err);
+    }
   };
+  useEffect(() => {
+    getFavListHandler();
+  }, []);
   return (
-    <>
-      <Container>
-        <SectionTitle title="Favorite" />
-        <Wrapper>
-          {/* <SingleBox>
-            <SingleProduct item={test} />
-          </SingleBox> */}
-        </Wrapper>
-      </Container>
-    </>
+    <Container>
+      <SectionTitle title="Favorite" />
+      <Wrapper>
+        {favList && (
+          <>
+            {favList.map((item) => (
+              <SingleBox>
+                <SingleProduct item={item} />
+              </SingleBox>
+            ))}
+          </>
+        )}
+      </Wrapper>
+    </Container>
   );
 };
 const Container = styled.section`
