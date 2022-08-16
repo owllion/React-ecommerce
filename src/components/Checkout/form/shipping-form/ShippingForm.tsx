@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm, SubmitHandler, FormProvider } from "react-hook-form";
 import { AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
@@ -16,6 +16,7 @@ import { createOrder } from "src/api/user.api";
 import toast from "react-hot-toast";
 import { commonActions } from "../../../../store/slice/Common.slice";
 import { cartActions } from "../../../../store/slice/Cart.slice";
+import { checkoutActions } from "../../../../store/slice/Checkout.slice";
 
 interface FormValue {
   firstName: string;
@@ -29,6 +30,7 @@ const ShippingForm = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { cartList } = useAppSelector((state) => state.cart);
+  const { finalTotal, discount } = useAppSelector((state) => state.checkout);
   const [selectedCountry, setSelectedCountry] = useState("Taiwan");
   const [active, setActive] = useState(false);
 
@@ -38,8 +40,9 @@ const ShippingForm = () => {
       await createOrder({
         orderItem: cartList,
         deliveryAddress: `${info.zip} ${selectedCountry} ${info.state} ${info.address}`,
-        totalPrice: 100,
+        totalPrice: finalTotal,
         receiverName: `${info.firstName} ${info.lastName}`,
+        discount,
       });
       dispatch(cartActions.resetCartLength());
       dispatch(commonActions.setLoading(false));
@@ -72,6 +75,10 @@ const ShippingForm = () => {
   const onSubmit: SubmitHandler<FormValue> = async (data) =>
     await createOrderHandler(data);
   console.log(errors);
+
+  useEffect(() => {
+    dispatch(checkoutActions.setDiscount(0));
+  }, []);
 
   return (
     <FormProvider {...methods}>

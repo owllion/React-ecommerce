@@ -1,5 +1,9 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import styled, { css } from "styled-components";
+import { useParams } from "react-router-dom";
+import { AxiosError } from "axios";
+import dayjs from "dayjs";
+import toast from "react-hot-toast";
 
 import { Chip } from "../components/UserSetting/OrderList";
 import BackBtn from "../components/Common/button/BackBtn";
@@ -7,8 +11,31 @@ import cl from "../constants/color/color";
 import visa from "../assets/order/visa.png";
 import OrderDetailSummary from "../components/UserSetting/OrderDetailSummary";
 import { SectionTitle } from "../components/Checkout/form/payment-form/PaymentForm.style";
+import { getOrderDetail } from "../api/user.api";
+import { IOrder } from "../interface/order.interface";
+import { useUpdateEffect } from "../hooks/useUpdateEffect";
 
 const OrderDetail = () => {
+  const { id } = useParams();
+  const [detail, setDetail] = useState<IOrder>();
+  const [shipping, setShipping] = useState(0);
+  const getOrderDetailHandler = async () => {
+    try {
+      const {
+        data: { detail },
+      } = await getOrderDetail({ orderId: id! });
+      setDetail(detail);
+    } catch (error) {
+      const err = ((error as AxiosError).response?.data as { msg: string }).msg;
+      toast.error(err);
+    }
+  };
+  useEffect(() => {
+    getOrderDetailHandler();
+  }, []);
+  useUpdateEffect(() => {
+    setShipping(detail?.totalPrice! > 1000 ? 0 : 20);
+  }, [detail]);
   return (
     <Container>
       <Wrapper>
@@ -19,12 +46,16 @@ const OrderDetail = () => {
             <TopDetailBox>
               <TopLeft>
                 <span className="id">OrderID</span>
-                <span>2206041AGQBVUG</span>
+                <span>{detail?.orderId.substring(0, 7).toUpperCase()}</span>
               </TopLeft>
               <TopRight>
-                <OrderPlacedDate>27/06/2022</OrderPlacedDate>
+                <OrderPlacedDate>
+                  {dayjs(detail?.createdAt).format("YYYY MMMM DD")}
+                </OrderPlacedDate>
                 <OrderStatus>
-                  <Chip>Completed</Chip>
+                  <Chip>
+                    {detail?.orderStatus === 0 ? "Completed" : "Canceled"}
+                  </Chip>
                 </OrderStatus>
               </TopRight>
             </TopDetailBox>
@@ -37,14 +68,20 @@ const OrderDetail = () => {
               <Left>
                 <Title>Shipping Address</Title>
                 <NameBox>
-                  <FirstName>Zayn</FirstName>
-                  <LastName>Malik</LastName>
+                  <FirstName>
+                    {detail?.receiverName.substring(
+                      0,
+                      detail?.receiverName.indexOf(" ")
+                    )}
+                  </FirstName>
+                  <LastName>
+                    {detail?.receiverName.substring(
+                      detail?.receiverName.indexOf(" ") + 1
+                    )}
+                  </LastName>
                 </NameBox>
                 <AddressDetailBox>
-                  <Address>
-                    Taiwan Taouyan Longtang 32543 aouyan Longtang 32543 aouyan
-                    Longtang 32543 aouyan Longtang 32543
-                  </Address>
+                  <Address>{detail?.deliveryAddress}</Address>
                 </AddressDetailBox>
               </Left>
               <Right>
@@ -61,7 +98,14 @@ const OrderDetail = () => {
               <AddressDivider></AddressDivider>
             </AddressDividerBox>
           </AddressAndPayment>
-          <OrderDetailSummary />
+          <OrderDetailSummary
+            needContainer={true}
+            itemList={detail?.orderItem!}
+            shipping={shipping}
+            discount={detail?.discount!}
+            subTotal={detail?.totalPrice! - shipping}
+            finalTotal={detail?.totalPrice!}
+          />
         </Main>
       </Wrapper>
     </Container>

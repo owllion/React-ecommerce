@@ -2,7 +2,8 @@ import instance from "./axios";
 import * as UserInterface from "../interface/user.interface";
 import { ICreateReview } from "../interface/review.interface";
 import { ICreateOrder } from "../interface/order.interface";
-import { IApplyCoupon } from "./../interface/coupon.interface";
+import { IApplyCoupon } from "../interface/coupon.interface";
+import { IGetOrderDetail } from "../interface/order.interface";
 
 export const upload = (data: UserInterface.IUpload) =>
   instance.post("/user/upload", data);
@@ -52,3 +53,6 @@ export const createOrder = (data: ICreateOrder) =>
 
 export const applyCoupon = (data: IApplyCoupon) =>
   instance.post("/coupon/apply", data);
+
+export const getOrderDetail = (data: IGetOrderDetail) =>
+  instance.post("/order/detail", data);

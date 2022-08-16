@@ -20,6 +20,8 @@ import toast from "react-hot-toast";
 import { applyCoupon } from "../../api/user.api";
 import { useAppDispatch } from "../../store/hooks";
 import { commonActions } from "../../store/slice/Common.slice";
+import { checkoutActions } from "../../store/slice/Checkout.slice";
+import OrderDetailSummary from "../UserSetting/OrderDetailSummary";
 
 const CheckoutItemList = () => {
   const dispatch = useAppDispatch();
@@ -51,9 +53,14 @@ const CheckoutItemList = () => {
       const {
         data: { finalPrice, discount },
       }: IApplyCoupon = await applyCoupon({ code, totalPrice: total });
+      setCode("");
+      //for this component
       setFinalTotal(finalPrice + shipping);
       setDiscount(discount);
-      setCode("");
+
+      //for shippingForm
+      dispatch(checkoutActions.setFinalTotal(finalPrice + shipping));
+      dispatch(checkoutActions.setDiscount(discount));
       dispatch(commonActions.setLoading(false));
       dispatch(commonActions.setErrorClear());
     } catch (error) {
@@ -67,61 +74,19 @@ const CheckoutItemList = () => {
 
   useEffect(() => {
     dispatch(commonActions.setErrorClear());
-    setShipping(total > 2000 ? 0 : 20);
+    setShipping(total > 1000 ? 0 : 20);
   }, [total]);
   return (
     <Container>
       <SectionTitle>ORDER SUMMARY</SectionTitle>
-      {cartList.length && (
-        <>
-          {cartList.map((item) => (
-            <ItemInfoBox>
-              <ItemWrapper>
-                <ItemInfoImgBox>
-                  <Link to={`/product-detail/${item.productId}`}>
-                    <ItemImg src={item.imageList?.[0]} />
-                  </Link>
-                </ItemInfoImgBox>
-
-                <TextBox>
-                  <h3>{item.productName}</h3>
-                  <SizeAndColorBox>
-                    <div>
-                      <ItemInfoColor>Black</ItemInfoColor>
-                    </div>
-                    <ItemInfoSize>{item.size}</ItemInfoSize>
-                  </SizeAndColorBox>
-                </TextBox>
-
-                <ItemNumber>
-                  <span>x{item.qty}</span>
-                </ItemNumber>
-                <ItemSubTotal>${item.qty! * item.price}</ItemSubTotal>
-              </ItemWrapper>
-            </ItemInfoBox>
-          ))}
-        </>
-      )}
-
-      <SummarySection>
-        <SummaryItemBox>
-          <SummaryType>Subtotal</SummaryType>
-          <SummaryVal>${total}</SummaryVal>
-        </SummaryItemBox>
-        <SummaryItemBox>
-          <SummaryType>Shipping</SummaryType>
-          <SummaryVal>${shipping}</SummaryVal>
-        </SummaryItemBox>
-        <SummaryItemBox>
-          <SummaryType>Discount</SummaryType>
-          <SummaryVal> -${discount}</SummaryVal>
-        </SummaryItemBox>
-        <SummaryItemBox bigger>
-          <SummaryType>Total</SummaryType>
-          <SummaryVal>${finalTotal || total + shipping}</SummaryVal>
-        </SummaryItemBox>
-      </SummarySection>
-
+      <OrderDetailSummary
+        needContainer={false}
+        itemList={cartList}
+        shipping={shipping}
+        discount={discount}
+        subTotal={total}
+        finalTotal={finalTotal}
+      />
       <PromoCodeContainer>
         <CodeInputBox>
           <CodeInput

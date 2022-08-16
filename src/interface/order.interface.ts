@@ -3,6 +3,7 @@ import { IProduct } from "./product.interface";
 export interface IOrder {
   orderId: string;
   orderStatus: number;
+  receiverName: string;
   orderItem: IProduct[];
   deliveryAddress: string;
   totalPrice: number;
@@ -15,6 +16,7 @@ export interface ICreateOrder {
   totalPrice: number;
   deliveryAddress: string;
   receiverName: string;
+  discount: number;
 }
 export interface IGetOrderDetail {
   orderId: string;

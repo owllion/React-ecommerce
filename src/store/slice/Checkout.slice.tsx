@@ -1,27 +1,23 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface IState {
-  isShippingReady: boolean;
-  isPaymentReady: boolean;
-  triggerBtn: boolean;
+  discount: number;
+  finalTotal: number;
 }
 const initialState: IState = {
-  isShippingReady: false,
-  isPaymentReady: false,
-  triggerBtn: false,
+  discount: 0,
+  finalTotal: 0,
 };
-interface IIsReady {
-  form: string;
-  isReady: boolean;
-}
 
 const checkoutSlice = createSlice({
   name: "checkout",
   initialState,
   reducers: {
-    setIsReady(state, { payload }: PayloadAction<IIsReady>) {
-      state[`is${payload.form}Ready` as "isShippingReady" | "isPaymentReady"] =
-        payload.isReady;
+    setDiscount(state, { payload }: PayloadAction<number>) {
+      state.discount = payload;
+    },
+    setFinalTotal(state, { payload }: PayloadAction<number>) {
+      state.finalTotal = payload;
     },
   },
 });
