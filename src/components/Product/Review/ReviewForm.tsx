@@ -55,7 +55,8 @@ const ReviewForm = () => {
       } as IReview;
 
       dispatch(productActions.updateProductReviews(review));
-
+      setRating(5);
+      setCount(0);
       reset({
         comment: "",
       });
