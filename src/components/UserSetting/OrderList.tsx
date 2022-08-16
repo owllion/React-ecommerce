@@ -1,12 +1,45 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import dayjs from "dayjs";
 import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
+
 import cl from "../../constants/color/color";
 import SectionTitle from "./SectionTitle";
+import { getPopulatedList } from "src/api/user.api";
+import { AxiosError } from "axios";
+import toast from "react-hot-toast";
+import { IOrder } from "../../interface/order.interface";
+import { useAppDispatch } from "../../store/hooks";
+import { commonActions } from "../../store/slice/Common.slice";
+
+interface IOrderList {
+  data: {
+    orderList: IOrder[];
+  };
+}
 
 const OrderList = () => {
+  const dispatch = useAppDispatch();
   const [status, setStatus] = useState("complete");
+  const [orderList, setOrderList] = useState<IOrder[]>([]);
+  const getOrderList = async () => {
+    try {
+      dispatch(commonActions.setLoading(true));
+      const {
+        data: { orderList },
+      }: IOrderList = await getPopulatedList({ type: "order" });
+      setOrderList(orderList);
+      dispatch(commonActions.setLoading(false));
+    } catch (error) {
+      dispatch(commonActions.setLoading(false));
 
+      const err = ((error as AxiosError).response?.data as { msg: string }).msg;
+      toast.error(err);
+    }
+  };
+  useEffect(() => {
+    getOrderList();
+  }, []);
   return (
     <Container>
       <SectionTitle title="OrderList" />
@@ -19,51 +52,25 @@ const OrderList = () => {
             <HeaderItem>Created</HeaderItem>
           </TableHeader>
           <TableMainContainer>
-            <OrderItemBox>
-              <OrderItem>
-                <ID>
-                  <Link to={"/order/order-detail/5"}>I996688522 </Link>
-                </ID>
+            <OrderItemContainer>
+              {orderList?.map((item) => (
+                <OrderItem>
+                  <ID>
+                    <Link to={`/order/detail/${item.orderId}`}>
+                      {item.orderId.substring(0, 7).toUpperCase()}
+                    </Link>
+                  </ID>
 
-                <Total>$385</Total>
-                <Status>
-                  <Chip status={status}>Cancel</Chip>
-                </Status>
-                <Date>22/07/2022</Date>
-              </OrderItem>
-              <OrderItem>
-                <ID>I996688522</ID>
-                <Total>$385</Total>
-                <Status>
-                  <Chip status={status}>Cancel</Chip>
-                </Status>
-                <Date>22/07/2022</Date>
-              </OrderItem>
-              <OrderItem>
-                <ID>I996688522</ID>
-                <Total>$385</Total>
-                <Status>
-                  <Chip status={status}>Complete</Chip>
-                </Status>
-                <Date>22/07/2022</Date>
-              </OrderItem>
-              <OrderItem>
-                <ID>I996688522</ID>
-                <Total>$385</Total>
-                <Status>
-                  <Chip status={status}>Cancel</Chip>
-                </Status>
-                <Date>22/07/2022</Date>
-              </OrderItem>
-              <OrderItem>
-                <ID>I996688522</ID>
-                <Total>$385</Total>
-                <Status>
-                  <Chip status={status}>Cancel</Chip>
-                </Status>
-                <Date>22/07/2022</Date>
-              </OrderItem>
-            </OrderItemBox>
+                  <Total>${item.totalPrice}</Total>
+                  <Status>
+                    <Chip>
+                      {item.orderStatus === 0 ? "completed" : "canceled"}
+                    </Chip>
+                  </Status>
+                  <Date>{dayjs(item.createdAt).format("YYYY MMMM DD")}</Date>
+                </OrderItem>
+              ))}
+            </OrderItemContainer>
           </TableMainContainer>
         </TableWrapper>
       </Wrapper>
@@ -118,7 +125,7 @@ const HeaderItem = styled.div`
   }
 `;
 const TableMainContainer = styled.div``;
-const OrderItemBox = styled.div``;
+const OrderItemContainer = styled.div``;
 const OrderItem = styled.div`
   display: flex;
   height: 75px;

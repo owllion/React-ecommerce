@@ -20,7 +20,7 @@ const Btn = styled.button`
   height: 38px;
   display: flex;
   margin-left: -10px;
-  margin-bottom: -7px;
+  margin-bottom: 10px;
   background: rgb(246, 246, 246);
   border-radius: 50%;
   border: none;

@@ -1,12 +1,12 @@
 import React from "react";
 import styled, { css } from "styled-components";
-import { Link } from "react-router-dom";
 
 import { Chip } from "../components/UserSetting/OrderList";
 import BackBtn from "../components/Common/button/BackBtn";
 import cl from "../constants/color/color";
 import visa from "../assets/order/visa.png";
 import OrderDetailSummary from "../components/UserSetting/OrderDetailSummary";
+import { SectionTitle } from "../components/Checkout/form/payment-form/PaymentForm.style";
 
 const OrderDetail = () => {
   return (
@@ -15,6 +15,7 @@ const OrderDetail = () => {
         <Main>
           <Top>
             <BackBtn />
+            <SectionTitle>Order Detail</SectionTitle>
             <TopDetailBox>
               <TopLeft>
                 <span className="id">OrderID</span>
@@ -79,7 +80,7 @@ const Wrapper = styled.div`
 const Main = styled.div``;
 const Top = styled.div`
   padding: 20px 24px;
-  font-size: 14px;
+
   line-height: 16px;
   display: flex;
   flex-direction: column;
@@ -125,6 +126,7 @@ const Img = styled.img`
 `;
 const TopDetailBox = styled.div`
   width: 100%;
+  font-size: 14px;
   display: flex;
   justify-content: space-between;
   @media (max-width: 767px) {

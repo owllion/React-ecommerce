@@ -1,9 +1,12 @@
 import { IProduct } from "./product.interface";
 
 export interface IOrder {
+  orderId: string;
+  orderStatus: number;
   orderItem: IProduct[];
   deliveryAddress: string;
   totalPrice: number;
+  createdAt: number;
   discount?: number;
   discountCode?: string;
 }

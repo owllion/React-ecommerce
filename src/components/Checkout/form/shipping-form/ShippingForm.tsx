@@ -150,16 +150,6 @@ const ShippingForm = () => {
 
           <SectionTitle>Payment Info</SectionTitle>
           <PaymentForm />
-          <button
-            style={{ color: "red " }}
-            type="button"
-            onClick={(e) => {
-              e.preventDefault();
-              navigate("/checkout/order-complete");
-            }}
-          >
-            我是按鈕 來點我
-          </button>
           <PayBtn>Pay</PayBtn>
         </SC.FormContainer>
       </SC.ShippingContainer>
