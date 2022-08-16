@@ -83,7 +83,7 @@ const RightBox = styled.div`
   flex-direction: column;
   align-items: center;
 `;
-const RouteBtn = styled(ApplyBtn)`
+export const RouteBtn = styled(ApplyBtn)`
   width: 235px;
 `;
 

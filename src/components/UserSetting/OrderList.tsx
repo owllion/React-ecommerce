@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import styled, { css } from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
 
 import cl from "../../constants/color/color";
@@ -13,6 +13,7 @@ import { IOrder } from "../../interface/order.interface";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { commonActions } from "../../store/slice/Common.slice";
 import Lottie from "src/components/Common/Lottie";
+import { RouteBtn } from "../Checkout/OrderComplete";
 
 interface IOrderList {
   data: {
@@ -22,6 +23,7 @@ interface IOrderList {
 
 const OrderList = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const { isLoading } = useAppSelector((state) => state.common);
   const [orderList, setOrderList] = useState<IOrder[]>([]);
   const getOrderList = async () => {
@@ -87,10 +89,16 @@ const OrderList = () => {
             </TableMainContainer>
           )}
           {orderList.length === 0 && !isLoading && (
-            <>
+            <NotFoundContainer>
               <Lottie jsonName="noResult" text="NO ORDER FOUND" />
-              <p>Loos like you have noe made your order yey.</p>
-            </>
+
+              <RouteBtn
+                onClick={() => navigate("/product-list")}
+                style={{ backgroundColor: `${cl.purple}` }}
+              >
+                Go Shopping
+              </RouteBtn>
+            </NotFoundContainer>
           )}
         </TableWrapper>
       </Wrapper>
@@ -190,6 +198,13 @@ const Status = styled.p`
 `;
 const Total = styled.p`
   ${baseP}
+`;
+
+const NotFoundContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `;
 
 export default OrderList;
