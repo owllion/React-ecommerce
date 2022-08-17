@@ -1,13 +1,12 @@
 import styled from "styled-components";
 import dayjs from "dayjs";
+import Skeleton from "react-loading-skeleton";
 
 import cl from "src/constants/color/color";
 import ReviewForm from "./ReviewForm";
 import Rating from "./Rating";
 import Lottie from "../../Common/Lottie";
 import { useAppSelector } from "../../../store/hooks";
-
-import Skeleton from "react-loading-skeleton";
 
 const ReviewSection = () => {
   const { reviews } = useAppSelector((state) => state.product);

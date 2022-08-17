@@ -14,17 +14,24 @@ import { SectionTitle } from "../components/Checkout/form/payment-form/PaymentFo
 import { getOrderDetail } from "../api/user.api";
 import { IOrder } from "../interface/order.interface";
 import { useUpdateEffect } from "../hooks/useUpdateEffect";
+import { commonActions } from "../store/slice/Common.slice";
+import { useAppDispatch } from "../store/hooks";
 
 const OrderDetail = () => {
+  const dispatch = useAppDispatch();
   const { id } = useParams();
   const [detail, setDetail] = useState<IOrder>();
   const getOrderDetailHandler = async () => {
     try {
+      dispatch(commonActions.setLoading(true));
       const {
         data: { detail },
       } = await getOrderDetail({ orderId: id! });
       setDetail(detail);
+      dispatch(commonActions.setLoading(false));
     } catch (error) {
+      dispatch(commonActions.setLoading(false));
+
       const err = ((error as AxiosError).response?.data as { msg: string }).msg;
       toast.error(err);
     }

@@ -1,6 +1,8 @@
 import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
+import Skeleton from "react-loading-skeleton";
 
+import { useAppSelector } from "../../store/hooks";
 import cl from "../../constants/color/color";
 import {
   ItemImg,
@@ -9,7 +11,7 @@ import {
   ItemInfoSize,
 } from "../Checkout/Cart/TabletCartItem";
 import { IProduct } from "../../interface/product.interface";
-
+import Lottie from "src/components/Common/Lottie";
 interface IProps {
   needContainer: boolean;
   itemList: IProduct[];
@@ -21,14 +23,37 @@ interface IProps {
 const OrderDetailSummary = (props: IProps) => {
   const { needContainer, itemList, total, shipping, discountTotal, discount } =
     props;
+  const { isLoading } = useAppSelector((state) => state.common);
   return (
     <Container needContainer={needContainer}>
-      {itemList?.length && (
+      {isLoading ? (
+        [...Array(4)].map((_) => (
+          <ItemInfoBox>
+            <ItemWrapper>
+              <ItemInfoImgBox>
+                <Skeleton height="100%" />
+                <div style={{ height: "50px", width: "50px" }}></div>
+              </ItemInfoImgBox>
+
+              <TextBox>
+                <Skeleton width={300} />
+                <SizeAndColorBox>
+                  <div>
+                    <Skeleton width={100} />
+                  </div>
+                  <Skeleton width={100} />
+                </SizeAndColorBox>
+              </TextBox>
+            </ItemWrapper>
+          </ItemInfoBox>
+        ))
+      ) : (
         <>
           {itemList?.map((item) => (
             <ItemInfoBox>
               <ItemWrapper>
                 <ItemInfoImgBox>
+                  {/* <Skeleton height="100%" /> */}
                   <Link to={`/product-detail/${item.productId}`}>
                     <ItemImg src={item.imageList?.[0]} />
                   </Link>

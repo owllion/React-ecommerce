@@ -67,7 +67,10 @@ const OrderList = () => {
                 {orderList.map((item) => (
                   <OrderItem>
                     <ID>
-                      <Link to={`/order/detail/${item.orderId}`}>
+                      <Link
+                        style={{ color: `${cl.lightBlue}` }}
+                        to={`/order/detail/${item.orderId}`}
+                      >
                         {item.orderId.substring(0, 7).toUpperCase()}
                       </Link>
                     </ID>
