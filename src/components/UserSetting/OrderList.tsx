@@ -12,9 +12,7 @@ import toast from "react-hot-toast";
 import { IOrder } from "../../interface/order.interface";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { commonActions } from "../../store/slice/Common.slice";
-import Lottie from "src/components/Common/Lottie";
-import { RouteBtn } from "../Checkout/OrderComplete";
-
+import NoResult from "./NoResult";
 interface IOrderList {
   data: {
     orderList: IOrder[];
@@ -92,16 +90,11 @@ const OrderList = () => {
             </TableMainContainer>
           )}
           {orderList.length === 0 && !isLoading && (
-            <NotFoundContainer>
-              <Lottie jsonName="noResult" text="NO ORDER FOUND" />
-
-              <RouteBtn
-                onClick={() => navigate("/product-list")}
-                style={{ backgroundColor: `${cl.purple}` }}
-              >
-                Go Shopping
-              </RouteBtn>
-            </NotFoundContainer>
+            <NoResult
+              imgText={"NO ORDER FOUND"}
+              btnText={"Go Shopping"}
+              route={"product-list"}
+            />
           )}
         </TableWrapper>
       </Wrapper>
@@ -201,13 +194,6 @@ const Status = styled.p`
 `;
 const Total = styled.p`
   ${baseP}
-`;
-
-const NotFoundContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
 `;
 
 export default OrderList;

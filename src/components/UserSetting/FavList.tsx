@@ -12,10 +12,12 @@ import { IProduct } from "../../interface/product.interface";
 import { commonActions } from "../../store/slice/Common.slice";
 import { userActions } from "../../store/slice/User.slice";
 import { Spacer } from "../../pages/ProductList";
+import NoResult from "./NoResult";
 
 const FavList = () => {
   const dispatch = useAppDispatch();
   const { favList } = useAppSelector((state) => state.user);
+  const { isLoading } = useAppSelector((state) => state.common);
   const getFavListHandler = async () => {
     try {
       dispatch(commonActions.setLoading(true));
@@ -55,6 +57,15 @@ const FavList = () => {
           </>
         )}
       </Wrapper>
+      {favList?.length === 0 && !isLoading && (
+        <Flex>
+          <NoResult
+            imgText={"NO FAV FOUND"}
+            btnText={"Go Add Product"}
+            route={"product-list"}
+          />
+        </Flex>
+      )}
     </Container>
   );
 };
@@ -93,5 +104,10 @@ const Wrapper = styled.div`
 `;
 const SingleBox = styled.div`
   flex-basis: 30%;
+`;
+const Flex = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 export default FavList;
