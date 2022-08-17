@@ -27,6 +27,10 @@ const Settings = lazy(() => import("../pages/Settings.tsx"));
 const Account = lazy(() => import("../components/UserSetting/Account.tsx"));
 const FavList = lazy(() => import("../components/UserSetting/FavList.tsx"));
 const OrderList = lazy(() => import("../components/UserSetting/OrderList.tsx"));
+const CouponList = lazy(() =>
+  import("../components/UserSetting/CouponList.tsx")
+);
+
 const OrderDetail = lazy(() => import("../pages/OrderDetail.tsx"));
 const AccountResetPwd = lazy(() =>
   import("../components/UserSetting/AccountResetPwd.tsx")
@@ -134,6 +138,10 @@ export const RouteConfig = () => {
         {
           path: "order-list",
           element: <OrderList />,
+        },
+        {
+          path: "coupon-list",
+          element: <CouponList />,
         },
       ],
     },

@@ -60,8 +60,8 @@ const FavList = () => {
       {favList?.length === 0 && !isLoading && (
         <Flex>
           <NoResult
-            imgText={"NO FAV FOUND"}
-            btnText={"Go Add Product"}
+            imgText={"NOTHING HERE"}
+            btnText={"Add Something"}
             route={"product-list"}
           />
         </Flex>
