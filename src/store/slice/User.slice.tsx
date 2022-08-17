@@ -42,6 +42,13 @@ const userSlice = createSlice({
     setFavList(state, { payload }: PayloadAction<IProduct[]>) {
       state.favList = payload;
     },
+    updateFavListLength(state, { payload }: PayloadAction<number>) {
+      console.log({ payload });
+      const array = [...Array(payload)];
+      console.log([...Array(1)], "這是array");
+      array.forEach((_) => array.push({ name: "rr" }));
+      state.favList = state.favList?.concat(array);
+    },
   },
 });
 

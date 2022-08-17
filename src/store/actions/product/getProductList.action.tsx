@@ -56,7 +56,7 @@ const getProductList = (keyword: string): AppThunk => {
           ...Array(
             (isTargetWidth ? 3 : 4) - (list.length % (isTargetWidth ? 3 : 4))
           ),
-        ].forEach((_, i) => list.push({}));
+        ].forEach((_) => list.push({}));
       }
 
       dispatch(productActions.setProductList(list as IProduct[]));

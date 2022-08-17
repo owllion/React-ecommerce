@@ -1,10 +1,9 @@
-import React from "react";
 import ReactLottie from "react-lottie";
 import { motion } from "framer-motion";
 import styled from "styled-components";
 
+import { useMatchMedia } from "../../hooks/useMatchMedia";
 import { productListMotion } from "../../lib/motion";
-import productNotFound from "../../assets/no-result/product-not-found.json";
 import noResult from "../../assets/no-result/no-result.json";
 import sleepingAnt from "../../assets/no-result/sleeping-ant.json";
 import sleep from "../../assets/no-result/sleep.json";
@@ -12,8 +11,7 @@ import coupon from "../../assets/no-result/coupon.json";
 import noData from "../../assets/no-result/no-data.json";
 import loading from "../../assets/loading/loading.json";
 import loadingV2 from "../../assets/loading/loadingV2.json";
-import { useAppSelector } from "../../store/hooks";
-import { useMatchMedia } from "../../hooks/useMatchMedia";
+import productNotFound from "../../assets/no-result/product-not-found.json";
 
 const Lottie = ({ jsonName, text }: { jsonName: string; text?: string }) => {
   const Json = {
@@ -34,8 +32,7 @@ const Lottie = ({ jsonName, text }: { jsonName: string; text?: string }) => {
       preserveAspectRatio: "xMidYMid slice",
     },
   };
-  useMatchMedia("500px");
-  const { isTargetWidth } = useAppSelector((state) => state.product);
+  const isTargetWidth = useMatchMedia("500px");
   return (
     <Container as={motion.div} {...productListMotion}>
       <ReactLottie

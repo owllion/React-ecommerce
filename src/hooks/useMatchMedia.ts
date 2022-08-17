@@ -1,17 +1,20 @@
-import { useEffect } from "react";
-import { useAppDispatch } from "../store/hooks";
-import { productActions } from "../store/slice/Product.slice";
+import { useEffect, useState } from "react";
 
 export const useMatchMedia = (width: string) => {
+  const [isTargetWidth, setWidth] = useState(false);
   const isPadWidth = window.matchMedia(`(max-width: ${width})`);
-  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    setWidth(isPadWidth.matches);
+  }, []);
   useEffect(() => {
     isPadWidth.addEventListener("change", (event: MediaQueryListEvent) => {
-      dispatch(productActions.setIsTargetWidth(event.matches));
+      setWidth(event.matches);
     });
     return () =>
       isPadWidth.removeEventListener("change", (event: MediaQueryListEvent) => {
-        dispatch(productActions.setIsTargetWidth(event.matches));
+        setWidth(event.matches);
       });
   });
+  return isTargetWidth;
 };

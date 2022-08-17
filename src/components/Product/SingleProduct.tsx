@@ -11,7 +11,7 @@ import { commonActions } from "../../store/slice/Common.slice";
 import { useAppDispatch } from "../../store/hooks";
 import toast from "react-hot-toast";
 
-const SingleProduct = ({ item }: { item: IProduct }) => {
+const SingleProduct = ({ item }: { item: IProduct | undefined }) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const handleNavigate = (id: string) => {
@@ -27,15 +27,15 @@ const SingleProduct = ({ item }: { item: IProduct }) => {
     <>
       <Container as={motion.div} layout {...productItemMotion}>
         <Wrapper>
-          <Image src={item.imageList?.[0]} alt="product" />
+          <Image src={item?.imageList?.[0]} alt="product" />
           <Info>
-            <Icon onClick={() => handleNavigate(item.productId)}>
+            <Icon onClick={() => handleNavigate(item?.productId!)}>
               <FiSearch />
             </Icon>
             <Icon
               onClick={() => {
                 handleShowPopup();
-                dispatch(commonActions.setCurrentProductId(item._id));
+                dispatch(commonActions.setCurrentProductId(item?._id!));
               }}
             >
               <IoMdCart />
@@ -43,8 +43,8 @@ const SingleProduct = ({ item }: { item: IProduct }) => {
             <Heart item={item} />
           </Info>
         </Wrapper>
-        <Name>{item.productName}</Name>
-        <Price>${item.price}</Price>
+        <Name>{item?.productName}</Name>
+        <Price>${item?.price}</Price>
       </Container>
     </>
   );

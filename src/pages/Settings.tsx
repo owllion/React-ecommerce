@@ -95,11 +95,8 @@ const Wrapper = styled.div`
   margin: 0 auto;
   padding: 0 5rem;
   @media (max-width: 1330px) {
-    padding: 0 2rem;
+    padding: 0 0.9rem;
   }
-  /* @media (max-width: 768px) {
-    padding: 0 1rem;
-  } */
 `;
 const DesktopWrapper = styled.div`
   display: flex;

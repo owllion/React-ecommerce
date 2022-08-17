@@ -1,29 +1,31 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import styled from "styled-components";
+import { batch } from "react-redux";
+import { AxiosError } from "axios";
+import toast from "react-hot-toast";
 
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import SingleProduct from "../Product/SingleProduct";
 import SectionTitle from "./SectionTitle";
 import { getNormalList } from "../../api/user.api";
-import { AxiosError } from "axios";
-import toast from "react-hot-toast";
 import { IProduct } from "../../interface/product.interface";
 import { commonActions } from "../../store/slice/Common.slice";
 import { userActions } from "../../store/slice/User.slice";
+import { Spacer } from "../../pages/ProductList";
 
 const FavList = () => {
   const dispatch = useAppDispatch();
   const { favList } = useAppSelector((state) => state.user);
-  // const [favList, setFavList] = useState<IProduct[]>();
-
   const getFavListHandler = async () => {
     try {
       dispatch(commonActions.setLoading(true));
       const {
         data: { favList },
       } = await getNormalList({ type: "favList" });
-      dispatch(userActions.setFavList(favList));
-      dispatch(commonActions.setLoading(false));
+      batch(() => {
+        dispatch(userActions.setFavList(favList));
+        dispatch(commonActions.setLoading(false));
+      });
     } catch (error) {
       dispatch(commonActions.setLoading(false));
 
@@ -34,6 +36,7 @@ const FavList = () => {
   useEffect(() => {
     getFavListHandler();
   }, []);
+
   return (
     <Container>
       <SectionTitle title="Favorite" />
@@ -41,8 +44,12 @@ const FavList = () => {
         {favList && (
           <>
             {favList.map((item) => (
-              <SingleBox>
-                <SingleProduct item={item} />
+              <SingleBox key={item.productId}>
+                {Object.keys(item).length > 0 ? (
+                  <SingleProduct item={item as IProduct} />
+                ) : (
+                  <Spacer />
+                )}
               </SingleBox>
             ))}
           </>
@@ -80,12 +87,11 @@ const Container = styled.section`
 const Wrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
-  padding: 2rem;
   @media (max-width: 380px) {
     padding: 0;
   }
 `;
 const SingleBox = styled.div`
-  flex: 1;
+  flex-basis: 30%;
 `;
 export default FavList;
