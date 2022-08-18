@@ -112,34 +112,25 @@ const DesktopMain = styled.div`
   width: 100%;
   display: flex;
   @media (max-width: 700px) {
-    padding: 1.5rem;
+    padding: 1.5rem 1rem;
   }
 `;
 const SideBar = styled.div`
-  margin-right: 1.5rem;
-  min-height: 50vh;
-  width: 100px;
-  @media (max-width: 1024px) {
-    width: 100%;
-    min-height: 10vh;
-    margin-bottom: 3rem;
-  }
-
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
-    rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
-  @media (max-width: 1024px) {
-    box-shadow: none;
-  }
-  border-radius: 12px;
   display: flex;
   justify-content: center;
   align-items: flex-start;
   padding-top: 4rem;
-  min-height: 50vh;
+  min-height: 72vh;
+  margin-right: 1.5rem;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
+    rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+  border-radius: 12px;
+  width: 100px;
   @media (max-width: 1024px) {
     width: 100%;
     min-height: 10vh;
     padding-top: 0;
+    box-shadow: none;
   }
 `;
 const BarItems = styled.ul`

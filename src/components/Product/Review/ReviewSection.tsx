@@ -83,7 +83,6 @@ const Container = styled.div`
   border-top: 1px solid ${cl.lightGray};
 `;
 const Header = styled.div`
-  /* border: 2px solid brown; */
   font-weight: bold;
   font-size: 2rem;
   max-width: calc(100%- 120px);
@@ -107,13 +106,11 @@ const ReviewContainer = styled.div`
   @media (min-width: 767px) {
     margin-right: 2.8rem;
   }
-  /* border: 1px solid red; */
 `; //整個左側
 const SingleReviewContainer = styled.div`
   display: flex;
   padding: 1.8rem 0;
   border-bottom: 1px solid ${cl.gray};
-  /* border: 1px solid orange; */
 `; //單個box 左側就大頭照 右側content
 const LeftPartContainer = styled.div`
   margin-right: 0.8rem;

@@ -8,8 +8,8 @@ import { RouteBtn } from "../Checkout/OrderComplete";
 
 interface IProps {
   imgText: string;
-  btnText: string;
-  route: string;
+  btnText?: string;
+  route?: string;
   showBtn?: boolean;
 }
 
