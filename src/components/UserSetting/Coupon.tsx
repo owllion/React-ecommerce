@@ -4,6 +4,14 @@ import dayjs from "dayjs";
 
 import cl from "../../constants/color/color";
 import { ICoupon } from "../../interface/coupon.interface";
+
+const isExpired = (expiryDate: Date) => {
+  const now = Date.now() / 1000;
+  const expire = Math.floor(new Date(expiryDate).valueOf() / 1000);
+
+  return expire - now < 0;
+};
+
 const Coupon = (props: ICoupon) => {
   const {
     amount,
@@ -24,11 +32,9 @@ const Coupon = (props: ICoupon) => {
         </CouponValue>
         <CouponInfo>
           <InfoList>
-            <InfoItem big isUsed={isUsed}>
-              {code}
-            </InfoItem>
+            <Code isUsed={isUsed}>{code}</Code>
             <InfoItem>minimum ${minimumAmount}</InfoItem>
-            <InfoItem>
+            <InfoItem isExpired={isExpired(expiryDate)} isUsed={isUsed}>
               {dayjs(createdAt).format("YYYY MMMM DD")}-
               {dayjs(expiryDate.toString()).format("YYYY MMMM DD")}
             </InfoItem>
@@ -72,17 +78,36 @@ const CouponInfo = styled.div`
 const InfoList = styled.ul`
   color: #aaa;
 `;
-const InfoItem = styled.li<{ big?: boolean; isUsed?: boolean }>`
-  ${({ big, isUsed }) =>
-    big &&
-    css`
-      font-size: 2rem;
-      font-weight: 900;
-      color: ${isUsed ? `${cl.textLightGray}` : `${cl.green}`};
-      @media (max-width: 400px) {
-        font-size: 1.5rem;
-      }
-    `}
+// const InfoItem = styled.li<{
+//   big?: boolean;
+//   isUsed?: boolean;
+//   isExpired?: boolean;
+// }>`
+//   ${({ big, isUsed }) =>
+//     big &&
+//     css`
+//       font-size: 2rem;
+//       font-weight: 900;
+//       color: ${isUsed ? `${cl.textLightGray}` : `${cl.green}`};
+//       @media (max-width: 400px) {
+//         font-size: 1.5rem;
+//       }
+//     `}
+// `;
+
+const Code = styled.li<{
+  isUsed?: boolean;
+}>`
+  font-size: 2rem;
+  font-weight: 900;
+  color: ${({ isUsed }) => (isUsed ? `${cl.textLightGray}` : `${cl.green}`)};
+  @media (max-width: 400px) {
+    font-size: 1.5rem;
+  }
+`;
+const InfoItem = styled.li<{ isExpired?: boolean; isUsed?: boolean }>`
+  color: ${({ isExpired, isUsed }) => isExpired && !isUsed && `${cl.red}`};
+  font-weight: 500;
 `;
 const CouponValue = styled.div<{ isUsed: boolean }>`
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
