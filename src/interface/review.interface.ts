@@ -12,4 +12,5 @@ export interface IReview {
   comment: string;
   user: IUser;
   createdAt: number | Date;
+  product: IProduct;
 }

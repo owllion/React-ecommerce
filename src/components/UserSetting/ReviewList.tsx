@@ -6,6 +6,7 @@ import dayjs from "dayjs";
 import Skeleton from "react-loading-skeleton";
 import { AiFillEdit } from "react-icons/ai";
 import { useForm, SubmitHandler, FieldError } from "react-hook-form";
+import { Link } from "react-router-dom";
 
 import { ReviewArea } from "../Product/Review/ReviewForm";
 import cl from "../../constants/color/color";
@@ -23,6 +24,7 @@ import {
 } from "src/components/Product/Review/ReviewForm";
 import FieldErr from "src/components/error/FieldErr";
 import { getValidationData } from "src/components/Checkout/form/shipping-form/getValidationData";
+import { ItemImg } from "src/components/Checkout/Cart/TabletCartItem";
 
 interface IGetReviewList {
   data: {
@@ -86,22 +88,7 @@ const ReviewList = () => {
 
       {reviewList.map((review) => (
         <SingleReviewContainer key={review.reviewId}>
-          <LeftPartContainer>
-            {/* <LeftAvatarBox>
-                {isLoading ? (
-                  <Skeleton
-                  circle
-                  height="100%"
-                  containerClassName="avatar-skeleton"
-                  />
-                  ) : (
-                  <img
-                  src={review.user.avatarUpload || review.user.avatarDefault}
-                  alt="avatar"
-                  />
-                  )}
-                </LeftAvatarBox> */}
-          </LeftPartContainer>
+          <LeftPartContainer></LeftPartContainer>
           <RightReviewBody>
             {isLoading ? (
               <Skeleton width={300} />
@@ -151,9 +138,25 @@ const ReviewList = () => {
                     </OperationBtnContainer>
                   </>
                 ) : (
-                  <ReviewContent>
-                    {isLoading ? <Skeleton count={5} /> : review.comment}
-                  </ReviewContent>
+                  <>
+                    <ReviewContent>
+                      {isLoading ? <Skeleton count={5} /> : review.comment}
+                    </ReviewContent>
+                    <ReviewItemInfo>
+                      <ReviewItemImgBox>
+                        <Link
+                          to={`/product-detail/${review.product.productId}`}
+                        >
+                          <ReviewItemImg src={review.product.imageList?.[0]} />
+                        </Link>
+                      </ReviewItemImgBox>
+                      <ReviewProductNameBox>
+                        <ReviewProductName>
+                          {review.product.productName}
+                        </ReviewProductName>
+                      </ReviewProductNameBox>
+                    </ReviewItemInfo>
+                  </>
                 )}
               </ReviewContentContainer>
             </EditReviewFormContainer>
@@ -242,9 +245,38 @@ const OperationBtnWrapper = styled.div`
 const Submit = styled(ShopBtn)`
   background: ${cl.dark};
   color: ${cl.white};
+  padding: 0.7rem 2.3rem;
+  border-radius: 5px;
+  font-weight: 500;
 `;
 const Cancel = styled(Submit)`
   background: ${cl.white};
   color: ${cl.dark};
+  @media (min-width: 350px) {
+    margin-left: 1rem;
+  }
 `;
+const ReviewItemInfo = styled.div`
+  width: 100%;
+  display: flex;
+  margin-top: 2rem;
+`;
+const ReviewItemImgBox = styled.div`
+  /* flex-basis: 10%;
+  @media (max-width: 350px) {
+    flex-basis: 50%;
+  } */
+  width: 75px;
+  padding: 1rem 1rem 1rem 0;
+`;
+const ReviewItemImg = styled(ItemImg)``;
+const ReviewProductNameBox = styled.div`
+  display: flex;
+  align-items: center;
+`;
+const ReviewProductName = styled.p`
+  font-weight: 500;
+  margin: 0;
+`;
+
 export default ReviewList;

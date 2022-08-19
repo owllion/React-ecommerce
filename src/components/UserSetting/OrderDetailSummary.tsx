@@ -11,7 +11,6 @@ import {
   ItemInfoSize,
 } from "../Checkout/Cart/TabletCartItem";
 import { IProduct } from "../../interface/product.interface";
-import Lottie from "src/components/Common/Lottie";
 interface IProps {
   needContainer: boolean;
   itemList: IProduct[];
@@ -53,7 +52,6 @@ const OrderDetailSummary = (props: IProps) => {
             <ItemInfoBox>
               <ItemWrapper>
                 <ItemInfoImgBox>
-                  {/* <Skeleton height="100%" /> */}
                   <Link to={`/product-detail/${item.productId}`}>
                     <ItemImg src={item.imageList?.[0]} />
                   </Link>
