@@ -26,7 +26,7 @@ const CheckoutItemList = () => {
 
   const { cartList } = useAppSelector((state) => state.cart);
   const { errorMsg } = useAppSelector((state) => state.common);
-  const { isLoading } = useAppSelector((state) => state.common);
+  const { applyCouponLoading } = useAppSelector((state) => state.common);
   const total = useCartTotal(cartList);
 
   const codeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,7 +45,7 @@ const CheckoutItemList = () => {
   }
   const applyCouponHandler = async () => {
     try {
-      dispatch(commonActions.setLoading(true));
+      dispatch(commonActions.setApplyCouponLoading(true));
       const {
         data: { discountTotal, discount },
       }: IApplyCoupon = await applyCoupon({ code, totalPrice: total });
@@ -59,10 +59,10 @@ const CheckoutItemList = () => {
       );
 
       setCode("");
-      dispatch(commonActions.setLoading(false));
       dispatch(commonActions.setErrorClear());
+      dispatch(commonActions.setApplyCouponLoading(false));
     } catch (error) {
-      dispatch(commonActions.setLoading(false));
+      dispatch(commonActions.setApplyCouponLoading(false));
       const err = ((error as AxiosError).response?.data as { msg: string }).msg;
       dispatch(commonActions.setError(err));
       toast.error(err);
@@ -102,7 +102,7 @@ const CheckoutItemList = () => {
         </CodeInputBox>
 
         <ApplyBtn
-          disabled={isLoading || !code}
+          disabled={applyCouponLoading || !code}
           onClick={() => applyCouponHandler()}
         >
           APPLY
