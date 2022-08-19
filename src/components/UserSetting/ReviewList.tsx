@@ -4,6 +4,7 @@ import { AxiosError } from "axios";
 import toast from "react-hot-toast";
 import dayjs from "dayjs";
 import Skeleton from "react-loading-skeleton";
+import { AiFillEdit } from "react-icons/ai";
 
 import cl from "../../constants/color/color";
 import SectionTitle from "./SectionTitle";
@@ -22,7 +23,7 @@ interface IGetReviewList {
 
 const ReviewList = () => {
   const dispatch = useAppDispatch();
-  const [reviewList, setReviewList] = useState<IReview[]>();
+  const [reviewList, setReviewList] = useState<IReview[]>([]);
   const { isLoading } = useAppSelector((state) => state.common);
 
   const getReviewList = async () => {
@@ -35,7 +36,6 @@ const ReviewList = () => {
       dispatch(commonActions.setLoading(false));
     } catch (error) {
       dispatch(commonActions.setLoading(false));
-
       const err = ((error as AxiosError).response?.data as { msg: string }).msg;
       toast.error(err);
     }
@@ -46,51 +46,60 @@ const ReviewList = () => {
   return (
     <Container>
       <SectionTitle title="ReviewList" />
-      {!isLoading && !reviewList?.length ? (
-        <NoResult imgText={"NOTHING HERE"} showBtn={false} />
-      ) : (
-        reviewList?.map((review) => (
-          <SingleReviewContainer key={review.reviewId}>
-            <LeftPartContainer>
-              <LeftAvatarBox>
+
+      {reviewList.map((review) => (
+        <SingleReviewContainer key={review.reviewId}>
+          <LeftPartContainer>
+            {/* <LeftAvatarBox>
                 {isLoading ? (
                   <Skeleton
-                    circle
-                    height="100%"
-                    containerClassName="avatar-skeleton"
+                  circle
+                  height="100%"
+                  containerClassName="avatar-skeleton"
                   />
-                ) : (
+                  ) : (
                   <img
-                    src={review.user.avatarUpload || review.user.avatarDefault}
-                    alt="avatar"
+                  src={review.user.avatarUpload || review.user.avatarDefault}
+                  alt="avatar"
                   />
-                )}
-              </LeftAvatarBox>
-            </LeftPartContainer>
-            <RightReviewBody>
-              {isLoading ? (
-                <Skeleton width={300} />
-              ) : (
-                <SingleReviewHeader>
+                  )}
+                </LeftAvatarBox> */}
+          </LeftPartContainer>
+          <RightReviewBody>
+            {isLoading ? (
+              <Skeleton width={300} />
+            ) : (
+              <SingleReviewHeader>
+                <HeaderItem>
                   <Author>{`${review.user.firstName} ${review.user.lastName}`}</Author>
+
                   <Date>{dayjs(review.createdAt).format("YYYY MMMM DD")}</Date>
-                </SingleReviewHeader>
+                </HeaderItem>
+                <HeaderItem>
+                  <EditIcon>
+                    <AiFillEdit />
+                  </EditIcon>
+                </HeaderItem>
+              </SingleReviewHeader>
+            )}
+            <StarsContainer>
+              {isLoading ? (
+                <Skeleton width={100} />
+              ) : (
+                <Rating readonly initialRating={review.rating} />
               )}
-              <StarsContainer>
-                {isLoading ? (
-                  <Skeleton width={100} />
-                ) : (
-                  <Rating readonly initialRating={review.rating} />
-                )}
-              </StarsContainer>
-              <ReviewContentContainer>
-                <ReviewContent>
-                  {isLoading ? <Skeleton count={5} /> : review.comment}
-                </ReviewContent>
-              </ReviewContentContainer>
-            </RightReviewBody>
-          </SingleReviewContainer>
-        ))
+            </StarsContainer>
+            <ReviewContentContainer>
+              <ReviewContent>
+                {isLoading ? <Skeleton count={5} /> : review.comment}
+              </ReviewContent>
+            </ReviewContentContainer>
+          </RightReviewBody>
+        </SingleReviewContainer>
+      ))}
+
+      {reviewList.length === 0 && !isLoading && (
+        <NoResult imgText={"NOTHING HERE"} showBtn={false} />
       )}
     </Container>
   );
@@ -126,10 +135,11 @@ const RightReviewBody = styled.div`
 
 const SingleReviewHeader = styled.div`
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   padding-bottom: 0.8rem;
 `;
-//這兩個 flex
+const HeaderItem = styled.div``;
 const Author = styled.h4`
   padding-right: 1.5rem;
   font-weight: 600;
@@ -140,6 +150,7 @@ const Date = styled.span`
   font-size: 0.8rem;
 `;
 
+const EditIcon = styled.div``;
 const StarsContainer = styled.div``;
 
 const ReviewContentContainer = styled.div`
