@@ -17,7 +17,12 @@ interface IGetCouponList {
     couponList: ICoupon[];
   };
 }
+const isExpired = (expiryDate: Date) => {
+  const now = Date.now() / 1000;
+  const expire = Math.floor(new Date(expiryDate).valueOf() / 1000);
 
+  return expire - now < 0;
+};
 const CouponList = () => {
   const { isLoading } = useAppSelector((state) => state.common);
   const dispatch = useAppDispatch();
@@ -33,7 +38,11 @@ const CouponList = () => {
         data: { couponList },
       }: IGetCouponList = await getNormalList({ type: "couponList" });
       setCouponList(couponList);
-      setFilteredList(couponList?.filter((item) => !item.isUsed));
+      setFilteredList(
+        couponList?.filter(
+          (item) => !item.isUsed && !isExpired(item.expiryDate)
+        )
+      );
       dispatch(commonActions.setLoading(false));
     } catch (error) {
       dispatch(commonActions.setLoading(false));
@@ -46,9 +55,12 @@ const CouponList = () => {
   }, []);
 
   useEffect(() => {
-    const list = couponList?.filter((item) =>
-      selected === "used" ? item.isUsed : !item.isUsed
-    );
+    const list = couponList?.filter((item) => {
+      if (selected === "unused")
+        return !isExpired(item.expiryDate) && !item.isUsed;
+      if (selected === "used") return item.isUsed;
+      else return isExpired(item.expiryDate);
+    });
     setFilteredList(list);
   }, [selected]);
   return (
@@ -76,6 +88,16 @@ const CouponList = () => {
                 }}
               >
                 Used
+              </StateItem>
+              <Divider>|</Divider>
+              <StateItem
+                current="expired"
+                selected={selected}
+                onClick={() => {
+                  setSelected("expired");
+                }}
+              >
+                Expired
               </StateItem>
             </StateItems>
           </StateBar>

@@ -78,22 +78,6 @@ const CouponInfo = styled.div`
 const InfoList = styled.ul`
   color: #aaa;
 `;
-// const InfoItem = styled.li<{
-//   big?: boolean;
-//   isUsed?: boolean;
-//   isExpired?: boolean;
-// }>`
-//   ${({ big, isUsed }) =>
-//     big &&
-//     css`
-//       font-size: 2rem;
-//       font-weight: 900;
-//       color: ${isUsed ? `${cl.textLightGray}` : `${cl.green}`};
-//       @media (max-width: 400px) {
-//         font-size: 1.5rem;
-//       }
-//     `}
-// `;
 
 const Code = styled.li<{
   isUsed?: boolean;
