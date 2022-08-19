@@ -5,38 +5,61 @@ import dayjs from "dayjs";
 import cl from "../../constants/color/color";
 import { ICoupon } from "../../interface/coupon.interface";
 
-const isExpired = (expiryDate: Date) => {
-  const now = Date.now() / 1000;
-  const expire = Math.floor(new Date(expiryDate).valueOf() / 1000);
+const restTime = (expiryDate: Date) =>
+  new Date(expiryDate).getTime() - Date.now();
 
-  return expire - now < 0;
+const isExpired = (expiryDate: Date) => {
+  return restTime(expiryDate) < 0;
+};
+
+const almostExpired = (expiryDate: Date) => {
+  if (!isExpired(expiryDate)) {
+    const rest = restTime(expiryDate);
+    const min = Math.floor(rest / 1000 / 60) % 60;
+    const hours = Math.floor(rest / 1000 / 60 / 60) % 24;
+    const days = Math.floor(rest / 1000 / 60 / 60 / 24);
+
+    if (days <= 7) return [days, hours, min];
+    return [];
+  }
+};
+
+const getRestTimeCounter = (count: Array<number>) => {
+  return `${count[0]}day${count[0] > 1 ? "s" : ""} ${count[1]}hours ${
+    count[2]
+  }min left`;
+};
+
+const getExpirationDate = (expiryDate: Date) => {
+  return `${dayjs(Date.now()).format("YYYY MMMM DD")} -
+    ${dayjs(expiryDate.toString()).format("YYYY MMMM DD")}`;
 };
 
 const Coupon = (props: ICoupon) => {
-  const {
-    amount,
-    code,
-    discountType,
-    minimumAmount,
-    expiryDate,
-    isUsed,
-    createdAt,
-  } = props;
+  const { amount, code, discountType, minimumAmount, expiryDate, isUsed } =
+    props;
+  almostExpired(expiryDate);
   return (
     <CouponContainer>
       <CouponWrapper>
-        <CouponValue isUsed={isUsed}>
+        <CouponValue isExpired={isExpired(expiryDate)} isUsed={isUsed}>
           {discountType === "rebate" && "$"}
           {amount}
           {discountType === "percentage" && "%"}
         </CouponValue>
         <CouponInfo>
           <InfoList>
-            <Code isUsed={isUsed}>{code}</Code>
+            <Code isExpired={isExpired(expiryDate)} isUsed={isUsed}>
+              {code}
+            </Code>
             <InfoItem>minimum ${minimumAmount}</InfoItem>
-            <InfoItem isExpired={isExpired(expiryDate)} isUsed={isUsed}>
-              {dayjs(createdAt).format("YYYY MMMM DD")}-
-              {dayjs(expiryDate.toString()).format("YYYY MMMM DD")}
+            <InfoItem
+              almostExpired={almostExpired(expiryDate)?.length! > 0}
+              isUsed={isUsed}
+            >
+              {almostExpired(expiryDate)?.length! > 0 && !isUsed
+                ? getRestTimeCounter(almostExpired(expiryDate)!)
+                : getExpirationDate(expiryDate)}
             </InfoItem>
           </InfoList>
         </CouponInfo>
@@ -80,20 +103,23 @@ const InfoList = styled.ul`
 `;
 
 const Code = styled.li<{
-  isUsed?: boolean;
+  isUsed: boolean;
+  isExpired: boolean;
 }>`
   font-size: 2rem;
   font-weight: 900;
-  color: ${({ isUsed }) => (isUsed ? `${cl.textLightGray}` : `${cl.green}`)};
+  color: ${({ isExpired, isUsed }) =>
+    isExpired || isUsed ? `${cl.textLightGray}` : `${cl.green}`};
   @media (max-width: 400px) {
     font-size: 1.5rem;
   }
 `;
-const InfoItem = styled.li<{ isExpired?: boolean; isUsed?: boolean }>`
-  color: ${({ isExpired, isUsed }) => isExpired && !isUsed && `${cl.red}`};
+const InfoItem = styled.li<{ isUsed?: boolean; almostExpired?: boolean }>`
+  color: ${({ isUsed, almostExpired }) =>
+    !isUsed && almostExpired && `${cl.red}`};
   font-weight: 500;
 `;
-const CouponValue = styled.div<{ isUsed: boolean }>`
+const CouponValue = styled.div<{ isUsed: boolean; isExpired: boolean }>`
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
     rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
   padding: 0.8rem 1.2rem;
@@ -101,8 +127,8 @@ const CouponValue = styled.div<{ isUsed: boolean }>`
   display: flex;
   flex: 1;
   position: relative;
-  background: ${({ isUsed }) =>
-    isUsed ? `${cl.textLightGray}` : `${cl.green}`};
+  background: ${({ isUsed, isExpired }) =>
+    isUsed || isExpired ? `${cl.textLightGray}` : `${cl.green}`};
   color: ${cl.white};
   font-size: 2rem;
   @media (max-width: 350px) {

@@ -133,6 +133,7 @@ const StateBar = styled.div`
 `;
 const StateItems = styled.div`
   display: flex;
+  flex-wrap: wrap;
 `;
 
 const baseState = css`

@@ -5,7 +5,6 @@ export interface ICoupon {
   expiryDate: Date;
   minimumAmount: number;
   isUsed: boolean;
-  createdAt: number;
 }
 
 export interface IApplyCoupon {
