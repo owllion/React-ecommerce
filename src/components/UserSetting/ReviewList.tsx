@@ -5,7 +5,9 @@ import toast from "react-hot-toast";
 import dayjs from "dayjs";
 import Skeleton from "react-loading-skeleton";
 import { AiFillEdit } from "react-icons/ai";
+import { useForm, SubmitHandler, FieldError } from "react-hook-form";
 
+import { ReviewArea } from "../Product/Review/ReviewForm";
 import cl from "../../constants/color/color";
 import SectionTitle from "./SectionTitle";
 import { getPopulatedList } from "../../api/user.api";
@@ -14,15 +16,26 @@ import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { commonActions } from "../../store/slice/Common.slice";
 import NoResult from "src/components/UserSetting/NoResult";
 import Rating from "src/components/Product/Review/Rating";
+import { ShopBtn } from "../Home/Hero";
+import {
+  CountCharactersContainer,
+  Count,
+} from "src/components/Product/Review/ReviewForm";
+import FieldErr from "src/components/error/FieldErr";
+import { getValidationData } from "src/components/Checkout/form/shipping-form/getValidationData";
 
 interface IGetReviewList {
   data: {
     reviewList: IReview[];
   };
 }
-
+interface FormValue {
+  comment: string;
+}
 const ReviewList = () => {
   const dispatch = useAppDispatch();
+  const [count, setCount] = useState(0);
+  const [isEditable, setIsEditable] = useState(false);
   const [reviewList, setReviewList] = useState<IReview[]>([]);
   const { isLoading } = useAppSelector((state) => state.common);
 
@@ -43,6 +56,30 @@ const ReviewList = () => {
   useEffect(() => {
     getReviewList();
   }, []);
+  const handleCountCharacters = (
+    event: React.ChangeEvent<HTMLTextAreaElement>
+  ) => setCount(event.target.value.length);
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    clearErrors,
+    setValue,
+    formState: { errors },
+  } = useForm<FormValue>();
+
+  const onSubmit: SubmitHandler<FormValue> = async (data, e) =>
+    console.log(data);
+  const cancelEditHandler = () => {
+    setIsEditable(false);
+    clearErrors("comment");
+  };
+  const openTextAreaHandler = (comment: string) => {
+    setIsEditable(!isEditable);
+    setCount(comment.length);
+    setValue("comment", comment);
+  };
   return (
     <Container>
       <SectionTitle title="ReviewList" />
@@ -76,7 +113,7 @@ const ReviewList = () => {
                   <Date>{dayjs(review.createdAt).format("YYYY MMMM DD")}</Date>
                 </HeaderItem>
                 <HeaderItem>
-                  <EditIcon>
+                  <EditIcon onClick={() => openTextAreaHandler(review.comment)}>
                     <AiFillEdit />
                   </EditIcon>
                 </HeaderItem>
@@ -89,11 +126,37 @@ const ReviewList = () => {
                 <Rating readonly initialRating={review.rating} />
               )}
             </StarsContainer>
-            <ReviewContentContainer>
-              <ReviewContent>
-                {isLoading ? <Skeleton count={5} /> : review.comment}
-              </ReviewContent>
-            </ReviewContentContainer>
+            <EditReviewFormContainer onSubmit={handleSubmit(onSubmit)}>
+              <ReviewContentContainer>
+                {isEditable ? (
+                  <>
+                    <WiderReviewArea
+                      error={errors.comment}
+                      {...register("comment", {
+                        onChange: (e) => handleCountCharacters(e),
+                        ...getValidationData(["required"]),
+                      })}
+                    />
+                    <CountCharactersContainer>
+                      <Count count={count}>{count}/300</Count>
+                    </CountCharactersContainer>
+                    <FieldErr errors={errors} field="comment" />
+                    <OperationBtnContainer>
+                      <OperationBtnWrapper>
+                        <Submit>Submit</Submit>
+                        <Cancel onClick={() => cancelEditHandler()}>
+                          Cancel
+                        </Cancel>
+                      </OperationBtnWrapper>
+                    </OperationBtnContainer>
+                  </>
+                ) : (
+                  <ReviewContent>
+                    {isLoading ? <Skeleton count={5} /> : review.comment}
+                  </ReviewContent>
+                )}
+              </ReviewContentContainer>
+            </EditReviewFormContainer>
           </RightReviewBody>
         </SingleReviewContainer>
       ))}
@@ -127,8 +190,9 @@ const LeftAvatarBox = styled.div`
   }
 `;
 const RightReviewBody = styled.div`
+  width: 100%;
   @media (min-width: 1200px) {
-    padding-right: 8rem;
+    padding-right: 1rem;
   }
 `;
 //內容本體
@@ -136,10 +200,13 @@ const RightReviewBody = styled.div`
 const SingleReviewHeader = styled.div`
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
   align-items: center;
   padding-bottom: 0.8rem;
 `;
-const HeaderItem = styled.div``;
+const HeaderItem = styled.div`
+  display: flex;
+`;
 const Author = styled.h4`
   padding-right: 1.5rem;
   font-weight: 600;
@@ -150,13 +217,34 @@ const Date = styled.span`
   font-size: 0.8rem;
 `;
 
-const EditIcon = styled.div``;
+const EditIcon = styled.div`
+  cursor: pointer;
+`;
 const StarsContainer = styled.div``;
-
+const EditReviewFormContainer = styled.form``;
 const ReviewContentContainer = styled.div`
   margin-top: 0.8rem;
 `;
 const ReviewContent = styled.p`
   margin: 0;
+`;
+
+const WiderReviewArea = styled(ReviewArea)`
+  width: 100%;
+`;
+const OperationBtnContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+const OperationBtnWrapper = styled.div`
+  display: flex;
+`;
+const Submit = styled(ShopBtn)`
+  background: ${cl.dark};
+  color: ${cl.white};
+`;
+const Cancel = styled(Submit)`
+  background: ${cl.white};
+  color: ${cl.dark};
 `;
 export default ReviewList;

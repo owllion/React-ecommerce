@@ -127,10 +127,10 @@ export const Input = styled.input<{ error?: FieldError }>`
   border-color: ${({ error }) => (error ? `${cl.red}` : `${cl.gray}`)};
 `;
 
-const CountCharactersContainer = styled.div`
+export const CountCharactersContainer = styled.div`
   padding-top: 0.7rem;
 `;
-const Count = styled.span`
+export const Count = styled.span`
   color: ${({ count }: { count: number }) =>
     count >= 270 ? `${cl.red}` : `${cl.dark}`};
 `;
@@ -163,7 +163,7 @@ const ReviewAreaBox = styled.div`
   display: flex;
   flex-direction: column;
 `;
-const ReviewArea = styled.textarea.attrs(() => ({
+export const ReviewArea = styled.textarea.attrs(() => ({
   cols: "5",
   rows: "5",
   maxLength: "300",
@@ -207,7 +207,7 @@ const ReviewEmailBox = styled.div`
   margin-top: 1rem;
 `;
 
-const SubmitBtn = styled(ShopBtn)<{ haveToken: string }>`
+export const SubmitBtn = styled(ShopBtn)<{ haveToken: string }>`
   margin-top: 2.5rem;
   background: ${({ haveToken }) => (haveToken ? `${cl.dark}` : `${cl.gray}`)};
   cursor: ${({ haveToken }) => (haveToken ? "pointer" : "not-allowed")};
