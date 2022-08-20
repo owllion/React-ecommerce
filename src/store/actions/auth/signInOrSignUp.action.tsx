@@ -50,6 +50,7 @@ const signInOrSignUp = (data: IProps): AppThunk => {
 
       dispatch(authActions.setToken(token));
       dispatch(authActions.setRefreshToken(refreshToken));
+      dispatch(cartActions.resetCartLength());
       dispatch(cartActions.setCartLength(user.cartLength));
 
       localStorage.setItem("token", token);
