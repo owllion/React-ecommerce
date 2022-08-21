@@ -56,3 +56,6 @@ export const applyCoupon = (data: IApplyCoupon) =>
 
 export const getOrderDetail = (data: IGetOrderDetail) =>
   instance.post("/order/detail", data);
+
+export const modifyReview = (data: UserInterface.IModifyReview) =>
+  instance.patch("/review", data);

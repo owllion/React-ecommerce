@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IProduct } from "../../interface/product.interface";
+import { IReview } from "../../interface/review.interface";
 import { IUser } from "../../interface/user.interface";
 import { IUserInfo } from "../actions/auth/signInOrSignUp.action";
 
@@ -11,6 +12,7 @@ const initialState: Partial<IUser> = {
   avatarDefault: "",
   phone: "",
   favList: [],
+  reviewList: [],
 };
 
 const userSlice = createSlice({
@@ -42,12 +44,18 @@ const userSlice = createSlice({
     setFavList(state, { payload }: PayloadAction<IProduct[]>) {
       state.favList = payload;
     },
-    updateFavListLength(state, { payload }: PayloadAction<number>) {
-      console.log({ payload });
-      const array = [...Array(payload)];
-      console.log([...Array(1)], "這是array");
-      array.forEach((_) => array.push({ name: "rr" }));
-      state.favList = state.favList?.concat(array);
+    setReviewList(state, { payload }: PayloadAction<IReview[]>) {
+      state.reviewList = payload;
+    },
+    updateReview(
+      state,
+      { payload }: PayloadAction<{ reviewId: string; comment: string }>
+    ) {
+      state.reviewList = state.reviewList?.map((review) =>
+        review.reviewId === payload.reviewId
+          ? { ...review, comment: payload.comment }
+          : review
+      );
     },
   },
 });

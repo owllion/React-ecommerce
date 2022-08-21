@@ -25,7 +25,8 @@ import {
 import FieldErr from "src/components/error/FieldErr";
 import { getValidationData } from "src/components/Checkout/form/shipping-form/getValidationData";
 import { ItemImg } from "src/components/Checkout/Cart/TabletCartItem";
-
+import { userActions } from "../../store/slice/User.slice";
+import { modifyReview } from "src/api/user.api";
 interface IGetReviewList {
   data: {
     reviewList: IReview[];
@@ -33,21 +34,45 @@ interface IGetReviewList {
 }
 interface FormValue {
   comment: string;
+  reviewId: string;
 }
 const ReviewList = () => {
   const dispatch = useAppDispatch();
+  const { reviewList } = useAppSelector((state) => state.user);
   const [count, setCount] = useState(0);
+  const [comment, setComment] = useState("");
   const [isEditable, setIsEditable] = useState(false);
-  const [reviewList, setReviewList] = useState<IReview[]>([]);
+  // const [reviewList, setReviewList] = useState<IReview[]>([]);
   const { isLoading } = useAppSelector((state) => state.common);
 
+  const handleModifyReview = async ({ reviewId, comment }: FormValue) => {
+    try {
+      dispatch(commonActions.setLoading(true));
+      const params = {
+        reviewId,
+        comment,
+      };
+      await modifyReview({
+        reviewItem: params,
+      });
+      dispatch(userActions.updateReview(params));
+      toast.success("modify successfully");
+      dispatch(commonActions.setLoading(false));
+    } catch (error) {
+      dispatch(commonActions.setLoading(false));
+      const err = ((error as AxiosError).response?.data as { msg: string }).msg;
+      toast.error(err);
+    }
+  };
   const getReviewList = async () => {
     try {
       dispatch(commonActions.setLoading(true));
       const {
         data: { reviewList },
       }: IGetReviewList = await getPopulatedList({ type: "review" });
-      setReviewList(reviewList);
+      dispatch(userActions.setReviewList(reviewList));
+      // setReviewList(reviewList);
+
       dispatch(commonActions.setLoading(false));
     } catch (error) {
       dispatch(commonActions.setLoading(false));
@@ -68,14 +93,27 @@ const ReviewList = () => {
     reset,
     clearErrors,
     setValue,
+    trigger,
     formState: { errors },
-  } = useForm<FormValue>();
+  } = useForm<FormValue>({ mode: "onChange" });
 
-  const onSubmit: SubmitHandler<FormValue> = async (data, e) =>
-    console.log(data);
+  const modifyReviewHandler = async (data: FormValue) => {
+    try {
+      await handleModifyReview({ ...data });
+      dispatch(userActions.updateReview({ ...data }));
+      setIsEditable(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const cancelEditHandler = () => {
     setIsEditable(false);
     clearErrors("comment");
+  };
+  const triggerCommentValidation = async (reviewId: string) => {
+    await trigger("comment");
+    if (!errors.comment) modifyReviewHandler({ reviewId, comment });
+    // if (!errors.comment) console.log("沒有錯誤");
   };
   const openTextAreaHandler = (comment: string) => {
     setIsEditable(!isEditable);
@@ -86,9 +124,8 @@ const ReviewList = () => {
     <Container>
       <SectionTitle title="ReviewList" />
 
-      {reviewList.map((review) => (
+      {reviewList?.map((review) => (
         <SingleReviewContainer key={review.reviewId}>
-          <LeftPartContainer></LeftPartContainer>
           <RightReviewBody>
             {isLoading ? (
               <Skeleton width={300} />
@@ -113,14 +150,17 @@ const ReviewList = () => {
                 <Rating readonly initialRating={review.rating} />
               )}
             </StarsContainer>
-            <EditReviewFormContainer onSubmit={handleSubmit(onSubmit)}>
+            <EditReviewFormContainer>
               <ReviewContentContainer>
                 {isEditable ? (
                   <>
                     <WiderReviewArea
                       error={errors.comment}
                       {...register("comment", {
-                        onChange: (e) => handleCountCharacters(e),
+                        onChange: (e) => {
+                          setComment(e.target.value);
+                          handleCountCharacters(e);
+                        },
                         ...getValidationData(["required"]),
                       })}
                     />
@@ -130,7 +170,14 @@ const ReviewList = () => {
                     <FieldErr errors={errors} field="comment" />
                     <OperationBtnContainer>
                       <OperationBtnWrapper>
-                        <Submit>Submit</Submit>
+                        <Submit
+                          type="button"
+                          onClick={() =>
+                            triggerCommentValidation(review.reviewId!)
+                          }
+                        >
+                          Submit
+                        </Submit>
                         <Cancel onClick={() => cancelEditHandler()}>
                           Cancel
                         </Cancel>
@@ -164,7 +211,7 @@ const ReviewList = () => {
         </SingleReviewContainer>
       ))}
 
-      {reviewList.length === 0 && !isLoading && (
+      {reviewList?.length === 0 && !isLoading && (
         <NoResult imgText={"NOTHING HERE"} showBtn={false} />
       )}
     </Container>
@@ -262,10 +309,6 @@ const ReviewItemInfo = styled.div`
   margin-top: 2rem;
 `;
 const ReviewItemImgBox = styled.div`
-  /* flex-basis: 10%;
-  @media (max-width: 350px) {
-    flex-basis: 50%;
-  } */
   width: 75px;
   padding: 1rem 1rem 1rem 0;
 `;

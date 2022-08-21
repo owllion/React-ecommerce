@@ -1,5 +1,6 @@
 import { IProduct } from "./product.interface";
 import { ICoupon } from "./coupon.interface";
+import { IReview } from "./review.interface";
 export interface Data {
   result: {
     token: string;
@@ -25,6 +26,7 @@ export interface IUser {
   favList: IProduct[];
   couponList: ICoupon[];
   cartList: IProduct[];
+  reviewList: IReview[];
 }
 export interface IUpload {
   file: string | Blob | Buffer;
@@ -71,4 +73,10 @@ export interface IGetPopulatedList {
 }
 export interface IGetNormalList {
   type: "cartList" | "favList" | "couponList";
+}
+export interface IModifyReview {
+  reviewItem: {
+    reviewId: string;
+    comment: string;
+  };
 }
