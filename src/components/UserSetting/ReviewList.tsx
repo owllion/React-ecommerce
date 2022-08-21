@@ -43,11 +43,13 @@ const ReviewList = () => {
   const [comment, setComment] = useState("");
   const [isEditable, setIsEditable] = useState(false);
   // const [reviewList, setReviewList] = useState<IReview[]>([]);
-  const { isLoading } = useAppSelector((state) => state.common);
+  const { isLoading, modifyReviewLoading } = useAppSelector(
+    (state) => state.common
+  );
 
   const handleModifyReview = async ({ reviewId, comment }: FormValue) => {
     try {
-      dispatch(commonActions.setLoading(true));
+      dispatch(commonActions.setModifyReviewLoading(true));
       const params = {
         reviewId,
         comment,
@@ -57,9 +59,9 @@ const ReviewList = () => {
       });
       dispatch(userActions.updateReview(params));
       toast.success("modify successfully");
-      dispatch(commonActions.setLoading(false));
+      dispatch(commonActions.setModifyReviewLoading(false));
     } catch (error) {
-      dispatch(commonActions.setLoading(false));
+      dispatch(commonActions.setModifyReviewLoading(false));
       const err = ((error as AxiosError).response?.data as { msg: string }).msg;
       toast.error(err);
     }
@@ -110,11 +112,11 @@ const ReviewList = () => {
     setIsEditable(false);
     clearErrors("comment");
   };
-  const triggerCommentValidation = async (reviewId: string) => {
+  const triggerCommentValidationAndModify = async (reviewId: string) => {
     await trigger("comment");
     if (!errors.comment) modifyReviewHandler({ reviewId, comment });
-    // if (!errors.comment) console.log("沒有錯誤");
   };
+
   const openTextAreaHandler = (comment: string) => {
     setIsEditable(!isEditable);
     setCount(comment.length);
@@ -173,7 +175,7 @@ const ReviewList = () => {
                         <Submit
                           type="button"
                           onClick={() =>
-                            triggerCommentValidation(review.reviewId!)
+                            triggerCommentValidationAndModify(review.reviewId!)
                           }
                         >
                           Submit
@@ -191,17 +193,38 @@ const ReviewList = () => {
                     </ReviewContent>
                     <ReviewItemInfo>
                       <ReviewItemImgBox>
-                        <Link
-                          to={`/product-detail/${review.product.productId}`}
-                        >
-                          <ReviewItemImg src={review.product.imageList?.[0]} />
-                        </Link>
+                        {isLoading ? (
+                          <>
+                            <Skeleton height="100%" />
+                            <div
+                              style={{ height: "50px", width: "70px" }}
+                            ></div>
+                          </>
+                        ) : (
+                          <Link
+                            to={`/product-detail/${review.product.productId}`}
+                          >
+                            <ReviewItemImg
+                              src={review.product.imageList?.[0]}
+                            />
+                          </Link>
+                        )}
                       </ReviewItemImgBox>
                       <ReviewProductNameBox>
+                        <ReviewProductName>
+                          {isLoading ? (
+                            <Skeleton height={33} />
+                          ) : (
+                            review.product.productName
+                          )}
+                        </ReviewProductName>
+                      </ReviewProductNameBox>
+                      {/* <ReviewProductNameBox>
                         <ReviewProductName>
                           {review.product.productName}
                         </ReviewProductName>
                       </ReviewProductNameBox>
+                    </ReviewItemInfo> */}
                     </ReviewItemInfo>
                   </>
                 )}
@@ -316,10 +339,12 @@ const ReviewItemImg = styled(ItemImg)``;
 const ReviewProductNameBox = styled.div`
   display: flex;
   align-items: center;
+  width: 100%;
 `;
 const ReviewProductName = styled.p`
   font-weight: 500;
   margin: 0;
+  width: 100%;
 `;
 
 export default ReviewList;
