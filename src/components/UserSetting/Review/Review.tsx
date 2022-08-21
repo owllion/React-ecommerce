@@ -1,5 +1,4 @@
 import { useState } from "react";
-import styled from "styled-components";
 import { AxiosError } from "axios";
 import toast from "react-hot-toast";
 import dayjs from "dayjs";
@@ -8,20 +7,16 @@ import { AiFillEdit } from "react-icons/ai";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 
-import { ReviewArea } from "../../Product/Review/ReviewForm";
-import cl from "../../../constants/color/color";
-
+import * as SC from "./Review.style";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import Rating from "src/components/Product/Review/Rating";
-import { ShopBtn } from "../../Home/Hero";
 import {
   CountCharactersContainer,
   Count,
 } from "src/components/Product/Review/ReviewForm";
 import FieldErr from "src/components/error/FieldErr";
 import { getValidationData } from "src/components/Checkout/form/shipping-form/getValidationData";
-import { ItemImg } from "src/components/Checkout/Cart/TabletCartItem";
-import { userActions } from "../../../store/slice/User.slice";
+import { userActions } from "src/store/slice/User.slice";
 import { modifyReview } from "src/api/user.api";
 import { IReview } from "src/interface/review.interface";
 
@@ -81,36 +76,38 @@ const Review = ({ review }: { review: IReview }) => {
   };
 
   return (
-    <SingleReviewContainer key={review.reviewId}>
-      <RightReviewBody>
+    <SC.SingleReviewContainer key={review.reviewId}>
+      <SC.RightReviewBody>
         {isLoading ? (
-          <Skeleton width={300} />
+          <Skeleton />
         ) : (
-          <SingleReviewHeader>
-            <HeaderItem>
-              <Author>{`${review.user.firstName} ${review.user.lastName}`}</Author>
+          <SC.SingleReviewHeader>
+            <SC.HeaderItem>
+              <SC.Author>{`${review.user.firstName} ${review.user.lastName}`}</SC.Author>
 
-              <Date>{dayjs(review.createdAt).format("YYYY MMMM DD")}</Date>
-            </HeaderItem>
-            <HeaderItem>
-              <EditIcon onClick={() => openTextAreaHandler(review.comment)}>
+              <SC.Date>
+                {dayjs(review.createdAt).format("YYYY MMMM DD")}
+              </SC.Date>
+            </SC.HeaderItem>
+            <SC.HeaderItem>
+              <SC.EditIcon onClick={() => openTextAreaHandler(review.comment)}>
                 <AiFillEdit />
-              </EditIcon>
-            </HeaderItem>
-          </SingleReviewHeader>
+              </SC.EditIcon>
+            </SC.HeaderItem>
+          </SC.SingleReviewHeader>
         )}
-        <StarsContainer>
+        <SC.StarsContainer>
           {isLoading ? (
             <Skeleton width={100} />
           ) : (
             <Rating readonly initialRating={review.rating} />
           )}
-        </StarsContainer>
-        <EditReviewFormContainer>
-          <ReviewContentContainer>
+        </SC.StarsContainer>
+        <SC.EditReviewFormContainer>
+          <SC.ReviewContentContainer>
             {isEditable ? (
               <>
-                <WiderReviewArea
+                <SC.WiderReviewArea
                   error={errors.comment}
                   {...register("comment", {
                     onChange: (e) => {
@@ -124,27 +121,29 @@ const Review = ({ review }: { review: IReview }) => {
                   <Count count={count}>{count}/300</Count>
                 </CountCharactersContainer>
                 <FieldErr errors={errors} field="comment" />
-                <OperationBtnContainer>
-                  <OperationBtnWrapper>
-                    <Submit
+                <SC.OperationBtnContainer>
+                  <SC.OperationBtnWrapper>
+                    <SC.Submit
                       type="button"
                       onClick={() =>
                         triggerCommentValidationAndModify(review.reviewId!)
                       }
                     >
                       Submit
-                    </Submit>
-                    <Cancel onClick={() => cancelEditHandler()}>Cancel</Cancel>
-                  </OperationBtnWrapper>
-                </OperationBtnContainer>
+                    </SC.Submit>
+                    <SC.Cancel onClick={() => cancelEditHandler()}>
+                      Cancel
+                    </SC.Cancel>
+                  </SC.OperationBtnWrapper>
+                </SC.OperationBtnContainer>
               </>
             ) : (
               <>
-                <ReviewContent>
+                <SC.ReviewContent>
                   {isLoading ? <Skeleton count={5} /> : review.comment}
-                </ReviewContent>
-                <ReviewItemInfo>
-                  <ReviewItemImgBox>
+                </SC.ReviewContent>
+                <SC.ReviewItemInfo>
+                  <SC.ReviewItemImgBox>
                     {isLoading ? (
                       <>
                         <Skeleton height="100%" />
@@ -152,113 +151,27 @@ const Review = ({ review }: { review: IReview }) => {
                       </>
                     ) : (
                       <Link to={`/product-detail/${review.product.productId}`}>
-                        <ReviewItemImg src={review.product.imageList?.[0]} />
+                        <SC.ReviewItemImg src={review.product.imageList?.[0]} />
                       </Link>
                     )}
-                  </ReviewItemImgBox>
-                  <ReviewProductNameBox>
-                    <ReviewProductName>
+                  </SC.ReviewItemImgBox>
+                  <SC.ReviewProductNameBox>
+                    <SC.ReviewProductName>
                       {isLoading ? (
                         <Skeleton height={33} />
                       ) : (
                         review.product.productName
                       )}
-                    </ReviewProductName>
-                  </ReviewProductNameBox>
-                </ReviewItemInfo>
+                    </SC.ReviewProductName>
+                  </SC.ReviewProductNameBox>
+                </SC.ReviewItemInfo>
               </>
             )}
-          </ReviewContentContainer>
-        </EditReviewFormContainer>
-      </RightReviewBody>
-    </SingleReviewContainer>
+          </SC.ReviewContentContainer>
+        </SC.EditReviewFormContainer>
+      </SC.RightReviewBody>
+    </SC.SingleReviewContainer>
   );
 };
 
-const SingleReviewContainer = styled.div`
-  display: flex;
-  padding: 1.8rem 0;
-  border-bottom: 1px solid ${cl.gray};
-`;
-const RightReviewBody = styled.div`
-  width: 100%;
-  @media (min-width: 1200px) {
-    padding-right: 1rem;
-  }
-`;
-const SingleReviewHeader = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  padding-bottom: 0.8rem;
-`;
-const HeaderItem = styled.div`
-  display: flex;
-`;
-const Author = styled.h4`
-  padding-right: 1.5rem;
-  font-weight: 600;
-  margin: 0;
-`;
-const Date = styled.span`
-  color: ${cl.textLightGray};
-  font-size: 0.8rem;
-`;
-
-const EditIcon = styled.div`
-  cursor: pointer;
-`;
-const StarsContainer = styled.div``;
-const EditReviewFormContainer = styled.form``;
-const ReviewContentContainer = styled.div`
-  margin-top: 0.8rem;
-`;
-const ReviewContent = styled.p`
-  margin: 0;
-`;
-const WiderReviewArea = styled(ReviewArea)`
-  width: 100%;
-`;
-const OperationBtnContainer = styled.div`
-  display: flex;
-  justify-content: flex-end;
-`;
-const OperationBtnWrapper = styled.div`
-  display: flex;
-`;
-const Submit = styled(ShopBtn)`
-  background: ${cl.dark};
-  color: ${cl.white};
-  padding: 0.7rem 2.3rem;
-  border-radius: 5px;
-  font-weight: 500;
-`;
-const Cancel = styled(Submit)`
-  background: ${cl.white};
-  color: ${cl.dark};
-  @media (min-width: 350px) {
-    margin-left: 1rem;
-  }
-`;
-const ReviewItemInfo = styled.div`
-  width: 100%;
-  display: flex;
-  margin-top: 2rem;
-`;
-const ReviewItemImgBox = styled.div`
-  width: 75px;
-  padding: 1rem 1rem 1rem 0;
-`;
-const ReviewItemImg = styled(ItemImg)``;
-const ReviewProductNameBox = styled.div`
-  display: flex;
-  align-items: center;
-  width: 100%;
-`;
-const ReviewProductName = styled.p`
-  font-weight: 500;
-  margin: 0;
-  width: 100%;
-`;
 export default Review;
