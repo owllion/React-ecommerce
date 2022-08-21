@@ -31,7 +31,7 @@ const CouponList = lazy(() =>
   import("../components/UserSetting/CouponList.tsx")
 );
 const ReviewList = lazy(() =>
-  import("../components/UserSetting/ReviewList.tsx")
+  import("../components/UserSetting/Review/ReviewList.tsx")
 );
 
 const OrderDetail = lazy(() => import("../pages/OrderDetail.tsx"));
