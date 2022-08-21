@@ -21,9 +21,17 @@ export const SingleReviewHeader = styled.div`
   justify-content: space-between;
   align-items: center;
   padding-bottom: 0.8rem;
+  @media (max-width: 350px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 `;
 export const HeaderItem = styled.div`
   display: flex;
+  @media (max-width: 350px) {
+    flex-direction: column;
+    padding: 0.5rem 0;
+  }
 `;
 export const Author = styled.h4`
   padding-right: 1.5rem;

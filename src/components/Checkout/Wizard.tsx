@@ -16,7 +16,7 @@ const Wizard = () => {
 
   useEffect(() => {
     const newPathName = pathname.substring(pathname.lastIndexOf("/") + 1);
-    setCurrentPath(pathNameList[newPathName as keyof typeof pathNameList]);
+    setCurrentPath(newPathName);
   }, [pathname]);
 
   return (

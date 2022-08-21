@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { Outlet } from "react-router-dom";
-import { Link } from "react-router-dom";
+
+import { Link, useLocation } from "react-router-dom";
 import { IoLogOutOutline } from "react-icons/io5";
-import { useNavigate } from "react-router-dom";
 
 import cl from "../constants/color/color";
 import { Title } from "./Cart";
@@ -11,14 +11,22 @@ import { sideNavLinks } from "../data/settingSideNavLink";
 import { confirmAlert } from "react-confirm-alert";
 import { logoutApi } from "../api/auth.api";
 import { useAppDispatch } from "../store/hooks";
-import { commonActions } from "../store/slice/Common.slice";
 import { authActions } from "../store/slice/Auth.slice";
 
 const Settings = () => {
   const [sureToLogout, setSureToLogout] = useState(false);
-  const navigate = useNavigate();
+  const [selectedPath, setSelectedPath] = useState("");
+  const [selectedIndex, setSelectedIndex] = useState(0);
   const dispatch = useAppDispatch();
+  const location = useLocation();
 
+  useEffect(() => {
+    setSelectedPath(location.pathname);
+    const index = sideNavLinks.findIndex(
+      (item) => item.link === location.pathname
+    );
+    setSelectedIndex(index);
+  }, [location]);
   const logout = async () => {
     try {
       dispatch(authActions.clearToken());
@@ -54,18 +62,30 @@ const Settings = () => {
     <Container>
       <Wrapper>
         <SettingTitle>Settings</SettingTitle>
+
         <DesktopWrapper>
           <SideBar>
             <BarItems>
-              {sideNavLinks.map((item) => (
+              {sideNavLinks.map((item, index) => (
                 <BarItemLink to={item.link} key={item.link}>
                   <BarItem>
-                    <ItemIcon>{item.icon}</ItemIcon>
+                    <ItemIcon
+                      currentIndex={index}
+                      selectedIndex={selectedIndex}
+                      currentPath={location.pathname}
+                      selectedPath={selectedPath}
+                      onClick={() => {
+                        setSelectedIndex(index);
+                        setSelectedPath(item.link);
+                      }}
+                    >
+                      {item.icon}
+                    </ItemIcon>
                   </BarItem>
                 </BarItemLink>
               ))}
               <BarItem onClick={() => checkForLogout()}>
-                <ItemIcon>
+                <ItemIcon isLogout={true}>
                   <IoLogOutOutline />
                 </ItemIcon>
               </BarItem>
@@ -147,9 +167,7 @@ const BarItems = styled.ul`
   @media (max-width: 500px) {
     overflow: scroll;
     overflow-y: hidden;
-  }
-  @media (max-width: 380px) {
-    padding: 0 0 1.2rem 5rem;
+    padding: 0 0 1.2rem 13rem;
   }
 `;
 const BarItem = styled.li`
@@ -174,26 +192,43 @@ const BarItemLink = styled(Link)`
   align-items: center;
   justify-content: center;
 `;
-const ItemIcon = styled.div`
+const ItemIcon = styled.div<{
+  currentPath?: string;
+  selectedPath?: string;
+  currentIndex?: number;
+  selectedIndex?: number;
+  isLogout?: boolean;
+}>`
   display: flex;
   transition: 0.8s ease;
   font-size: 1.5rem;
   color: ${cl.darkenGray};
   &:hover {
     color: ${cl.purple};
-    @media (max-width: 1024px) {
-      color: ${cl.white};
-      background: ${cl.purple};
-    }
   }
   @media (max-width: 1024px) {
     align-items: center;
     justify-content: center;
-    color: ${cl.purple};
+    border-radius: 50%;
     width: 50px;
     height: 50px;
-    background-color: ${cl.lightGray};
-    border-radius: 50%;
+    ${({ currentIndex, selectedIndex, currentPath, selectedPath, isLogout }) =>
+      css`
+        background: ${!isLogout &&
+        currentIndex === selectedIndex &&
+        currentPath === selectedPath
+          ? `${cl.purple}`
+          : `${cl.lightGray}`};
+        color: ${!isLogout &&
+        currentIndex === selectedIndex &&
+        currentPath === selectedPath
+          ? `${cl.white}`
+          : `${cl.purple}`};
+      `};
+    &:hover {
+      color: ${cl.white};
+      background: ${cl.purple};
+    }
   }
 `;
 
