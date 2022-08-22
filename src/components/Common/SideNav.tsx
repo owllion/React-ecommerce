@@ -83,7 +83,7 @@ const SideNav = ({ handleShowSideNav }: IProps) => {
             </NavItem>
           ))}
 
-          {(getToken() || token) && (
+          {getToken() && (
             <NavItem>
               <LogoutLink
                 onClick={(e: React.MouseEvent) => {
