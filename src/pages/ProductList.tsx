@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import { useSearchParams } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
 import { AnyAction } from "redux";
 
 import cl from "../constants/color/color";
@@ -17,13 +17,13 @@ import { productActions } from "../store/slice/Product.slice";
 import getProductList from "../store/actions/product/getProductList.action";
 import { IProduct } from "../interface/product.interface";
 import { useUpdateEffect } from "../hooks/useUpdateEffect";
+import { useMatchMedia } from "../hooks/useMatchMedia";
 
 const ProductList = () => {
   const {
     totalNum,
     productList,
     selectedSort,
-    isTargetWidth,
     selectedBrand,
     selectedPrice,
     selectedCategory,
@@ -58,41 +58,44 @@ const ProductList = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const isPadWidth = window.matchMedia("(max-width: 1200px)");
-
-  useEffect(() => {
-    isPadWidth.addEventListener("change", (event: MediaQueryListEvent) => {
-      dispatch(productActions.setIsTargetWidth(event.matches));
-    });
-    return () =>
-      isPadWidth.removeEventListener("change", (event: MediaQueryListEvent) => {
-        dispatch(productActions.setIsTargetWidth(event.matches));
-      });
-  });
+  const isTargetWidth = useMatchMedia("1200px");
 
   useUpdateEffect(() => {
+    console.error("Selected:-start ", new Date());
+
+    console.log("selected執行");
     dispatch(productActions.setCurPage(1));
     dispatch(getProductList(keyword) as unknown as AnyAction);
+    console.warn("Selected-end:- ", new Date());
   }, [selectedCategory, selectedBrand, selectedPrice]);
 
   useUpdateEffect(() => {
+    console.warn("Sort&width:-start ", new Date());
     dispatch(getProductList(keyword) as unknown as AnyAction);
+    console.warn("Sort&width:-end ", new Date());
   }, [selectedSort, isTargetWidth]);
 
+  // useUpdateEffect(() => {
+  //   console.log("selected執行");
+  // }, [selectedCategory, selectedBrand, selectedPrice]);
+
+  // useUpdateEffect(() => {
+  //   console.log("targetWidth 執行");
+  // }, [isTargetWidth]);
+  // useUpdateEffect(() => {
+  //   console.log("sort 執行");
+  // }, [selectedSort]);
+
   useEffect(() => {
-    //This will execute on the first render
-    const currentParams = Object.fromEntries([...searchParams]);
+    console.log("路由useEffect執行");
+    // const currentParams = Object.fromEntries([...searchParams]);
+    // dispatch(productActions.clearAllState());
 
-    console.log("現在路由有變化喔!");
-
-    dispatch(productActions.clearAllState());
-
-    currentParams.keyword && setKeyword(currentParams.keyword);
-    currentParams.category &&
-      dispatch(productActions.setCategory(currentParams.category));
-    console.log("現在的currentParams.keyword", currentParams.keyword);
-    dispatch(productActions.setCurPage(1));
-    dispatch(getProductList(currentParams.keyword) as unknown as AnyAction);
+    // currentParams.keyword && setKeyword(currentParams.keyword);
+    // currentParams.category &&
+    //   dispatch(productActions.setCategory(currentParams.category));
+    // dispatch(productActions.setCurPage(1));
+    // dispatch(getProductList(currentParams.keyword) as unknown as AnyAction);
   }, [searchParams]);
 
   return (

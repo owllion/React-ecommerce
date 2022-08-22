@@ -4,6 +4,7 @@ export const useUpdateEffect = (
   callback: () => void,
   dependencies: React.DependencyList
 ) => {
+  // console.log(callback, "callback");
   const firstRenderRef = useRef(true);
   useEffect(() => {
     if (firstRenderRef.current) {
