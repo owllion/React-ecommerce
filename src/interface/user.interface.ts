@@ -19,6 +19,7 @@ export interface Data {
 export interface IUser {
   firstName: string;
   lastName: string;
+  fullName?: string;
   email: string;
   phone: string | null;
   avatarDefault: string;
@@ -27,7 +28,12 @@ export interface IUser {
   couponList: ICoupon[];
   cartList: IProduct[];
   reviewList: IReview[];
+  locale?: string;
 }
+export interface IUserInfo extends Omit<IUser, "couponList" | "cartList"> {
+  cartLength: number;
+}
+
 export interface IUpload {
   file: string | Blob | Buffer;
 }

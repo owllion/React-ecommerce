@@ -1,16 +1,32 @@
 import React from "react";
 import { GoogleLogin } from "react-google-login";
+import { AxiosError } from "axios";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useGoogleLogin } from "@react-oauth/google";
 
 import cl from "../../constants/color/color";
 import { MainTitle, SubTitle, Btn, BtnText } from "./Common.style";
+import toast from "react-hot-toast";
 
 const WelcomeView = () => {
+  const googleLogin = async (code: string) => {
+    try {
+    } catch (error) {
+      const err = ((error as AxiosError).response?.data as { msg: string }).msg;
+      toast.error(err);
+    }
+  };
   const login = useGoogleLogin({
-    onSuccess: (codeResponse: any) => console.log(codeResponse),
     flow: "auth-code",
+    onSuccess: async (codeResponse: Record<string, string>) => {
+      try {
+      } catch (error) {
+        const err = ((error as AxiosError).response?.data as { msg: string })
+          .msg;
+        toast.error(err);
+      }
+    },
   });
 
   return (

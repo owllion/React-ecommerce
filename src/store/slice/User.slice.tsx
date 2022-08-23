@@ -2,17 +2,19 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IProduct } from "../../interface/product.interface";
 import { IReview } from "../../interface/review.interface";
 import { IUser } from "../../interface/user.interface";
-import { IUserInfo } from "../actions/auth/signInOrSignUp.action";
+import { IUserInfo } from "src/interface/user.interface";
 
 const initialState: Partial<IUser> = {
   firstName: "",
   email: "",
+  fullName: "",
   lastName: "",
   avatarUpload: "",
   avatarDefault: "",
   phone: "",
   favList: [],
   reviewList: [],
+  locale: "",
 };
 
 const userSlice = createSlice({
@@ -27,6 +29,14 @@ const userSlice = createSlice({
       state.avatarUpload = payload.avatarUpload;
       state.avatarDefault = payload.avatarDefault;
       state.favList = payload.favList;
+    },
+    setGoogleLoginInfo(state, { payload }: PayloadAction<IUserInfo>) {
+      const { email, fullName, avatarUpload, favList, locale } = payload;
+      state.fullName = fullName;
+      state.email = email;
+      state.avatarUpload = avatarUpload;
+      state.favList = favList;
+      state.locale = locale;
     },
     updateUserInfo(state, { payload }: PayloadAction<Partial<IUser>>) {
       state.phone = payload.phone;
