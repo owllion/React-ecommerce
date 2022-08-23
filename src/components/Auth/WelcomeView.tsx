@@ -1,31 +1,31 @@
-import React from "react";
-import { GoogleLogin } from "react-google-login";
 import { AxiosError } from "axios";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useGoogleLogin } from "@react-oauth/google";
+import { AnyAction } from "@reduxjs/toolkit";
+import { useNavigate } from "react-router-dom";
 
 import cl from "../../constants/color/color";
 import { MainTitle, SubTitle, Btn, BtnText } from "./Common.style";
 import toast from "react-hot-toast";
+import { useAppDispatch } from "../../store/hooks";
+import { googleLogin } from "src/store/actions/auth/googleLogin.action";
 
 const WelcomeView = () => {
-  const googleLogin = async (code: string) => {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const googleLoginHandler = async (code: string) => {
     try {
+      await dispatch(googleLogin(code) as unknown as AnyAction);
+      navigate("/");
     } catch (error) {
-      const err = ((error as AxiosError).response?.data as { msg: string }).msg;
-      toast.error(err);
+      console.log(error);
     }
   };
   const login = useGoogleLogin({
     flow: "auth-code",
     onSuccess: async (codeResponse: Record<string, string>) => {
-      try {
-      } catch (error) {
-        const err = ((error as AxiosError).response?.data as { msg: string })
-          .msg;
-        toast.error(err);
-      }
+      await googleLoginHandler(codeResponse.code);
     },
   });
 

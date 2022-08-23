@@ -3,7 +3,7 @@ import toast from "react-hot-toast";
 
 import { commonActions } from "../../slice/Common.slice";
 import { AppThunk } from "../../store";
-import { googleLogin } from "src/api/auth.api";
+import { googleLoginApi } from "src/api/auth.api";
 import { authActions } from "src/store/slice/Auth.slice";
 import { cartActions } from "src/store/slice/Cart.slice";
 import { userActions } from "src/store/slice/User.slice";
@@ -17,7 +17,7 @@ interface IAuthResult {
   };
 }
 
-const signInOrSignUp = (code: string): AppThunk => {
+export const googleLogin = (code: string): AppThunk => {
   return async (dispatch) => {
     dispatch(commonActions.setLoading(true));
     try {
@@ -27,7 +27,7 @@ const signInOrSignUp = (code: string): AppThunk => {
         },
       }: {
         data: IAuthResult;
-      } = await googleLogin({ code });
+      } = await googleLoginApi({ code });
 
       dispatch(authActions.setToken(token));
       dispatch(authActions.setRefreshToken(refreshToken));
@@ -51,5 +51,3 @@ const signInOrSignUp = (code: string): AppThunk => {
     }
   };
 };
-
-export default signInOrSignUp;
