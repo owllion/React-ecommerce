@@ -4,6 +4,9 @@ import * as AuthInterface from "../interface/auth.interface";
 export const loginApi = (data: AuthInterface.ILogin) =>
   instance.post("/auth/login", data);
 
+export const googleLogin = (data: AuthInterface.IGoogleLogin) =>
+  instance.post("/auth/google-login", data);
+
 export const registerApi = (data: AuthInterface.IRegister) =>
   instance.post("/auth/register", data);
 
