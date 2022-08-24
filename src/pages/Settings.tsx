@@ -64,7 +64,7 @@ const Settings = () => {
         <SettingTitle>Settings</SettingTitle>
         <DesktopWrapper>
           <SideBar>
-            <BarItems>
+            <BarItems type={loginType!}>
               {sideNavLinks.map((item, index) => (
                 <BarItemLink
                   to={item.link}
@@ -157,7 +157,7 @@ const SideBar = styled.div`
     box-shadow: none;
   }
 `;
-const BarItems = styled.ul`
+const BarItems = styled.ul<{ type: string }>`
   list-style-type: none;
   display: flex;
   justify-content: center;
@@ -171,7 +171,7 @@ const BarItems = styled.ul`
   @media (max-width: 500px) {
     overflow: scroll;
     overflow-y: hidden;
-    padding: 0 0 1.2rem 13rem;
+    padding: 0 0 1.2rem ${({ type }) => (type === "google" ? "9rem" : "13rem")};
   }
 `;
 const BarItem = styled.li`
