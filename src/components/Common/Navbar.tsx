@@ -108,7 +108,7 @@ const Navbar = () => {
                   </CartContainer>
                 </Link>
               </MenuItem>
-              <MenuItem>
+              <MenuItem noPadding>
                 <Link to={getToken() ? "/settings/account" : "/auth/welcome"}>
                   {getToken() ? (
                     <AvatarBox>
@@ -198,9 +198,9 @@ const LinkBox = styled.div`
     display: none;
   }
 `;
-const MenuItem = styled.li`
+const MenuItem = styled.li<{ noPadding?: boolean }>`
   font-weight: bold;
-  padding-right: 2rem;
+  padding-right: ${({ noPadding }) => (noPadding ? "0px" : "2rem")};
   @media (max-width: 700px) {
     padding-right: 0;
   }
