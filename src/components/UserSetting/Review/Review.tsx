@@ -83,7 +83,12 @@ const Review = ({ review }: { review: IReview }) => {
         ) : (
           <SC.SingleReviewHeader>
             <SC.HeaderItem>
-              <SC.Author>{`${review.user.firstName} ${review.user.lastName}`}</SC.Author>
+              <SC.Author>
+                {" "}
+                {review.user.firstName
+                  ? `${review.user.firstName} ${review.user.lastName}`
+                  : `${review.user.fullName}`}
+              </SC.Author>
 
               <SC.Date>
                 {dayjs(review.createdAt).format("YYYY MMMM DD")}

@@ -164,7 +164,6 @@ const LeftAvatar = styled.div`
 const DropAvatarBox = styled.div<{ avatar?: string | undefined }>`
   position: relative;
   margin-right: 1rem;
-  border: 1px solid red;
   cursor: pointer;
   width: 300px;
   height: 300px;
@@ -179,6 +178,7 @@ const DropAvatarBox = styled.div<{ avatar?: string | undefined }>`
 `;
 const Avatar = styled.img`
   width: 100%;
+  height: 100%;
   object-fit: cover;
   border-radius: 8px;
 `;

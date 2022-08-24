@@ -44,7 +44,11 @@ const ReviewSection = () => {
                     <Skeleton width={300} />
                   ) : (
                     <SingleReviewHeader>
-                      <Author>{`${review.user.firstName} ${review.user.lastName}`}</Author>
+                      <Author>
+                        {review.user.firstName
+                          ? `${review.user.firstName} ${review.user.lastName}`
+                          : `${review.user.fullName}`}
+                      </Author>
                       <Date>
                         {dayjs(review.createdAt).format("YYYY MMMM DD")}
                       </Date>
