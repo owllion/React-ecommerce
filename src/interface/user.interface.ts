@@ -35,7 +35,7 @@ export interface IUserInfo extends Omit<IUser, "couponList" | "cartList"> {
 }
 
 export interface IUpload {
-  file: string | Blob | Buffer;
+  url: string;
 }
 
 export interface IForgotPassword {

@@ -78,6 +78,9 @@ const userSlice = createSlice({
           : review
       );
     },
+    updateAvatarUpload(state, { payload }: PayloadAction<string>) {
+      state.avatarUpload = payload;
+    },
   },
 });
 

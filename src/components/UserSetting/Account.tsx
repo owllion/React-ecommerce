@@ -1,8 +1,9 @@
+import { ChangeEvent, useRef, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import styled from "styled-components";
 import { IoIosCamera } from "react-icons/io";
 import toast from "react-hot-toast";
-import { AxiosError } from "axios";
+import axios, { AxiosError } from "axios";
 
 import { SingleInputBox } from "../Checkout/form/shipping-form/ShippingForm.style";
 import { userInfoModify } from "../../api/user.api";
@@ -14,6 +15,7 @@ import { getValidationData } from "../Checkout/form/shipping-form/getValidationD
 import { useAppSelector, useAppDispatch } from "src/store/hooks";
 import { userActions } from "../../store/slice/User.slice";
 import { commonActions } from "../../store/slice/Common.slice";
+import { upload } from "src/api/user.api";
 
 interface FormValue {
   firstName: string;
@@ -32,8 +34,11 @@ const Account = () => {
     avatarDefault,
     avatarUpload,
   } = useAppSelector((state) => state.user);
-  const loginType = localStorage.getItem("loginType");
   const dispatch = useAppDispatch();
+  const fileSelect = useRef<HTMLInputElement>(null);
+  const [image, setImage] = useState<File | undefined>();
+  const loginType = localStorage.getItem("loginType");
+
   const {
     register,
     handleSubmit,
@@ -68,11 +73,62 @@ const Account = () => {
   };
   console.log(errors);
 
+  const handleImageUpload = () => {
+    if (fileSelect) fileSelect.current?.click();
+  };
+
+  const checkIfFileExceedLimitation = (size: number) => size > 1000000;
+
+  const uploadImage = async (url: string) => {
+    try {
+      await upload({ url });
+      dispatch(userActions.updateAvatarUpload(url));
+    } catch (error) {
+      const err = ((error as AxiosError).response?.data as { msg: string }).msg;
+      toast.error(err);
+    }
+  };
+  const uploadImageHandler = async (event: ChangeEvent) => {
+    const file = (event.target as HTMLInputElement)?.files?.[0] as File;
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    if (checkIfFileExceedLimitation(file.size)) {
+      toast.error("File size must be smaller than 1MB");
+      return;
+    }
+
+    formData.append("upload_preset", "ec-upload");
+
+    const {
+      data: { url },
+    } = await axios.post(
+      `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_CLOUDNAME}/auto/upload`,
+      formData,
+      {
+        headers: { "Content-Type": "multipart/form-data" },
+        onUploadProgress: function (e) {
+          console.log(e.loaded / e.total);
+        },
+      }
+    );
+    // console.log(res.data);
+    await uploadImage(url);
+  };
+
   return (
     <Container>
       <SectionTitle title="Account" />
       <Wrapper>
-        <LeftAvatar>
+        <LeftAvatar onClick={handleImageUpload}>
+          <input
+            ref={fileSelect}
+            type="file"
+            accept="image/*"
+            style={{ display: "none" }}
+            onChange={(e) => uploadImageHandler(e)}
+          />
           <DropAvatarBox>
             <Avatar
               referrerPolicy="no-referrer"
