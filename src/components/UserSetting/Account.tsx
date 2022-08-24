@@ -18,13 +18,21 @@ import { commonActions } from "../../store/slice/Common.slice";
 interface FormValue {
   firstName: string;
   lastName: string;
+  fullName: string;
   phone: string | null;
 }
 
 const Account = () => {
-  const { email, firstName, lastName, phone, avatarDefault, avatarUpload } =
-    useAppSelector((state) => state.user);
-
+  const {
+    email,
+    firstName,
+    lastName,
+    fullName,
+    phone,
+    avatarDefault,
+    avatarUpload,
+  } = useAppSelector((state) => state.user);
+  const loginType = localStorage.getItem("loginType");
   const dispatch = useAppDispatch();
   const {
     register,
@@ -34,6 +42,7 @@ const Account = () => {
     defaultValues: {
       firstName,
       lastName,
+      fullName,
       phone,
     },
   });
@@ -72,31 +81,40 @@ const Account = () => {
         </LeftAvatar>
 
         <RightForm onSubmit={handleSubmit(onSubmit)}>
-          <SingleInputBox>
-            <Label error={errors.firstName}>First Name</Label>
-            <Input
-              error={errors.firstName}
-              {...register(
-                "firstName",
-                getValidationData(["required", "maxLength", "alphabetical"])
-              )}
-            />
-            <FieldErr errors={errors} field="firstName" />
-          </SingleInputBox>
-          <SingleInputBox>
-            <Label error={errors.lastName}>Last Name</Label>
-            <Input
-              error={errors.lastName}
-              {...register(
-                "lastName",
-                getValidationData(["required", "alphabetical"])
-              )}
-            />
-            <FieldErr errors={errors} field="lastName" />
-          </SingleInputBox>
+          {loginType === "email" ? (
+            <>
+              <SingleInputBox>
+                <Label error={errors.firstName}>First Name</Label>
+                <Input
+                  error={errors.firstName}
+                  {...register(
+                    "firstName",
+                    getValidationData(["required", "maxLength"])
+                  )}
+                />
+                <FieldErr errors={errors} field="firstName" />
+              </SingleInputBox>
+              <SingleInputBox>
+                <Label error={errors.lastName}>Last Name</Label>
+                <Input
+                  error={errors.lastName}
+                  {...register("lastName", getValidationData(["required"]))}
+                />
+                <FieldErr errors={errors} field="lastName" />
+              </SingleInputBox>
+            </>
+          ) : (
+            <SingleInputBox>
+              <Label error={errors.fullName}>Full Name</Label>
+              <Input
+                error={errors.fullName}
+                {...register("fullName", getValidationData(["required"]))}
+              />
+              <FieldErr errors={errors} field="fullName" />
+            </SingleInputBox>
+          )}
           <SingleInputBox>
             <Label>Email</Label>
-            {/* <Input readOnly {...register("email")} /> */}
             <Input value={email} disabled />
           </SingleInputBox>
           <SingleInputBox>

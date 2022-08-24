@@ -31,9 +31,19 @@ const userSlice = createSlice({
       state.favList = payload.favList;
     },
     setGoogleLoginInfo(state, { payload }: PayloadAction<IUserInfo>) {
-      const { email, fullName, avatarUpload, favList, locale } = payload;
+      const {
+        email,
+        phone,
+        fullName,
+        avatarDefault,
+        avatarUpload,
+        favList,
+        locale,
+      } = payload;
       state.fullName = fullName;
       state.email = email;
+      state.phone = phone;
+      state.avatarDefault = avatarDefault;
       state.avatarUpload = avatarUpload;
       state.favList = favList;
       state.locale = locale;
@@ -42,6 +52,7 @@ const userSlice = createSlice({
       state.phone = payload.phone;
       state.firstName = payload.firstName;
       state.lastName = payload.lastName;
+      state.fullName = payload.fullName;
     },
     addToFav(state, { payload }: PayloadAction<IProduct>) {
       state.favList?.push(payload);

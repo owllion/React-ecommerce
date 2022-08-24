@@ -4,8 +4,7 @@ import { AnimatePresence } from "framer-motion";
 import styled from "styled-components";
 
 import cl from "../../constants/color/color";
-import { IoMdCart, IoIosMenu, IoIosSearch, IoIosLogIn } from "react-icons/io";
-import { MdAccountCircle } from "react-icons/md";
+import { IoMdCart, IoIosMenu, IoIosSearch } from "react-icons/io";
 import SideNav from "./SideNav";
 import HeaderSearch from "./HeaderSearch";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
@@ -14,10 +13,8 @@ import { ShopBtn } from "../Home/Hero";
 
 const Navbar = () => {
   const dispatch = useAppDispatch();
-
   const [showSideNav, setShowSideNav] = useState(false);
   const [colorChange, setColorChange] = useState(false);
-
   const { showSearch } = useAppSelector((state) => state.common);
   const { avatarUpload, avatarDefault } = useAppSelector((state) => state.user);
   const { cartLength } = useAppSelector((state) => state.cart);
@@ -115,7 +112,10 @@ const Navbar = () => {
                 <Link to={getToken() ? "/settings/account" : "/auth/welcome"}>
                   {getToken() ? (
                     <AvatarBox>
-                      <Avatar src={avatarUpload || avatarDefault} />
+                      <Avatar
+                        src={avatarUpload || avatarDefault}
+                        alt={"avatar"}
+                      />
                     </AvatarBox>
                   ) : (
                     <LoginBtn>Log In</LoginBtn>
