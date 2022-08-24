@@ -73,7 +73,13 @@ const Account = () => {
       <SectionTitle title="Account" />
       <Wrapper>
         <LeftAvatar>
-          <DropAvatarBox avatar={avatarUpload || avatarDefault}>
+          <DropAvatarBox>
+            <Avatar
+              referrerPolicy="no-referrer"
+              src={avatarUpload || avatarDefault}
+              alt="avatar"
+            />
+
             <CameraIconBox>
               <IoIosCamera />
             </CameraIconBox>
@@ -150,12 +156,15 @@ const LeftAvatar = styled.div`
     /* padding-left: 0.8rem; */
   }
   display: flex;
-  align-items: flex-start;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  padding-top: 5rem;
+  padding-top: 3.8rem;
 `;
-const DropAvatarBox = styled.div<{ avatar: string | undefined }>`
+const DropAvatarBox = styled.div<{ avatar?: string | undefined }>`
   position: relative;
+  margin-right: 1rem;
+  border: 1px solid red;
   cursor: pointer;
   width: 300px;
   height: 300px;
@@ -163,15 +172,15 @@ const DropAvatarBox = styled.div<{ avatar: string | undefined }>`
     width: 250px;
     height: 250px;
   }
-  border-radius: 8px;
-  background-image: ${(props) => `url(${props.avatar})`};
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
   transition: all 0.6s;
   &:hover {
     transform: translateY(-5px);
   }
+`;
+const Avatar = styled.img`
+  width: 100%;
+  object-fit: cover;
+  border-radius: 8px;
 `;
 const CameraIconBox = styled.div`
   position: absolute;

@@ -115,6 +115,7 @@ const Navbar = () => {
                       <Avatar
                         src={avatarUpload || avatarDefault}
                         alt={"avatar"}
+                        referrerPolicy="no-referrer"
                       />
                     </AvatarBox>
                   ) : (
