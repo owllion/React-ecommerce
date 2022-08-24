@@ -24,12 +24,7 @@ const Navbar = () => {
 
   const getCartLength = () => {
     const localLen = localStorage.getItem("cartLength");
-    // console.log(localLen);
-    // console.log(
-    //   (localLen || Number(localLen) === 0) && (cartLength || cartLength === 0)
-    // );
-    // console.log("看local", localLen || Number(localLen) === 0);
-    // console.log("number locallen", Number(localLen));
+
     if (localLen && (cartLength || cartLength === 0)) return cartLength;
 
     return 0;

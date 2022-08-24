@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import styled, { css } from "styled-components";
 import { Outlet } from "react-router-dom";
-
 import { Link, useLocation } from "react-router-dom";
 import { IoLogOutOutline } from "react-icons/io5";
 
@@ -19,14 +18,7 @@ const Settings = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const dispatch = useAppDispatch();
   const location = useLocation();
-
-  useEffect(() => {
-    setSelectedPath(location.pathname);
-    const index = sideNavLinks.findIndex(
-      (item) => item.link === location.pathname
-    );
-    setSelectedIndex(index);
-  }, [location]);
+  const loginType = localStorage.getItem("loginType");
   const logout = async () => {
     try {
       dispatch(authActions.clearToken());
@@ -37,10 +29,6 @@ const Settings = () => {
       console.log(error);
     }
   };
-  useEffect(() => {
-    sureToLogout && logout();
-  }, [sureToLogout]);
-
   const checkForLogout = () => {
     confirmAlert({
       title: "Confirm to logout",
@@ -58,16 +46,32 @@ const Settings = () => {
     });
   };
 
+  useEffect(() => {
+    sureToLogout && logout();
+  }, [sureToLogout]);
+
+  useEffect(() => {
+    setSelectedPath(location.pathname);
+    const index = sideNavLinks.findIndex(
+      (item) => item.link === location.pathname
+    );
+    setSelectedIndex(index);
+  }, [location]);
+
   return (
     <Container>
       <Wrapper>
         <SettingTitle>Settings</SettingTitle>
-
         <DesktopWrapper>
           <SideBar>
             <BarItems>
               {sideNavLinks.map((item, index) => (
-                <BarItemLink to={item.link} key={item.link}>
+                <BarItemLink
+                  to={item.link}
+                  key={item.link}
+                  type={loginType!}
+                  currentIndex={index}
+                >
                   <BarItem>
                     <ItemIcon
                       currentIndex={index}
@@ -186,8 +190,11 @@ const BarItem = styled.li`
     }
   }
 `;
-const BarItemLink = styled(Link)`
-  display: flex;
+const BarItemLink = styled(Link)<{ currentIndex: number; type: string }>`
+  display: ${({ currentIndex, type }) =>
+    currentIndex === 0 || (currentIndex === 1 && type === "google")
+      ? "none"
+      : "flex"};
   width: 100%;
   align-items: center;
   justify-content: center;

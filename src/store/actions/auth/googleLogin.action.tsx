@@ -7,8 +7,8 @@ import { googleLoginApi } from "src/api/auth.api";
 import { authActions } from "src/store/slice/Auth.slice";
 import { cartActions } from "src/store/slice/Cart.slice";
 import { userActions } from "src/store/slice/User.slice";
-import localStorage from "redux-persist/es/storage";
 import { IUserInfo } from "src/interface/user.interface";
+import { authRelatedAction } from "./authRelatedAction.action";
 interface IAuthResult {
   result: {
     token: string;
@@ -29,16 +29,16 @@ export const googleLogin = (code: string): AppThunk => {
         data: IAuthResult;
       } = await googleLoginApi({ code });
 
-      dispatch(authActions.setToken(token));
-      dispatch(authActions.setRefreshToken(refreshToken));
-      dispatch(cartActions.resetCartLength());
-      dispatch(cartActions.setCartLength(user.cartLength));
+      dispatch(
+        authRelatedAction({
+          user,
+          token,
+          refreshToken,
+          cartLength: user.cartLength,
+          type: "google",
+        })
+      );
 
-      localStorage.setItem("token", token);
-      localStorage.setItem("refreshToken", refreshToken);
-      localStorage.setItem("cartLength", String(user.cartLength));
-
-      dispatch(userActions.setUserInfo({ ...user }));
       dispatch(commonActions.setLoading(false));
 
       toast.success("You have signed in successfully!");

@@ -2,14 +2,10 @@ import { AxiosError } from "axios";
 import toast from "react-hot-toast";
 
 import { commonActions } from "../../slice/Common.slice";
-import { IUser } from "../../../interface/user.interface";
 import { AppThunk } from "../../store";
 import { registerApi, loginApi } from "src/api/auth.api";
-import { authActions } from "src/store/slice/Auth.slice";
-import { cartActions } from "src/store/slice/Cart.slice";
-import { userActions } from "src/store/slice/User.slice";
-import localStorage from "redux-persist/es/storage";
 import { IUserInfo } from "src/interface/user.interface";
+import { authRelatedAction } from "./authRelatedAction.action";
 interface IAuthResult {
   result: {
     token: string;
@@ -45,16 +41,15 @@ const signInOrSignUp = (data: IProps): AppThunk => {
             password: data.password,
           });
 
-      dispatch(authActions.setToken(token));
-      dispatch(authActions.setRefreshToken(refreshToken));
-      dispatch(cartActions.resetCartLength());
-      dispatch(cartActions.setCartLength(user.cartLength));
-
-      localStorage.setItem("token", token);
-      localStorage.setItem("refreshToken", refreshToken);
-      localStorage.setItem("cartLength", String(user.cartLength));
-
-      dispatch(userActions.setUserInfo({ ...user }));
+      dispatch(
+        authRelatedAction({
+          user,
+          token,
+          refreshToken,
+          cartLength: user.cartLength,
+          type: "email",
+        })
+      );
       dispatch(commonActions.setLoading(false));
 
       toast.success("You have signed in successfully!");
