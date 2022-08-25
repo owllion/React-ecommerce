@@ -64,7 +64,8 @@ const ReviewForm = () => {
       const err = ((error as AxiosError).response?.data as { msg: string })
         ?.msg;
       toast.error(err);
-
+      setRating(5);
+      setCount(0);
       reset({
         comment: "",
       });

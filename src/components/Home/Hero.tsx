@@ -16,7 +16,7 @@ const Hero = () => {
     <Container hero={hero} as={motion.div} {...heroMotion}>
       <Left>
         <ImgContainer>
-          <Img src={hero2} alt="" />
+          <Img src={hero2} alt="left-smaller-hero" />
         </ImgContainer>
       </Left>
 

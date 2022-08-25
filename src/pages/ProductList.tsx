@@ -35,7 +35,7 @@ const ProductList = () => {
   const [activeSort, setActiveSort] = useState(false);
   const [activeFilter, setActiveFilter] = useState(false);
   const [sortBy, setSortBy] = useState("");
-
+  const [currentList, setCurrentList] = useState("");
   const handleActiveSort = () => {
     if (activeFilter) setActiveFilter(false);
     setActiveSort(!activeSort);
@@ -53,6 +53,8 @@ const ProductList = () => {
   };
 
   const handlePageClick = (event: { selected: number }) => {
+    setCurrentList("api");
+
     dispatch(productActions.setCurPage(event.selected + 1));
     dispatch(getProductList("") as unknown as AnyAction);
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -61,42 +63,36 @@ const ProductList = () => {
   const isTargetWidth = useMatchMedia("1200px");
 
   useUpdateEffect(() => {
-    console.error("Selected:-start ", new Date());
+    setCurrentList("api");
 
-    console.log("selected執行");
     dispatch(productActions.setCurPage(1));
-    dispatch(getProductList(keyword) as unknown as AnyAction);
-    console.warn("Selected-end:- ", new Date());
+    dispatch(getProductList("") as unknown as AnyAction);
   }, [selectedCategory, selectedBrand, selectedPrice]);
 
   useUpdateEffect(() => {
-    console.warn("Sort&width:-start ", new Date());
-    dispatch(getProductList(keyword) as unknown as AnyAction);
-    console.warn("Sort&width:-end ", new Date());
+    setCurrentList("api");
+    dispatch(getProductList("") as unknown as AnyAction);
   }, [selectedSort, isTargetWidth]);
 
-  // useUpdateEffect(() => {
-  //   console.log("selected執行");
-  // }, [selectedCategory, selectedBrand, selectedPrice]);
-
-  // useUpdateEffect(() => {
-  //   console.log("targetWidth 執行");
-  // }, [isTargetWidth]);
-  // useUpdateEffect(() => {
-  //   console.log("sort 執行");
-  // }, [selectedSort]);
-
   useEffect(() => {
-    console.log("路由useEffect執行");
-    // const currentParams = Object.fromEntries([...searchParams]);
-    // dispatch(productActions.clearAllState());
+    setCurrentList("api");
 
-    // currentParams.keyword && setKeyword(currentParams.keyword);
-    // currentParams.category &&
-    //   dispatch(productActions.setCategory(currentParams.category));
-    // dispatch(productActions.setCurPage(1));
-    // dispatch(getProductList(currentParams.keyword) as unknown as AnyAction);
+    const currentParams = Object.fromEntries([...searchParams]);
+    dispatch(productActions.clearAllState());
+
+    currentParams.category &&
+      dispatch(productActions.setCategory(currentParams.category));
+
+    dispatch(productActions.setCurPage(1));
+
+    dispatch(getProductList("") as unknown as AnyAction);
   }, [searchParams]);
+  const filteredList = () =>
+    productList.filter((item) =>
+      keyword
+        ? item.productName?.toLowerCase().includes(keyword.toLowerCase())
+        : item
+    );
 
   return (
     <>
@@ -104,6 +100,14 @@ const ProductList = () => {
         <Wrapper>
           <Top>
             <PageTitle>All Products</PageTitle>
+            <input
+              type="text"
+              onChange={(e) => {
+                if (currentList !== "search") setCurrentList("search");
+                setKeyword(e.target.value);
+              }}
+            />
+            Search
             <Func>
               <Filter active={activeFilter} handleActive={handleActiveFilter} />
               <Select
@@ -121,7 +125,12 @@ const ProductList = () => {
           {productList.length > 0 && (
             <>
               <ItemContainer as={motion.div} layout>
-                {productList.map((item, _) => (
+                {(currentList === "api"
+                  ? productList
+                  : (filteredList() as unknown as Array<
+                      IProduct | Partial<IProduct>
+                    >)
+                ).map((item) => (
                   <ItemBox key={item.productId}>
                     {Object.keys(item).length > 0 ? (
                       <SingleProduct item={item as IProduct} />
