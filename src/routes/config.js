@@ -24,7 +24,9 @@ const ProductList = lazy(() => import("../pages/ProductList.tsx"));
 const ProductDetail = lazy(() => import("../pages/ProductDetail.tsx"));
 
 const Settings = lazy(() => import("../pages/Settings.tsx"));
-const Account = lazy(() => import("../components/UserSetting/Account.tsx"));
+const Account = lazy(() =>
+  import("../components/UserSetting/Account/Account.tsx")
+);
 const FavList = lazy(() => import("../components/UserSetting/FavList.tsx"));
 const OrderList = lazy(() => import("../components/UserSetting/OrderList.tsx"));
 const CouponList = lazy(() =>
