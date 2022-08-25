@@ -7,6 +7,7 @@ interface IState {
   cartLoading: boolean;
   applyCouponLoading: boolean;
   modifyReviewLoading: boolean;
+  uploadImgLoading: boolean;
   showSearch: boolean;
   showPopup: boolean;
   itemQty: number;
@@ -23,6 +24,7 @@ const initialState: IState = {
   cartLoading: false,
   applyCouponLoading: false,
   modifyReviewLoading: false,
+  uploadImgLoading: false,
   showSearch: false,
   showPopup: false,
   itemQty: 1,
@@ -53,6 +55,9 @@ const commonSlice = createSlice({
     },
     setModifyReviewLoading(state, { payload }: PayloadAction<boolean>) {
       state.modifyReviewLoading = payload;
+    },
+    setUploadImgLoading(state, { payload }: PayloadAction<boolean>) {
+      state.uploadImgLoading = payload;
     },
     setShowSearch(state, { payload }: PayloadAction<boolean>) {
       state.showSearch = payload;

@@ -51,7 +51,7 @@ const SingleProduct = ({ item }: { item: IProduct | undefined }) => {
 };
 
 const Container = styled.div``;
-const Info = styled.div`
+export const Info = styled.div`
   opacity: 0;
   width: 100%;
   height: 100%;
