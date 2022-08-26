@@ -72,7 +72,12 @@ const Settings = () => {
                   type={loginType!}
                   currentIndex={index}
                 >
-                  <BarItem>
+                  <BarItem
+                    currentIndex={index}
+                    selectedIndex={selectedIndex}
+                    currentPath={location.pathname}
+                    selectedPath={selectedPath}
+                  >
                     <ItemIcon
                       currentIndex={index}
                       selectedIndex={selectedIndex}
@@ -88,7 +93,7 @@ const Settings = () => {
                   </BarItem>
                 </BarItemLink>
               ))}
-              <BarItem onClick={() => checkForLogout()}>
+              <BarItem isLogout={true} onClick={() => checkForLogout()}>
                 <ItemIcon isLogout={true}>
                   <IoLogOutOutline />
                 </ItemIcon>
@@ -174,29 +179,7 @@ const BarItems = styled.ul<{ type: string }>`
     padding: 0 0 1.2rem ${({ type }) => (type === "google" ? "9rem" : "13rem")};
   }
 `;
-const BarItem = styled.li`
-  padding: 0.8rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: background 0.8s ease;
-  width: 100%;
-  margin-top: 1rem;
-  &:hover {
-    border-left: 5px solid ${cl.purple};
-    @media (max-width: 1024px) {
-      border-left: none;
-    }
-  }
-`;
-const BarItemLink = styled(Link)<{ currentIndex: number; type: string }>`
-  display: ${({ currentIndex, type }) =>
-    currentIndex === 1 && type === "google" ? "none" : "flex"};
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-`;
+
 const ItemIcon = styled.div<{
   currentPath?: string;
   selectedPath?: string;
@@ -207,7 +190,16 @@ const ItemIcon = styled.div<{
   display: flex;
   transition: 0.8s ease;
   font-size: 1.5rem;
-  color: ${cl.darkenGray};
+  color: ${({
+    currentIndex,
+    selectedIndex,
+    currentPath,
+    selectedPath,
+    isLogout,
+  }) =>
+    !isLogout && currentIndex === selectedIndex && currentPath === selectedPath
+      ? `${cl.purple}`
+      : `${cl.darkenGray}`};
   &:hover {
     color: ${cl.purple};
   }
@@ -235,6 +227,43 @@ const ItemIcon = styled.div<{
       background: ${cl.purple};
     }
   }
+`;
+
+const BarItem = styled.li<{
+  currentPath?: string;
+  selectedPath?: string;
+  currentIndex?: number;
+  selectedIndex?: number;
+  isLogout?: boolean;
+}>`
+  padding: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.8s ease;
+  width: 100%;
+  margin-top: 1rem;
+  ${({ currentIndex, selectedIndex, currentPath, selectedPath, isLogout }) =>
+    css`
+      border-left: ${!isLogout &&
+      currentIndex === selectedIndex &&
+      currentPath === selectedPath &&
+      `5px solid ${cl.purple}`};
+    `};
+  &:hover {
+    ${ItemIcon} {
+      transform: translateY(-5px);
+      color: ${cl.purple};
+    }
+  }
+`;
+const BarItemLink = styled(Link)<{ currentIndex: number; type: string }>`
+  display: ${({ currentIndex, type }) =>
+    currentIndex === 1 && type === "google" ? "none" : "flex"};
+  width: 100%;
+  align-items: center;
+  justify-content: center;
 `;
 
 export default Settings;
