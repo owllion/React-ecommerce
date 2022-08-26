@@ -1,24 +1,28 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import { useLocation, useSearchParams } from "react-router-dom";
 import { AnyAction } from "redux";
 
 import cl from "../constants/color/color";
 import { productListMotion, productItemMotion } from "../lib/motion";
 import { sortOptions } from "../data/sortOptions";
+
 import SingleProduct from "../components/Product/SingleProduct";
 import Select from "../components/Product/Select";
 import Filter from "../components/Product/Filter";
 import Pagination from "../components/Common/Pagination";
 import Lottie from "../components/Common/Lottie";
+
 import { useAppSelector, useAppDispatch } from "../store/hooks";
 import { productActions } from "../store/slice/Product.slice";
 import getProductList from "../store/actions/product/getProductList.action";
-import { IProduct } from "../interface/product.interface";
+
 import { useUpdateEffect } from "../hooks/useUpdateEffect";
 import { useMatchMedia } from "../hooks/useMatchMedia";
 import { useDebounce } from "../hooks/useDebounce";
+
+import { IProduct } from "../interface/product.interface";
+import SearchBar from "../components/Product/SearchBar";
 
 const ProductList = () => {
   const {
@@ -64,6 +68,10 @@ const ProductList = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  const handleSetKeyword = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setKeyword(event.target.value);
+  };
+
   const isTargetWidth = useMatchMedia("1200px");
 
   useUpdateEffect(() => {
@@ -101,8 +109,8 @@ const ProductList = () => {
         <Wrapper>
           <Top>
             <PageTitle>All Products</PageTitle>
-            <input type="text" onChange={(e) => setKeyword(e.target.value)} />
             <Func>
+              <SearchBar handleSetKeyword={handleSetKeyword} />
               <Filter active={activeFilter} handleActive={handleActiveFilter} />
               <Select
                 fullWidth={false}
@@ -158,22 +166,29 @@ const Wrapper = styled.div`
 `;
 const Top = styled.div`
   display: flex;
-  @media (max-width: 950px) {
-    display: block;
-  }
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
   max-width: 1150px;
   margin: 0 auto 2rem auto;
-  padding: 2rem;
+  padding: 1.7rem;
+  @media (max-width: 950px) {
+    display: block;
+    padding: 2rem;
+  }
 `;
-const PageTitle = styled.h1``;
+const PageTitle = styled.h1`
+  padding-bottom: 1.5rem;
+`;
 const Func = styled.div`
+  width: 100%;
   display: flex;
   @media (max-width: 950px) {
     display: block;
+    margin-top: 2rem;
   }
 `;
+
 const ItemContainer = styled.div`
   display: flex;
   flex-wrap: wrap;

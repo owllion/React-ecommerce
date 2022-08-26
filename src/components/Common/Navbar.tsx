@@ -4,15 +4,13 @@ import { AnimatePresence } from "framer-motion";
 import styled from "styled-components";
 
 import cl from "../../constants/color/color";
-import { IoMdCart, IoIosMenu, IoIosSearch } from "react-icons/io";
+import { IoMdCart, IoIosMenu } from "react-icons/io";
 import SideNav from "./SideNav";
 import HeaderSearch from "./HeaderSearch";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { commonActions } from "../../store/slice/Common.slice";
 import { ShopBtn } from "../Home/Hero";
 
 const Navbar = () => {
-  const dispatch = useAppDispatch();
   const [showSideNav, setShowSideNav] = useState(false);
   const [colorChange, setColorChange] = useState(false);
   const { showSearch } = useAppSelector((state) => state.common);

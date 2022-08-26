@@ -67,16 +67,19 @@ const Container = styled.div`
 
 const SelectBtn = styled.div`
   display: flex;
-  height: 55px;
+  @media (min-width: 950px) {
+    height: 55px;
+  }
   background: #fff;
-  padding: 20px;
-  font-size: 18px;
+  padding: 1.3rem;
+  font-size: 1.1rem;
   font-weight: 400;
   border-radius: 8px;
   align-items: center;
   cursor: pointer;
   justify-content: space-between;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 `;
 const SelectBtnText = styled.div`
   display: flex;
