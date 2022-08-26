@@ -82,13 +82,6 @@ const Navbar = () => {
             <RightInner>
               <LinkBox>
                 <MenuItem>
-                  <SearchIcon
-                    onClick={() => dispatch(commonActions.setShowSearch(true))}
-                  >
-                    <IoIosSearch />
-                  </SearchIcon>
-                </MenuItem>
-                <MenuItem>
                   <Link to={"/"}>HOME</Link>
                 </MenuItem>
                 <MenuItem>

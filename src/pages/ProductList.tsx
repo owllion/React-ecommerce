@@ -20,6 +20,7 @@ import { useUpdateEffect } from "../hooks/useUpdateEffect";
 import { useMatchMedia } from "../hooks/useMatchMedia";
 
 const ProductList = () => {
+  console.log("重新渲染");
   const {
     totalNum,
     productList,
@@ -30,12 +31,15 @@ const ProductList = () => {
   } = useAppSelector((state) => state.product);
   const { isLoading } = useAppSelector((state) => state.common);
   const dispatch = useAppDispatch();
+  const [filteredList, setFilteredList] =
+    useState<(IProduct | Partial<IProduct>)[]>();
+  const [filteredTotalNum, setFilteredTotalNum] = useState(0);
   const [keyword, setKeyword] = useState("");
   const [searchParams] = useSearchParams();
   const [activeSort, setActiveSort] = useState(false);
   const [activeFilter, setActiveFilter] = useState(false);
   const [sortBy, setSortBy] = useState("");
-  const [currentList, setCurrentList] = useState("");
+
   const handleActiveSort = () => {
     if (activeFilter) setActiveFilter(false);
     setActiveSort(!activeSort);
@@ -44,6 +48,7 @@ const ProductList = () => {
     if (activeSort) setActiveSort(false);
     setActiveFilter(!activeFilter);
   };
+
   const handleSetSelected = (params: { name: string; val: string }) => {
     if (params.name && params.val) {
       setSortBy(params.name);
@@ -53,46 +58,39 @@ const ProductList = () => {
   };
 
   const handlePageClick = (event: { selected: number }) => {
-    setCurrentList("api");
-
     dispatch(productActions.setCurPage(event.selected + 1));
-    dispatch(getProductList("") as unknown as AnyAction);
+    dispatch(getProductList(keyword) as unknown as AnyAction);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const isTargetWidth = useMatchMedia("1200px");
 
   useUpdateEffect(() => {
-    setCurrentList("api");
-
     dispatch(productActions.setCurPage(1));
-    dispatch(getProductList("") as unknown as AnyAction);
+    dispatch(getProductList(keyword) as unknown as AnyAction);
   }, [selectedCategory, selectedBrand, selectedPrice]);
 
   useUpdateEffect(() => {
-    setCurrentList("api");
-    dispatch(getProductList("") as unknown as AnyAction);
+    dispatch(getProductList(keyword) as unknown as AnyAction);
   }, [selectedSort, isTargetWidth]);
 
   useEffect(() => {
-    setCurrentList("api");
-
-    const currentParams = Object.fromEntries([...searchParams]);
     dispatch(productActions.clearAllState());
-
-    currentParams.category &&
-      dispatch(productActions.setCategory(currentParams.category));
-
     dispatch(productActions.setCurPage(1));
-
     dispatch(getProductList("") as unknown as AnyAction);
-  }, [searchParams]);
-  const filteredList = () =>
-    productList.filter((item) =>
-      keyword
-        ? item.productName?.toLowerCase().includes(keyword.toLowerCase())
-        : item
-    );
+  }, []);
+
+  useEffect(() => {
+    setFilteredList(productList);
+  }, [productList]);
+
+  useEffect(() => {
+    setFilteredTotalNum(totalNum);
+  }, [totalNum]);
+  useEffect(() => {
+    dispatch(productActions.setCurPage(1));
+    dispatch(getProductList(keyword) as unknown as AnyAction);
+  }, [keyword]);
 
   return (
     <>
@@ -100,14 +98,7 @@ const ProductList = () => {
         <Wrapper>
           <Top>
             <PageTitle>All Products</PageTitle>
-            <input
-              type="text"
-              onChange={(e) => {
-                if (currentList !== "search") setCurrentList("search");
-                setKeyword(e.target.value);
-              }}
-            />
-            Search
+            <input type="text" onChange={(e) => setKeyword(e.target.value)} />
             <Func>
               <Filter active={activeFilter} handleActive={handleActiveFilter} />
               <Select
@@ -122,15 +113,10 @@ const ProductList = () => {
             </Func>
           </Top>
 
-          {productList.length > 0 && (
+          {filteredList!?.length > 0 && (
             <>
               <ItemContainer as={motion.div} layout>
-                {(currentList === "api"
-                  ? productList
-                  : (filteredList() as unknown as Array<
-                      IProduct | Partial<IProduct>
-                    >)
-                ).map((item) => (
+                {filteredList?.map((item) => (
                   <ItemBox key={item.productId}>
                     {Object.keys(item).length > 0 ? (
                       <SingleProduct item={item as IProduct} />
@@ -143,13 +129,13 @@ const ProductList = () => {
 
               <Pagination
                 itemsPerPage={12}
-                itemsLength={totalNum}
+                itemsLength={filteredTotalNum}
                 handlePageClick={handlePageClick}
               />
             </>
           )}
 
-          {!isLoading && productList.length === 0 && (
+          {!isLoading && filteredList?.length === 0 && (
             <Lottie jsonName={"productNotFound"} />
           )}
         </Wrapper>
