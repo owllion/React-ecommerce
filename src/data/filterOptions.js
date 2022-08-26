@@ -8,7 +8,6 @@ export const brandOptions = [
 ];
 
 export const priceOptions = [
-  { name: "$10-$15", val: "10-15" },
   { name: "$100-$200", val: "100-200" },
   { name: "$200-300$", val: "200-300" },
   { name: "$400-$500", val: "400-500" },

@@ -32,7 +32,11 @@ const ShippingForm = () => {
   const { cartList } = useAppSelector((state) => state.cart);
   const { total, shipping, discountTotal, discount, discountCode } =
     useAppSelector((state) => state.checkout);
-  const [selectedCountry, setSelectedCountry] = useState("Taiwan");
+  const { locale } = useAppSelector((state) => state.user);
+  const [userLocale, setUserLocale] = useState("");
+  const [selectedCountry, setSelectedCountry] = useState<string | undefined>(
+    userLocale || "Taiwan"
+  );
   const [active, setActive] = useState(false);
 
   const createOrderHandler = async (info: FormValue) => {
@@ -64,8 +68,8 @@ const ShippingForm = () => {
   const handleActive = () => {
     setActive(!active);
   };
-  const handleSetCountry = (params: { name: string; val?: string }) => {
-    if (Object.keys(params).length) {
+  const handleSetCountry = (params: { name: string }) => {
+    if (params.name) {
       setSelectedCountry(params.name);
       setActive(false);
     }
@@ -84,6 +88,15 @@ const ShippingForm = () => {
   useEffect(() => {
     dispatch(checkoutActions.setDiscount(0));
   }, []);
+
+  useEffect(() => {
+    if (locale) {
+      const convertedLocale = countries.find(
+        (item) => item.val.split("-")[1] === locale
+      )?.name;
+      setUserLocale(convertedLocale!);
+    }
+  }, [locale]);
 
   return (
     <FormProvider {...methods}>
@@ -120,10 +133,11 @@ const ShippingForm = () => {
             <SC.Label>Country</SC.Label>
             <Select
               fullWidth={true}
+              needScroll={true}
               listData={countries}
               handleSetSelected={handleSetCountry}
               handleActive={handleActive}
-              selectedName={selectedCountry}
+              selectedName={selectedCountry!}
               active={active}
             />
           </SC.SingleInputBox>
@@ -162,6 +176,7 @@ const ShippingForm = () => {
 
           <SectionTitle>Payment Info</SectionTitle>
           <PaymentForm />
+
           <PayBtn>Pay</PayBtn>
         </SC.FormContainer>
       </SC.ShippingContainer>

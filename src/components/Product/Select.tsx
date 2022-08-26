@@ -13,6 +13,7 @@ interface IProps {
   selectedName: string;
   selectedVal?: string;
   fullWidth: boolean;
+  needScroll?: boolean;
   active: boolean;
   handleSetSelected?: (params: { name: string; val: string }) => void;
   handleActive?: React.MouseEventHandler<HTMLDivElement>;
@@ -26,6 +27,7 @@ const Select = ({
   handleActive,
   handleSetSelected,
   fullWidth,
+  needScroll,
 }: IProps) => {
   return (
     <Container fullWidth={fullWidth}>
@@ -44,7 +46,7 @@ const Select = ({
         </SelectBtnText>
       </SelectBtn>
       {active && (
-        <Options active={active}>
+        <Options active={active} needScroll={needScroll || false}>
           {listData.map((item, index) => (
             <Option
               key={index}
@@ -102,8 +104,8 @@ const SelectBtnText = styled.div`
   }
 `;
 
-const Options = styled.ul<{ active: boolean }>`
-  /* overflow-y: scroll; */
+const Options = styled.ul<{ active: boolean; needScroll?: boolean }>`
+  ${({ needScroll }) => needScroll && "overflow-y: scroll"};
   height: 500px;
   position: absolute;
   width: 100%;
