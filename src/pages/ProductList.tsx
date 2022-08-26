@@ -18,9 +18,9 @@ import getProductList from "../store/actions/product/getProductList.action";
 import { IProduct } from "../interface/product.interface";
 import { useUpdateEffect } from "../hooks/useUpdateEffect";
 import { useMatchMedia } from "../hooks/useMatchMedia";
+import { useDebounce } from "../hooks/useDebounce";
 
 const ProductList = () => {
-  console.log("重新渲染");
   const {
     totalNum,
     productList,
@@ -35,7 +35,8 @@ const ProductList = () => {
     useState<(IProduct | Partial<IProduct>)[]>();
   const [filteredTotalNum, setFilteredTotalNum] = useState(0);
   const [keyword, setKeyword] = useState("");
-  const [searchParams] = useSearchParams();
+  const debounceValue = useDebounce<string>(keyword, 1000);
+
   const [activeSort, setActiveSort] = useState(false);
   const [activeFilter, setActiveFilter] = useState(false);
   const [sortBy, setSortBy] = useState("");
@@ -80,6 +81,7 @@ const ProductList = () => {
     dispatch(getProductList("") as unknown as AnyAction);
   }, []);
 
+  // useUpdateEffect would cause problem if there is any setMethod in it.
   useEffect(() => {
     setFilteredList(productList);
   }, [productList]);
@@ -87,10 +89,11 @@ const ProductList = () => {
   useEffect(() => {
     setFilteredTotalNum(totalNum);
   }, [totalNum]);
+
   useEffect(() => {
     dispatch(productActions.setCurPage(1));
-    dispatch(getProductList(keyword) as unknown as AnyAction);
-  }, [keyword]);
+    dispatch(getProductList(debounceValue) as unknown as AnyAction);
+  }, [debounceValue]);
 
   return (
     <>
