@@ -1,10 +1,17 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { useParams, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import cl from "../../constants/color/color.js";
-import { MainTitle, SubTitle, Btn, BtnText } from "./Common.style";
-import EmailImg from "../../assets/login/at-sign.png";
+import {
+  MainTitle,
+  SubTitle,
+  Btn,
+  BtnText,
+  TopImgContainer,
+  TopImg,
+} from "./Common.style";
+import CheckEmailImg from "../../assets/login/check-email.png";
 
 const SendLinkNotification = () => {
   const location = useLocation();
@@ -12,9 +19,9 @@ const SendLinkNotification = () => {
 
   return (
     <Container>
-      <IconContainer>
-        <Icon src={EmailImg} />
-      </IconContainer>
+      <TopImgContainer>
+        <TopImg src={CheckEmailImg} />
+      </TopImgContainer>
       <MainTitle>Check your email</MainTitle>
       <BreakSubTitle>
         <span>A {type} link was sent.</span>
@@ -37,10 +44,6 @@ const BreakSubTitle = styled(SubTitle)`
     display: block;
   }
 `;
-const IconContainer = styled.div`
-  margin-bottom: 0.5rem;
-`;
-const Icon = styled.img``;
 const BtnBox = styled.div`
   margin-top: 1.3rem;
 `;

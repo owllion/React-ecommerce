@@ -2,10 +2,16 @@ import { useState, useEffect } from "react";
 import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
-import { IoSadOutline } from "react-icons/io5";
 
 import cl from "../../constants/color/color.js";
-import { MainTitle, SubTitle, Btn, BtnText } from "./Common.style";
+import {
+  MainTitle,
+  SubTitle,
+  Btn,
+  BtnText,
+  TopImgContainer,
+  TopImg,
+} from "./Common.style";
 import VerifySuccess from "../../assets/login/verify-success.png";
 import TokenExpired from "../../assets/login/token-expired.png";
 import SuccessUnderline from "../../assets/login/success-underline.svg";
@@ -14,7 +20,6 @@ import { verifyUserEmailApi } from "../../api/auth.api";
 
 const SendLinkNotification = () => {
   const [isVerified, setIsVerified] = useState(false);
-
   const params = useParams();
   const { token } = params as { token: string };
 
@@ -33,9 +38,9 @@ const SendLinkNotification = () => {
   }, []);
   return (
     <Container>
-      <IconContainer>
-        <Icon src={isVerified ? VerifySuccess : TokenExpired} />
-      </IconContainer>
+      <TopImgContainer>
+        <TopImg src={isVerified ? VerifySuccess : TokenExpired} />
+      </TopImgContainer>
       <MainTitleBox>
         <MessageBox>
           <MainTitle>

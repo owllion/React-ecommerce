@@ -1,12 +1,18 @@
 import React from "react";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
-import { useForm, SubmitHandler, FieldError } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 
 import BackBtn from "../Common/button/BackBtn";
 import cl from "../../constants/color/color.js";
-import { MainTitle, SubTitle, Btn, BtnText } from "./Common.style";
-import { baseInput, baseLabel } from "../Product/Review/ReviewForm";
+import {
+  MainTitle,
+  SubTitle,
+  Btn,
+  BtnText,
+  TopImgContainer,
+  TopImg,
+} from "./Common.style";
 import ForgotPwd from "../../assets/login/forgot-pwd.png";
 import { Label, Input } from "./Registration";
 import FieldErr from "../error/FieldErr";
@@ -39,9 +45,9 @@ const ForgotPassword = () => {
 
   return (
     <FormContainer onSubmit={handleSubmit(onSubmit)}>
-      <IconContainer>
-        <Icon src={ForgotPwd} />
-      </IconContainer>
+      <TopImgContainer>
+        <TopImg src={ForgotPwd} />
+      </TopImgContainer>
       <MainTitle>Forgot your password?</MainTitle>
       <BreakSubTitle>
         <span>Please enter your email address.</span>

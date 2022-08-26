@@ -1,13 +1,21 @@
-import { AxiosError } from "axios";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useGoogleLogin } from "@react-oauth/google";
 import { AnyAction } from "@reduxjs/toolkit";
 import { useNavigate } from "react-router-dom";
+import { FcGoogle } from "react-icons/fc";
+import { IoMdMail } from "react-icons/io";
 
 import cl from "../../constants/color/color";
-import { MainTitle, SubTitle, Btn, BtnText } from "./Common.style";
-import toast from "react-hot-toast";
+import WelcomeImg from "src/assets/login/welcome.png";
+import {
+  MainTitle,
+  SubTitle,
+  Btn,
+  BtnText,
+  TopImgContainer,
+  TopImg,
+} from "./Common.style";
 import { useAppDispatch } from "../../store/hooks";
 import { googleLogin } from "src/store/actions/auth/googleLogin.action";
 
@@ -31,25 +39,24 @@ const WelcomeView = () => {
 
   return (
     <Container>
+      <TopImgContainer>
+        <TopImg src={WelcomeImg} />
+      </TopImgContainer>
       <MainTitle>Welcome!</MainTitle>
       <SubTitle>Sign Up or Sign In</SubTitle>
-      <LoginBtnBox needPadding onClick={() => login()}>
-        <Btn shadow>
+      <LoginBtnBox onClick={() => login()}>
+        <LoginBtn shadow>
+          <FcGoogle />
           <BtnText color={`${cl.textLightGray}`}>Login with Google</BtnText>
-        </Btn>
-      </LoginBtnBox>
-
-      <LoginBtnBox>
-        <Btn bgColor={"#61ee3d"}>
-          <BtnText color={`${cl.white}`}>Login with LINE</BtnText>
-        </Btn>
+        </LoginBtn>
       </LoginBtnBox>
       <Divider>OR</Divider>
       <LoginBtnBox>
         <Link to={"/auth/check-email"}>
-          <Btn border>
+          <LoginBtn bgColor="black">
+            <IoMdMail />
             <BtnText>Login with Email</BtnText>
-          </Btn>
+          </LoginBtn>
         </Link>
       </LoginBtnBox>
     </Container>
@@ -57,9 +64,13 @@ const WelcomeView = () => {
 };
 
 const Container = styled.div``;
-
-const LoginBtnBox = styled.div<{ needPadding?: boolean }>`
-  padding-bottom: ${({ needPadding }) => (needPadding ? "1.3rem" : 0)};
+const LoginBtnBox = styled.div``;
+const LoginBtn = styled(Btn)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  font-size: 1.4rem;
 `;
 const Divider = styled.p`
   text-align: center;

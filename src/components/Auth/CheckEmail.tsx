@@ -4,7 +4,14 @@ import { Link, useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler, FieldError } from "react-hook-form";
 
 import cl from "../../constants/color/color.js";
-import { MainTitle, SubTitle, Btn, BtnText } from "./Common.style";
+import {
+  MainTitle,
+  SubTitle,
+  Btn,
+  BtnText,
+  TopImgContainer,
+  TopImg,
+} from "./Common.style";
 import { baseInput, baseLabel } from "../Product/Review/ReviewForm";
 import EmailImg from "../../assets/login/at-sign.png";
 import FieldErr from "../error/FieldErr";
@@ -39,9 +46,9 @@ const CheckEmail = () => {
 
   return (
     <FormContainer onSubmit={handleSubmit(onSubmit)}>
-      <IconContainer>
-        <Icon src={EmailImg} />
-      </IconContainer>
+      <TopImgContainer>
+        <TopImg src={EmailImg} />
+      </TopImgContainer>
       <MainTitle>What's your email?</MainTitle>
       <SubTitle>We are going to check if you already have an account</SubTitle>
       <InputBox>

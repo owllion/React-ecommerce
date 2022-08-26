@@ -76,15 +76,6 @@ const validationRulesList = [
   },
 ];
 
-// interface IValidationResult
-//   extends Record<
-//     string,
-//     | {
-//         value: string;
-//         message: string;
-//       }
-//     | Record<string, () => string | boolean>
-//   > {}
 interface IValidationResult {
   [x: string]:
     | string
@@ -92,16 +83,8 @@ interface IValidationResult {
         [x: string]: RegExp | string | (() => boolean | string);
       };
 }
-// interface test extends {
-//   name: string;
-//   required: { value: boolean; message: string };
-//   maxLength?: undefined;
-//   pattern?: undefined;
-//   validate?: undefined;
-// }
 
 export const getValidationData = (validation: string[]) => {
-  // let res = {} as keyof typeof validationRulesList;
   let res: IValidationResult = {};
 
   const filteredRules = validationRulesList.filter((item) =>

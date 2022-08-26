@@ -1,17 +1,30 @@
 import styled from "styled-components";
 import cl from "../../constants/color/color";
 
-export const MainTitle = styled.h2``;
+export const TopImgContainer = styled.div`
+  margin-bottom: 2.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+export const TopImg = styled.img``;
+
+export const MainTitle = styled.h2`
+  text-align: center;
+`;
 export const SubTitle = styled.p`
   margin: 0;
   color: ${cl.textLightGray};
   font-size: 0.8rem;
   margin-bottom: 2rem;
+  text-align: center;
+  padding: 0 3rem;
 `;
 
-export const BtnText = styled.span`
-  color: ${({ color }: { color?: string }) => color};
-  font-size: 0.9rem;
+export const BtnText = styled.span<{ color?: string }>`
+  color: ${({ color }) => color};
+  font-size: 1rem;
+  font-weight: 400;
 `;
 
 interface IBtnProps {
@@ -24,8 +37,8 @@ export const Btn = styled.button<IBtnProps>`
   z-index: 1;
   cursor: pointer;
   position: relative;
-  font-size: 1.4rem;
-  font-weight: 600;
+  font-size: 1.2rem;
+  font-weight: 300;
   text-align: center;
   height: 48px;
   border: 1px solid;
@@ -43,6 +56,7 @@ export const Btn = styled.button<IBtnProps>`
   white-space: nowrap;
   word-wrap: normal;
   background: ${({ bgColor }) => bgColor};
+  color: ${({ bgColor }) => bgColor === "black" && `${cl.white}`};
   border: ${({ border }) => (border ? `1px solid ${cl.dark}` : "none")};
   box-shadow: ${({ shadow }) =>
     shadow

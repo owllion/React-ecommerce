@@ -6,7 +6,14 @@ import { AnyAction } from "@reduxjs/toolkit";
 
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import cl from "../../constants/color/color.js";
-import { MainTitle, SubTitle, Btn, BtnText } from "./Common.style";
+import {
+  MainTitle,
+  SubTitle,
+  Btn,
+  BtnText,
+  TopImgContainer,
+  TopImg,
+} from "./Common.style";
 import PwdInput from "../Common/input/PwdInput";
 import LoginImg from "../../assets/login/login-with-pwd.png";
 import ApiError from "../error/ApiError";
@@ -51,9 +58,9 @@ const HaveAccount = () => {
   return (
     <FormProvider {...methods}>
       <FormContainer onSubmit={handleSubmit(onSubmit)}>
-        <IconContainer>
-          <Icon src={LoginImg} />
-        </IconContainer>
+        <TopImgContainer>
+          <TopImg src={LoginImg} />
+        </TopImgContainer>
         <MainTitle>Welcome Back!</MainTitle>
         <SubTitle>Have your money ready.</SubTitle>
 
