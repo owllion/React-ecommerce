@@ -20,6 +20,7 @@ import LoginImg from "../../assets/login/login-with-pwd.png";
 import ApiError from "../error/ApiError";
 import signInOrSignUp from "src/store/actions/auth/signInOrSignUp.action";
 import { commonActions } from "../../store/slice/Common.slice";
+import AuthFormTemplate from "./AuthFormTemplate";
 
 interface FormValue {
   email: string;
@@ -37,6 +38,7 @@ const HaveAccount = () => {
     handleSubmit,
     formState: { errors },
   } = methods;
+
   const onSubmit: SubmitHandler<FormValue> = async (data) => {
     try {
       await dispatch(
@@ -50,6 +52,7 @@ const HaveAccount = () => {
       console.log(error);
     }
   };
+
   console.log(errors);
 
   useEffect(() => {
@@ -59,32 +62,32 @@ const HaveAccount = () => {
   return (
     <FormProvider {...methods}>
       <FormContainer onSubmit={handleSubmit(onSubmit)}>
-        <TopImgContainer>
-          <TopImg src={LoginImg} />
-        </TopImgContainer>
-        <MainTitle>Welcome Back!</MainTitle>
-        <SubTitle>Have your money ready.</SubTitle>
+        <AuthFormTemplate
+          mainTitle="Welcome Back!"
+          subTitle="Have your money ready."
+          imgUrl={LoginImg}
+        >
+          <UserEmailBox>
+            <UserEmail>{emailParam}</UserEmail>
+            <ForgotPasswordLink to={"/auth/forgot-password"}>
+              Forgot Password?
+            </ForgotPasswordLink>
+          </UserEmailBox>
 
-        <UserEmailBox>
-          <UserEmail>{emailParam}</UserEmail>
-          <ForgotPasswordLink to={"/auth/forgot-password"}>
-            Forgot Password?
-          </ForgotPasswordLink>
-        </UserEmailBox>
+          <PwdInput
+            label="Password"
+            errors={errors}
+            field="password"
+            validation={["required"]}
+          />
+          <ApiError />
 
-        <PwdInput
-          label="Password"
-          errors={errors}
-          field="password"
-          validation={["required"]}
-        />
-        <ApiError />
-
-        <BtnBox>
-          <Btn bgColor={`${cl.dark}`}>
-            <BtnText color={`${cl.white}`}>Login</BtnText>
-          </Btn>
-        </BtnBox>
+          <BtnBox>
+            <Btn bgColor={`${cl.dark}`}>
+              <BtnText color={`${cl.white}`}>Login</BtnText>
+            </Btn>
+          </BtnBox>
+        </AuthFormTemplate>
       </FormContainer>
     </FormProvider>
   );
