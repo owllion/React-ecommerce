@@ -21,6 +21,7 @@ import ApiError from "../error/ApiError";
 import signInOrSignUp from "src/store/actions/auth/signInOrSignUp.action";
 import { commonActions } from "../../store/slice/Common.slice";
 import AuthFormTemplate from "./AuthFormTemplate";
+import AuthBtn from "./AuthBtn";
 
 interface FormValue {
   email: string;
@@ -81,12 +82,7 @@ const HaveAccount = () => {
             validation={["required"]}
           />
           <ApiError />
-
-          <BtnBox>
-            <Btn bgColor={`${cl.dark}`}>
-              <BtnText color={`${cl.white}`}>Login</BtnText>
-            </Btn>
-          </BtnBox>
+          <AuthBtn btnText="Login" bgColor="dark" textColor="white" />
         </AuthFormTemplate>
       </FormContainer>
     </FormProvider>
