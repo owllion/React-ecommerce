@@ -57,6 +57,7 @@ const CheckEmail = () => {
         mainTitle="What's your email?"
         subTitle=" We are going to check if you already have an account"
         imgUrl={EmailImg}
+        alt="checkEmailImg"
       >
         <InputBox>
           <Label>Email</Label>

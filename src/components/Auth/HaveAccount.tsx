@@ -6,15 +6,6 @@ import { AnyAction } from "@reduxjs/toolkit";
 
 import { useAppDispatch } from "../../store/hooks";
 import cl from "../../constants/color/color.js";
-import {
-  MainTitle,
-  SubTitle,
-  Btn,
-  BtnText,
-  TopImgContainer,
-  TopImg,
-  BtnBox,
-} from "./auth.style";
 import PwdInput from "../Common/input/PwdInput";
 import LoginImg from "../../assets/login/login-with-pwd.png";
 import ApiError from "../error/ApiError";
@@ -67,6 +58,7 @@ const HaveAccount = () => {
           mainTitle="Welcome Back!"
           subTitle="Have your money ready."
           imgUrl={LoginImg}
+          alt="loginImg"
         >
           <UserEmailBox>
             <UserEmail>{emailParam}</UserEmail>

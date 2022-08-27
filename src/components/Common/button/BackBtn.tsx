@@ -1,12 +1,15 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
 import styled from "styled-components";
+
 const BackBtn = () => {
   const navigate = useNavigate();
+  const handleNavigate = () => {
+    navigate(-1);
+  };
   return (
     <>
-      <Btn onClick={() => navigate(-1)}>
+      <Btn onClick={() => handleNavigate()} type="button">
         <IoIosArrowBack />
       </Btn>
     </>
@@ -19,8 +22,8 @@ const Btn = styled.button`
   width: 38px;
   height: 38px;
   display: flex;
-  margin-left: -10px;
-  margin-bottom: 10px;
+  /* margin-left: -10px;
+  margin-bottom: 10px; */
   background: rgb(246, 246, 246);
   border-radius: 50%;
   border: none;

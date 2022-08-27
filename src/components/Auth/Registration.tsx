@@ -9,7 +9,6 @@ import {
 import { AnyAction } from "@reduxjs/toolkit";
 
 import cl from "src/constants/color/color.js";
-import { MainTitle, SubTitle, Btn, BtnText } from "./auth.style";
 import FieldErr from "../error/FieldErr";
 import PwdInput from "../Common/input/PwdInput";
 import {
@@ -22,7 +21,8 @@ import { baseInput, baseLabel } from "../Product/Review/ReviewForm";
 import RegistrationImg from "../../assets/login/signup.png";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import signInOrSignUp from "../../store/actions/auth/signInOrSignUp.action";
-
+import AuthFormTemplate from "./AuthFormTemplate";
+import AuthBtn from "./AuthBtn";
 export interface FormValue {
   email: string;
   password: string;
@@ -67,73 +67,63 @@ const Registration = () => {
   return (
     <FormProvider {...methods}>
       <FormContainer onSubmit={handleSubmit(onSubmit)}>
-        <IconContainer>
-          <Icon src={RegistrationImg} alt="registration" />
-        </IconContainer>
-        <MainTitle>Let's get it started!</MainTitle>
-        <SubTitle>Create your account</SubTitle>
-        <InputBox>
-          <Label>Email</Label>
-          <Input value={emailParam} />
-        </InputBox>
-        <RowFlexBox>
-          <RegistrationLeftInputBox>
-            <Label error={errors.firstName}>First Name</Label>
-            <Input
-              error={errors.firstName}
-              {...register(
-                "firstName",
-                getValidationData(["required", "maxLength", "alphabetical"])
-              )}
-            />
-            <FieldErr errors={errors} field="firstName" />
-          </RegistrationLeftInputBox>
+        <AuthFormTemplate
+          mainTitle="Let's get it started!"
+          subTitle="Create your account"
+          imgUrl={RegistrationImg}
+          alt="registration"
+        >
+          <InputBox>
+            <Label>Email</Label>
+            <Input value={emailParam} />
+          </InputBox>
+          <RowFlexBox>
+            <RegistrationLeftInputBox>
+              <Label error={errors.firstName}>First Name</Label>
+              <Input
+                error={errors.firstName}
+                {...register(
+                  "firstName",
+                  getValidationData(["required", "maxLength", "alphabetical"])
+                )}
+              />
+              <FieldErr errors={errors} field="firstName" />
+            </RegistrationLeftInputBox>
 
-          <RightInputBox>
-            <Label error={errors.lastName}>Last Name</Label>
-            <Input
-              error={errors.lastName}
-              {...register(
-                "lastName",
-                getValidationData(["required", "alphabetical"])
-              )}
-            />
-            <FieldErr errors={errors} field="lastName" />
-          </RightInputBox>
-        </RowFlexBox>
+            <RightInputBox>
+              <Label error={errors.lastName}>Last Name</Label>
+              <Input
+                error={errors.lastName}
+                {...register(
+                  "lastName",
+                  getValidationData(["required", "alphabetical"])
+                )}
+              />
+              <FieldErr errors={errors} field="lastName" />
+            </RightInputBox>
+          </RowFlexBox>
 
-        <PwdInput
-          label="Password"
-          errors={errors}
-          field="password"
-          validation={["required", "passwordValidation"]}
-        />
-        <BtnBox>
-          <Btn bgColor={`${cl.dark}`} disabled={isLoading}>
-            <BtnText color={`${cl.white}`}>
-              {isLoading ? "loading" : "Sign Up"}
-            </BtnText>
-          </Btn>
-        </BtnBox>
+          <PwdInput
+            label="Password"
+            errors={errors}
+            field="password"
+            validation={["required", "passwordValidation"]}
+          />
+          <AuthBtn
+            btnText="Sign Up"
+            needSwitchText={true}
+            bgColor="dark"
+            textColor="white"
+          />
+        </AuthFormTemplate>
       </FormContainer>
     </FormProvider>
   );
 };
 const FormContainer = styled.form``;
-const IconContainer = styled.div`
-  margin-bottom: 0.8rem;
-  width: 130px;
-`;
-const Icon = styled.img`
-  width: 100%;
-`;
-const BtnBox = styled.div`
-  margin-top: 1.3rem;
-`;
 const RegistrationLeftInputBox = styled(LeftInputBox)`
   margin-right: 1rem;
 `;
-
 export const Input = styled.input<{ error?: FieldError }>`
   ${baseInput}
   border-color: ${({ error }) => (error ? `${cl.red}` : `${cl.gray}`)};

@@ -36,6 +36,7 @@ const WelcomeView = () => {
       mainTitle="Welcome!"
       subTitle="Sign Up or Sign In"
       imgUrl={WelcomeImg}
+      alt="welcomeImg"
     >
       <LoginBtnBox onClick={() => login()}>
         <LoginBtn shadow>

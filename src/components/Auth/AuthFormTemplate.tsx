@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { useLocation } from "react-router-dom";
 
 import {
   MainTitle,
@@ -7,23 +8,29 @@ import {
   TopImgContainer,
   TopImg,
 } from "src/components/Auth/auth.style";
+import BackBtn from "../Common/button/BackBtn";
 
 interface IProps extends React.PropsWithChildren {
   mainTitle: string;
   subTitle: string;
   imgUrl: string;
+  alt: string;
 }
 
 const AuthFormTemplate = ({
   mainTitle,
   subTitle,
   imgUrl,
+  alt,
   children,
 }: IProps) => {
+  const path = useLocation();
+  const pathName = path.pathname.split("/")[2];
   return (
     <Container>
+      {pathName !== "welcome" && <BackBtn />}
       <TopImgContainer>
-        <TopImg src={imgUrl} />
+        <TopImg src={imgUrl} alt={alt} />
       </TopImgContainer>
       <MainTitle>{mainTitle}</MainTitle>
       <SubTitle>{subTitle}</SubTitle>
