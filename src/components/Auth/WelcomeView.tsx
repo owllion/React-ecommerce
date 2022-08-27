@@ -8,16 +8,10 @@ import { IoMdMail } from "react-icons/io";
 
 import cl from "../../constants/color/color";
 import WelcomeImg from "src/assets/login/welcome.png";
-import {
-  MainTitle,
-  SubTitle,
-  Btn,
-  BtnText,
-  TopImgContainer,
-  TopImg,
-} from "./Common.style";
+import { Btn, BtnText } from "./auth.style";
 import { useAppDispatch } from "../../store/hooks";
 import { googleLogin } from "src/store/actions/auth/googleLogin.action";
+import AuthFormTemplate from "./AuthFormTemplate";
 
 const WelcomeView = () => {
   const dispatch = useAppDispatch();
@@ -38,12 +32,11 @@ const WelcomeView = () => {
   });
 
   return (
-    <Container>
-      <TopImgContainer>
-        <TopImg src={WelcomeImg} />
-      </TopImgContainer>
-      <MainTitle>Welcome!</MainTitle>
-      <SubTitle>Sign Up or Sign In</SubTitle>
+    <AuthFormTemplate
+      mainTitle="Welcome!"
+      subTitle="Sign Up or Sign In"
+      imgUrl={WelcomeImg}
+    >
       <LoginBtnBox onClick={() => login()}>
         <LoginBtn shadow>
           <FcGoogle />
@@ -59,11 +52,10 @@ const WelcomeView = () => {
           </LoginBtn>
         </Link>
       </LoginBtnBox>
-    </Container>
+    </AuthFormTemplate>
   );
 };
 
-const Container = styled.div``;
 const LoginBtnBox = styled.div``;
 const LoginBtn = styled(Btn)`
   display: flex;

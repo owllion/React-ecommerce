@@ -10,7 +10,7 @@ import {
   BtnText,
   TopImgContainer,
   TopImg,
-} from "./Common.style";
+} from "./auth.style";
 import CheckEmailImg from "../../assets/login/check-email.png";
 
 const SendLinkNotification = () => {

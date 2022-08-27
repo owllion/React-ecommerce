@@ -9,7 +9,7 @@ import {
 import { AnyAction } from "@reduxjs/toolkit";
 
 import cl from "src/constants/color/color.js";
-import { MainTitle, SubTitle, Btn, BtnText } from "./Common.style";
+import { MainTitle, SubTitle, Btn, BtnText } from "./auth.style";
 import FieldErr from "../error/FieldErr";
 import PwdInput from "../Common/input/PwdInput";
 import {

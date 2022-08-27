@@ -4,7 +4,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
 import { AnyAction } from "@reduxjs/toolkit";
 
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { useAppDispatch } from "../../store/hooks";
 import cl from "../../constants/color/color.js";
 import {
   MainTitle,
@@ -13,7 +13,8 @@ import {
   BtnText,
   TopImgContainer,
   TopImg,
-} from "./Common.style";
+  BtnBox,
+} from "./auth.style";
 import PwdInput from "../Common/input/PwdInput";
 import LoginImg from "../../assets/login/login-with-pwd.png";
 import ApiError from "../error/ApiError";
@@ -90,13 +91,7 @@ const HaveAccount = () => {
 };
 
 const FormContainer = styled.form``;
-const IconContainer = styled.div`
-  margin-bottom: 0.5rem;
-`;
-const Icon = styled.img``;
-const BtnBox = styled.div`
-  margin-top: 1.3rem;
-`;
+
 const UserEmailBox = styled.div`
   margin-bottom: 1.5rem;
 `;

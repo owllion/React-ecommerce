@@ -20,7 +20,9 @@ export const SubTitle = styled.p`
   text-align: center;
   padding: 0 3rem;
 `;
-
+export const BtnBox = styled.div`
+  margin-top: 1.3rem;
+`;
 export const BtnText = styled.span<{ color?: string }>`
   color: ${({ color }) => color};
   font-size: 1rem;

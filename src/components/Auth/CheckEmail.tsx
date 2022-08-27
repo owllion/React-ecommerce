@@ -11,7 +11,7 @@ import {
   BtnText,
   TopImgContainer,
   TopImg,
-} from "./Common.style";
+} from "./auth.style";
 import { baseInput, baseLabel } from "../Product/Review/ReviewForm";
 import EmailImg from "../../assets/login/at-sign.png";
 import FieldErr from "../error/FieldErr";

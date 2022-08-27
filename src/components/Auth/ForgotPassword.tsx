@@ -12,7 +12,7 @@ import {
   BtnText,
   TopImgContainer,
   TopImg,
-} from "./Common.style";
+} from "./auth.style";
 import ForgotPwd from "../../assets/login/forgot-pwd.png";
 import { Label, Input } from "./Registration";
 import FieldErr from "../error/FieldErr";

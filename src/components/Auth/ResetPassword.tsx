@@ -14,7 +14,7 @@ import {
   BtnText,
   TopImgContainer,
   TopImg,
-} from "./Common.style";
+} from "./auth.style";
 import PwdInput from "../Common/input/PwdInput";
 import ResetImg from "src/assets/login/reset-pwd.png";
 import { resetPassword } from "../../api/user.api";

@@ -11,7 +11,7 @@ import {
   BtnText,
   TopImgContainer,
   TopImg,
-} from "./Common.style";
+} from "./auth.style";
 import VerifySuccess from "../../assets/login/verify-success.png";
 import TokenExpired from "../../assets/login/token-expired.png";
 import SuccessUnderline from "../../assets/login/success-underline.svg";
