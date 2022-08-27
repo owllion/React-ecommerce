@@ -74,7 +74,7 @@ const HaveAccount = () => {
             validation={["required"]}
           />
           <ApiError />
-          <AuthBtn btnText="Login" bgColor="dark" textColor="white" />
+          <AuthBtn btnText="Login" />
         </AuthFormTemplate>
       </FormContainer>
     </FormProvider>

@@ -1,46 +1,71 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import styled, { css } from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import { AnyAction } from "@reduxjs/toolkit";
 
-import cl from "../../constants/color/color.js";
-import {
-  MainTitle,
-  SubTitle,
-  Btn,
-  BtnText,
-  TopImgContainer,
-  TopImg,
-} from "./auth.style";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { MainTitle, SubTitle } from "./auth.style";
 import VerifySuccess from "../../assets/login/verify-success.png";
 import TokenExpired from "../../assets/login/token-expired.png";
 import SuccessUnderline from "../../assets/login/success-underline.svg";
 import ErrorUnderline from "../../assets/login/error-underline.svg";
-import { verifyUserEmailApi } from "../../api/auth.api";
+import { verifyUserApi } from "../../api/auth.api";
+import AuthFormTemplate from "./AuthFormTemplate";
+import AuthBtn from "./AuthBtn";
+import { IAuthResult as ISignInOrUp } from "../../store/actions/auth/signInOrSignUp.action";
+import { authRelatedAction } from "../../store/actions/auth/authRelatedAction.action";
+import { commonActions } from "../../store/slice/Common.slice";
+
+interface IAuthResult extends ISignInOrUp {
+  verified: boolean;
+}
 
 const SendLinkNotification = () => {
-  const [isVerified, setIsVerified] = useState(false);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const { isLoading } = useAppSelector((state) => state.common);
+  const [isVerified, setIsVerified] = useState(true);
   const params = useParams();
   const { token } = params as { token: string };
 
+  const handleNavigate = () => navigate("/settings/account");
+  const verifyUser = async () => {
+    try {
+      dispatch(commonActions.setLoading(true));
+      const {
+        data: {
+          verified,
+          result: { token: accessToken, refreshToken, user },
+        },
+      }: {
+        data: IAuthResult;
+      } = await verifyUserApi({ token });
+      setIsVerified(verified);
+      dispatch(
+        authRelatedAction({
+          user,
+          token: accessToken,
+          refreshToken,
+          cartLength: user.cartLength,
+          type: "email",
+        }) as unknown as AnyAction
+      );
+      dispatch(commonActions.setLoading(false));
+    } catch (error) {
+      dispatch(commonActions.setLoading(false));
+      console.log(error);
+    }
+  };
   useEffect(() => {
-    const verifyUserEmail = async () => {
-      try {
-        const {
-          data: { verified },
-        } = await verifyUserEmailApi({ token });
-        setIsVerified(verified);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    verifyUserEmail();
+    verifyUser();
   }, []);
+
   return (
-    <Container>
-      <TopImgContainer>
-        <TopImg src={isVerified ? VerifySuccess : TokenExpired} />
-      </TopImgContainer>
+    <AuthFormTemplate
+      imgUrl={isVerified ? VerifySuccess : TokenExpired}
+      alt="verifyEmailImg"
+    >
       <MainTitleBox>
         <MessageBox>
           <MainTitle>
@@ -54,18 +79,16 @@ const SendLinkNotification = () => {
           </MainTitle>
         </MessageBox>
       </MainTitleBox>
-      {/* <BreakSubTitle>
-        <span>A {linkType} link was sent.</span>
-        <span>Don't forget to check your spam box.</span>
-      </BreakSubTitle> */}
-      <BtnBox>
+      {isVerified ? (
+        <div onClick={() => handleNavigate()}>
+          <AuthBtn btnText="Go To Profile" />
+        </div>
+      ) : (
         <Link to={"/auth/welcome"} state={{ email: "re" }}>
-          <Btn bgColor={`${cl.dark}`}>
-            <BtnText color={`${cl.white}`}>Back To Login</BtnText>
-          </Btn>
+          <AuthBtn btnText="Back To Login" />
         </Link>
-      </BtnBox>
-    </Container>
+      )}
+    </AuthFormTemplate>
   );
 };
 

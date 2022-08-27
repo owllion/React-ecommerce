@@ -69,7 +69,7 @@ const CheckEmail = () => {
           <ApiError />
         </InputBox>
 
-        <AuthBtn btnText="Continue" bgColor="dark" textColor="white" />
+        <AuthBtn btnText="Continue" />
       </AuthFormTemplate>
     </FormContainer>
   );

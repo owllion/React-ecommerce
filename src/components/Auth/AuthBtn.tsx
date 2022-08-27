@@ -7,16 +7,14 @@ import { Btn, BtnText } from "./auth.style";
 interface IProps {
   btnText: string;
   needSwitchText?: boolean;
-  textColor: keyof typeof cl;
-  bgColor: keyof typeof cl;
 }
 
-const AuthBtn = ({ btnText, needSwitchText, textColor, bgColor }: IProps) => {
+const AuthBtn = ({ btnText, needSwitchText }: IProps) => {
   const { isLoading } = useAppSelector((state) => state.common);
   return (
     <BtnBox>
-      <Btn bgColor={`${cl[bgColor]}`} disabled={isLoading}>
-        <BtnText color={`${cl[textColor]}`}>
+      <Btn bgColor={`${cl.dark}`} disabled={isLoading}>
+        <BtnText color={`${cl.white}`}>
           {needSwitchText ? (isLoading ? "loading" : btnText) : btnText}
         </BtnText>
       </Btn>

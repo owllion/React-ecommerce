@@ -84,7 +84,7 @@ const Registration = () => {
                 error={errors.firstName}
                 {...register(
                   "firstName",
-                  getValidationData(["required", "maxLength", "alphabetical"])
+                  getValidationData(["required", "maxLength"])
                 )}
               />
               <FieldErr errors={errors} field="firstName" />
@@ -94,10 +94,7 @@ const Registration = () => {
               <Label error={errors.lastName}>Last Name</Label>
               <Input
                 error={errors.lastName}
-                {...register(
-                  "lastName",
-                  getValidationData(["required", "alphabetical"])
-                )}
+                {...register("lastName", getValidationData(["required"]))}
               />
               <FieldErr errors={errors} field="lastName" />
             </RightInputBox>
@@ -109,12 +106,7 @@ const Registration = () => {
             field="password"
             validation={["required", "passwordValidation"]}
           />
-          <AuthBtn
-            btnText="Sign Up"
-            needSwitchText={true}
-            bgColor="dark"
-            textColor="white"
-          />
+          <AuthBtn btnText="Sign Up" needSwitchText={true} />
         </AuthFormTemplate>
       </FormContainer>
     </FormProvider>

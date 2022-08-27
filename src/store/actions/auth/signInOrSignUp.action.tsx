@@ -6,7 +6,7 @@ import { AppThunk } from "../../store";
 import { registerApi, loginApi } from "src/api/auth.api";
 import { IUserInfo } from "src/interface/user.interface";
 import { authRelatedAction } from "./authRelatedAction.action";
-interface IAuthResult {
+export interface IAuthResult {
   result: {
     token: string;
     refreshToken: string;
@@ -41,18 +41,19 @@ const signInOrSignUp = (data: IProps): AppThunk => {
             password: data.password,
           });
 
-      dispatch(
-        authRelatedAction({
-          user,
-          token,
-          refreshToken,
-          cartLength: user.cartLength,
-          type: "email",
-        })
-      );
+      if (isLogin(data)) {
+        dispatch(
+          authRelatedAction({
+            user,
+            token,
+            refreshToken,
+            cartLength: user.cartLength,
+            type: "email",
+          })
+        );
+        toast.success("You have signed in successfully!");
+      }
       dispatch(commonActions.setLoading(false));
-
-      toast.success("You have signed in successfully!");
     } catch (error) {
       const err = error as AxiosError;
 

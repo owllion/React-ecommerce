@@ -52,11 +52,7 @@ const ForgotPassword = () => {
           <FieldErr errors={errors} field="email" />
         </InputBox>
 
-        <AuthBtn
-          btnText="Send me reset Link"
-          bgColor="dark"
-          textColor="white"
-        />
+        <AuthBtn btnText="Send me reset Link" />
       </AuthFormTemplate>
     </FormContainer>
   );

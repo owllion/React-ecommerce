@@ -10,25 +10,29 @@ import {
 } from "src/components/Auth/auth.style";
 import BackBtn from "../Common/button/BackBtn";
 
+const notShowBtnPathList = ["welcome", "verify-email", "reset-password"];
 interface IProps extends React.PropsWithChildren {
-  mainTitle: string;
-  subTitle: string;
+  mainTitle?: string;
+  subTitle?: string;
   imgUrl: string;
   alt: string;
 }
 
 const AuthFormTemplate = ({
-  mainTitle,
-  subTitle,
+  mainTitle = "",
+  subTitle = "",
   imgUrl,
   alt,
   children,
 }: IProps) => {
   const path = useLocation();
   const pathName = path.pathname.split("/")[2];
+  console.log(pathName);
+  const pathIsOnTheList = notShowBtnPathList.includes(pathName);
+
   return (
     <Container>
-      {pathName !== "welcome" && <BackBtn />}
+      {!pathIsOnTheList && <BackBtn />}
       <TopImgContainer>
         <TopImg src={imgUrl} alt={alt} />
       </TopImgContainer>

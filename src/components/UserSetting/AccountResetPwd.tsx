@@ -1,11 +1,8 @@
-import React from "react";
 import styled from "styled-components";
-
 import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
+
 import SectionTitle from "./SectionTitle";
-
 import SaveBtn from "./SaveBtn";
-
 import PwdSvg from "../../assets/reset-password/pwd.svg";
 import PwdInput from "../Common/input/PwdInput";
 
@@ -27,7 +24,7 @@ const AccountResetPwd = () => {
       console.log(error, "this is catch error");
     }
   };
-  console.log(errors, "this is formState errors");
+  console.log(errors);
 
   return (
     <Container>
