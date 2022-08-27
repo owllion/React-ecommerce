@@ -1,28 +1,40 @@
 import styled from "styled-components";
 import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
+import { AxiosError } from "axios";
 
 import SectionTitle from "./SectionTitle";
 import SaveBtn from "./SaveBtn";
 import PwdSvg from "../../assets/reset-password/pwd.svg";
 import PwdInput from "../Common/input/PwdInput";
-
+import { userPasswordModify } from "src/api/user.api";
+import toast from "react-hot-toast";
 interface FormValue {
   curPwd: string;
   newPwd: string;
 }
 
 const AccountResetPwd = () => {
+  const passwordModify = async (password: string) => {
+    try {
+      await userPasswordModify({ password });
+      toast.success("modify successfully,you can use new password to login");
+    } catch (error) {
+      const err = ((error as AxiosError).response?.data as { msg: string }).msg;
+      toast.error(err);
+    }
+  };
   const methods = useForm<FormValue>();
   const {
     handleSubmit,
+    reset,
     formState: { errors },
   } = methods;
   const onSubmit: SubmitHandler<FormValue> = async (data) => {
-    try {
-      console.log(data);
-    } catch (error) {
-      console.log(error, "this is catch error");
-    }
+    await passwordModify(data.newPwd);
+    reset({
+      curPwd: "",
+      newPwd: "",
+    });
   };
   console.log(errors);
 

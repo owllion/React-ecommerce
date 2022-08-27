@@ -20,7 +20,7 @@ export const userInfoModify = (data: UserInterface.IUserInfoModify) =>
   instance.patch("/user/info", data);
 
 export const userPasswordModify = (data: UserInterface.IUserPasswordModify) =>
-  instance.put("/user/password-modify", data);
+  instance.put("/user/password", data);
 
 export const addToFavApi = (data: UserInterface.IAddToFav) =>
   instance.post("/user/fav/add", data);
