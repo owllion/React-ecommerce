@@ -23,6 +23,8 @@ import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import signInOrSignUp from "../../store/actions/auth/signInOrSignUp.action";
 import AuthFormTemplate from "./AuthFormTemplate";
 import AuthBtn from "./AuthBtn";
+import PwdRule from "./pwdRule/PwdRule";
+
 export interface FormValue {
   email: string;
   password: string;
@@ -106,6 +108,7 @@ const Registration = () => {
             field="password"
             validation={["required", "passwordValidation"]}
           />
+          <PwdRule />
           <AuthBtn btnText="Sign Up" needSwitchText={true} />
         </AuthFormTemplate>
       </FormContainer>

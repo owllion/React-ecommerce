@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import cl from "../../constants/color/color";
+import cl from "../../../constants/color/color";
 
 const PwdRuleNumberItem = ({ num }: { num: number }) => {
   return <NumberItem>{num + 1}</NumberItem>;

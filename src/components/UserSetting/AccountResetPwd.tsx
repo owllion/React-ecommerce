@@ -8,6 +8,7 @@ import PwdSvg from "../../assets/reset-password/pwd.svg";
 import PwdInput from "../Common/input/PwdInput";
 import { userPasswordModify } from "src/api/user.api";
 import toast from "react-hot-toast";
+import PwdRule from "../Auth/pwdRule/PwdRule";
 interface FormValue {
   curPwd: string;
   newPwd: string;
@@ -57,7 +58,7 @@ const AccountResetPwd = () => {
                 field="newPwd"
                 validation={["required", "passwordValidation"]}
               />
-
+              <PwdRule />
               <SaveBtn />
             </FormWrapper>
           </FormProvider>
