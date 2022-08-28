@@ -24,15 +24,12 @@ const ReviewSection = () => {
                 <LeftPartContainer>
                   <LeftAvatarBox>
                     {isLoading ? (
-                      <Skeleton
-                        circle
-                        height="100%"
-                        containerClassName="avatar-skeleton"
-                      />
+                      <Skeleton circle height="100%" />
                     ) : (
                       <img
                         src={
-                          review.user.avatarUpload || review.user.avatarDefault
+                          review.user?.avatarUpload ||
+                          review.user?.avatarDefault
                         }
                         alt="avatar"
                       />
@@ -45,9 +42,9 @@ const ReviewSection = () => {
                   ) : (
                     <SingleReviewHeader>
                       <Author>
-                        {review.user.firstName
+                        {review.user?.firstName
                           ? `${review.user.firstName} ${review.user.lastName}`
-                          : `${review.user.fullName}`}
+                          : `${review.user?.fullName}`}
                       </Author>
                       <Date>
                         {dayjs(review.createdAt).format("YYYY MMMM DD")}
