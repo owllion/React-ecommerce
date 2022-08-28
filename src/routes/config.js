@@ -12,7 +12,7 @@ const Registration = lazy(() => import("../components/Auth/Registration.tsx"));
 const SendLinkNotification = lazy(() =>
   import("../components/Auth/SendLinkNotification")
 );
-const VerifyEmail = lazy(() => import("../components/Auth/VerifyEmail"));
+const VerifyEmail = lazy(() => import("../components/Auth/verify/VerifyEmail"));
 const ForgotPassword = lazy(() =>
   import("../components/Auth/ForgotPassword.tsx")
 );

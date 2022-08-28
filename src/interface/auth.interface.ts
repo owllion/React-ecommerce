@@ -19,4 +19,6 @@ export interface IVerifyUserEmail {
   token: string;
 }
 
-export interface ISendVerifyLink extends Pick<ILogin, "email"> {}
+export interface ISendVerifyLink extends Pick<ILogin, "email"> {
+  type: string;
+}

@@ -1,5 +1,5 @@
+import { useState } from "react";
 import styled from "styled-components";
-import { AxiosError } from "axios";
 import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
@@ -16,6 +16,7 @@ interface FormValue {
 }
 
 const ResetPassword = () => {
+  const [isVerified, setIsVerified] = useState(true);
   const navigate = useNavigate();
   const params = useParams();
   const { token } = params as { token: string };
@@ -31,9 +32,7 @@ const ResetPassword = () => {
       toast.success("Password reset successfully!");
       navigate("/auth/welcome");
     } catch (error) {
-      const err = error as AxiosError;
-      if (err.response && err.response.data)
-        toast.error((err.response?.data as { msg: string }).msg);
+      setIsVerified(false);
     }
   };
   console.log(errors);

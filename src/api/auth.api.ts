@@ -19,7 +19,7 @@ export const getRefreshToken = (data: AuthInterface.IGetRefreshToken) =>
 export const verifyUserApi = (data: AuthInterface.IVerifyUserEmail) =>
   instance.post("/auth/verify-user", data);
 
-export const sendVerifyLink = (data: AuthInterface.ISendVerifyLink) =>
-  instance.post("/auth/send-verify-link", data);
+export const sendLink = (data: AuthInterface.ISendVerifyLink) =>
+  instance.post("/auth/send-link", data);
 
 export const logoutApi = () => instance.get("/logout");
