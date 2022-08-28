@@ -1,10 +1,16 @@
-import React from "react";
+import { useState } from "react";
 
 import styled from "styled-components";
 import cl from "../../constants/color/color";
 import { IoIosSend } from "react-icons/io";
+import toast from "react-hot-toast";
 
 const Newsletter = () => {
+  const [value, setValue] = useState("");
+  const handleSendFakeEmail = () => {
+    toast.success("Thanks for your subscription!");
+    setValue("");
+  };
   return (
     <Container>
       <Content>
@@ -14,8 +20,12 @@ const Newsletter = () => {
         </TitleBox>
         <Desc>Last chance to take advantage of our discounts!</Desc>
         <InputContainer>
-          <Input placeholder="Your email" />
-          <SendBtn>
+          <Input
+            placeholder="Your email"
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+          />
+          <SendBtn onClick={() => handleSendFakeEmail()}>
             <IoIosSend />
           </SendBtn>
         </InputContainer>
