@@ -22,4 +22,7 @@ export const verifyUserApi = (data: AuthInterface.IVerifyUserEmail) =>
 export const sendLink = (data: AuthInterface.ISendVerifyLink) =>
   instance.post("/auth/send-link", data);
 
+export const checkIfTokenIsValid = (data: AuthInterface.ICheckToken) =>
+  instance.post("/auth/check-token", data);
+
 export const logoutApi = () => instance.get("/logout");

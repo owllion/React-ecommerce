@@ -8,13 +8,20 @@ interface IProps {
   btnText: string;
   needSwitchText?: boolean;
   type?: "button" | "submit";
+  id?: "SendEmail" | "ResetPassword";
+  //for RestPassword.tsx to decide which function to call
 }
 
-const AuthBtn = ({ btnText, needSwitchText, type = "submit" }: IProps) => {
+const AuthBtn = ({
+  btnText,
+  needSwitchText,
+  type = "submit",
+  id = "SendEmail",
+}: IProps) => {
   const { isLoading } = useAppSelector((state) => state.common);
   return (
     <BtnBox>
-      <Btn bgColor={`${cl.dark}`} disabled={isLoading} type={type}>
+      <Btn bgColor={`${cl.dark}`} disabled={isLoading} type={type} id={id}>
         <BtnText color={`${cl.white}`}>
           {needSwitchText ? (isLoading ? "loading" : btnText) : btnText}
         </BtnText>

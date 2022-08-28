@@ -4,6 +4,7 @@ import { useAppSelector } from "../../store/hooks";
 
 const ApiError = () => {
   const { errorMsg } = useAppSelector((state) => state.common);
+  console.log(errorMsg);
   return (
     <ErrMsgContainer>
       <Msg>{errorMsg}</Msg>
