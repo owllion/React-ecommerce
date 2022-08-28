@@ -244,17 +244,22 @@ const BarItem = styled.li<{
   transition: background 0.8s ease;
   width: 100%;
   margin-top: 1rem;
-  ${({ currentIndex, selectedIndex, currentPath, selectedPath, isLogout }) =>
-    css`
-      border-left: ${!isLogout &&
-      currentIndex === selectedIndex &&
-      currentPath === selectedPath &&
-      `5px solid ${cl.purple}`};
-    `};
+  @media (min-width: 1025px) {
+    ${({ currentIndex, selectedIndex, currentPath, selectedPath, isLogout }) =>
+      css`
+        border-left: ${!isLogout &&
+        currentIndex === selectedIndex &&
+        currentPath === selectedPath &&
+        `5px solid ${cl.purple}`};
+      `};
+  }
   &:hover {
     ${ItemIcon} {
       transform: translateY(-5px);
-      color: ${cl.purple};
+
+      @media (min-width: 1025px) {
+        color: ${cl.purple};
+      }
     }
   }
 `;
