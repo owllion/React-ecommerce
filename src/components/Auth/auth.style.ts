@@ -28,7 +28,9 @@ export const BtnText = styled.span<{ color?: string }>`
   font-size: 1rem;
   font-weight: 400;
 `;
-
+export const InputBox = styled.div`
+  margin: 0 0 1rem;
+`;
 interface IBtnProps {
   bgColor?: string;
   border?: boolean;

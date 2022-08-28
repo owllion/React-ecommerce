@@ -17,7 +17,7 @@ import {
 } from "../Checkout/form/shipping-form/ShippingForm.style";
 import ApiError from "../error/ApiError";
 import { AxiosError } from "axios";
-
+import { InputBox } from "../Auth/auth.style";
 interface FormValue {
   email: string;
 }
@@ -76,7 +76,4 @@ const CheckEmail = () => {
 };
 
 const FormContainer = styled.form``;
-const InputBox = styled.div`
-  margin: 0 0 1rem;
-`;
 export default CheckEmail;

@@ -18,3 +18,5 @@ export interface IGetRefreshToken {
 export interface IVerifyUserEmail {
   token: string;
 }
+
+export interface ISendVerifyLink extends Pick<ILogin, "email"> {}

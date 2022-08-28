@@ -73,6 +73,9 @@ const AccountResetPwd = () => {
 
 const Container = styled.section`
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;
 const Wrapper = styled.div`
   display: flex;
