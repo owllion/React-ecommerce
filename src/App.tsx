@@ -15,7 +15,8 @@ import SelectSizePopup from "./components/Product/SelectSizePopup";
 import { useAppSelector } from "./store/hooks";
 
 const App = () => {
-  const { showPopup } = useAppSelector((state) => state.common);
+  const { showPopup } = useAppSelector((state) => state.common || {});
+
   return (
     <BrowserRouter>
       <Toaster position="top-center" reverseOrder={false} />

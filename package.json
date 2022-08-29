@@ -46,6 +46,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "coverage": "jest --coverage",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -73,6 +74,9 @@
     "@types/react-dom": "^18.0.6",
     "@types/react-redux": "^7.1.24",
     "@types/redux-logger": "^3.0.9",
-    "@types/styled-components": "^5.1.25"
+    "@types/redux-mock-store": "^1.0.3",
+    "@types/styled-components": "^5.1.25",
+    "canvas": "^2.9.3",
+    "redux-mock-store": "^1.5.4"
   }
 }

@@ -13,9 +13,11 @@ import { ShopBtn } from "../Home/Hero";
 const Navbar = () => {
   const [showSideNav, setShowSideNav] = useState(false);
   const [colorChange, setColorChange] = useState(false);
-  const { showSearch } = useAppSelector((state) => state.common);
-  const { avatarUpload, avatarDefault } = useAppSelector((state) => state.user);
-  const { cartLength } = useAppSelector((state) => state.cart);
+  const { showSearch } = useAppSelector((state) => state.common || {});
+  const { avatarUpload, avatarDefault } = useAppSelector(
+    (state) => state.user || {}
+  );
+  const { cartLength } = useAppSelector((state) => state.cart || {});
 
   const getCartLength = () => {
     const localLen = localStorage.getItem("cartLength");
