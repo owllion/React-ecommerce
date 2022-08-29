@@ -32,7 +32,7 @@ const SideNav = ({ handleShowSideNav }: IProps) => {
   };
 
   const navigate = useNavigate();
-  const { token } = useAppSelector((state) => state.auth);
+  const { token } = useAppSelector((state) => state.auth || {});
 
   const getToken = () => localStorage.getItem("token") || "";
 

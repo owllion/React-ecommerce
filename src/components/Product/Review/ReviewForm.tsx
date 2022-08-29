@@ -19,8 +19,8 @@ interface FormValue {
 }
 const ReviewForm = () => {
   const dispatch = useAppDispatch();
-  const { productId } = useAppSelector((state) => state.product);
-  const userInfo = useAppSelector((state) => state.user);
+  const { productId } = useAppSelector((state) => state.product || {});
+  const userInfo = useAppSelector((state) => state.user || {});
 
   const [rating, setRating] = useState(5);
   const [count, setCount] = useState(0);

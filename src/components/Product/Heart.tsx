@@ -15,8 +15,8 @@ import { commonActions } from "../../store/slice/Common.slice";
 
 const Heart = ({ item }: { item: IProduct | undefined }) => {
   const dispatch = useAppDispatch();
-  const { favList } = useAppSelector((state) => state.user);
-  const { favLoading } = useAppSelector((state) => state.common);
+  const { favList } = useAppSelector((state) => state.user || {});
+  const { favLoading } = useAppSelector((state) => state.common || {});
 
   const getToken = () => localStorage.getItem("token");
   const isInList = () => {

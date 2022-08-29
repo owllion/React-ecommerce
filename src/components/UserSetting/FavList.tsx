@@ -16,8 +16,8 @@ import NoResult from "./NoResult";
 
 const FavList = () => {
   const dispatch = useAppDispatch();
-  const { favList } = useAppSelector((state) => state.user);
-  const { isLoading } = useAppSelector((state) => state.common);
+  const { favList } = useAppSelector((state) => state.user || {});
+  const { isLoading } = useAppSelector((state) => state.common || {});
   const getFavListHandler = async () => {
     try {
       dispatch(commonActions.setLoading(true));

@@ -14,7 +14,7 @@ interface IProps {
   handleSetCheckVal: ChangeEventHandler<HTMLInputElement>;
 }
 const CheckBox = ({ item, current, handleSetCheckVal }: IProps) => {
-  const selectedList = useAppSelector((state) => state.product);
+  const selectedList = useAppSelector((state) => state.product || {});
   type selectedListString =
     | "selectedCategory"
     | "selectedBrand"

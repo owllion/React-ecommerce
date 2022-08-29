@@ -16,13 +16,12 @@ import { productActions } from "../store/slice/Product.slice";
 import { commonActions } from "../store/slice/Common.slice";
 import Heart from "../components/Product/Heart";
 import SizeSelect from "../components/Product/SizeSelect";
-import { cartActions } from "../store/slice/Cart.slice";
 
 const sizeList = ["XS", "S", "M", "L", "XL"];
 
 const ProductDetail = () => {
   const dispatch = useAppDispatch();
-  const { isLoading } = useAppSelector((state) => state.common);
+  const { isLoading } = useAppSelector((state) => state.common || {});
   const { id } = useParams();
 
   const [mainImg, setMainImg] = useState("");

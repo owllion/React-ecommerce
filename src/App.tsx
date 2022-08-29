@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { BrowserRouter } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
-import "react-confirm-alert/src/react-confirm-alert.css";
+// import "react-confirm-alert/src/react-confirm-alert.css";
 import "react-loading-skeleton/dist/skeleton.css";
 import "react-circular-progressbar/dist/styles.css";
 

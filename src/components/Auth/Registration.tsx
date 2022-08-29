@@ -33,7 +33,7 @@ export interface FormValue {
 }
 
 const Registration = () => {
-  const { isLoading } = useAppSelector((state) => state.common);
+  const { isLoading } = useAppSelector((state) => state.common || {});
   const location = useLocation();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();

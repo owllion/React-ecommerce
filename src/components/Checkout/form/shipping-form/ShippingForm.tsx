@@ -29,10 +29,10 @@ interface FormValue {
 const ShippingForm = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { cartList } = useAppSelector((state) => state.cart);
+  const { cartList } = useAppSelector((state) => state.cart || {});
   const { total, shipping, discountTotal, discount, discountCode } =
-    useAppSelector((state) => state.checkout);
-  const { locale } = useAppSelector((state) => state.user);
+    useAppSelector((state) => state.checkout || {});
+  const { locale } = useAppSelector((state) => state.user || {});
   const [userLocale, setUserLocale] = useState("");
   const [selectedCountry, setSelectedCountry] = useState<string | undefined>(
     userLocale || "Taiwan"

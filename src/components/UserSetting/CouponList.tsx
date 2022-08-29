@@ -24,7 +24,7 @@ const isExpired = (expiryDate: Date) => {
   return expire - now < 0;
 };
 const CouponList = () => {
-  const { isLoading } = useAppSelector((state) => state.common);
+  const { isLoading } = useAppSelector((state) => state.common || {});
   const dispatch = useAppDispatch();
 
   const [selected, setSelected] = useState("unused");

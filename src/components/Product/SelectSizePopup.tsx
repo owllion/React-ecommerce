@@ -14,7 +14,7 @@ const sizeList = ["XS", "S", "M", "L", "XL"];
 
 const Popup = () => {
   const dispatch = useAppDispatch();
-  const { currentProductId } = useAppSelector((state) => state.common);
+  const { currentProductId } = useAppSelector((state) => state.common || {});
   const [selectedSizeIndex, setSelectedSizeIndex] = useState(0);
 
   const setSizeHandler = (index: number) => {

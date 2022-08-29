@@ -9,8 +9,8 @@ import Lottie from "../../Common/Lottie";
 import { useAppSelector } from "../../../store/hooks";
 
 const ReviewSection = () => {
-  const { reviews } = useAppSelector((state) => state.product);
-  const { isLoading } = useAppSelector((state) => state.common);
+  const { reviews } = useAppSelector((state) => state.product || {});
+  const { isLoading } = useAppSelector((state) => state.common || {});
   return (
     <Container>
       <Header>HEAR FROM OUR CUSTOMERS</Header>

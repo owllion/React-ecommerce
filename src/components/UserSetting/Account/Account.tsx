@@ -25,7 +25,7 @@ interface FormValue {
 
 const Account = () => {
   const { email, firstName, lastName, fullName, phone } = useAppSelector(
-    (state) => state.user
+    (state) => state.user || {}
   );
   const dispatch = useAppDispatch();
 

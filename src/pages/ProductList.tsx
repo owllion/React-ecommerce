@@ -32,8 +32,8 @@ const ProductList = () => {
     selectedBrand,
     selectedPrice,
     selectedCategory,
-  } = useAppSelector((state) => state.product);
-  const { isLoading } = useAppSelector((state) => state.common);
+  } = useAppSelector((state) => state.product || {});
+  const { isLoading } = useAppSelector((state) => state.common || {});
   const dispatch = useAppDispatch();
   const [filteredList, setFilteredList] =
     useState<(IProduct | Partial<IProduct>)[]>();

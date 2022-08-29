@@ -12,8 +12,10 @@ import { Info as Backdrop } from "../../Product/SingleProduct";
 import { commonActions } from "../../../store/slice/Common.slice";
 
 const AvatarSection = () => {
-  const { avatarDefault, avatarUpload } = useAppSelector((state) => state.user);
-  const { uploadImgLoading } = useAppSelector((state) => state.common);
+  const { avatarDefault, avatarUpload } = useAppSelector(
+    (state) => state.user || {}
+  );
+  const { uploadImgLoading } = useAppSelector((state) => state.common || {});
   const dispatch = useAppDispatch();
   const [progress, setProgress] = useState<number>(0);
   const fileSelect = useRef<HTMLInputElement>(null);

@@ -19,7 +19,7 @@ interface IResult {
 const Cart = () => {
   const [total, setTotal] = useState(0);
   const dispatch = useAppDispatch();
-  const { cartList } = useAppSelector((state) => state.cart);
+  const { cartList } = useAppSelector((state) => state.cart || {});
   const getTotal = () => {
     const res = cartList.reduce(
       (total, cur) => total + cur.qty! * cur.price,

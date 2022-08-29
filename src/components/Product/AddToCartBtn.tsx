@@ -10,7 +10,7 @@ interface IProps {
 }
 const AddToCartBtn = ({ productId, size }: IProps) => {
   const dispatch = useAppDispatch();
-  const { cartLoading } = useAppSelector((state) => state.common);
+  const { cartLoading } = useAppSelector((state) => state.common || {});
   const handleAddToCart = async () => {
     try {
       /**

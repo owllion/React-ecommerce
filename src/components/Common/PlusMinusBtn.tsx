@@ -16,7 +16,9 @@ interface IProps {
 
 const PlusMinusBtn = ({ cartItemQty, size, productId }: IProps) => {
   const dispatch = useAppDispatch();
-  const { itemQty, cartLoading } = useAppSelector((state) => state.common);
+  const { itemQty, cartLoading } = useAppSelector(
+    (state) => state.common || {}
+  );
 
   const updateQtyHandler = async (
     type: string,

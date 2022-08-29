@@ -5,16 +5,19 @@ export const useMatchMedia = (width: string) => {
   const isPadWidth = window.matchMedia(`(max-width: ${width})`);
 
   useEffect(() => {
-    setWidth(isPadWidth.matches);
+    setWidth(isPadWidth?.matches);
   }, []);
   useEffect(() => {
-    isPadWidth.addEventListener("change", (event: MediaQueryListEvent) => {
+    isPadWidth?.addEventListener("change", (event: MediaQueryListEvent) => {
       setWidth(event.matches);
     });
     return () =>
-      isPadWidth.removeEventListener("change", (event: MediaQueryListEvent) => {
-        setWidth(event.matches);
-      });
+      isPadWidth?.removeEventListener(
+        "change",
+        (event: MediaQueryListEvent) => {
+          setWidth(event.matches);
+        }
+      );
   });
   return isTargetWidth;
 };

@@ -19,8 +19,8 @@ interface IGetReviewList {
 
 const ReviewList = () => {
   const dispatch = useAppDispatch();
-  const { reviewList } = useAppSelector((state) => state.user);
-  const { isLoading } = useAppSelector((state) => state.common);
+  const { reviewList } = useAppSelector((state) => state.user || {});
+  const { isLoading } = useAppSelector((state) => state.common || {});
 
   const getReviewList = async () => {
     try {

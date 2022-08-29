@@ -22,7 +22,7 @@ interface IOrderList {
 const OrderList = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { isLoading } = useAppSelector((state) => state.common);
+  const { isLoading } = useAppSelector((state) => state.common || {});
   const [orderList, setOrderList] = useState<IOrder[]>([]);
   const getOrderList = async () => {
     try {

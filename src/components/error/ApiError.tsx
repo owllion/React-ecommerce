@@ -3,7 +3,7 @@ import cl from "../../constants/color/color";
 import { useAppSelector } from "../../store/hooks";
 
 const ApiError = () => {
-  const { errorMsg } = useAppSelector((state) => state.common);
+  const { errorMsg } = useAppSelector((state) => state.common || {});
   console.log(errorMsg);
   return (
     <ErrMsgContainer>

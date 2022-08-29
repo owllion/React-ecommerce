@@ -29,7 +29,7 @@ const Review = ({ review }: { review: IReview }) => {
   const [count, setCount] = useState(0);
   const [comment, setComment] = useState("");
   const [isEditable, setIsEditable] = useState(false);
-  const { isLoading } = useAppSelector((state) => state.common);
+  const { isLoading } = useAppSelector((state) => state.common || {});
   const {
     register,
     clearErrors,

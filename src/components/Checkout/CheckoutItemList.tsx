@@ -21,12 +21,12 @@ const CheckoutItemList = () => {
   const dispatch = useAppDispatch();
   const [code, setCode] = useState("");
   const { shipping, discountTotal, discount } = useAppSelector(
-    (state) => state.checkout
+    (state) => state.checkout || {}
   );
 
-  const { cartList } = useAppSelector((state) => state.cart);
-  const { errorMsg } = useAppSelector((state) => state.common);
-  const { applyCouponLoading } = useAppSelector((state) => state.common);
+  const { cartList } = useAppSelector((state) => state.cart || {});
+  const { errorMsg } = useAppSelector((state) => state.common || {});
+  const { applyCouponLoading } = useAppSelector((state) => state.common || {});
   const total = useCartTotal(cartList);
 
   const codeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {

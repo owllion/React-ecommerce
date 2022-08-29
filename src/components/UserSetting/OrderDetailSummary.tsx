@@ -22,7 +22,7 @@ interface IProps {
 const OrderDetailSummary = (props: IProps) => {
   const { needContainer, itemList, total, shipping, discountTotal, discount } =
     props;
-  const { isLoading } = useAppSelector((state) => state.common);
+  const { isLoading } = useAppSelector((state) => state.common || {});
   return (
     <Container needContainer={needContainer}>
       {isLoading ? (

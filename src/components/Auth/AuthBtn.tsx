@@ -18,7 +18,7 @@ const AuthBtn = ({
   type = "submit",
   id = "SendEmail",
 }: IProps) => {
-  const { isLoading } = useAppSelector((state) => state.common);
+  const { isLoading } = useAppSelector((state) => state.common || {});
   return (
     <BtnBox>
       <Btn bgColor={`${cl.dark}`} disabled={isLoading} type={type} id={id}>
