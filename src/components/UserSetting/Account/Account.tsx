@@ -104,8 +104,8 @@ const Account = () => {
             </SingleInputBox>
           )}
           <SingleInputBox>
-            <Label>Email</Label>
-            <Input value={email} disabled />
+            <Label htmlFor="email">Email</Label>
+            <Input value={email} disabled id="email" />
           </SingleInputBox>
           <SingleInputBox>
             <Label error={errors.phone}>Phone</Label>
