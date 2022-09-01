@@ -12,11 +12,7 @@ import { BrowserRouter, MemoryRouter } from "react-router-dom";
 import configureStore from "redux-mock-store";
 import Account from "./Account";
 
-beforeEach(() => {
-  jest.mock("axios", () => {
-    post: jest.fn();
-  });
-});
+beforeEach(() => {});
 afterEach(() => {
   cleanup;
 });
@@ -34,7 +30,9 @@ const res = (
 describe("when rendered Account component", () => {
   it(" email input should be disabled ", () => {
     render(res, { wrapper: BrowserRouter });
+
     const input = screen.getByLabelText("Email");
+
     expect((input as HTMLInputElement).value).not.toBeNull();
     expect(input).toBeDisabled();
   });

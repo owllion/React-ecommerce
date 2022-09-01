@@ -40,9 +40,14 @@ const CheckEmail = () => {
         ? navigate("/auth/user-login", { state: { email: email.email } })
         : navigate("/auth/registration", { state: { email: email.email } });
     } catch (error) {
-      const err = ((error as AxiosError).response?.data as { msg: string }).msg;
-
-      dispatch(commonActions.setError(err));
+      console.log(error as { name: string }, "這是錯誤");
+      if (error && error instanceof AxiosError) {
+        const err = ((error as AxiosError).response?.data as { msg: string })
+          .msg;
+        console.log("fuck");
+        return dispatch(commonActions.setError(err));
+      }
+      dispatch(commonActions.setError("something wrong"));
     }
   };
   console.log(errors);

@@ -93,7 +93,7 @@ const Settings = () => {
                   </BarItem>
                 </BarItemLink>
               ))}
-              <BarItem isLogout={true} onClick={() => checkForLogout()}>
+              <BarItem isLogout={true} onClick={async () => await logout()}>
                 <ItemIcon isLogout={true}>
                   <IoLogOutOutline />
                 </ItemIcon>
