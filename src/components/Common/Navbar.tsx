@@ -64,7 +64,7 @@ const Navbar = () => {
         <Wrapper change={colorChange}>
           <Left>
             <div className="logo">
-              <Link to={"/"}>
+              <Link to="/">
                 <Logo>Koh.</Logo>
               </Link>
             </div>
