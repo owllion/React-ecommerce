@@ -18,6 +18,8 @@ import {
 import ApiError from "../error/ApiError";
 import { AxiosError } from "axios";
 import { InputBox } from "../Auth/auth.style";
+import axios from "axios";
+
 interface FormValue {
   email: string;
 }
@@ -32,10 +34,15 @@ const CheckEmail = () => {
   } = methods;
   const onSubmit: SubmitHandler<FormValue> = async (email) => {
     try {
-      const {
-        data: { hasAccount },
-      } = await checkIfAccountExists(email);
-
+      // const res = await checkIfAccountExists(email);
+      const res = await axios.post(
+        "http://localhost:5000/api/auth/check-account",
+        email
+      );
+      const hasAccount = res?.data?.hasAccount;
+      console.log(res, "這是res");
+      console.log(res.data.hasAccount, "hasaccount!!!!!!!!!!!!!!");
+      // const hasAccount = res?.data?.hasAccount;
       hasAccount
         ? navigate("/auth/user-login", { state: { email: email.email } })
         : navigate("/auth/registration", { state: { email: email.email } });
