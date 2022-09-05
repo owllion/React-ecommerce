@@ -36,6 +36,9 @@ Node.js server is  [here](https://github.com/owllion/EC-Server).
 - Create an order and check in the profile page
 
 
+## Screenshots
+
+
 ## Setup
 ```
 git clone https://github.com/owllion/React-ecommerce.git
