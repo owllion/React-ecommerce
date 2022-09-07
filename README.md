@@ -46,7 +46,6 @@ git clone https://github.com/owllion/React-ecommerce.git
 npm install
 
 npm run start
-
 ```
 
 
