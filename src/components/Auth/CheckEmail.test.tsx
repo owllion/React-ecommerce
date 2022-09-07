@@ -7,6 +7,7 @@ import {
   render,
   screen,
   waitFor,
+  waitForElementToBeRemoved,
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Provider } from "react-redux";
@@ -45,10 +46,6 @@ beforeAll(() => {
 afterEach(() => {
   cleanup;
 });
-const createRouterWrapper =
-  (route: any): React.ComponentType =>
-  ({ children }: React.PropsWithChildren) =>
-    <MemoryRouter initialEntries={[route]}>{children}</MemoryRouter>;
 
 const initialState = { output: 10 };
 const mockStore = configureStore();
@@ -67,7 +64,6 @@ describe("when rendered CheckEmail component", () => {
     const elHasEmailText = screen.getAllByText(/email/i);
     expect(elHasEmailText.length).toEqual(2);
   });
-
   it("should render email input ", () => {
     render(res, { wrapper: BrowserRouter });
 
@@ -84,7 +80,6 @@ describe("when rendered CheckEmail component", () => {
     fireEvent.change(input, { target: { value: testVal } });
     expect((input as HTMLInputElement).value).toBe(testVal);
   });
-
   it("should render Continue button", () => {
     render(res, { wrapper: BrowserRouter });
 
@@ -103,9 +98,9 @@ describe("when send email button is clicked and call the api", () => {
       fireEvent.change(input, { target: { value: testVal } });
       expect((input as HTMLInputElement).value).toBe(testVal);
 
-      act(() => {
+      act(async () => {
         const btn = screen.getByRole("button", { name: "Continue" });
-        userEvent.click(btn);
+        await userEvent.click(btn);
       });
 
       // api.checkIfAccountExists({ email: testVal });
@@ -122,11 +117,12 @@ describe("when send email button is clicked and call the api", () => {
       expect(mockCheckIfAccountExists).toHaveBeenCalledWith({
         email: testVal,
       });
-      await waitFor(() => {
-        expect(
-          screen.queryByText(/Have your money ready/i)
-        ).toBeInTheDocument();
-      });
+
+      waitForElementToBeRemoved(
+        screen.getByRole("heading", {
+          name: /what's your email\?/i,
+        })
+      ).catch((err) => console.log(err));
     });
   });
 
@@ -135,11 +131,18 @@ describe("when send email button is clicked and call the api", () => {
       render(res, { wrapper: BrowserRouter });
 
       const testVal = "name";
-      const inputElement = screen.getByRole("textbox");
-      console.log(prettyDOM(inputElement));
-      fireEvent.change(inputElement, { target: { value: testVal } });
+      // const inputElement = screen.getByRole("textbox");
 
-      expect((inputElement as HTMLInputElement).value).toBe(testVal);
+      expect(screen.getByRole("textbox")).toBeInTheDocument();
+
+      // console.log(prettyDOM(inputElement));
+      fireEvent.change(screen.getByRole("textbox"), {
+        target: { value: testVal },
+      });
+
+      expect((screen.getByRole("textbox") as HTMLInputElement).value).toBe(
+        testVal
+      );
 
       act(() => {
         userEvent.click(screen.getByRole("button", { name: "Continue" }));
@@ -154,7 +157,7 @@ describe("when send email button is clicked and call the api", () => {
       render(res, { wrapper: BrowserRouter });
 
       const inputElement = screen.getByRole("textbox");
-      console.log(prettyDOM(inputElement));
+      // console.log(prettyDOM(inputElement));
       fireEvent.change(inputElement, { target: { value: "" } });
 
       expect((inputElement as HTMLInputElement).value).toBe("");

@@ -40,9 +40,11 @@ const CheckEmail = () => {
         email
       );
       const hasAccount = res?.data?.hasAccount;
-      console.log(res, "這是res");
-      console.log(res.data.hasAccount, "hasaccount!!!!!!!!!!!!!!");
+      // const hasAccount = true;
+      // console.log(res, "這是res");
+      // console.log(res.data.hasAccount, "hasaccount!!!!!!!!!!!!!!");
       // const hasAccount = res?.data?.hasAccount;
+      navigate("/auth/user-login", { state: { email: email.email } });
       hasAccount
         ? navigate("/auth/user-login", { state: { email: email.email } })
         : navigate("/auth/registration", { state: { email: email.email } });

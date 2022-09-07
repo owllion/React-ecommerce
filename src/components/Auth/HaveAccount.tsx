@@ -48,6 +48,7 @@ const HaveAccount = () => {
   console.log(errors);
 
   useEffect(() => {
+    console.log("otejgohwefuewfwuidhfuifhwuiehf!!!!!!!!");
     dispatch(commonActions.setErrorClear());
   }, []);
 

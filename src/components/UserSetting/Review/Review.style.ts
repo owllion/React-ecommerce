@@ -28,6 +28,7 @@ export const SingleReviewHeader = styled.div`
 `;
 export const HeaderItem = styled.div`
   display: flex;
+  align-items: center;
   @media (max-width: 350px) {
     flex-direction: column;
     padding: 0.5rem 0;
