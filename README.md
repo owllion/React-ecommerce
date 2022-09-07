@@ -1,7 +1,7 @@
  # koh  -  MERN Stack Shopping App
-A shopping app created with React.js , styled-components , TypeScript , Node.js , Typegoose and MongoDB.     
-This repository only contains the front-end part.       
-Node.js server is  [here](https://github.com/owllion/EC-Server).
+- A shopping app created with React.js , styled-components , TypeScript , Node.js , Typegoose and MongoDB.     
+- This repository only contains the front-end part.       
+- Node.js server is  [here](https://github.com/owllion/EC-Server).
 
 
 ## Table of Contents
