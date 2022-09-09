@@ -1,13 +1,14 @@
 {
   "name": "react_ecommerce",
   "version": "0.1.0",
+  "engines": {
+    "npm": "8.x",
+    "node": "16.x"
+  },
   "private": true,
   "dependencies": {
-    "@chakra-ui/table": "^2.0.2",
     "@react-oauth/google": "^0.2.6",
     "@reduxjs/toolkit": "^1.8.2",
-    "@stripe/react-stripe-js": "^1.9.0",
-    "@stripe/stripe-js": "^1.32.0",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
@@ -19,7 +20,6 @@
     "prop-types": "^15.8.1",
     "qs": "^6.11.0",
     "react": "^18.1.0",
-    "react-animated-heart": "^0.0.7",
     "react-circular-progressbar": "^2.1.0",
     "react-confirm-alert": "^3.0.6",
     "react-dom": "^18.1.0",

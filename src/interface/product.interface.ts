@@ -14,6 +14,7 @@ export interface IProduct {
   availability: boolean;
   sales: number;
   size: string;
+  color: string;
   qty?: number;
   reviews: IReview[];
 }

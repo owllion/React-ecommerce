@@ -1,4 +1,4 @@
-import { checkIfAccountExists } from "../../api/auth.api";
+import { checkIfAccountExists } from "../src/api/auth.api";
 import {
   act,
   cleanup,
@@ -13,8 +13,8 @@ import userEvent from "@testing-library/user-event";
 import { Provider } from "react-redux";
 import { BrowserRouter, MemoryRouter } from "react-router-dom";
 import configureStore from "redux-mock-store";
-import CheckEmail from "./CheckEmail";
-import * as api from "../../api/auth.api";
+import CheckEmail from "../src/components/Auth/CheckEmail";
+import * as api from "../src/api/auth.api";
 import { AxiosResponse } from "axios";
 import React from "react";
 import mockAxios from "axios";

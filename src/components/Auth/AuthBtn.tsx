@@ -1,5 +1,5 @@
+import React from "react";
 import styled from "styled-components";
-
 import { useAppSelector } from "../../store/hooks";
 import cl from "../../constants/color/color.js";
 import { Btn, BtnText } from "./auth.style";

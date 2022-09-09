@@ -40,6 +40,7 @@ const ProductDetail = () => {
     availability: false,
     sales: 0,
     size: "",
+    color: "",
     reviews: [],
   });
   const setSizeHandler = (index: number) => {
@@ -97,7 +98,7 @@ const ProductDetail = () => {
             <ColorAndFavContainer>
               <InnerBox>
                 <ColorTitle>Color</ColorTitle>
-                <SelectedColor>Blue</SelectedColor>
+                <SelectedColor>{detail.color}</SelectedColor>
               </InnerBox>
               <InnerBox>
                 <Heart item={detail} />
