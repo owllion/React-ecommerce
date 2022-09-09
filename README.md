@@ -1,7 +1,7 @@
  # koh  -  MERN Stack Shopping App
-A shopping app created with React.js , styled-components , TypeScript , Node.js , Typegoose and MongoDB.     
-This repository only contains the front-end part.       
-Node.js server is  [here](https://github.com/owllion/EC-Server).
+- A shopping app created with React.js , styled-components , TypeScript , Node.js , Typegoose and MongoDB.     
+- This repository only contains the front-end part.       
+- Node.js server is  [here](https://github.com/owllion/EC-Server).
 
 
 ## Table of Contents
@@ -37,6 +37,35 @@ Node.js server is  [here](https://github.com/owllion/EC-Server).
 
 
 ## Screenshots
+
+
+
+- Login 
+![image](https://res.cloudinary.com/azainseong/image/upload/v1662522880/ReactEcommerce-github-screenshots/welcome_pd7ldh.png)
+
+
+- Cart 
+![image](https://res.cloudinary.com/azainseong/image/upload/v1662522881/ReactEcommerce-github-screenshots/cart_q0xyip.png)
+
+- Checkout
+![image](https://res.cloudinary.com/azainseong/image/upload/v1662522880/ReactEcommerce-github-screenshots/checkout_tfmkcf.png)
+
+
+- Setting
+![image](https://res.cloudinary.com/azainseong/image/upload/v1662522880/ReactEcommerce-github-screenshots/setting_q6mjuf.png)
+
+
+- Order Detail
+![image](https://res.cloudinary.com/azainseong/image/upload/v1662522880/ReactEcommerce-github-screenshots/orderDetail_e5r58d.png)
+
+
+- Product Detail
+![image](https://res.cloudinary.com/azainseong/image/upload/v1662522880/ReactEcommerce-github-screenshots/detail_qdmvqm.png)
+
+
+- Comment
+![image](https://res.cloudinary.com/azainseong/image/upload/v1662522880/ReactEcommerce-github-screenshots/review_wbtbwl.png)
+
 
 
 ## Setup
