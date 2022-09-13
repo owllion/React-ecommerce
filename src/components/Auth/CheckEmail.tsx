@@ -34,26 +34,19 @@ const CheckEmail = () => {
   } = methods;
   const onSubmit: SubmitHandler<FormValue> = async (email) => {
     try {
-      // const res = await checkIfAccountExists(email);
-      const res = await axios.post(
-        "http://localhost:5000/api/auth/check-account",
-        email
-      );
-      const hasAccount = res?.data?.hasAccount;
-      // const hasAccount = true;
-      // console.log(res, "這是res");
-      // console.log(res.data.hasAccount, "hasaccount!!!!!!!!!!!!!!");
-      // const hasAccount = res?.data?.hasAccount;
+      const {
+        data: { hasAccount },
+      } = await checkIfAccountExists(email);
+
       navigate("/auth/user-login", { state: { email: email.email } });
       hasAccount
         ? navigate("/auth/user-login", { state: { email: email.email } })
         : navigate("/auth/registration", { state: { email: email.email } });
     } catch (error) {
-      console.log(error as { name: string }, "這是錯誤");
+      // console.log(error as { name: string }, "這是錯誤");
       if (error && error instanceof AxiosError) {
         const err = ((error as AxiosError).response?.data as { msg: string })
           .msg;
-        console.log("fuck");
         return dispatch(commonActions.setError(err));
       }
       dispatch(commonActions.setError("something wrong"));
