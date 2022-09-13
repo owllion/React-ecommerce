@@ -8,8 +8,6 @@ import { IGetOrderDetail } from "../interface/order.interface";
 export const upload = (data: UserInterface.IUpload) =>
   instance.post("/user/upload", data);
 
-// export const deleteAvatar = (data) => instance.delete("/user/upload", data);
-
 export const forgotPassword = (data: UserInterface.IForgotPassword) =>
   instance.post("/forgot-password", data);
 
