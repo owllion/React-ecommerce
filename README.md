@@ -15,12 +15,12 @@
 
 
 ## Technologies
-- React -  18.1.0
-- React Redux - 8.0.2
-- Redux Toolkit - 1.8.2
-- Framer Motion - 6.3.11
-- TypeScript - 4.7.4
-- styled-components - 5.3.5
+- React -  v18.1.0
+- React Redux - v8.0.2
+- Redux Toolkit - v1.8.2
+- Framer Motion - v6.3.11
+- TypeScript - v4.7.4
+- styled-components - v5.3.5
 
 
 
