@@ -93,7 +93,7 @@ const OrderDetailSummary = (props: IProps) => {
         <SummaryItemBox bigger>
           <SummaryType>Total</SummaryType>
           <SummaryVal>
-            ${(discountTotal ? discountTotal : total) + shipping}
+            ${discountTotal ? discountTotal : total + shipping}
           </SummaryVal>
         </SummaryItemBox>
       </SummarySection>
