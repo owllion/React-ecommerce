@@ -38,10 +38,15 @@ const CheckEmail = () => {
         data: { hasAccount },
       } = await checkIfAccountExists(email);
 
-      navigate("/auth/user-login", { state: { email: email.email } });
       hasAccount
-        ? navigate("/auth/user-login", { state: { email: email.email } })
-        : navigate("/auth/registration", { state: { email: email.email } });
+        ? navigate("/auth/user-login", {
+            state: { email: email.email },
+            replace: true,
+          })
+        : navigate("/auth/registration", {
+            state: { email: email.email },
+            replace: true,
+          });
     } catch (error) {
       // console.log(error as { name: string }, "這是錯誤");
       if (error && error instanceof AxiosError) {

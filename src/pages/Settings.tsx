@@ -139,6 +139,7 @@ const DesktopMain = styled.div`
   padding: 3.5rem;
   border-radius: 8px;
   width: 100%;
+  min-height: 600px;
   display: flex;
   @media (max-width: 700px) {
     padding: 1.5rem 1rem;

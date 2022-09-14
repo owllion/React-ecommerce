@@ -137,7 +137,8 @@ const ItemInfoBox = styled.div`
   width: 100%;
 `;
 const ItemInfoImgBox = styled.div`
-  height: 100px;
+  /* height: 100px; */
+  flex: 1;
   padding: 1rem 1rem 1rem 0;
 `;
 const ItemNumber = styled.div`
