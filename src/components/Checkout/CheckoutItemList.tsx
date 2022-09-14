@@ -49,7 +49,7 @@ const CheckoutItemList = () => {
       const {
         data: { discountTotal, discount },
       }: IApplyCoupon = await applyCoupon({ code, totalPrice: total });
-
+      console.log({ discount, discountTotal });
       dispatch(
         checkoutActions.setDiscountInfo({
           discount,
@@ -71,6 +71,7 @@ const CheckoutItemList = () => {
 
   useEffect(() => {
     dispatch(commonActions.setErrorClear());
+    dispatch(checkoutActions.clearInfo());
 
     const countShipping = total > 1000 ? 0 : 20;
     dispatch(
