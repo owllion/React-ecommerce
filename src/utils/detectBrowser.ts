@@ -1,3 +1,6 @@
-export const currentBrowserIsChrome = () => {
-  return navigator.userAgent.indexOf("Chrome") > -1 ? true : false;
+import Bowser from "bowser";
+
+export const getCurrentBrowserName = () => {
+  const browser = Bowser.getParser(window.navigator.userAgent);
+  return browser.getBrowserName();
 };

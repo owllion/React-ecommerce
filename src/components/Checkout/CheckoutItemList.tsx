@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { AxiosError } from "axios";
 import toast from "react-hot-toast";
+import Bowser from "bowser";
 
 import { useAppSelector } from "../../store/hooks";
 import cl from "src/constants/color/color";
@@ -16,7 +17,6 @@ import { useAppDispatch } from "../../store/hooks";
 import { commonActions } from "../../store/slice/Common.slice";
 import { checkoutActions } from "../../store/slice/Checkout.slice";
 import OrderDetailSummary from "../UserSetting/OrderDetailSummary";
-import { currentBrowserIsChrome } from "../../utils/detectBrowser";
 
 const CheckoutItemList = () => {
   const dispatch = useAppDispatch();
@@ -70,7 +70,7 @@ const CheckoutItemList = () => {
     }
   };
 
-  const haveNotUsedCoupon = () => discount === 0;
+  const haveUsedCoupon = () => discount !== 0;
 
   useEffect(() => {
     dispatch(commonActions.setErrorClear());
@@ -97,9 +97,13 @@ const CheckoutItemList = () => {
       <PromoCodeContainer>
         <CodeInputBox>
           <CodeInput
-            disabled={discount !== 0}
+            disabled={haveUsedCoupon()}
             value={code}
-            placeholder="Your promo code"
+            placeholder={
+              haveUsedCoupon()
+                ? "Only one coupon can be used per order"
+                : "Code for initial order: new123"
+            }
             onChange={(e) => setCodeHandler(e)}
             hasError={errorMsg}
           />
