@@ -16,7 +16,7 @@ import { useAppDispatch } from "../../store/hooks";
 import { commonActions } from "../../store/slice/Common.slice";
 import { checkoutActions } from "../../store/slice/Checkout.slice";
 import OrderDetailSummary from "../UserSetting/OrderDetailSummary";
-import { currentBrowserIsSafari } from "../../utils/detectBrowser";
+import { currentBrowserIsChrome } from "../../utils/detectBrowser";
 
 const CheckoutItemList = () => {
   const dispatch = useAppDispatch();
@@ -70,6 +70,8 @@ const CheckoutItemList = () => {
     }
   };
 
+  const haveNotUsedCoupon = () => discount === 0;
+
   useEffect(() => {
     dispatch(commonActions.setErrorClear());
     dispatch(checkoutActions.clearInfo());
@@ -91,8 +93,8 @@ const CheckoutItemList = () => {
         total={total}
         discountTotal={discountTotal}
       />
-      <PromoCodeContainer>
-        {discount !== 0 && currentBrowserIsSafari() && (
+      {haveNotUsedCoupon() && currentBrowserIsChrome() && (
+        <PromoCodeContainer>
           <CodeInputBox>
             <CodeInput
               disabled={discount !== 0}
@@ -103,15 +105,15 @@ const CheckoutItemList = () => {
             />
             {code && <ClearInputBtn clearInputHandler={clearInputHandler} />}
           </CodeInputBox>
-        )}
 
-        <ApplyBtn
-          disabled={applyCouponLoading || !code}
-          onClick={() => applyCouponHandler()}
-        >
-          APPLY
-        </ApplyBtn>
-      </PromoCodeContainer>
+          <ApplyBtn
+            disabled={applyCouponLoading || !code}
+            onClick={() => applyCouponHandler()}
+          >
+            APPLY
+          </ApplyBtn>
+        </PromoCodeContainer>
+      )}
       <ApiErrorBox>
         <ApiError />
       </ApiErrorBox>

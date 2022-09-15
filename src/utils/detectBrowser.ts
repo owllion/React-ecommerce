@@ -1,3 +1,3 @@
-export const currentBrowserIsSafari = () => {
-  return navigator.userAgent.match(/safari/i) ? true : false;
+export const currentBrowserIsChrome = () => {
+  return navigator.userAgent.indexOf("Chrome") > -1 ? true : false;
 };
