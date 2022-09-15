@@ -93,27 +93,27 @@ const CheckoutItemList = () => {
         total={total}
         discountTotal={discountTotal}
       />
-      {haveNotUsedCoupon() && currentBrowserIsChrome() && (
-        <PromoCodeContainer>
-          <CodeInputBox>
-            <CodeInput
-              disabled={discount !== 0}
-              value={code}
-              placeholder="Your promo code"
-              onChange={(e) => setCodeHandler(e)}
-              hasError={errorMsg}
-            />
-            {code && <ClearInputBtn clearInputHandler={clearInputHandler} />}
-          </CodeInputBox>
 
-          <ApplyBtn
-            disabled={applyCouponLoading || !code}
-            onClick={() => applyCouponHandler()}
-          >
-            APPLY
-          </ApplyBtn>
-        </PromoCodeContainer>
-      )}
+      <PromoCodeContainer>
+        <CodeInputBox>
+          <CodeInput
+            disabled={discount !== 0}
+            value={code}
+            placeholder="Your promo code"
+            onChange={(e) => setCodeHandler(e)}
+            hasError={errorMsg}
+          />
+          {code && <ClearInputBtn clearInputHandler={clearInputHandler} />}
+        </CodeInputBox>
+
+        <ApplyBtn
+          disabled={applyCouponLoading || !code}
+          onClick={() => applyCouponHandler()}
+        >
+          APPLY
+        </ApplyBtn>
+      </PromoCodeContainer>
+
       <ApiErrorBox>
         <ApiError />
       </ApiErrorBox>
