@@ -150,7 +150,7 @@ const TopSection = styled.section`
   @media (max-width: 1000px) {
     flex-direction: column;
   }
-  padding-bottom: 8rem;
+  padding-bottom: 3rem;
   border-bottom: 1px solid ${cl.darkenGray};
 `;
 const Left = styled.div`

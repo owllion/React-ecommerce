@@ -16,6 +16,7 @@ import { useAppDispatch } from "../../store/hooks";
 import { commonActions } from "../../store/slice/Common.slice";
 import { checkoutActions } from "../../store/slice/Checkout.slice";
 import OrderDetailSummary from "../UserSetting/OrderDetailSummary";
+import { currentBrowserIsSafari } from "../../utils/detectBrowser";
 
 const CheckoutItemList = () => {
   const dispatch = useAppDispatch();
@@ -29,7 +30,7 @@ const CheckoutItemList = () => {
   const { applyCouponLoading } = useAppSelector((state) => state.common || {});
   const total = useCartTotal(cartList);
 
-  const codeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const setCodeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCode(event.target.value);
   };
 
@@ -91,16 +92,18 @@ const CheckoutItemList = () => {
         discountTotal={discountTotal}
       />
       <PromoCodeContainer>
-        <CodeInputBox>
-          <CodeInput
-            disabled={discount !== 0}
-            value={code}
-            placeholder="Your promo code"
-            onChange={(e) => codeHandler(e)}
-            hasError={errorMsg}
-          />
-          {code && <ClearInputBtn clearInputHandler={clearInputHandler} />}
-        </CodeInputBox>
+        {discount !== 0 && currentBrowserIsSafari() && (
+          <CodeInputBox>
+            <CodeInput
+              disabled={discount !== 0}
+              value={code}
+              placeholder="Your promo code"
+              onChange={(e) => setCodeHandler(e)}
+              hasError={errorMsg}
+            />
+            {code && <ClearInputBtn clearInputHandler={clearInputHandler} />}
+          </CodeInputBox>
+        )}
 
         <ApplyBtn
           disabled={applyCouponLoading || !code}

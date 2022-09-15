@@ -98,13 +98,9 @@ export const ItemInfoBox = styled.div`
   width: 100%;
 `;
 export const ItemInfoImgBox = styled.div`
-  width: 27.5vw;
-  max-width: 120px;
-  min-width: 7rem;
-  height: 120px;
-  min-height: 5rem;
-  flex-grow: 1;
-  margin-right: 1.2rem; //20px
+  max-width: 7.5rem;
+  flex: 1;
+  margin-right: 1.2rem;
 `;
 export const ItemImg = styled.img`
   width: 100%;
