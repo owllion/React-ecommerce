@@ -25,7 +25,7 @@ const App = () => {
       <ScrollToTop>
         <Navbar />
         <GlobalCss />
-        <Suspense fallback={<Lottie jsonName="loading" text="loading" />}>
+        <Suspense>
           <RouteConfig />
           <Footer />
         </Suspense>
