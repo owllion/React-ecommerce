@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, useEffect, useState } from "react";
 import styled, { css } from "styled-components";
 import { IoMdTrash } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
@@ -7,6 +7,7 @@ import { AnyAction } from "@reduxjs/toolkit";
 import PlusMinusBtn from "../../Common/PlusMinusBtn";
 import { IProduct } from "src/interface/product.interface";
 import { useAppDispatch } from "../../../store/hooks";
+import { useAppSelector } from "../../../store/hooks";
 import removeFromCart, {
   IRemoveFromCartAction,
 } from "../../../store/actions/product/removeFromCart.action";
@@ -16,6 +17,9 @@ export interface IProps {
 }
 
 const DesktopCartItem = ({ cartList }: IProps) => {
+  const [localLoading, setLocalLoading] = useState<boolean>(false);
+  const { cartLoading } = useAppSelector((state) => state.common || {});
+
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const handleNavigate = (id: string) => {
@@ -39,6 +43,10 @@ const DesktopCartItem = ({ cartList }: IProps) => {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    setLocalLoading(cartLoading);
+  }, [cartLoading]);
   return (
     <DesktopSingleItemContainer>
       {cartList.map((item, index) => (

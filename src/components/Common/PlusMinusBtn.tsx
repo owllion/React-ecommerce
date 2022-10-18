@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { AxiosError } from "axios";
 import toast from "react-hot-toast";
 import styled, { css } from "styled-components";
@@ -15,10 +16,9 @@ interface IProps {
 }
 
 const PlusMinusBtn = ({ cartItemQty, size, productId }: IProps) => {
+  const [localLoading, setLocalLoading] = useState<boolean>(false);
   const dispatch = useAppDispatch();
-  const { itemQty, cartLoading } = useAppSelector(
-    (state) => state.common || {}
-  );
+  const { itemQty } = useAppSelector((state) => state.common || {});
 
   const updateQtyHandler = async (
     type: string,
@@ -27,7 +27,7 @@ const PlusMinusBtn = ({ cartItemQty, size, productId }: IProps) => {
     size: string
   ) => {
     try {
-      dispatch(commonActions.setCartLoading(true));
+      setLocalLoading(true);
       await updateQty({
         type,
         qty: cartItemQty,
@@ -37,34 +37,35 @@ const PlusMinusBtn = ({ cartItemQty, size, productId }: IProps) => {
 
       dispatch(cartActions.setCartLength(type === "inc" ? 1 : -1));
 
-      dispatch(commonActions.setCartLoading(false));
+      setLocalLoading(false);
     } catch (error) {
-      dispatch(commonActions.setCartLoading(false));
-
+      setLocalLoading(false);
       const err = ((error as AxiosError).response?.data as { msg: string }).msg;
       toast.error(err);
     }
   };
   const actionHandler = async (type: string, size: string) => {
     if (cartItemQty) {
+      //if now is in cart
       dispatch(
+        //update the value in redux
         cartActions.updateCartListItemQty({
           type,
           size,
           productId: productId!,
         })
       );
-      await updateQtyHandler(type, cartItemQty, productId!, size);
+      await updateQtyHandler(type, cartItemQty, productId!, size); //api
       return;
     }
-    dispatch(commonActions.setItemQty({ type }));
+    dispatch(commonActions.setItemQty({ type })); //in detail page, just update qty
   };
 
   return (
     <Container>
       <Wrapper>
         <Plus
-          disabled={cartLoading || cartItemQty! === 99 || itemQty === 20}
+          disabled={localLoading || cartItemQty! === 99 || itemQty === 20}
           onClick={() => actionHandler("inc", size!)}
         >
           +
@@ -72,7 +73,9 @@ const PlusMinusBtn = ({ cartItemQty, size, productId }: IProps) => {
         <Input defaultValue={1} value={cartItemQty ? cartItemQty : itemQty} />
         <Minus
           disabled={
-            cartLoading || cartItemQty! === 1 || (!cartItemQty && itemQty === 1)
+            localLoading ||
+            cartItemQty! === 1 ||
+            (!cartItemQty && itemQty === 1)
           }
           onClick={() => actionHandler("dec", size!)}
         >
