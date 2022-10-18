@@ -17,6 +17,8 @@ export interface IProduct {
   color: string;
   qty?: number;
   reviews: IReview[];
+  thumbnail: string;
+  thumbnailList: string[];
 }
 export interface IProductList {
   data: {

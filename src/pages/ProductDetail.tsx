@@ -16,6 +16,7 @@ import { productActions } from "../store/slice/Product.slice";
 import { commonActions } from "../store/slice/Common.slice";
 import Heart from "../components/Product/Heart";
 import SizeSelect from "../components/Product/SizeSelect";
+import { useMatchMedia } from "../hooks/useMatchMedia";
 
 const sizeList = ["XS", "S", "M", "L", "XL"];
 
@@ -23,6 +24,7 @@ const ProductDetail = () => {
   const dispatch = useAppDispatch();
   const { isLoading } = useAppSelector((state) => state.common || {});
   const { id } = useParams();
+  const isTargetWidth = useMatchMedia("400px");
 
   const [mainImg, setMainImg] = useState("");
   const [selectedSizeIndex, setSelectedSizeIndex] = useState(0);
@@ -42,6 +44,8 @@ const ProductDetail = () => {
     size: "",
     color: "",
     reviews: [],
+    thumbnail: "",
+    thumbnailList: [],
   });
   const setSizeHandler = (index: number) => {
     setSelectedSizeIndex(index);
@@ -66,6 +70,10 @@ const ProductDetail = () => {
       toast.error(err);
     }
   };
+
+  const setMainImgHandler = (index: number) => {
+    setMainImg(detail.imageList[index]);
+  };
   useEffect(() => {
     dispatch(commonActions.resetItemQty());
     getDetail();
@@ -78,14 +86,14 @@ const ProductDetail = () => {
           <Left>
             <MainImgBox>
               {isLoading && !mainImg ? (
-                <Skeleton height={500} />
+                <Skeleton height={isTargetWidth ? "420px" : "630px"} />
               ) : (
-                <MainImg src={mainImg} />
+                <MainImg src={mainImg} width="370px" height="800px" />
               )}
             </MainImgBox>
             <Thumbs>
-              {detail.imageList.map((url, index) => (
-                <Thumb onClick={() => setMainImg(url)} key={index}>
+              {detail.thumbnailList.map((url, index) => (
+                <Thumb onClick={() => setMainImgHandler(index)} key={url}>
                   <ThumbImg src={url} />
                 </Thumb>
               ))}

@@ -1,7 +1,6 @@
-import React, { Suspense } from "react";
+import { Suspense } from "react";
 import { BrowserRouter } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
-// import "react-confirm-alert/src/react-confirm-alert.css";
 import "react-loading-skeleton/dist/skeleton.css";
 import "react-circular-progressbar/dist/styles.css";
 
@@ -25,7 +24,7 @@ const App = () => {
       <ScrollToTop>
         <Navbar />
         <GlobalCss />
-        <Suspense>
+        <Suspense fallback={<Lottie jsonName="loading" text="loading" />}>
           <RouteConfig />
           <Footer />
         </Suspense>

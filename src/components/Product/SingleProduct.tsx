@@ -27,7 +27,7 @@ const SingleProduct = ({ item }: { item: IProduct | undefined }) => {
     <>
       <Container as={motion.div} layout {...productItemMotion}>
         <Wrapper>
-          <Image src={item?.imageList?.[0]} alt="product" />
+          <Image src={item?.thumbnail} alt="product" />
           <Info>
             <Icon onClick={() => handleNavigate(item?.productId!)}>
               <FiSearch />

@@ -140,36 +140,35 @@ const CartTableHeader = styled.div`
   }
 `;
 const HeaderItem = styled.div`
-  padding: 0 2.5rem 0 1.2rem; //20px、兌換品項
+  padding: 0 2.5rem 0 1.2rem;
   min-width: 500px;
   max-width: 500px;
   font-size: 1rem;
   font-weight: 600;
 `;
 const Item2 = styled.div`
-  width: 15%; //點數
+  width: 15%;
   min-width: 140px;
   flex-grow: 1;
-  padding-right: 1.2rem; //20px
+  padding-right: 1.2rem;
 `;
 const Item3 = styled.div`
-  width: 15%; //數量
+  width: 15%;
   min-width: 120px;
   flex-grow: 1;
-  padding-right: 1.2rem; //20px
+  padding-right: 1.2rem;
 `;
 const Item4 = styled.div`
-  width: 15%; //小計
+  width: 15%;
   min-width: 120px;
   flex-grow: 1;
-  padding-right: 1.2rem; //20px
+  padding-right: 1.2rem;
 `;
 const Item5 = styled.div`
-  width: 10%; //刪除
+  width: 10%;
   min-width: 65px;
   flex-grow: 1;
-  padding-right: 1.2rem; //20px
-  /* text-align: center; */
+  padding-right: 1.2rem;
 `;
 const SingleItemContainer = styled.div`
   display: flex;
