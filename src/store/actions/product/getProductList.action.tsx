@@ -10,7 +10,6 @@ import { productActions } from "../../slice/Product.slice";
 
 const getProductList = (keyword: string): AppThunk => {
   return async (dispatch, getState) => {
-    console.log("getProductList被呼叫");
     try {
       const state = getState().product;
       const {
@@ -21,6 +20,9 @@ const getProductList = (keyword: string): AppThunk => {
         selectedPrice,
         isTargetWidth,
       } = state;
+
+      console.log(isTargetWidth, "這是 isTargetWidth");
+
       const getSortAndOrderVal = (type: string, val: string) => {
         return type === "sort"
           ? val.substring(0, val.indexOf("-"))

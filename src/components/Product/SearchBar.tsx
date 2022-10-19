@@ -7,14 +7,12 @@ import { useAppDispatch } from "src/store/hooks";
 import { productActions } from "src/store/slice/Product.slice";
 import { useDebounce } from "src/hooks/useDebounce";
 import getProductList from "src/store/actions/product/getProductList.action";
-import { useUpdateEffect } from "src/hooks/useUpdateEffect";
 import { useIsFirstRender } from "src/hooks/useIsFirstRender";
 
 interface IProps {
-  handleSetKeyword: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleGetKeyword: (value: string | undefined) => void;
 }
-// { handleSetKeyword }: IProps
-const SearchBar = () => {
+const SearchBar = ({ handleGetKeyword }: IProps) => {
   const [keyword, setKeyword] = useState<string>("");
   const dispatch = useAppDispatch();
   const debounceValue = useDebounce<string>(keyword, 1000);
@@ -22,11 +20,11 @@ const SearchBar = () => {
 
   const setKeywordHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setKeyword(event.target.value);
+    handleGetKeyword(event.target.value);
   };
 
   useEffect(() => {
     const getData = async () => {
-      console.log("搜尋有被呼叫");
       dispatch(productActions.setCurPage(1));
       await dispatch(getProductList(debounceValue) as unknown as AnyAction);
     };
