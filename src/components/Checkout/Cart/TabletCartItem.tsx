@@ -99,7 +99,7 @@ export const ItemInfoBox = styled.div`
 `;
 export const ItemInfoImgBox = styled.div`
   max-width: 7.5rem;
-  flex: 1;
+  flex-shrink: 0;
   margin-right: 1.2rem;
 `;
 export const ItemImg = styled.img`
