@@ -49,6 +49,7 @@ const ProductDetail = () => {
   });
   const setSizeHandler = (index: number) => {
     setSelectedSizeIndex(index);
+    dispatch(commonActions.resetItemQty());
   };
 
   const getDetail = async () => {

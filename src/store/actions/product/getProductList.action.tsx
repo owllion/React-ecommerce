@@ -21,8 +21,6 @@ const getProductList = (keyword: string): AppThunk => {
         isTargetWidth,
       } = state;
 
-      console.log(isTargetWidth, "這是 isTargetWidth");
-
       const getSortAndOrderVal = (type: string, val: string) => {
         return type === "sort"
           ? val.substring(0, val.indexOf("-"))

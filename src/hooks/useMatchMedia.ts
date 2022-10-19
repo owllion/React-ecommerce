@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 export const useMatchMedia = (width: string) => {
   const [isTargetWidth, setWidth] = useState(false);
   const isPadWidth = window.matchMedia(`(max-width: ${width})`);
-  console.log(isPadWidth, "this is isPadWith");
   useEffect(() => {
     setWidth(isPadWidth?.matches);
   }, []);

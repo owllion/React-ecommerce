@@ -48,7 +48,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "coverage": "jest --coverage",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "report": "set NODE_ENV=production && node analyze.js"
   },
   "eslintConfig": {
     "extends": [
@@ -81,6 +82,7 @@
     "canvas": "^2.9.3",
     "jest-mock": "^29.0.1",
     "redux-mock-store": "^1.5.4",
-    "ts-jest": "^28.0.8"
+    "ts-jest": "^28.0.8",
+    "webpack-bundle-analyzer": "^4.6.1"
   }
 }
