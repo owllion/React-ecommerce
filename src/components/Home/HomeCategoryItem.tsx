@@ -22,7 +22,13 @@ const HomeCategoryItem = ({
       <Bg url={img} />
       <Info>
         <Title>{title}</Title>
-        <ShopBtn onClick={() => navigate(`/product-list?category=${category}`)}>
+        <ShopBtn
+          onClick={() =>
+            navigate("/product-list", {
+              state: { category },
+            })
+          }
+        >
           SHOP NOW
         </ShopBtn>
       </Info>

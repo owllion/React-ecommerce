@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import { AnyAction } from "redux";
+import { useLocation } from "react-router-dom";
 
 import cl from "../constants/color/color";
 import { productListMotion, productItemMotion } from "../lib/motion";
@@ -33,8 +34,14 @@ const ProductList = () => {
     selectedPrice,
     selectedCategory,
   } = useAppSelector((state) => state.product || {});
+
   const { isLoading } = useAppSelector((state) => state.common || {});
+
   const dispatch = useAppDispatch();
+
+  const location = useLocation();
+  const category = (location?.state as { category: string })?.category;
+
   const [filteredList, setFilteredList] =
     useState<(IProduct | Partial<IProduct>)[]>();
   const [filteredTotalNum, setFilteredTotalNum] = useState(0);
@@ -74,22 +81,19 @@ const ProductList = () => {
 
   const isTargetWidth = useMatchMedia("1200px");
 
-  useUpdateEffect(() => {
-    dispatch(productActions.setCurPage(1));
-    dispatch(getProductList(keyword) as unknown as AnyAction);
-  }, [selectedCategory, selectedBrand, selectedPrice]);
+  // useUpdateEffect(() => {
+  //   console.log("CBP執行");
+  //   dispatch(productActions.setCurPage(1));
+  //   dispatch(getProductList(keyword) as unknown as AnyAction);
+  // }, [selectedCategory, selectedBrand, selectedPrice]);
 
   useUpdateEffect(() => {
+    console.log("sort和isTargfet");
     dispatch(getProductList(keyword) as unknown as AnyAction);
   }, [selectedSort, isTargetWidth]);
 
-  useEffect(() => {
-    dispatch(productActions.clearAllState());
-    dispatch(productActions.setCurPage(1));
-    dispatch(getProductList("") as unknown as AnyAction);
-  }, []);
-
   // useUpdateEffect would cause problem if there is any setMethod in it.
+
   useEffect(() => {
     setFilteredList(productList);
   }, [productList]);
@@ -99,9 +103,20 @@ const ProductList = () => {
   }, [totalNum]);
 
   useEffect(() => {
+    const getData = async () => {
+      dispatch(productActions.clearAllState());
+      dispatch(productActions.setCurPage(1));
+      category && dispatch(productActions.setCategory(category));
+      await dispatch(getProductList("" || category) as unknown as AnyAction);
+    };
+    getData();
+  }, []);
+
+  useUpdateEffect(() => {
+    console.log("CBP執行");
     dispatch(productActions.setCurPage(1));
-    dispatch(getProductList(debounceValue) as unknown as AnyAction);
-  }, [debounceValue]);
+    dispatch(getProductList(keyword) as unknown as AnyAction);
+  }, [selectedCategory, selectedBrand, selectedPrice]);
 
   return (
     <>
@@ -110,7 +125,7 @@ const ProductList = () => {
           <Top>
             <PageTitle>All Products</PageTitle>
             <Func>
-              <SearchBar handleSetKeyword={handleSetKeyword} />
+              <SearchBar />
               <Filter active={activeFilter} handleActive={handleActiveFilter} />
               <Select
                 fullWidth={false}

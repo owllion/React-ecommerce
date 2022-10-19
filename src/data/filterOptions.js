@@ -9,9 +9,9 @@ export const brandOptions = [
 
 export const priceOptions = [
   { name: "$100-$200", val: "100-200" },
-  { name: "$200-300$", val: "200-300" },
+  { name: "$200-$300", val: "200-300" },
   { name: "$400-$500", val: "400-500" },
-  { name: "$500", val: "500-2000" },
+  { name: "$500-$999", val: "500-2000" },
 ];
 
 export const categoryOptions = [

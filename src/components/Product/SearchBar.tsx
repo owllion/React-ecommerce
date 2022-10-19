@@ -1,18 +1,44 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { IoIosSearch } from "react-icons/io";
+import { AnyAction } from "redux";
+
+import { useAppDispatch } from "src/store/hooks";
+import { productActions } from "src/store/slice/Product.slice";
+import { useDebounce } from "src/hooks/useDebounce";
+import getProductList from "src/store/actions/product/getProductList.action";
+import { useUpdateEffect } from "src/hooks/useUpdateEffect";
+import { useIsFirstRender } from "src/hooks/useIsFirstRender";
 
 interface IProps {
   handleSetKeyword: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
-const SearchBar = ({ handleSetKeyword }: IProps) => {
+// { handleSetKeyword }: IProps
+const SearchBar = () => {
+  const [keyword, setKeyword] = useState<string>("");
+  const dispatch = useAppDispatch();
+  const debounceValue = useDebounce<string>(keyword, 1000);
+  const isFirst = useIsFirstRender();
+
+  const setKeywordHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setKeyword(event.target.value);
+  };
+
+  useEffect(() => {
+    const getData = async () => {
+      console.log("搜尋有被呼叫");
+      dispatch(productActions.setCurPage(1));
+      await dispatch(getProductList(debounceValue) as unknown as AnyAction);
+    };
+    !isFirst && getData();
+  }, [debounceValue]);
   return (
     <SearchBox>
       <SearchInnerBox>
         <SearchBtn>
           <IoIosSearch />
         </SearchBtn>
-        <SearchInput type="text" onChange={(e) => handleSetKeyword(e)} />
+        <SearchInput type="text" onChange={setKeywordHandler} />
       </SearchInnerBox>
     </SearchBox>
   );

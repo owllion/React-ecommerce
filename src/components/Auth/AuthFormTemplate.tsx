@@ -27,7 +27,7 @@ const AuthFormTemplate = ({
 }: IProps) => {
   const path = useLocation();
   const pathName = path.pathname.split("/")[2];
-  console.log(pathName);
+  // console.log(pathName);
   const pathIsOnTheList = notShowBtnPathList.includes(pathName);
 
   return (
