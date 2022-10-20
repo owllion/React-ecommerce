@@ -34,7 +34,7 @@ const AuthFormTemplate = ({
     <Container>
       {!pathIsOnTheList && <BackBtn />}
       <TopImgContainer>
-        <TopImg src={imgUrl} alt={alt} />
+        <TopImg src={imgUrl} alt={alt} width="128px" height="128px" />
       </TopImgContainer>
       <MainTitle>{mainTitle}</MainTitle>
       <SubTitle>{subTitle}</SubTitle>
