@@ -33,8 +33,6 @@
 - Apply coupons
 - Upload avatar
 - Leave a comment 
-- Create an order and check in the profile page
-
 
 ## Screenshots
 
