@@ -22,9 +22,9 @@ const DesktopCartItem = ({ cartList }: IProps) => {
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const handleNavigate = (id: string) => {
-    navigate(`/product-detail/${id}`);
-  };
+  // const handleNavigate = (id: string) => {
+  //   navigate(`/product-detail/${id}`);
+  // };
 
   const removeFromCartHandler = async ({
     qty,
@@ -49,11 +49,13 @@ const DesktopCartItem = ({ cartList }: IProps) => {
   }, [cartLoading]);
   return (
     <DesktopSingleItemContainer>
-      {cartList.map((item, index) => (
-        <Fragment key={index * 2}>
-          <ItemInfoContainer>
+      {cartList.map((item) => (
+        <Fragment key={item.productId}>
+          <ItemInfoContainer
+            onClick={() => navigate(`/product-detail/${item.productId}`)}
+          >
             <ItemInfo>
-              <ItemInfoImgBox onClick={() => handleNavigate(item.productId)}>
+              <ItemInfoImgBox>
                 <ItemImg src={item.imageList?.[0]} />
               </ItemInfoImgBox>
               <ItemInfoTextBox>

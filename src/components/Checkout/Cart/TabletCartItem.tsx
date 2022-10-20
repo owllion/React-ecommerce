@@ -1,4 +1,5 @@
 import { IoMdTrash } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
 
 import PlusMinusBtn from "../../Common/PlusMinusBtn";
 import styled, { css } from "styled-components";
@@ -11,6 +12,8 @@ import { AnyAction } from "@reduxjs/toolkit";
 
 const TabletCartItem = ({ cartList }: IProps) => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
   const removeFromCartHandler = async ({
     qty,
     productId,
@@ -31,10 +34,12 @@ const TabletCartItem = ({ cartList }: IProps) => {
 
   return (
     <TabletSingleItemContainer>
-      {cartList.map((item, index) => (
+      {cartList.map((item) => (
         <>
-          <ItemInfo key={index * 2}>
-            <ItemInfoBox>
+          <ItemInfo key={item.productId}>
+            <ItemInfoBox
+              onClick={() => navigate(`/product-detail/${item.productId}`)}
+            >
               <ItemInfoImgBox>
                 <ItemImg src={item.imageList?.[0]} />
               </ItemInfoImgBox>
