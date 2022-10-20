@@ -83,7 +83,9 @@ const OrderList = () => {
                         {item.orderStatus === 0 ? "completed" : "canceled"}
                       </Chip>
                     </Status>
-                    <Date>{dayjs(item.createdAt).format("YYYY MMMM DD")}</Date>
+                    <Date smaller>
+                      {dayjs(item.createdAt).format("YYYY MMMM DD")}
+                    </Date>
                   </OrderItem>
                 ))}
               </OrderItemContainer>
@@ -161,21 +163,32 @@ const OrderItem = styled.div`
   margin-bottom: 2rem;
   min-width: 745px;
 `;
-const baseP = css`
+const baseP = css<{ smaller?: boolean }>`
   margin: 0;
   flex: 1;
   @media (max-width: 800px) {
-    flex: 0 0 180px;
+    ${({ smaller }) => {
+      switch (smaller) {
+        case true:
+          return css`
+            flex: 0 0 100px;
+            font-size: 0.8rem;
+          `;
+        default:
+          return css`
+            flex: 0 0 180px;
+          `;
+      }
+    }}
   }
 `;
 const ID = styled.p`
   ${baseP}
-
   color: ${cl.blue};
   letter-spacing: 1px;
   cursor: pointer;
 `;
-const Date = styled.p`
+const Date = styled.p<{ smaller?: boolean }>`
   ${baseP}
 `;
 export const Chip = styled.span<{ status?: string }>`
