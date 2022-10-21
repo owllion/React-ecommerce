@@ -4,19 +4,20 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 
 import cl from "../../constants/color/color";
-import hero from "../../assets/hero/hero.jpg";
 import { heroMotion } from "../../lib/motion";
+
+const bgHero =
+  "https://res.cloudinary.com/azainseong/image/upload/v1666364008/React-Ecommerce-Product-ImageList/hero.3d298e08f4214b123815_1_vek2ng.jpg";
+const leftHero =
+  "https://res.cloudinary.com/azainseong/image/upload/v1666363433/React-Ecommerce-Product-ImageList/left-hero.jpg";
 
 const Hero = () => {
   const navigate = useNavigate();
   return (
-    <Container hero={hero} as={motion.div} {...heroMotion}>
+    <Container hero={bgHero} as={motion.div} {...heroMotion}>
       <Left>
         <ImgContainer>
-          <Img
-            src="https://res.cloudinary.com/azainseong/image/upload/c_fill,q_82,w_400/v1666363433/React-Ecommerce-Product-ImageList/h_yw3mek.webp"
-            alt="left-smaller-hero"
-          />
+          <Img src={leftHero} alt="left-smaller-hero" />
         </ImgContainer>
       </Left>
 

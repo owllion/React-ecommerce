@@ -35,7 +35,7 @@ const WelcomeView = () => {
     <AuthFormTemplate
       mainTitle="Welcome!"
       subTitle="Sign Up or Sign In"
-      imgUrl={WelcomeImg}
+      imgUrl="https://res.cloudinary.com/azainseong/image/upload/v1666364196/React-Ecommerce-Product-ImageList/welcome.png"
       alt="welcomeImg"
     >
       <LoginBtnBox onClick={() => login()}>
