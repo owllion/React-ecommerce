@@ -26,15 +26,13 @@
 
 ## Features 
 - Log in / Log out 
-- verify email address
+- Verify email address
 - Registering with Google account or email
 - Add to cart / Remove from cart
 - Add to fav / Remove from fav
 - Apply coupons
 - Upload avatar
 - Leave a comment 
-- Create an order and check in the profile page
-
 
 ## Screenshots
 
