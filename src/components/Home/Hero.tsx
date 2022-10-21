@@ -1,13 +1,11 @@
-import styled from "styled-components";
-import cl from "../../constants/color/color";
-
-import hero from "../../assets/hero/hero.jpg";
-import hero2 from "../../assets/hero/hero2.jpg";
-
-import { FiArrowRight } from "react-icons/fi";
-import { motion } from "framer-motion";
-import { heroMotion } from "../../lib/motion";
 import { useNavigate } from "react-router-dom";
+import { FiArrowRight } from "react-icons/fi";
+import styled from "styled-components";
+import { motion } from "framer-motion";
+
+import cl from "../../constants/color/color";
+import hero from "../../assets/hero/hero.jpg";
+import { heroMotion } from "../../lib/motion";
 
 const Hero = () => {
   const navigate = useNavigate();
@@ -15,7 +13,10 @@ const Hero = () => {
     <Container hero={hero} as={motion.div} {...heroMotion}>
       <Left>
         <ImgContainer>
-          <Img src={hero2} alt="left-smaller-hero" />
+          <Img
+            src="https://res.cloudinary.com/azainseong/image/upload/c_fill,q_82,w_400/v1666363433/React-Ecommerce-Product-ImageList/h_yw3mek.webp"
+            alt="left-smaller-hero"
+          />
         </ImgContainer>
       </Left>
 
