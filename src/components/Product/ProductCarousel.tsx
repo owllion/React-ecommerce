@@ -11,7 +11,6 @@ import "swiper/css/navigation";
 import SliderBtn from "./SliderBtn";
 import SingleProduct from "./SingleProduct";
 import { getBestSellerApi } from "../../api/product.api";
-import { ProductState } from "../../store/slice/Product.slice";
 import { IProduct } from "../../interface/product.interface";
 
 const ProductCarousel = () => {
