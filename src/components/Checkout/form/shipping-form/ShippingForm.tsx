@@ -41,7 +41,7 @@ const ShippingForm = () => {
 
   const createOrderHandler = async (info: FormValue) => {
     try {
-      dispatch(commonActions.setLoading(true));
+      // dispatch(commonActions.setLoading(true));
       await createOrder({
         orderItem: cartList,
         receiverName: `${info.firstName} ${info.lastName}`,
@@ -59,7 +59,7 @@ const ShippingForm = () => {
         replace: true,
       });
     } catch (error) {
-      dispatch(commonActions.setLoading(false));
+      // dispatch(commonActions.setLoading(false));
 
       const err = ((error as AxiosError).response?.data as { msg: string }).msg;
       toast.error(err);
