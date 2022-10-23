@@ -10,6 +10,7 @@ import AuthFormTemplate from "./AuthFormTemplate";
 import AuthBtn from "./AuthBtn";
 import FieldErr from "../error/FieldErr";
 import { forgotPassword } from "src/api/user.api";
+import { authImgList } from "../../assets/authImg.js";
 interface FormValue {
   email: string;
 }
@@ -40,7 +41,7 @@ const ForgotPassword = () => {
       <AuthFormTemplate
         mainTitle="Forgot your password?"
         subTitle="We will send you an email to reset your password."
-        imgUrl={ForgotPwd}
+        imgUrl={authImgList.forgot_pwd}
         alt="forgotPwdImg"
       >
         <InputBox>

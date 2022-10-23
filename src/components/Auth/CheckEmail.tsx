@@ -18,7 +18,7 @@ import {
 import ApiError from "../error/ApiError";
 import { AxiosError } from "axios";
 import { InputBox } from "../Auth/auth.style";
-import axios from "axios";
+import { authImgList } from "../../assets/authImg";
 
 interface FormValue {
   email: string;
@@ -48,7 +48,6 @@ const CheckEmail = () => {
             replace: true,
           });
     } catch (error) {
-      // console.log(error as { name: string }, "這是錯誤");
       if (error && error instanceof AxiosError) {
         const err = ((error as AxiosError).response?.data as { msg: string })
           .msg;
@@ -68,7 +67,7 @@ const CheckEmail = () => {
       <AuthFormTemplate
         mainTitle="What's your email?"
         subTitle=" We are going to check if you already have an account"
-        imgUrl={EmailImg}
+        imgUrl={authImgList.at_sign}
         alt="checkEmailImg"
       >
         <InputBox>

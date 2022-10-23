@@ -5,19 +5,15 @@ import { motion } from "framer-motion";
 
 import cl from "../../constants/color/color";
 import { heroMotion } from "../../lib/motion";
-
-const bgHero =
-  "https://res.cloudinary.com/azainseong/image/upload/v1666364008/React-Ecommerce-Product-ImageList/hero.3d298e08f4214b123815_1_vek2ng.jpg";
-const leftHero =
-  "https://res.cloudinary.com/azainseong/image/upload/v1666363433/React-Ecommerce-Product-ImageList/left-hero.jpg";
+import { hero } from "../../assets/hero";
 
 const Hero = () => {
   const navigate = useNavigate();
   return (
-    <Container hero={bgHero} as={motion.div} {...heroMotion}>
+    <Container hero={hero.bgHero} as={motion.div} {...heroMotion}>
       <Left>
         <ImgContainer>
-          <Img src={leftHero} alt="left-smaller-hero" />
+          <Img src={hero.leftHero} alt="left-smaller-hero" />
         </ImgContainer>
       </Left>
 

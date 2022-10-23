@@ -29,7 +29,7 @@ const AuthFormTemplate = ({
   const pathName = path.pathname.split("/")[2];
   // console.log(pathName);
   const pathIsOnTheList = notShowBtnPathList.includes(pathName);
-
+  console.log("hello 這是接收到的imgUrl", imgUrl);
   return (
     <Container>
       {!pathIsOnTheList && <BackBtn />}

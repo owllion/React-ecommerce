@@ -13,6 +13,7 @@ import signInOrSignUp from "src/store/actions/auth/signInOrSignUp.action";
 import { commonActions } from "../../store/slice/Common.slice";
 import AuthFormTemplate from "./AuthFormTemplate";
 import AuthBtn from "./AuthBtn";
+import { authImgList } from "../../assets/authImg";
 
 interface FormValue {
   email: string;
@@ -48,7 +49,6 @@ const HaveAccount = () => {
   console.log(errors);
 
   useEffect(() => {
-    console.log("otejgohwefuewfwuidhfuifhwuiehf!!!!!!!!");
     dispatch(commonActions.setErrorClear());
   }, []);
 
@@ -58,7 +58,7 @@ const HaveAccount = () => {
         <AuthFormTemplate
           mainTitle="Welcome Back!"
           subTitle="Have your money ready."
-          imgUrl={LoginImg}
+          imgUrl={authImgList.login_with_pwd}
           alt="loginImg"
         >
           <UserEmailBox>

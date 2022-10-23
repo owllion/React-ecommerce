@@ -6,7 +6,6 @@ import toast from "react-hot-toast";
 import { AxiosError } from "axios";
 
 import PwdInput from "../Common/input/PwdInput";
-import ResetImg from "src/assets/login/reset-pwd.png";
 import { resetPassword } from "../../api/user.api";
 import { checkIfTokenIsValid } from "../../api/auth.api";
 import AuthFormTemplate from "./AuthFormTemplate";
@@ -16,6 +15,7 @@ import VerifyState from "./verify/VerifyState";
 import { sendLink } from "src/api/auth.api";
 import { useAppDispatch } from "../../store/hooks";
 import { commonActions } from "src/store/slice/Common.slice";
+import { authImgList } from "../../assets/authImg";
 interface FormValue {
   password?: string;
   email?: string;
@@ -86,7 +86,7 @@ const ResetPassword = () => {
           <AuthFormTemplate
             mainTitle="Reset your password"
             subTitle="Don't forget again"
-            imgUrl={ResetImg}
+            imgUrl={authImgList.reset_pwd}
             alt="resetImg"
           >
             <PwdInput

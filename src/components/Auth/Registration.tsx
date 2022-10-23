@@ -19,11 +19,12 @@ import {
 import { getValidationData } from "../Checkout/form/shipping-form/getValidationData";
 import { baseInput, baseLabel } from "../Product/Review/ReviewForm";
 import RegistrationImg from "../../assets/login/signup.png";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { useAppDispatch } from "../../store/hooks";
 import signInOrSignUp from "../../store/actions/auth/signInOrSignUp.action";
 import AuthFormTemplate from "./AuthFormTemplate";
 import AuthBtn from "./AuthBtn";
 import PwdRule from "./pwdRule/PwdRule";
+import { authImgList } from "../../assets/authImg";
 
 export interface FormValue {
   email: string;
@@ -33,7 +34,6 @@ export interface FormValue {
 }
 
 const Registration = () => {
-  const { isLoading } = useAppSelector((state) => state.common || {});
   const location = useLocation();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -72,7 +72,7 @@ const Registration = () => {
         <AuthFormTemplate
           mainTitle="Let's get it started!"
           subTitle="Create your account"
-          imgUrl={RegistrationImg}
+          imgUrl={authImgList.sign_up}
           alt="registration"
         >
           <InputBox>

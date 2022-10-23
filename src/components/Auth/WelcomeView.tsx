@@ -7,7 +7,7 @@ import { FcGoogle } from "react-icons/fc";
 import { IoMdMail } from "react-icons/io";
 
 import cl from "../../constants/color/color";
-import WelcomeImg from "src/assets/login/welcome.png";
+import { authImgList } from "../../assets/authImg";
 import { Btn, BtnText } from "./auth.style";
 import { useAppDispatch } from "../../store/hooks";
 import { googleLogin } from "src/store/actions/auth/googleLogin.action";
@@ -35,7 +35,7 @@ const WelcomeView = () => {
     <AuthFormTemplate
       mainTitle="Welcome!"
       subTitle="Sign Up or Sign In"
-      imgUrl="https://res.cloudinary.com/azainseong/image/upload/v1666364196/React-Ecommerce-Product-ImageList/welcome.png"
+      imgUrl={authImgList.welcome}
       alt="welcomeImg"
     >
       <LoginBtnBox onClick={() => login()}>
