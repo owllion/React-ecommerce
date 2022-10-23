@@ -34,9 +34,9 @@ const TabletCartItem = ({ cartList }: IProps) => {
 
   return (
     <TabletSingleItemContainer>
-      {cartList.map((item) => (
+      {cartList.map((item, index) => (
         <>
-          <ItemInfo key={item.productId}>
+          <ItemInfo key={index}>
             <ItemInfoBox
               onClick={() => navigate(`/product-detail/${item.productId}`)}
             >
