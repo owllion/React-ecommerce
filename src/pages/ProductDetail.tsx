@@ -89,7 +89,7 @@ const ProductDetail = () => {
               {isLoading && !mainImg ? (
                 <Skeleton height={isTargetWidth ? "420px" : "630px"} />
               ) : (
-                <MainImg src={mainImg} width="370px" height="800px" />
+                <MainImg src={mainImg} width="420x" height="600px" />
               )}
             </MainImgBox>
             <Thumbs>
@@ -180,7 +180,6 @@ const Thumbs = styled.ul`
 `;
 const Thumb = styled.li`
   width: 30%;
-
   margin-top: 5%;
   background: ${cl.white};
 `;
@@ -235,47 +234,7 @@ const SelectedColor = styled.span`
   font-weight: 600;
   padding-left: 0.8rem;
 `;
-const SizeContainer = styled.div`
-  padding: 0.4rem 0.4rem 0.4rem 0;
-  display: flex;
-  align-items: center;
-  @media (max-width: 767px) {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-`;
-const SizeTitle = styled.span`
-  font-size: 1.2rem;
-  padding-right: 1.7rem;
-  width: 60px;
-  @media (max-width: 767px) {
-    padding-bottom: 0.5rem;
-  }
-`;
-const SizeItems = styled.ul`
-  display: flex;
-`;
-const SizeItem = styled.li<{ nowSelected: number; nowIndex: number }>`
-  margin-right: 1rem;
-  @media (max-width: 500px) {
-    margin-right: 0.4rem;
-  }
-  cursor: pointer;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  line-height: 38px;
-  text-align: center;
-  font-weight: 800;
-  font-size: 0.9rem;
-  background: ${cl.plusGray};
-  ${({ nowSelected, nowIndex }) =>
-    nowSelected === nowIndex &&
-    css`
-      background: ${cl.dark};
-      color: ${cl.white};
-    `};
-`;
+
 const BtnBox = styled.div`
   display: flex;
   align-items: center;

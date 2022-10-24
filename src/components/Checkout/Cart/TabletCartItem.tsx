@@ -96,7 +96,7 @@ export const ItemInfo = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  margin-bottom: 0.8rem; //25px
+  margin-bottom: 0.8rem; 
 `;
 export const ItemInfoBox = styled.div`
   display: flex;
@@ -178,15 +178,7 @@ const ItemInfoCounterBox = styled.div`
   width: 15%;
   min-width: 120px;
   flex-grow: 1;
-  padding-right: 1.2rem; //20px 數量小記一樣!
+  padding-right: 1.2rem; 
   padding-bottom: 0.8rem;
 `;
-// const ItemDeleteBox = styled.div`
-//   padding-right: 3rem;
-//   width: 10%;
-//   min-width: 65px;
-//   flex-grow: 1;
-//   text-align: center; //基本和header都一樣
-//   font-size: 2rem;
-// `;
 export default TabletCartItem;

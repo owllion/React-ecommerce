@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
 import { motion } from "framer-motion";
-import { IoMdClose, IoIosSearch } from "react-icons/io";
+import { IoMdClose } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
-import { confirmAlert } from "react-confirm-alert";
 
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { sideNavMotion } from "../../lib/motion";
@@ -54,12 +53,6 @@ const SideNav = ({ handleShowSideNav }: IProps) => {
           <Logo>koh.</Logo>
         </CloseBtnBox>
         <NavBox>
-          <SearchBarContainer>
-            <SearchBarBox>
-              <SearchBar type="search" onKeyDown={search} />
-              <SearchIcon />
-            </SearchBarBox>
-          </SearchBarContainer>
           {(!getToken() || !token) && (
             <NavItem>
               <LoginLink
@@ -143,35 +136,6 @@ const CloseIcon = styled.div`
   justify-content: center;
   width: 40px;
   height: 40px;
-`;
-const SearchBarContainer = styled.div`
-  padding: 0.7rem 1rem;
-`;
-const SearchBarBox = styled.div`
-  background: #eff4ff;
-  height: 50px;
-  width: 100%;
-  position: relative;
-  border-radius: 6px;
-`;
-const SearchBar = styled.input`
-  width: 100%;
-  height: 100%;
-  caret-color: ${cl.blue};
-  color: ${cl.blue};
-  padding: 5px 5px 5px 59px;
-  background-color: ${cl.transparent};
-  &:focus {
-    outline: none;
-  }
-  border: none;
-`;
-const SearchIcon = styled(IoIosSearch)`
-  position: absolute;
-  left: 12px;
-  top: 10px;
-  font-size: 1.9rem;
-  color: #6e80a5;
 `;
 const NavBox = styled.ul``;
 const NavItem = styled.li`
