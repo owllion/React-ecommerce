@@ -2,6 +2,7 @@
 - A shopping app created with React.js , styled-components , TypeScript , Node.js , Typegoose and MongoDB.     
 - This repository only contains the front-end part.       
 - Node.js server is  [here](https://github.com/owllion/EC-Server).
+- Test Account: testemailforrc1@gmail.com / Password: 0000000Ab!
 
 
 ## Table of Contents
