@@ -1,8 +1,9 @@
  # koh  -  MERN Stack Shopping App
-- A shopping app created with React.js , styled-components , TypeScript , Node.js , Typegoose and MongoDB.     
+- A shopping app created with React.js , styled-components , TypeScript , Node.js , Typegoose and MongoDB.
+- Test Account: testemailforrc1@gmail.com / Password: 0000000Ab!  
 - This repository only contains the front-end part.       
 - Node.js server is  [here](https://github.com/owllion/EC-Server).
-- Test Account: testemailforrc1@gmail.com / Password: 0000000Ab!
+
 
 
 ## Table of Contents
