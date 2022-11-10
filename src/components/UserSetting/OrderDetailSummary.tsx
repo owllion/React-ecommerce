@@ -163,7 +163,6 @@ const SummaryItemBox = styled.div<{ bigger?: boolean }>`
   display: flex;
   justify-content: space-between;
   margin-top: 1rem;
-  padding-right: 0.7rem;
   ${({ bigger }) => bigger && "font-size:1.5rem"}
 `;
 const SummaryType = styled.span``;
