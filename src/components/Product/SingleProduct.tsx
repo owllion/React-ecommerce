@@ -43,8 +43,10 @@ const SingleProduct = ({ item }: { item: IProduct | undefined }) => {
             <Heart item={item} />
           </Info>
         </Wrapper>
-        <Name>{item?.productName}</Name>
-        <Price>${item?.price}</Price>
+        <ItemInfo>
+          <Name>{item?.productName}</Name>
+          <Price>${item?.price}</Price>
+        </ItemInfo>
       </Container>
     </>
   );
@@ -78,7 +80,6 @@ const Wrapper = styled.div`
   justify-content: center;
   position: relative;
   border-radius: 15px;
-  /* background-color: #ece5d833; */
   &:hover ${Info} {
     opacity: 1;
   }
@@ -107,6 +108,11 @@ export const Icon = styled.button`
   &:hover {
     background-color: #e9f5f5;
     transform: scale(1.1);
+  }
+`;
+const ItemInfo = styled.div`
+  @media (max-width: 821px) {
+    text-align: center;
   }
 `;
 const Name = styled.h3`

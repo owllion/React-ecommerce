@@ -60,7 +60,9 @@ const pop = keyframes`
   }
 `;
 const CheckBoxItem = styled.input`
-  appearance: none;
+  transform: scale(1.5);
+  accent-color: black;
+  /* appearance: none;
   transition: all 0.3s;
   outline: none;
   font-size: 1.5rem;
@@ -76,7 +78,7 @@ const CheckBoxItem = styled.input`
     font-weight: 900;
     content: "\f058";
     animation: ${pop} 0.3s 1;
-  }
+  } */
 `;
 const Label = styled.label.attrs((props: { for: string }) => ({
   for: props.for,

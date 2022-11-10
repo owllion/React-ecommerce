@@ -131,10 +131,15 @@ const Desc = styled.p`
 const StoreImgBox = styled.div`
   width: 100px;
   display: flex;
+  @media (max-width: 821px) {
+    flex-direction: column;
+  }
 `;
 const StoreImg = styled.img`
   width: 100%;
   margin-right: 1rem;
+  display: inline-block;
+  padding-bottom: 0.8rem;
 `;
 const SocialContainer = styled.div`
   display: flex;

@@ -63,12 +63,5 @@ const FormContainer = styled.form``;
 const InputBox = styled.div`
   margin: 0 0 1rem;
 `;
-const BackToLoginLink = styled(Link)`
-  display: block;
-  margin-top: 16px;
-  color: ${cl.blue};
-  font-size: 0.9rem;
-  font-weight: 500;
-  text-align: center;
-`;
+
 export default ForgotPassword;

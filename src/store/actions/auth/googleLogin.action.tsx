@@ -4,9 +4,6 @@ import toast from "react-hot-toast";
 import { commonActions } from "../../slice/Common.slice";
 import { AppThunk } from "../../store";
 import { googleLoginApi } from "src/api/auth.api";
-import { authActions } from "src/store/slice/Auth.slice";
-import { cartActions } from "src/store/slice/Cart.slice";
-import { userActions } from "src/store/slice/User.slice";
 import { IUserInfo } from "src/interface/user.interface";
 import { authRelatedAction } from "./authRelatedAction.action";
 interface IAuthResult {

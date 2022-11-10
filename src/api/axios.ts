@@ -39,8 +39,7 @@ instance.interceptors.response.use(
         err.response.status === 401 &&
         err.config &&
         !err.config.__isRetryRequest &&
-        (err.config.url !== "/auth/verify-user" ||
-          err.config.url !== "/auth/verify-user")
+        err.config.url !== "/auth/verify-user"
       ) {
         try {
           const {
