@@ -12,6 +12,7 @@ import noData from "../../assets/no-result/no-data.json";
 import loading from "../../assets/loading/loading.json";
 import loadingV2 from "../../assets/loading/loadingV2.json";
 import productNotFound from "../../assets/no-result/product-not-found.json";
+import productListLoading from "../../assets/loading/productListLoading.json";
 
 const Lottie = ({ jsonName, text }: { jsonName: string; text?: string }) => {
   const Json = {
@@ -23,6 +24,7 @@ const Lottie = ({ jsonName, text }: { jsonName: string; text?: string }) => {
     noData,
     loading,
     loadingV2,
+    productListLoading,
   };
   const options = {
     loop: true,

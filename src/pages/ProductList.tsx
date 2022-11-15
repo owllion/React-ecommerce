@@ -155,7 +155,7 @@ const ProductList = () => {
               />
             </>
           )}
-          {isLoading && <Lottie jsonName={"sleepingAnt"} />}
+
           {!isLoading && filteredList?.length === 0 && (
             <Lottie jsonName={"productNotFound"} />
           )}
@@ -198,7 +198,11 @@ const Func = styled.div`
     margin-top: 2rem;
   }
 `;
-
+const OuterContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 const ItemContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
