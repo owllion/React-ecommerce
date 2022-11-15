@@ -92,9 +92,16 @@ const ProductDetail = () => {
                 <MainImg src={mainImg} width="420x" height="600px" />
               )}
             </MainImgBox>
-            <Thumbs>
+            {/* <Thumbs>
               {detail.thumbnailList.map((url, index) => (
                 <Thumb onClick={() => setMainImgHandler(index)} key={url}>
+                  <ThumbImg src={url} />
+                </Thumb>
+              ))}
+            </Thumbs> */}
+            <Thumbs>
+              {detail.imageList.map((url) => (
+                <Thumb onClick={() => setMainImg(url)} key={url}>
                   <ThumbImg src={url} />
                 </Thumb>
               ))}
