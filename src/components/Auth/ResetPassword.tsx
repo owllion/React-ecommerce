@@ -34,6 +34,9 @@ const ResetPassword = () => {
   } = methods;
 
   const onSubmit: SubmitHandler<FormValue> = async (data, event) => {
+    {
+      /* 這邊取得id來做額外判斷是因為AuthBtn本身不只是用來做重設密碼而已，他還有被用來發email，所以要用id來判斷現在他是什麼用途才能執行相對應的正確邏輯 */
+    }
     const targetId = (event?.nativeEvent as { submitter: any }).submitter?.id;
     targetId === "ResetPassword"
       ? await handleRestPassword(data.password!)
