@@ -7,11 +7,9 @@ import { registerApi, loginApi } from "src/api/auth.api";
 import { IUserInfo } from "src/interface/user.interface";
 import { authRelatedAction } from "./authRelatedAction.action";
 export interface IAuthResult {
-  result: {
-    token: string;
-    refreshToken: string;
-    user: IUserInfo;
-  };
+  token: string;
+  refreshToken: string;
+  user: IUserInfo;
 }
 
 interface IProps extends Record<string, string> {}
@@ -24,9 +22,7 @@ const signInOrSignUp = (data: IProps): AppThunk => {
     dispatch(commonActions.setLoading(true));
     try {
       const {
-        data: {
-          result: { token, refreshToken, user },
-        },
+        data: { token, refreshToken, user },
       }: {
         data: IAuthResult;
       } = isLogin(data)

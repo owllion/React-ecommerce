@@ -4,8 +4,9 @@ import * as AuthInterface from "../interface/auth.interface";
 export const loginApi = (data: AuthInterface.ILogin) =>
   instance.post("/auth/login", data);
 
-export const googleLoginApi = (data: AuthInterface.IGoogleLogin) =>
-  instance.post("/auth/google-login", data);
+// export const googleLoginApi = (data: AuthInterface.IGoogleLogin) =>
+//   instance.post("/auth/google-login", data);
+export const googleLoginApi = () => instance.get("/auth/google-login");
 
 export const registerApi = (data: AuthInterface.IRegister) =>
   instance.post("/auth/register", data);
@@ -16,8 +17,8 @@ export const checkIfAccountExists = (data: AuthInterface.ICheckAccount) =>
 export const getRefreshToken = (data: AuthInterface.IGetRefreshToken) =>
   instance.post("/refresh-token", data);
 
-export const verifyUserApi = (data: AuthInterface.IVerifyUserEmail) =>
-  instance.post("/auth/verify-user", data);
+export const verifyTokenApi = (data: AuthInterface.IVerifyToken) =>
+  instance.post("/auth/verify-token", data);
 
 export const sendLink = (data: AuthInterface.ISendVerifyLink) =>
   instance.post("/auth/send-link", data);

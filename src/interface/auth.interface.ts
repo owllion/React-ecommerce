@@ -15,10 +15,10 @@ export interface ICheckAccount extends Pick<IRegister, "email"> {}
 export interface IGetRefreshToken {
   refresh: string;
 }
-export interface IVerifyUserEmail {
+export interface IVerifyToken {
   token: string;
 }
-export interface ICheckToken extends IVerifyUserEmail {}
+export interface ICheckToken extends IVerifyToken {}
 export interface ISendVerifyLink extends Pick<ILogin, "email"> {
   type: string;
 }

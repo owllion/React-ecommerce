@@ -22,11 +22,20 @@ export interface IProduct {
 }
 export interface IProductList {
   data: {
-    productList: [
-      { count: [{ totalDoc: number }]; list: (IProduct | Partial<IProduct>)[] }
-    ];
+    list: (IProduct | Partial<IProduct>)[];
+    total: number;
   };
 }
 export interface IGetProductDetail {
   productId: string | undefined;
+}
+
+export interface IGetProducts {
+  page: number;
+  keyword: string;
+  price: string;
+  brands: Array<String> | string;
+  categories: Array<String> | string;
+  sortBy: string;
+  orderBy: string;
 }

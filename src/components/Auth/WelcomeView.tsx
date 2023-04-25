@@ -16,20 +16,21 @@ import AuthFormTemplate from "./AuthFormTemplate";
 const WelcomeView = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const googleLoginHandler = async (code: string) => {
+  const googleLoginHandler = async () => {
     try {
-      await dispatch(googleLogin(code) as unknown as AnyAction);
-      navigate("/");
+      // await dispatch(googleLogin() as unknown as AnyAction);
+      // navigate("http://127.0.0.1:8000/api/auth/google-login");
+      window.open("http://127.0.0.1:8000/api/auth/google-login");
     } catch (error) {
       console.log(error);
     }
   };
-  const login = useGoogleLogin({
-    flow: "auth-code",
-    onSuccess: async (codeResponse: Record<string, string>) => {
-      await googleLoginHandler(codeResponse.code);
-    },
-  });
+  // const login = useGoogleLogin({
+  //   flow: "auth-code",
+  //   onSuccess: async (codeResponse: Record<string, string>) => {
+  //     await googleLoginHandler(codeResponse.code);
+  //   },
+  // });
 
   return (
     <AuthFormTemplate
@@ -38,7 +39,8 @@ const WelcomeView = () => {
       imgUrl={authImgList.welcome}
       alt="welcomeImg"
     >
-      <LoginBtnBox onClick={() => login()}>
+      {/* <LoginBtnBox onClick={() => login()}> */}
+      <LoginBtnBox onClick={() => googleLoginHandler()}>
         <LoginBtn shadow>
           <FcGoogle />
           <BtnText color={`${cl.textLightGray}`}>Login with Google</BtnText>

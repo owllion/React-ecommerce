@@ -13,6 +13,9 @@ const SendLinkNotification = lazy(() =>
   import("../components/Auth/SendLinkNotification")
 );
 const VerifyEmail = lazy(() => import("../components/Auth/verify/VerifyEmail"));
+const GoogleLoginCallback = lazy(() =>
+  import("../components/Auth/GoogleLoginCallback")
+);
 const ForgotPassword = lazy(() =>
   import("../components/Auth/ForgotPassword.tsx")
 );
@@ -91,6 +94,10 @@ export const RouteConfig = () => {
         {
           path: "verify-email/:token",
           element: <VerifyEmail />,
+        },
+        {
+          path: "google-login/callback/:token",
+          element: <GoogleLoginCallback />,
         },
       ],
     },

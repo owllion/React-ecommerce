@@ -1,9 +1,12 @@
-import { IGetProductDetail } from "./../interface/product.interface";
-import { AxiosRequestConfig } from "axios";
+import {
+  IGetProductDetail,
+  IGetProducts,
+} from "./../interface/product.interface";
+
 import instance from "./axios";
 
-export const getProductListApi = (config: AxiosRequestConfig) =>
-  instance.get("/product-list", config);
+export const getProductListApi = (data: IGetProducts) =>
+  instance.post("/products", data);
 
 export const getBestSellerApi = () => instance.get("/best-seller-list");
 
