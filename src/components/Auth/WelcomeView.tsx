@@ -12,25 +12,23 @@ import { Btn, BtnText } from "./auth.style";
 import { useAppDispatch } from "../../store/hooks";
 import { googleLogin } from "src/store/actions/auth/googleLogin.action";
 import AuthFormTemplate from "./AuthFormTemplate";
+import { useUpdateEffect } from "../../hooks/useUpdateEffect";
 
 const WelcomeView = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const googleLoginHandler = async () => {
+  const googleLoginHandler = async (access_token: string) => {
     try {
-      // await dispatch(googleLogin() as unknown as AnyAction);
-      // navigate("http://127.0.0.1:8000/api/auth/google-login");
-      window.open("http://127.0.0.1:8000/api/auth/google-login");
+      await dispatch(googleLogin(access_token) as unknown as AnyAction);
     } catch (error) {
       console.log(error);
     }
   };
-  // const login = useGoogleLogin({
-  //   flow: "auth-code",
-  //   onSuccess: async (codeResponse: Record<string, string>) => {
-  //     await googleLoginHandler(codeResponse.code);
-  //   },
-  // });
+  const login = useGoogleLogin({
+    onSuccess: async (tokenResponse: Record<string, string>) => {
+      await googleLoginHandler(tokenResponse.access_token);
+    },
+  });
 
   return (
     <AuthFormTemplate
@@ -39,8 +37,7 @@ const WelcomeView = () => {
       imgUrl={authImgList.welcome}
       alt="welcomeImg"
     >
-      {/* <LoginBtnBox onClick={() => login()}> */}
-      <LoginBtnBox onClick={() => googleLoginHandler()}>
+      <LoginBtnBox onClick={() => login()}>
         <LoginBtn shadow>
           <FcGoogle />
           <BtnText color={`${cl.textLightGray}`}>Login with Google</BtnText>

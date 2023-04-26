@@ -3,7 +3,7 @@ export interface ILogin {
   password: string;
 }
 export interface IGoogleLogin {
-  code: string;
+  access_token: string;
 }
 export interface IRegister {
   email: string;

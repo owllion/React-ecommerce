@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
 import { useAppDispatch } from "../../../store/hooks";
-import { verifyUserApi } from "../../../api/auth.api";
+import { verifyTokenApi } from "../../../api/auth.api";
 import { IAuthResult } from "../../../store/actions/auth/signInOrSignUp.action";
 import { authRelatedAction } from "../../../store/actions/auth/authRelatedAction.action";
 import { commonActions } from "../../../store/slice/Common.slice";
@@ -51,12 +51,10 @@ const SendLinkNotification = () => {
     try {
       dispatch(commonActions.setLoading(true));
       const {
-        data: {
-          result: { token: accessToken, refreshToken, user },
-        },
+        data: { token: accessToken, refreshToken, user },
       }: {
         data: IAuthResult;
-      } = await verifyUserApi({ token });
+      } = await verifyTokenApi({ token });
       setIsVerified(true);
       dispatch(
         authRelatedAction({
