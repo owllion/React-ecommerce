@@ -2,7 +2,7 @@ export interface ILogin {
   email: string;
   password: string;
 }
-export interface IGoogleLogin {
+export interface ISocialLogin {
   access_token: string;
 }
 export interface IRegister {

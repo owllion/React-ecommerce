@@ -15,7 +15,7 @@ import { commonActions } from "../../store/slice/Common.slice";
 import { sendLink } from "src/api/auth.api";
 import VerifyState from "./verify/VerifyState";
 
-const GoogleLoginCallback = () => {
+const GithubLoginCallback = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [isVerified, setIsVerified] = useState(true);
@@ -51,7 +51,7 @@ const GoogleLoginCallback = () => {
     verifyToken();
   }, []);
 
-  return <div>callback</div>;
+  return <div>github login callback</div>;
 };
 
-export default GoogleLoginCallback;
+export default GithubLoginCallback;
