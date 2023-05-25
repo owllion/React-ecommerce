@@ -33,16 +33,16 @@ export const sortOptions = [
     val: "createdAt-desc",
     icon: <FcClock />,
   },
-  {
-    name: "High-Low",
-    val: "sales-desc",
-    icon: <FcSalesPerformance />,
-  },
-  {
-    name: "Low-High",
-    val: "sales-asc",
-    icon: <FcSalesPerformance />,
-  },
+  // {
+  //   name: "High-Low",
+  //   val: "sales-desc",
+  //   icon: <FcSalesPerformance />,
+  // },
+  // {
+  //   name: "Low-High",
+  //   val: "sales-asc",
+  //   icon: <FcSalesPerformance />,
+  // },
   {
     name: "High-Low",
     val: "price-desc",

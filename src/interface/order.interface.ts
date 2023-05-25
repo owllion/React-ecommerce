@@ -16,13 +16,14 @@ export interface IOrder {
 export interface ICreateOrder {
   orderItem: IProduct[];
   total: number;
-  discountTotal: number;
+  discount_total: number;
   shipping: number;
-  deliveryAddress: string;
-  receiverName: string;
+  delivery_address: string;
+  receiver_name: string;
   discount: number;
-  discountCode: string;
+  discount_code: string;
 }
+
 export interface IGetOrderDetail {
   orderId: string;
 }

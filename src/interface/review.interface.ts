@@ -1,9 +1,15 @@
 import { IProduct } from "../interface/product.interface";
 import { IUser } from "./user.interface";
+// export interface ICreateReview {
+//   comment: string;
+//   rating: number;
+//   product: string;
+// }
 export interface ICreateReview {
   comment: string;
   rating: number;
-  product: string;
+  product_id: string;
+  user_id: string;
 }
 
 export interface IReview {

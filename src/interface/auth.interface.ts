@@ -3,8 +3,12 @@ export interface ILogin {
   password: string;
 }
 export interface ISocialLogin {
+  reqUrl: string;
+}
+export interface IGoogleLogin {
   access_token: string;
 }
+
 export interface IRegister {
   email: string;
   password: string;

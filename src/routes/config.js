@@ -54,6 +54,9 @@ const OrderComplete = lazy(() =>
   import("../components/Checkout/OrderComplete.tsx")
 );
 
+const TermsofService = lazy(() => import("../pages/TermsOfService.jsx"));
+const PrivacyPolicy = lazy(() => import("../pages/PrivacyPolicy.jsx"));
+
 const NotFound = lazy(() => import("../pages/NotFound.tsx"));
 
 export const RouteConfig = () => {
@@ -99,11 +102,11 @@ export const RouteConfig = () => {
           element: <VerifyEmail />,
         },
         {
-          path: "fb-login/callback/:token",
+          path: "fb-login/callback",
           element: <FbLoginCallback />,
         },
         {
-          path: "github-login/callback/:token",
+          path: "github-login/callback",
           element: <GithubLoginCallback />,
         },
       ],
@@ -111,6 +114,8 @@ export const RouteConfig = () => {
 
     { path: "/product-list", element: <ProductList /> },
     { path: "/product-detail/:id", element: <ProductDetail /> },
+    { path: "/privacy-policy", element: <PrivacyPolicy /> },
+    { path: "/terms-of-services", element: <TermsofService /> },
 
     {
       path: "/checkout",

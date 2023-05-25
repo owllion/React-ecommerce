@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { AnyAction } from "@reduxjs/toolkit";
 import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
 import { AxiosError } from "axios";
@@ -15,12 +15,21 @@ import { commonActions } from "../../store/slice/Common.slice";
 import { sendLink } from "src/api/auth.api";
 import VerifyState from "./verify/VerifyState";
 
+import { githubAuthApi } from "../../api/auth.api";
 const GithubLoginCallback = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [isVerified, setIsVerified] = useState(true);
-  const params = useParams();
-  const { token } = params as { token: string };
+
+  //---
+  // const { search } = useLocation();
+  // const params = new URLSearchParams(search);
+  // const token = params.get("code");
+
+  // const params = useParams();
+  // console.log(params, "這是prams");
+  // const { code: token } = params as { code: string };
+  // console.log(token, "這是token");
 
   const verifyToken = async () => {
     try {
@@ -29,7 +38,7 @@ const GithubLoginCallback = () => {
         data: { token: accessToken, refreshToken, user },
       }: {
         data: IAuthResult;
-      } = await verifyTokenApi({ token });
+      } = await githubAuthApi({ reqUrl: window.location.toString() });
       setIsVerified(true);
       dispatch(
         authRelatedAction({

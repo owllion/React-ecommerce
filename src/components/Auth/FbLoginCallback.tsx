@@ -14,13 +14,14 @@ import { authRelatedAction } from "../../store/actions/auth/authRelatedAction.ac
 import { commonActions } from "../../store/slice/Common.slice";
 import { sendLink } from "src/api/auth.api";
 import VerifyState from "./verify/VerifyState";
+import { fbAuthApi } from "../../api/auth.api";
 
 const FbLoginCallback = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [isVerified, setIsVerified] = useState(true);
-  const params = useParams();
-  const { token } = params as { token: string };
+  // const params = useParams();
+  // const { token } = params as { token: string };
 
   const verifyToken = async () => {
     try {
@@ -29,7 +30,7 @@ const FbLoginCallback = () => {
         data: { token: accessToken, refreshToken, user },
       }: {
         data: IAuthResult;
-      } = await verifyTokenApi({ token });
+      } = await fbAuthApi({ reqUrl: window.location.toString() });
       setIsVerified(true);
       dispatch(
         authRelatedAction({

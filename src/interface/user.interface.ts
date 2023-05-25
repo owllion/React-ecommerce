@@ -56,23 +56,23 @@ export interface IUserPasswordModify {
 }
 
 interface IBaseProductInfo {
-  productId: string;
+  product_id: string;
   qty: number;
   size: string;
   cartList: IProduct[];
 }
 
-export interface IAddToFav extends Pick<IBaseProductInfo, "productId"> {}
-export interface IRemoveFromFav extends Pick<IBaseProductInfo, "productId"> {}
+export interface IAddToFav extends Pick<IBaseProductInfo, "product_id"> {}
+export interface IRemoveFromFav extends Pick<IBaseProductInfo, "product_id"> {}
 
 export interface IRemoveFromCart
-  extends Pick<IBaseProductInfo, "productId" | "size"> {}
+  extends Pick<IBaseProductInfo, "product_id" | "size"> {}
 export interface IUpdateQty
-  extends Pick<IBaseProductInfo, "productId" | "qty" | "size"> {
-  type: string;
+  extends Pick<IBaseProductInfo, "product_id" | "qty" | "size"> {
+  operation_type: string;
 }
 export interface IAddToCart
-  extends Pick<IBaseProductInfo, "productId" | "qty" | "size"> {}
+  extends Pick<IBaseProductInfo, "product_id" | "qty" | "size"> {}
 
 export interface IGetPopulatedList {
   type: "order" | "review";
@@ -82,7 +82,7 @@ export interface IGetNormalList {
 }
 export interface IModifyReview {
   reviewItem: {
-    reviewId: string;
+    id: string;
     comment: string;
   };
 }

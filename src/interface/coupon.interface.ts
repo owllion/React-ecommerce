@@ -9,5 +9,5 @@ export interface ICoupon {
 
 export interface IApplyCoupon {
   code: string;
-  totalPrice: number;
+  total_price: number;
 }

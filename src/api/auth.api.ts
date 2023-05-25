@@ -10,16 +10,16 @@ export const loginApi = (data: AuthInterface.ILogin) =>
 export const fbLoginApi = () => instance.get("/auth/fb-login");
 
 export const fbAuthApi = (data: AuthInterface.ISocialLogin) =>
-  instance.get(`/auth/fb-auth?access_token=${data.access_token}`);
+  instance.post("/auth/fb-auth", data);
 
 //2.github
 export const githubLoginApi = () => instance.get("/auth/github-login");
 
 export const githubAuthApi = (data: AuthInterface.ISocialLogin) =>
-  instance.get(`/auth/github-auth?access_token=${data.access_token}`);
+  instance.post("/auth/github-auth", data);
 
 //3.google - 和上面兩個驗證方式不一樣
-export const googleLoginApi = (data: AuthInterface.ISocialLogin) =>
+export const googleLoginApi = (data: AuthInterface.IGoogleLogin) =>
   instance.get(`/auth/google-login?access_token=${data.access_token}`);
 
 //social login

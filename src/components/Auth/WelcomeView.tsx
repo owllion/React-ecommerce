@@ -5,6 +5,7 @@ import { AnyAction } from "@reduxjs/toolkit";
 import { useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { IoMdMail } from "react-icons/io";
+import { AiFillFacebook } from "react-icons/ai";
 import { DiGithubBadge } from "react-icons/di";
 import cl from "../../constants/color/color";
 import { authImgList } from "../../assets/authImg";
@@ -13,7 +14,7 @@ import { useAppDispatch } from "../../store/hooks";
 import { googleLogin } from "src/store/actions/auth/googleLogin.action";
 import AuthFormTemplate from "./AuthFormTemplate";
 import { useUpdateEffect } from "../../hooks/useUpdateEffect";
-import { githubLoginApi } from "../../api/auth.api";
+import { fbLoginApi, githubLoginApi } from "../../api/auth.api";
 
 type Data = {
   url: string;
@@ -41,6 +42,13 @@ const WelcomeView = () => {
 
     window.location.href = url;
   };
+  const loginWithFb = async () => {
+    const {
+      data: { url },
+    }: { data: Data } = await fbLoginApi();
+
+    window.location.href = url;
+  };
 
   return (
     <AuthFormTemplate
@@ -59,6 +67,13 @@ const WelcomeView = () => {
       <LoginBtnBox onClick={() => loginWithGithub()}>
         <LoginBtn shadow>
           <DiGithubBadge />
+          <BtnText color={`${cl.textLightGray}`}>Login with Github</BtnText>
+        </LoginBtn>
+      </LoginBtnBox>
+
+      <LoginBtnBox onClick={() => loginWithFb()}>
+        <LoginBtn shadow>
+          <AiFillFacebook />
           <BtnText color={`${cl.textLightGray}`}>Login with Github</BtnText>
         </LoginBtn>
       </LoginBtnBox>
