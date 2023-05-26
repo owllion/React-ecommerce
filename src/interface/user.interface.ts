@@ -41,18 +41,19 @@ export interface IUpload {
 export interface IForgotPassword {
   email: string;
 }
+
 export interface IResetPassword {
   token: string;
   password: string;
 }
-
-export interface IUserInfoModify {
-  firstName?: string;
-  lastName?: string;
-  phone?: string | null;
-}
 export interface IUserPasswordModify {
   password: string;
+}
+export interface IUserInfoModify {
+  first_name?: string;
+  last_name?: string;
+  phone?: string | null;
+  verified?: number;
 }
 
 interface IBaseProductInfo {

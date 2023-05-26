@@ -5,27 +5,31 @@ import { ICreateOrder } from "../interface/order.interface";
 import { IApplyCoupon } from "../interface/coupon.interface";
 import { IGetOrderDetail } from "../interface/order.interface";
 
+//ok
 export const upload = (data: UserInterface.IUpload) =>
   instance.post("/upload-avatar", data);
-
+//ok
 export const forgotPassword = (data: UserInterface.IForgotPassword) =>
   instance.post("/forgot-password", data);
 
+//ok
 export const resetPassword = (data: UserInterface.IResetPassword) =>
   instance.post("/reset-password", data);
 
-//modify info except pwd
+//ok
 export const userInfoModify = (data: UserInterface.IUserInfoModify) =>
-  instance.patch("/user/info", data);
-//pwd only
+  instance.patch("/user/update", data);
+
+//ok
 export const userPasswordModify = (data: UserInterface.IUserPasswordModify) =>
-  instance.put("/user/password", data);
+  instance.put("/user/modify-password", data);
 
-export const addToFavApi = (data: UserInterface.IAddToFav) =>
-  instance.post("/user/fav/add", data);
+//ok
+export const ToggleFavApi = (data: UserInterface.IAddToFav) =>
+  instance.post("/user-favorite/", data);
 
-export const removeFromFavApi = (data: UserInterface.IRemoveFromFav) =>
-  instance.post("/user/fav/remove", data);
+// export const removeFromFavApi = (data: UserInterface.IRemoveFromFav) =>
+//   instance.post("/user/fav/remove", data);
 
 // export const getPopulatedList = (data: UserInterface.IGetPopulatedList) =>
 //   instance.get(`/user/populate/${data.type}/list`);
