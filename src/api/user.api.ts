@@ -28,15 +28,6 @@ export const userPasswordModify = (data: UserInterface.IUserPasswordModify) =>
 export const ToggleFavApi = (data: UserInterface.IAddToFav) =>
   instance.post("/user-favorite/", data);
 
-// export const removeFromFavApi = (data: UserInterface.IRemoveFromFav) =>
-//   instance.post("/user/fav/remove", data);
-
-// export const getPopulatedList = (data: UserInterface.IGetPopulatedList) =>
-//   instance.get(`/user/populate/${data.type}/list`);
-
-// export const getNormalList = (data: UserInterface.IGetNormalList) =>
-//   instance.get(`/user/${data.type}/list`);
-
 //ok
 export const addToCartApi = (data: UserInterface.IAddToCart) =>
   instance.post("/user/add-to-cart", data);
@@ -46,8 +37,6 @@ export const removeFromCartApi = (data: UserInterface.IRemoveFromCart) =>
 //ok
 export const updateQty = (data: UserInterface.IUpdateQty) =>
   instance.post("/user/update-cart-item-qty", data);
-
-// export const clearCart = () => instance.get("/clearCart");
 
 //ok
 export const createReview = (data: ICreateReview) =>
