@@ -87,3 +87,7 @@ export interface IModifyReview {
     comment: string;
   };
 }
+
+export interface IUserId {
+  userId: string;
+}

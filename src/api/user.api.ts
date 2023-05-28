@@ -57,3 +57,13 @@ export const getOrderDetail = (data: IGetOrderDetail) =>
 //ok
 export const modifyReview = (data: UserInterface.IModifyReview) =>
   instance.put("/review", data);
+
+//ok
+export const getCouponList = (data: UserInterface.IUserId) =>
+  instance.get(`/coupons/user/${data.userId}`);
+export const getFavList = () => instance.get("/user-favorites");
+export const getCartList = () => instance.get("user/cart");
+export const getOrderList = (data: UserInterface.IUserId) =>
+  instance.get(`orders/user/${data.userId}`);
+export const getReviewList = (data: UserInterface.IUserId) =>
+  instance.get(`coupons/user/${data.userId}`);
