@@ -12,8 +12,8 @@ export interface IGoogleLogin {
 export interface IRegister {
   email: string;
   password: string;
-  firstName: string;
-  lastName: string;
+  first_name: string;
+  last_name: string;
 }
 export interface ICheckAccount extends Pick<IRegister, "email"> {}
 export interface IGetRefreshToken {
