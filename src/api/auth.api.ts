@@ -20,16 +20,16 @@ export const googleLoginApi = (data: AuthInterface.IGoogleLogin) =>
 //ok
 export const registerApi = (data: AuthInterface.IRegister) =>
   instance.post("/auth/register", data);
-
+//no
 export const checkIfAccountExists = (data: AuthInterface.ICheckAccount) =>
   instance.post("/auth/check-account", data);
-
+//ok
 export const getRefreshToken = (data: AuthInterface.IGetRefreshToken) =>
   instance.post("/refresh-token", data);
-
+//ok
 export const verifyTokenApi = (data: AuthInterface.IVerifyToken) =>
   instance.post("/auth/verify-token", data);
-
+//no
 export const sendLink = (data: AuthInterface.ISendVerifyLink) =>
   instance.post("/auth/send-link", data);
 

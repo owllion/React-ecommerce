@@ -16,12 +16,11 @@ export interface IRegister {
   last_name: string;
 }
 export interface ICheckAccount extends Pick<IRegister, "email"> {}
-export interface IGetRefreshToken {
-  refresh: string;
-}
+
 export interface IVerifyToken {
   token: string;
 }
+export interface IGetRefreshToken extends IVerifyToken {}
 export interface ICheckToken extends IVerifyToken {}
 export interface ISendVerifyLink extends Pick<ILogin, "email"> {
   type: string;

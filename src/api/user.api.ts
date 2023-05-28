@@ -61,8 +61,6 @@ export const createOrder = (data: ICreateOrder) =>
 export const applyCoupon = (data: IApplyCoupon) =>
   instance.post("/coupon/apply-coupon", data);
 
-// export const getOrderDetail = (data: IGetOrderDetail) =>
-//   instance.post("/order/detail", data);
 //ok
 export const getOrderDetail = (data: IGetOrderDetail) =>
   instance.post(`/order/${data.orderId}`);
