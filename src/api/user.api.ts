@@ -25,7 +25,7 @@ export const userPasswordModify = (data: UserInterface.IUserPasswordModify) =>
   instance.put("/user/modify-password", data);
 
 //ok
-export const ToggleFavApi = (data: UserInterface.IAddToFav) =>
+export const toggleFavApi = (data: UserInterface.IAddToFav) =>
   instance.post("/user-favorite/", data);
 
 //ok

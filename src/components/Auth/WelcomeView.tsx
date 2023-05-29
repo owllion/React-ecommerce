@@ -14,7 +14,7 @@ import { useAppDispatch } from "../../store/hooks";
 import { googleLogin } from "src/store/actions/auth/googleLogin.action";
 import AuthFormTemplate from "./AuthFormTemplate";
 import { useUpdateEffect } from "../../hooks/useUpdateEffect";
-import { fbLoginApi, githubLoginApi } from "../../api/auth.api";
+import { githubLoginApi } from "../../api/auth.api";
 
 type Data = {
   url: string;
@@ -42,13 +42,6 @@ const WelcomeView = () => {
 
     window.location.href = url;
   };
-  const loginWithFb = async () => {
-    const {
-      data: { url },
-    }: { data: Data } = await fbLoginApi();
-
-    window.location.href = url;
-  };
 
   return (
     <AuthFormTemplate
@@ -67,13 +60,6 @@ const WelcomeView = () => {
       <LoginBtnBox onClick={() => loginWithGithub()}>
         <LoginBtn shadow>
           <DiGithubBadge />
-          <BtnText color={`${cl.textLightGray}`}>Login with Github</BtnText>
-        </LoginBtn>
-      </LoginBtnBox>
-
-      <LoginBtnBox onClick={() => loginWithFb()}>
-        <LoginBtn shadow>
-          <AiFillFacebook />
           <BtnText color={`${cl.textLightGray}`}>Login with Github</BtnText>
         </LoginBtn>
       </LoginBtnBox>

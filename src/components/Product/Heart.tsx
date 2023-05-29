@@ -7,7 +7,7 @@ import { IoIosHeart } from "react-icons/io";
 import { useAppDispatch } from "../../store/hooks";
 import { Icon } from "./SingleProduct";
 import { useAppSelector } from "../../store/hooks";
-import { addToFavApi, removeFromFavApi } from "src/api/user.api";
+import { toggleFavApi } from "src/api/user.api";
 import toast from "react-hot-toast";
 import { IProduct } from "../../interface/product.interface";
 import { userActions } from "../../store/slice/User.slice";
@@ -22,13 +22,19 @@ const Heart = ({ item }: { item: IProduct | undefined }) => {
   const isInList = () => {
     return favList?.find((fav) => fav?.productId === item?.productId);
   };
-  const addToFav = async () => {
+  const toggleFav = async () => {
     if (!getToken()) return toast.error("You need to login");
     try {
       dispatch(commonActions.setFavLoading(true));
-      await addToFavApi({ productId: item?.productId! });
-      dispatch(userActions.addToFav(item!));
-      toast.success("Add to Fav");
+      const {
+        data: { msg },
+      }: { data: { msg: string } } = await toggleFavApi({
+        product_id: item?.productId!,
+      });
+
+      // dispatch(userActions.addToFav(item!));
+      toast.success(msg);
+
       dispatch(commonActions.setFavLoading(false));
     } catch (error) {
       dispatch(commonActions.setFavLoading(false));
@@ -38,25 +44,11 @@ const Heart = ({ item }: { item: IProduct | undefined }) => {
     }
   };
 
-  const removeFromFav = async () => {
-    if (!getToken()) return toast.error("You need to login");
-    try {
-      dispatch(commonActions.setFavLoading(true));
-      await removeFromFavApi({ productId: item?.productId! });
-      dispatch(userActions.removeFromFav(item!));
-      toast.success("Remove From Fav");
-      dispatch(commonActions.setFavLoading(false));
-    } catch (error) {
-      dispatch(commonActions.setFavLoading(false));
-      const errMsg = ((error as AxiosError).response?.data as { msg: string })
-        .msg;
-      toast.error(errMsg);
-    }
-  };
   return (
     <>
       <Icon
-        onClick={() => (isInList() ? removeFromFav() : addToFav())}
+        // onClick={() => (isInList() ? removeFromFav() : addToFav())}
+        onClick={() => toggleFav()}
         disabled={favLoading}
       >
         {isInList() ? <IoIosHeart /> : <FiHeart />}

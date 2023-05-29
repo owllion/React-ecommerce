@@ -9,7 +9,6 @@ import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { sideNavMotion } from "../../lib/motion";
 import cl from "../../constants/color/color";
 import { authActions } from "../../store/slice/Auth.slice";
-import { logoutApi } from "../../api/auth.api";
 import { navList } from "../../data/sideNavLinkList";
 
 interface IProps {
@@ -22,7 +21,6 @@ const SideNav = ({ handleShowSideNav }: IProps) => {
   const logout = async () => {
     try {
       dispatch(authActions.clearToken());
-      await logoutApi();
       localStorage.clear();
       window.location.href = "/auth/welcome";
     } catch (error) {
