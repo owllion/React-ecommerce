@@ -5,16 +5,16 @@ import dayjs from "dayjs";
 import cl from "../../constants/color/color";
 import { ICoupon } from "../../interface/coupon.interface";
 
-const restTime = (expiryDate: Date) =>
-  new Date(expiryDate).getTime() - Date.now();
+const restTime = (expiry_date: Date) =>
+  new Date(expiry_date).getTime() - Date.now();
 
-const isExpired = (expiryDate: Date) => {
-  return restTime(expiryDate) < 0;
+const isExpired = (expiry_date: Date) => {
+  return restTime(expiry_date) < 0;
 };
 
-const almostExpired = (expiryDate: Date) => {
-  if (!isExpired(expiryDate)) {
-    const rest = restTime(expiryDate);
+const almostExpired = (expiry_date: Date) => {
+  if (!isExpired(expiry_date)) {
+    const rest = restTime(expiry_date);
     const min = Math.floor(rest / 1000 / 60) % 60;
     const hours = Math.floor(rest / 1000 / 60 / 60) % 24;
     const days = Math.floor(rest / 1000 / 60 / 60 / 24);
@@ -30,36 +30,36 @@ const getRestTimeCounter = (count: Array<number>) => {
   }min left`;
 };
 
-const getExpirationDate = (expiryDate: Date) => {
+const getExpirationDate = (expiry_date: Date) => {
   return `${dayjs(Date.now()).format("YYYY MMMM DD")} -
-    ${dayjs(expiryDate.toString()).format("YYYY MMMM DD")}`;
+    ${dayjs(expiry_date.toString()).format("YYYY MMMM DD")}`;
 };
 
 const Coupon = (props: ICoupon) => {
-  const { amount, code, discountType, minimumAmount, expiryDate, isUsed } =
+  const { amount, code, discount_type, minimum_amount, expiry_date, is_used } =
     props;
-  almostExpired(expiryDate);
+  almostExpired(expiry_date);
   return (
     <CouponContainer>
       <CouponWrapper>
-        <CouponValue isExpired={isExpired(expiryDate)} isUsed={isUsed}>
-          {discountType === "rebate" && "$"}
+        <CouponValue isExpired={isExpired(expiry_date)} isUsed={is_used}>
+          {discount_type === "fixed_amount" && "$"}
           {amount}
-          {discountType === "percentage" && "%"}
+          {discount_type === "percentage" && "%"}
         </CouponValue>
         <CouponInfo>
           <InfoList>
-            <Code isExpired={isExpired(expiryDate)} isUsed={isUsed}>
+            <Code isExpired={isExpired(expiry_date)} isUsed={is_used}>
               {code}
             </Code>
-            <InfoItem>minimum ${minimumAmount}</InfoItem>
+            <InfoItem>minimum ${minimum_amount}</InfoItem>
             <InfoItem
-              almostExpired={almostExpired(expiryDate)?.length! > 0}
-              isUsed={isUsed}
+              almostExpired={almostExpired(expiry_date)?.length! > 0}
+              isUsed={is_used}
             >
-              {almostExpired(expiryDate)?.length! > 0 && !isUsed
-                ? getRestTimeCounter(almostExpired(expiryDate)!)
-                : getExpirationDate(expiryDate)}
+              {almostExpired(expiry_date)?.length! > 0 && !is_used
+                ? getRestTimeCounter(almostExpired(expiry_date)!)
+                : getExpirationDate(expiry_date)}
             </InfoItem>
           </InfoList>
         </CouponInfo>

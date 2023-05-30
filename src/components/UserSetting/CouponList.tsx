@@ -34,14 +34,13 @@ const CouponList = () => {
 
   const getCouponList = async () => {
     try {
+      console.log(id, "this is id");
       dispatch(commonActions.setLoading(true));
-      const {
-        data: { couponList },
-      }: IGetCouponList = await getCouponListApi({ userId: id! });
-      setCouponList(couponList);
+      const { data } = await getCouponListApi({ userId: id! });
+      setCouponList(data);
       setFilteredList(
         couponList?.filter(
-          (item) => !item.isUsed && !isExpired(item.expiryDate)
+          (item) => !item.is_used && !isExpired(item.expiry_date)
         )
       );
       dispatch(commonActions.setLoading(false));
@@ -58,9 +57,9 @@ const CouponList = () => {
   useEffect(() => {
     const list = couponList?.filter((item) => {
       if (selected === "unused")
-        return !isExpired(item.expiryDate) && !item.isUsed;
-      if (selected === "used") return item.isUsed;
-      else return isExpired(item.expiryDate);
+        return !isExpired(item.expiry_date) && !item.is_used;
+      if (selected === "used") return item.is_used;
+      else return isExpired(item.expiry_date);
     });
     setFilteredList(list);
   }, [selected]);
