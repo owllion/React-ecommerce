@@ -31,7 +31,7 @@ const PlusMinusBtn = ({ cartItemQty, size, productId }: IProps) => {
       await updateQty({
         operation_type: type,
         qty: cartItemQty,
-        id: productId,
+        product_id: productId,
         size: size,
       });
 

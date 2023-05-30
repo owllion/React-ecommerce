@@ -25,7 +25,7 @@ const GithubLoginCallback = () => {
     try {
       dispatch(commonActions.setLoading(true));
       const {
-        data: { token: accessToken, refreshToken, user },
+        data: { token: accessToken, refresh_token, user },
       }: {
         data: IAuthResult;
       } = await githubAuthApi({ reqUrl: window.location.toString() });
@@ -34,9 +34,9 @@ const GithubLoginCallback = () => {
         authRelatedAction({
           user,
           token: accessToken,
-          refreshToken,
+          refreshToken: refresh_token,
           cartLength: user.cartLength,
-          type: "google",
+          type: "github",
         }) as unknown as AnyAction
       );
       dispatch(commonActions.setLoading(false));

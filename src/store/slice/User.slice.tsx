@@ -6,10 +6,10 @@ import { IUserInfo } from "src/interface/user.interface";
 
 const initialState: Partial<IUser> = {
   id: "",
-  first_name: "",
   email: "",
-  fullName: "",
+  first_name: "",
   last_name: "",
+  fullName: "",
   upload_avatar: "",
   default_avatar: "",
   phone: "",
@@ -49,6 +49,11 @@ const userSlice = createSlice({
       state.upload_avatar = upload_avatar;
       state.favList = favList;
       state.locale = locale;
+    },
+    setGithubLoginInfo(state, { payload }: PayloadAction<IUserInfo>) {
+      state.default_avatar = payload.default_avatar;
+      state.upload_avatar = payload.upload_avatar;
+      state.fullName = payload.first_name + payload.last_name;
     },
     updateUserInfo(state, { payload }: PayloadAction<Partial<IUser>>) {
       state.phone = payload.phone;

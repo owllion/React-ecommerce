@@ -8,7 +8,7 @@ import { IUserInfo } from "src/interface/user.interface";
 import { authRelatedAction } from "./authRelatedAction.action";
 export interface IAuthResult {
   token: string;
-  refreshToken: string;
+  refresh_token: string;
   user: IUserInfo;
 }
 
@@ -22,7 +22,7 @@ const signInOrSignUp = (data: IProps): AppThunk => {
     dispatch(commonActions.setLoading(true));
     try {
       const {
-        data: { token, refreshToken, user },
+        data: { token, refresh_token, user },
       }: {
         data: IAuthResult;
       } = isLogin(data)
@@ -42,7 +42,7 @@ const signInOrSignUp = (data: IProps): AppThunk => {
           authRelatedAction({
             user,
             token,
-            refreshToken,
+            refreshToken: refresh_token,
             cartLength: user.cartLength,
             type: "email",
           })

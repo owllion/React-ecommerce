@@ -51,7 +51,7 @@ const SendLinkNotification = () => {
     try {
       dispatch(commonActions.setLoading(true));
       const {
-        data: { token: accessToken, refreshToken, user },
+        data: { token: accessToken, refresh_token, user },
       }: {
         data: IAuthResult;
       } = await verifyTokenApi({ token });
@@ -60,7 +60,7 @@ const SendLinkNotification = () => {
         authRelatedAction({
           user,
           token: accessToken,
-          refreshToken,
+          refreshToken: refresh_token,
           cartLength: user.cartLength,
           type: "email",
         }) as unknown as AnyAction

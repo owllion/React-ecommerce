@@ -28,10 +28,8 @@ const OrderList = () => {
   const getOrderList = async () => {
     try {
       dispatch(commonActions.setLoading(true));
-      const {
-        data: { orderList },
-      }: IOrderList = await getOrderListApi({ userId: id! });
-      setOrderList(orderList);
+      const { data } = await getOrderListApi({ userId: id! });
+      setOrderList(data.list);
       dispatch(commonActions.setLoading(false));
     } catch (error) {
       dispatch(commonActions.setLoading(false));

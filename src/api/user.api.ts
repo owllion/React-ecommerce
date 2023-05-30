@@ -18,7 +18,7 @@ export const resetPassword = (data: UserInterface.IResetPassword) =>
 
 //ok
 export const userInfoModify = (data: UserInterface.IUserInfoModify) =>
-  instance.patch("/user/update", data);
+  instance.put("/user/update", data);
 
 //ok
 export const userPasswordModify = (data: UserInterface.IUserPasswordModify) =>

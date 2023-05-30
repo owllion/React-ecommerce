@@ -39,7 +39,6 @@ const Account = () => {
     defaultValues: {
       first_name,
       last_name,
-      fullName,
       phone,
     },
   });
@@ -47,7 +46,11 @@ const Account = () => {
   const onSubmit: SubmitHandler<FormValue> = async (data) => {
     try {
       dispatch(commonActions.setLoading(true));
-      const params = { ...data, phone: data.phone ? data.phone : null };
+      const params = {
+        first_name: data.first_name,
+        last_name,
+        phone: data.phone && data.phone,
+      };
 
       await userInfoModify(params);
       dispatch(userActions.updateUserInfo(params));
@@ -71,7 +74,7 @@ const Account = () => {
       <Wrapper>
         <AvatarSection />
         <FormSection onSubmit={handleSubmit(onSubmit)}>
-          {loginType === "email" ? (
+          {
             <>
               <SingleInputBox>
                 <Label error={errors.first_name}>First Name</Label>
@@ -88,25 +91,19 @@ const Account = () => {
                 <Label error={errors.last_name}>Last Name</Label>
                 <Input
                   error={errors.last_name}
-                  {...register("last_name", getValidationData(["required"]))}
+                  {...register("last_name", getValidationData(["maxLength"]))}
                 />
                 <FieldErr errors={errors} field="last_name" />
               </SingleInputBox>
             </>
-          ) : (
+          }
+          {loginType !== "github" && (
             <SingleInputBox>
-              <Label error={errors.fullName}>Full Name</Label>
-              <Input
-                error={errors.fullName}
-                {...register("fullName", getValidationData(["required"]))}
-              />
-              <FieldErr errors={errors} field="fullName" />
+              <Label htmlFor="email">Email</Label>
+              <Input value={email} disabled id="email" />
             </SingleInputBox>
           )}
-          <SingleInputBox>
-            <Label htmlFor="email">Email</Label>
-            <Input value={email} disabled id="email" />
-          </SingleInputBox>
+
           <SingleInputBox>
             <Label error={errors.phone}>Phone</Label>
             <Input

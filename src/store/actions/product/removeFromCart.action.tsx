@@ -13,7 +13,7 @@ export interface IRemoveFromCartAction {
 const removeFromCart = ({ qty, id, size }: IRemoveFromCartAction): AppThunk => {
   return async (dispatch) => {
     try {
-      await removeFromCartApi({ id, size });
+      await removeFromCartApi({ product_id: id, size });
       dispatch(cartActions.removeFromCart({ id, size }));
       dispatch(cartActions.setCartLength(qty * -1));
     } catch (error) {

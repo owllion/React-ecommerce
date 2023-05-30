@@ -11,8 +11,8 @@ export interface Data {
       avatarDefault: string;
       avatarUpload: string;
       favList: IProduct[];
-      couponList: ICoupon[];
-      cartList: IProduct[];
+      // couponList: ICoupon[];
+      // cartList: IProduct[];
     };
   };
 }
@@ -64,23 +64,22 @@ interface IBaseProductInfo {
   cartList: IProduct[];
 }
 
-export interface IAddToFav extends Pick<IBaseProductInfo, "id"> {}
-export interface IRemoveFromFav extends Pick<IBaseProductInfo, "id"> {}
+export interface IAddToFav {
+  product_id: string;
+}
+export interface IRemoveFromFav {
+  product_id: string;
+}
 
-export interface IRemoveFromCart
-  extends Pick<IBaseProductInfo, "id" | "size"> {}
-export interface IUpdateQty
-  extends Pick<IBaseProductInfo, "id" | "qty" | "size"> {
+export interface IRemoveFromCart extends Pick<IBaseProductInfo, "size"> {
+  product_id: string;
+}
+export interface IUpdateQty extends Pick<IBaseProductInfo, "qty" | "size"> {
   operation_type: string;
+  product_id: string;
 }
-export interface IAddToCart
-  extends Pick<IBaseProductInfo, "id" | "qty" | "size"> {}
-
-export interface IGetPopulatedList {
-  type: "order" | "review";
-}
-export interface IGetNormalList {
-  type: "cartList" | "favList" | "couponList";
+export interface IAddToCart extends Pick<IBaseProductInfo, "qty" | "size"> {
+  product_id: string;
 }
 export interface IModifyReview {
   reviewItem: {

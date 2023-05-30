@@ -29,7 +29,7 @@ const Heart = ({ item }: { item: IProduct | undefined }) => {
       const {
         data: { msg },
       }: { data: { msg: string } } = await toggleFavApi({
-        id: item?.id!,
+        product_id: item?.id!,
       });
 
       // dispatch(userActions.addToFav(item!));

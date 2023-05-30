@@ -24,7 +24,7 @@ const addToCart = ({ id, addOne, size }: IProps): AppThunk => {
     try {
       dispatch(commonActions.setCartLoading(true));
 
-      await addToCartApi({ id, qty, size });
+      await addToCartApi({ product_id: id, qty, size });
       dispatch(cartActions.setCartLength(qty));
 
       toast.success("Add Product To Cart");
