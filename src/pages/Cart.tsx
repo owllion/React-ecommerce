@@ -5,7 +5,7 @@ import styled, { css } from "styled-components";
 import cl from "../constants/color/color";
 import DesktopCartItem from "../components/Checkout/Cart/DesktopCartItem";
 import TabletCartItem from "../components/Checkout/Cart/TabletCartItem";
-import { getNormalList } from "../api/user.api";
+import { getCartListApi } from "../api/user.api";
 import { IProduct } from "../interface/product.interface";
 import { cartActions } from "../store/slice/Cart.slice";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
@@ -32,7 +32,7 @@ const Cart = () => {
       dispatch(commonActions.setLoading(true));
       const {
         data: { cartList },
-      }: IResult = await getNormalList({ type: "cartList" });
+      }: IResult = await getCartListApi();
       dispatch(cartActions.setCartList(cartList));
       dispatch(commonActions.setLoading(false));
     } catch (error) {

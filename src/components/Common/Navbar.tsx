@@ -14,7 +14,7 @@ const Navbar = () => {
   const [showSideNav, setShowSideNav] = useState(false);
   const [colorChange, setColorChange] = useState(false);
   const { showSearch } = useAppSelector((state) => state.common || {});
-  const { avatarUpload, avatarDefault } = useAppSelector(
+  const { upload_avatar, default_avatar } = useAppSelector(
     (state) => state.user || {}
   );
   const { cartLength } = useAppSelector((state) => state.cart || {});
@@ -106,7 +106,7 @@ const Navbar = () => {
                   {getToken() ? (
                     <AvatarBox>
                       <Avatar
-                        src={avatarUpload || avatarDefault}
+                        src={upload_avatar || default_avatar}
                         alt={"avatar"}
                         referrerPolicy="no-referrer"
                       />

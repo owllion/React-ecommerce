@@ -4,13 +4,13 @@ import { AxiosError } from "axios";
 import toast from "react-hot-toast";
 
 import SectionTitle from "../SectionTitle";
-import { getPopulatedList } from "../../../api/user.api";
 import { IReview } from "../../../interface/review.interface";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { commonActions } from "../../../store/slice/Common.slice";
 import NoResult from "src/components/UserSetting/NoResult";
 import { userActions } from "../../../store/slice/User.slice";
 import Review from "./Review";
+import { getReviewListApi } from "../../../api/user.api";
 interface IGetReviewList {
   data: {
     reviewList: IReview[];
@@ -19,7 +19,7 @@ interface IGetReviewList {
 
 const ReviewList = () => {
   const dispatch = useAppDispatch();
-  const { reviewList } = useAppSelector((state) => state.user || {});
+  const { reviewList, id } = useAppSelector((state) => state.user || {});
   const { isLoading } = useAppSelector((state) => state.common || {});
 
   const getReviewList = async () => {
@@ -27,7 +27,7 @@ const ReviewList = () => {
       dispatch(commonActions.setLoading(true));
       const {
         data: { reviewList },
-      }: IGetReviewList = await getPopulatedList({ type: "review" });
+      }: IGetReviewList = await getReviewListApi({ userId: id! });
       dispatch(userActions.setReviewList(reviewList));
       dispatch(commonActions.setLoading(false));
     } catch (error) {

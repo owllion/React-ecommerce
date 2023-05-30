@@ -52,10 +52,10 @@ const Review = ({ review }: { review: IReview }) => {
     setIsEditable(false);
     clearErrors("comment");
   };
-  const modifyReviewHandler = async ({ reviewId, comment }: FormValue) => {
+  const modifyReviewHandler = async ({ reviewId: id, comment }: FormValue) => {
     try {
       const params = {
-        reviewId,
+        id,
         comment,
       };
       await modifyReview({
@@ -76,7 +76,7 @@ const Review = ({ review }: { review: IReview }) => {
   };
 
   return (
-    <SC.SingleReviewContainer key={review.reviewId}>
+    <SC.SingleReviewContainer key={review.id}>
       <SC.RightReviewBody>
         {isLoading ? (
           <Skeleton />
@@ -85,8 +85,8 @@ const Review = ({ review }: { review: IReview }) => {
             <SC.HeaderItem>
               <SC.Author>
                 {" "}
-                {review.user.firstName
-                  ? `${review.user.firstName} ${review.user.lastName}`
+                {review.user.first_name
+                  ? `${review.user.first_name} ${review.user.last_name}`
                   : `${review.user.fullName}`}
               </SC.Author>
 
@@ -131,7 +131,7 @@ const Review = ({ review }: { review: IReview }) => {
                     <SC.Submit
                       type="button"
                       onClick={() =>
-                        triggerCommentValidationAndModify(review.reviewId!)
+                        triggerCommentValidationAndModify(review.id!)
                       }
                     >
                       Submit
@@ -155,8 +155,10 @@ const Review = ({ review }: { review: IReview }) => {
                         <div style={{ height: "50px", width: "70px" }}></div>
                       </>
                     ) : (
-                      <Link to={`/product-detail/${review.product.productId}`}>
-                        <SC.ReviewItemImg src={review.product.imageList?.[0]} />
+                      <Link to={`/product-detail/${review.product.id}`}>
+                        <SC.ReviewItemImg
+                          src={review.product.images?.[0].url}
+                        />
                       </Link>
                     )}
                   </SC.ReviewItemImgBox>
@@ -165,7 +167,7 @@ const Review = ({ review }: { review: IReview }) => {
                       {isLoading ? (
                         <Skeleton height={33} />
                       ) : (
-                        review.product.productName
+                        review.product.product_name
                       )}
                     </SC.ReviewProductName>
                   </SC.ReviewProductNameBox>

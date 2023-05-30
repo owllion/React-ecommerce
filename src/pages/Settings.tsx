@@ -8,7 +8,6 @@ import cl from "../constants/color/color";
 import { Title } from "./Cart";
 import { sideNavLinks } from "../data/settingSideNavLink";
 import { confirmAlert } from "react-confirm-alert";
-import { logoutApi } from "../api/auth.api";
 import { useAppDispatch } from "../store/hooks";
 import { authActions } from "../store/slice/Auth.slice";
 
@@ -22,28 +21,11 @@ const Settings = () => {
   const logout = async () => {
     try {
       dispatch(authActions.clearToken());
-      await logoutApi();
       localStorage.clear();
       window.location.href = "/auth/welcome";
     } catch (error) {
       console.log(error);
     }
-  };
-  const checkForLogout = () => {
-    confirmAlert({
-      title: "Confirm to logout",
-      message: "Are you sure to do this?",
-      buttons: [
-        {
-          label: "Sure",
-          onClick: () => setSureToLogout(true),
-        },
-        {
-          label: "No",
-          onClick: () => setSureToLogout(false),
-        },
-      ],
-    });
   };
 
   useEffect(() => {

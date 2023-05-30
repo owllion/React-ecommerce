@@ -20,13 +20,13 @@ const DesktopCartItem = ({ cartList }: IProps) => {
   const dispatch = useAppDispatch();
   const removeFromCartHandler = async ({
     qty,
-    productId,
+    id,
     size,
   }: IRemoveFromCartAction) => {
     try {
       await dispatch(
         removeFromCart({
-          productId,
+          id,
           qty,
           size,
         }) as unknown as AnyAction
@@ -40,14 +40,14 @@ const DesktopCartItem = ({ cartList }: IProps) => {
       {cartList.map((item, index) => (
         <Fragment key={index}>
           <ItemInfoContainer
-            onClick={() => navigate(`/product-detail/${item.productId}`)}
+            onClick={() => navigate(`/product-detail/${item.id}`)}
           >
             <ItemInfo>
               <ItemInfoImgBox>
-                <ItemImg src={item.imageList?.[0]} />
+                <ItemImg src={item.images?.[0].url} />
               </ItemInfoImgBox>
               <ItemInfoTextBox>
-                <h3>{item.productName}</h3>
+                <h3>{item.product_name}</h3>
                 <ItemInfoColor>Black</ItemInfoColor>
                 <ItemInfoSize>{item.size}</ItemInfoSize>
               </ItemInfoTextBox>
@@ -60,7 +60,7 @@ const DesktopCartItem = ({ cartList }: IProps) => {
           <ItemInfoCounterBox>
             <PlusMinusBtn
               cartItemQty={item.qty!}
-              productId={item.productId}
+              productId={item.id}
               size={item.size}
             />
           </ItemInfoCounterBox>
@@ -71,7 +71,7 @@ const DesktopCartItem = ({ cartList }: IProps) => {
             <IoMdTrash
               onClick={() =>
                 removeFromCartHandler({
-                  productId: item.productId,
+                  id: item.id,
                   qty: item.qty!,
                   size: item.size,
                 })

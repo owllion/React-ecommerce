@@ -7,14 +7,14 @@ import { IGetOrderDetail } from "../interface/order.interface";
 
 //ok
 export const upload = (data: UserInterface.IUpload) =>
-  instance.post("/upload-avatar", data);
+  instance.post("/user/upload-avatar", data);
 //ok
 export const forgotPassword = (data: UserInterface.IForgotPassword) =>
-  instance.post("/forgot-password", data);
+  instance.post("/user/forgot-password", data);
 
 //ok
 export const resetPassword = (data: UserInterface.IResetPassword) =>
-  instance.post("/reset-password", data);
+  instance.post("/user/reset-password", data);
 
 //ok
 export const userInfoModify = (data: UserInterface.IUserInfoModify) =>
@@ -59,11 +59,11 @@ export const modifyReview = (data: UserInterface.IModifyReview) =>
   instance.put("/review", data);
 
 //ok
-export const getCouponList = (data: UserInterface.IUserId) =>
+export const getCouponListApi = (data: UserInterface.IUserId) =>
   instance.get(`/coupons/user/${data.userId}`);
-export const getFavList = () => instance.get("/user-favorites");
-export const getCartList = () => instance.get("user/cart");
-export const getOrderList = (data: UserInterface.IUserId) =>
+export const getFavListApi = () => instance.get("/user-favorites");
+export const getCartListApi = () => instance.get("user/cart");
+export const getOrderListApi = (data: UserInterface.IUserId) =>
   instance.get(`orders/user/${data.userId}`);
-export const getReviewList = (data: UserInterface.IUserId) =>
+export const getReviewListApi = (data: UserInterface.IUserId) =>
   instance.get(`coupons/user/${data.userId}`);

@@ -20,6 +20,7 @@ interface FormValue {
 const ReviewForm = () => {
   const dispatch = useAppDispatch();
   const { productId } = useAppSelector((state) => state.product || {});
+  const { id } = useAppSelector((state) => state.user);
   const userInfo = useAppSelector((state) => state.user || {});
 
   const [rating, setRating] = useState(5);
@@ -43,7 +44,8 @@ const ReviewForm = () => {
       await createReview({
         comment: data.comment,
         rating,
-        product: productId,
+        product_id: productId,
+        user_id: id!,
       });
       const review = {
         user: {

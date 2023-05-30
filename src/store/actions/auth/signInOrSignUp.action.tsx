@@ -32,8 +32,8 @@ const signInOrSignUp = (data: IProps): AppThunk => {
           })
         : await registerApi({
             email: data.email,
-            firstName: data.firstName,
-            lastName: data.lastName,
+            first_name: data.first_name,
+            last_name: data.last_name,
             password: data.password,
           });
 

@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import styled, { css } from "styled-components";
 
-import { getNormalList } from "../../api/user.api";
 import cl from "../../constants/color/color";
 import { ICoupon } from "../../interface/coupon.interface";
 import Coupon from "./Coupon";
@@ -11,6 +10,7 @@ import SectionTitle from "./SectionTitle";
 import NoResult from "./NoResult";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { commonActions } from "../../store/slice/Common.slice";
+import { getCouponListApi } from "../../api/user.api";
 
 interface IGetCouponList {
   data: {
@@ -25,6 +25,7 @@ const isExpired = (expiryDate: Date) => {
 };
 const CouponList = () => {
   const { isLoading } = useAppSelector((state) => state.common || {});
+  const { id } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
 
   const [selected, setSelected] = useState("unused");
@@ -36,7 +37,7 @@ const CouponList = () => {
       dispatch(commonActions.setLoading(true));
       const {
         data: { couponList },
-      }: IGetCouponList = await getNormalList({ type: "couponList" });
+      }: IGetCouponList = await getCouponListApi({ userId: id! });
       setCouponList(couponList);
       setFilteredList(
         couponList?.filter(

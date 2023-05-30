@@ -5,10 +5,10 @@ import addToCart from "../../store/actions/product/addToCart.action";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 
 interface IProps {
-  productId: string;
+  id: string;
   size: string;
 }
-const AddToCartBtn = ({ productId, size }: IProps) => {
+const AddToCartBtn = ({ id, size }: IProps) => {
   const dispatch = useAppDispatch();
   const { cartLoading } = useAppSelector((state) => state.common || {});
   const handleAddToCart = async () => {
@@ -17,7 +17,7 @@ const AddToCartBtn = ({ productId, size }: IProps) => {
        * Here need to 'await' so that we can catch Promise Error.
        */
       await dispatch(
-        addToCart({ productId, addOne: false, size }) as unknown as AnyAction
+        addToCart({ id, addOne: false, size }) as unknown as AnyAction
       );
     } catch (error) {
       console.log(error);

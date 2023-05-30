@@ -16,13 +16,13 @@ const TabletCartItem = ({ cartList }: IProps) => {
 
   const removeFromCartHandler = async ({
     qty,
-    productId,
+    id,
     size,
   }: IRemoveFromCartAction) => {
     try {
       await dispatch(
         removeFromCart({
-          productId,
+          id,
           qty,
           size,
         }) as unknown as AnyAction
@@ -37,21 +37,19 @@ const TabletCartItem = ({ cartList }: IProps) => {
       {cartList.map((item, index) => (
         <>
           <ItemInfo key={index}>
-            <ItemInfoBox
-              onClick={() => navigate(`/product-detail/${item.productId}`)}
-            >
+            <ItemInfoBox onClick={() => navigate(`/product-detail/${item.id}`)}>
               <ItemInfoImgBox>
-                <ItemImg src={item.imageList?.[0]} />
+                <ItemImg src={item.images?.[0].url} />
               </ItemInfoImgBox>
               <ItemInfoTextBox>
-                <h3>{item.productName}</h3>
+                <h3>{item.product_name}</h3>
               </ItemInfoTextBox>
             </ItemInfoBox>
             <ItemDeleteBox>
               <IoMdTrash
                 onClick={() =>
                   removeFromCartHandler({
-                    productId: item.productId,
+                    id: item.id,
                     qty: item.qty!,
                     size: item.size,
                   })
@@ -70,7 +68,7 @@ const TabletCartItem = ({ cartList }: IProps) => {
               <ItemInfoCounterBox>
                 <PlusMinusBtn
                   cartItemQty={item.qty!}
-                  productId={item.productId}
+                  productId={item.id}
                   size={item.size}
                 />
               </ItemInfoCounterBox>
@@ -96,7 +94,7 @@ export const ItemInfo = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  margin-bottom: 0.8rem; 
+  margin-bottom: 0.8rem;
 `;
 export const ItemInfoBox = styled.div`
   display: flex;
@@ -178,7 +176,7 @@ const ItemInfoCounterBox = styled.div`
   width: 15%;
   min-width: 120px;
   flex-grow: 1;
-  padding-right: 1.2rem; 
+  padding-right: 1.2rem;
   padding-bottom: 0.8rem;
 `;
 export default TabletCartItem;

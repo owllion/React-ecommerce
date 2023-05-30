@@ -29,12 +29,10 @@ const ProductDetail = () => {
   const [mainImg, setMainImg] = useState("");
   const [selectedSizeIndex, setSelectedSizeIndex] = useState(0);
   const [detail, setDetail] = useState<IProduct>({
-    _id: "",
-    productId: "",
-    productName: "",
-    imageList: [],
+    id: "",
+    product_name: "",
+    images: [],
     price: 0,
-    salePrice: 0,
     brand: "",
     category: "",
     description: "",
@@ -45,7 +43,7 @@ const ProductDetail = () => {
     color: "",
     reviews: [],
     thumbnail: "",
-    thumbnailList: [],
+    thumbnails: [],
   });
   const setSizeHandler = (index: number) => {
     setSelectedSizeIndex(index);
@@ -55,15 +53,13 @@ const ProductDetail = () => {
   const getDetail = async () => {
     dispatch(commonActions.setLoading(true));
     try {
-      const {
-        data: { productDetail },
-      } = await getProductDetailApi({ productId: id });
+      const { data } = await getProductDetailApi({ productId: id });
 
-      setDetail(productDetail);
-      setMainImg(productDetail.imageList[0]);
+      setDetail(data);
+      setMainImg(data.images[0].url);
 
-      dispatch(productActions.setProductReviews(productDetail.reviews));
-      dispatch(productActions.setProductId(productDetail._id));
+      dispatch(productActions.setProductReviews(data.reviews));
+      dispatch(productActions.setProductId(data._id));
       dispatch(commonActions.setLoading(false));
     } catch (error) {
       dispatch(commonActions.setLoading(false));
@@ -72,9 +68,9 @@ const ProductDetail = () => {
     }
   };
 
-  const setMainImgHandler = (index: number) => {
-    setMainImg(detail.imageList[index]);
-  };
+  // const setMainImgHandler = (index: number) => {
+  //   setMainImg(detail.images[index]);
+  // };
   useEffect(() => {
     dispatch(commonActions.resetItemQty());
     getDetail();
@@ -100,15 +96,15 @@ const ProductDetail = () => {
               ))}
             </Thumbs> */}
             <Thumbs>
-              {detail.imageList.map((url) => (
-                <Thumb onClick={() => setMainImg(url)} key={url}>
-                  <ThumbImg src={url} />
+              {detail.images.map((img) => (
+                <Thumb onClick={() => setMainImg(img.url)} key={img.url}>
+                  <ThumbImg src={img.url} />
                 </Thumb>
               ))}
             </Thumbs>
           </Left>
           <Right>
-            <Name>{isLoading ? <Skeleton /> : detail.productName}</Name>
+            <Name>{isLoading ? <Skeleton /> : detail.product_name}</Name>
             <Price> {isLoading ? <Skeleton /> : `$${detail.price}`} </Price>
             <Spacer />
             <ColorAndFavContainer>
@@ -131,7 +127,7 @@ const ProductDetail = () => {
               </PlusMinusBtnBox>
               <AddToCartBtnBox>
                 <AddToCartBtn
-                  productId={detail._id}
+                  id={detail.id}
                   size={sizeList[selectedSizeIndex]}
                 />
               </AddToCartBtnBox>

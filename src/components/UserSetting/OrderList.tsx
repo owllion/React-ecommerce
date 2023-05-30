@@ -6,13 +6,13 @@ import Skeleton from "react-loading-skeleton";
 
 import cl from "../../constants/color/color";
 import SectionTitle from "./SectionTitle";
-import { getPopulatedList } from "src/api/user.api";
 import { AxiosError } from "axios";
 import toast from "react-hot-toast";
 import { IOrder } from "../../interface/order.interface";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { commonActions } from "../../store/slice/Common.slice";
 import NoResult from "./NoResult";
+import { getOrderListApi } from "../../api/user.api";
 interface IOrderList {
   data: {
     orderList: IOrder[];
@@ -23,13 +23,14 @@ const OrderList = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { isLoading } = useAppSelector((state) => state.common || {});
+  const { id } = useAppSelector((state) => state.user);
   const [orderList, setOrderList] = useState<IOrder[]>([]);
   const getOrderList = async () => {
     try {
       dispatch(commonActions.setLoading(true));
       const {
         data: { orderList },
-      }: IOrderList = await getPopulatedList({ type: "order" });
+      }: IOrderList = await getOrderListApi({ userId: id! });
       setOrderList(orderList);
       dispatch(commonActions.setLoading(false));
     } catch (error) {

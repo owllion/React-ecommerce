@@ -2,17 +2,17 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface IState {
   discount: number;
-  discountCode: string;
+  discount_code: string;
   shipping: number;
   total: number;
-  discountTotal: number;
+  discount_total: number;
 }
 const initialState: IState = {
   discount: 0,
-  discountCode: "",
+  discount_code: "",
   shipping: 0,
   total: 0,
-  discountTotal: 0,
+  discount_total: 0,
 };
 
 const checkoutSlice = createSlice({
@@ -27,8 +27,8 @@ const checkoutSlice = createSlice({
       { payload }: PayloadAction<Omit<IState, "total" | "shipping">>
     ) {
       state.discount = payload.discount;
-      state.discountCode = payload.discountCode;
-      state.discountTotal = payload.discountTotal;
+      state.discount_code = payload.discount_code;
+      state.discount_total = payload.discount_total;
     },
     setTotalAndShipping(
       state,
@@ -41,8 +41,8 @@ const checkoutSlice = createSlice({
       state.shipping = 0;
       state.total = 0;
       state.discount = 0;
-      state.discountCode = "";
-      state.discountTotal = 0;
+      state.discount_code = "";
+      state.discount_total = 0;
     },
   },
 });

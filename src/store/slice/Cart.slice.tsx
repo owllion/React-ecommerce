@@ -7,7 +7,7 @@ interface IState {
 }
 interface IUpdateCartListItemQty {
   type: string;
-  productId: string;
+  id: string;
   size: string;
 }
 
@@ -34,8 +34,7 @@ const cartSlice = createSlice({
       { payload }: PayloadAction<Omit<IRemoveFromCartAction, "qty">>
     ) {
       const index = state.cartList.findIndex(
-        (item) =>
-          item.productId === payload.productId && item.size === payload.size
+        (item) => item.id === payload.id && item.size === payload.size
       );
       if (index > -1)
         state.cartList = [
@@ -48,7 +47,7 @@ const cartSlice = createSlice({
       { payload }: PayloadAction<IUpdateCartListItemQty>
     ) {
       state.cartList = state.cartList.map((item) =>
-        item.productId === payload.productId && item.size === payload.size
+        item.id === payload.id && item.size === payload.size
           ? {
               ...item,
               qty: payload.type === "inc" ? item.qty! + 1 : item.qty! - 1,

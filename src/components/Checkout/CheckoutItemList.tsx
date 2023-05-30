@@ -21,7 +21,7 @@ import OrderDetailSummary from "../UserSetting/OrderDetailSummary";
 const CheckoutItemList = () => {
   const dispatch = useAppDispatch();
   const [code, setCode] = useState("");
-  const { shipping, discountTotal, discount } = useAppSelector(
+  const { shipping, discount_total, discount } = useAppSelector(
     (state) => state.checkout || {}
   );
 
@@ -49,13 +49,13 @@ const CheckoutItemList = () => {
       dispatch(commonActions.setApplyCouponLoading(true));
       const {
         data: { discountTotal, discount },
-      }: IApplyCoupon = await applyCoupon({ code, totalPrice: total });
+      }: IApplyCoupon = await applyCoupon({ code, total_price: total });
       console.log({ discount, discountTotal });
       dispatch(
         checkoutActions.setDiscountInfo({
           discount,
-          discountCode: code,
-          discountTotal,
+          discount_code: code,
+          discount_total,
         })
       );
 
@@ -91,7 +91,7 @@ const CheckoutItemList = () => {
         discount={discount}
         shipping={shipping}
         total={total}
-        discountTotal={discountTotal}
+        discountTotal={discount_total}
       />
 
       <PromoCodeContainer>

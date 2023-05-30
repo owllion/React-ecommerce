@@ -7,11 +7,11 @@ import { commonActions } from "../../slice/Common.slice";
 import { cartActions } from "../../slice/Cart.slice";
 
 interface IProps {
-  productId: string;
+  id: string;
   addOne?: boolean;
   size: string;
 }
-const addToCart = ({ productId, addOne, size }: IProps): AppThunk => {
+const addToCart = ({ id, addOne, size }: IProps): AppThunk => {
   const getToken = () => localStorage.getItem("token");
 
   return async (dispatch, getState) => {
@@ -24,7 +24,7 @@ const addToCart = ({ productId, addOne, size }: IProps): AppThunk => {
     try {
       dispatch(commonActions.setCartLoading(true));
 
-      await addToCartApi({ productId, qty, size });
+      await addToCartApi({ id, qty, size });
       dispatch(cartActions.setCartLength(qty));
 
       toast.success("Add Product To Cart");

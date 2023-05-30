@@ -21,16 +21,6 @@ const GithubLoginCallback = () => {
   const dispatch = useAppDispatch();
   const [isVerified, setIsVerified] = useState(true);
 
-  //---
-  // const { search } = useLocation();
-  // const params = new URLSearchParams(search);
-  // const token = params.get("code");
-
-  // const params = useParams();
-  // console.log(params, "這是prams");
-  // const { code: token } = params as { code: string };
-  // console.log(token, "這是token");
-
   const verifyToken = async () => {
     try {
       dispatch(commonActions.setLoading(true));
@@ -60,7 +50,7 @@ const GithubLoginCallback = () => {
     verifyToken();
   }, []);
 
-  return <div>github login callback</div>;
+  return <div></div>;
 };
 
 export default GithubLoginCallback;

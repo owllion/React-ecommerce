@@ -52,13 +52,13 @@ const OrderDetailSummary = (props: IProps) => {
             <ItemInfoBox>
               <ItemWrapper>
                 <ItemInfoImgBox>
-                  <Link to={`/product-detail/${item.productId}`}>
-                    <ItemImg src={item.imageList?.[0]} />
+                  <Link to={`/product-detail/${item.id}`}>
+                    <ItemImg src={item.images?.[0].url} />
                   </Link>
                 </ItemInfoImgBox>
 
                 <TextBox>
-                  <h3>{item.productName}</h3>
+                  <h3>{item.product_name}</h3>
                   <SizeAndColorBox>
                     <div>
                       <ItemInfoColor>Black</ItemInfoColor>

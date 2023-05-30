@@ -5,12 +5,13 @@ import { IUser } from "../../interface/user.interface";
 import { IUserInfo } from "src/interface/user.interface";
 
 const initialState: Partial<IUser> = {
-  firstName: "",
+  id: "",
+  first_name: "",
   email: "",
   fullName: "",
-  lastName: "",
-  avatarUpload: "",
-  avatarDefault: "",
+  last_name: "",
+  upload_avatar: "",
+  default_avatar: "",
   phone: "",
   favList: [],
   reviewList: [],
@@ -22,12 +23,13 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     setUserInfo(state, { payload }: PayloadAction<IUserInfo>) {
-      state.firstName = payload.firstName;
-      state.lastName = payload.lastName;
+      state.id = payload.id;
+      state.first_name = payload.first_name;
+      state.last_name = payload.last_name;
       state.email = payload.email;
       state.phone = payload.phone;
-      state.avatarUpload = payload.avatarUpload;
-      state.avatarDefault = payload.avatarDefault;
+      state.upload_avatar = payload.upload_avatar;
+      state.default_avatar = payload.default_avatar;
       state.favList = payload.favList;
     },
     setGoogleLoginInfo(state, { payload }: PayloadAction<IUserInfo>) {
@@ -35,32 +37,30 @@ const userSlice = createSlice({
         email,
         phone,
         fullName,
-        avatarDefault,
-        avatarUpload,
+        default_avatar,
+        upload_avatar,
         favList,
         locale,
       } = payload;
       state.fullName = fullName;
       state.email = email;
       state.phone = phone;
-      state.avatarDefault = avatarDefault;
-      state.avatarUpload = avatarUpload;
+      state.default_avatar = default_avatar;
+      state.upload_avatar = upload_avatar;
       state.favList = favList;
       state.locale = locale;
     },
     updateUserInfo(state, { payload }: PayloadAction<Partial<IUser>>) {
       state.phone = payload.phone;
-      state.firstName = payload.firstName;
-      state.lastName = payload.lastName;
+      state.first_name = payload.first_name;
+      state.last_name = payload.last_name;
       state.fullName = payload.fullName;
     },
     addToFav(state, { payload }: PayloadAction<IProduct>) {
       state.favList?.push(payload);
     },
     removeFromFav(state, { payload }: PayloadAction<IProduct>) {
-      state.favList = state.favList?.filter(
-        (item) => item?.productId !== payload.productId
-      );
+      state.favList = state.favList?.filter((item) => item?.id !== payload.id);
     },
     setFavList(state, { payload }: PayloadAction<IProduct[]>) {
       state.favList = payload;
@@ -70,16 +70,16 @@ const userSlice = createSlice({
     },
     updateReview(
       state,
-      { payload }: PayloadAction<{ reviewId: string; comment: string }>
+      { payload }: PayloadAction<{ id: string; comment: string }>
     ) {
       state.reviewList = state.reviewList?.map((review) =>
-        review.reviewId === payload.reviewId
+        review.id === payload.id
           ? { ...review, comment: payload.comment }
           : review
       );
     },
     updateAvatarUpload(state, { payload }: PayloadAction<string>) {
-      state.avatarUpload = payload;
+      state.upload_avatar = payload;
     },
   },
 });

@@ -138,7 +138,7 @@ const ProductList = () => {
             <>
               <ItemContainer as={motion.div} layout>
                 {filteredList?.map((item) => (
-                  <ItemBox key={item.productId}>
+                  <ItemBox key={item.id}>
                     {Object.keys(item).length > 0 ? (
                       <SingleProduct item={item as IProduct} />
                     ) : (

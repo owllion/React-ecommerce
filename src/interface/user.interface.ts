@@ -17,13 +17,14 @@ export interface Data {
   };
 }
 export interface IUser {
-  firstName: string;
-  lastName: string;
+  id: string;
+  first_name: string;
+  last_name: string;
   fullName?: string;
   email: string;
   phone: string | null;
-  avatarDefault: string;
-  avatarUpload: string;
+  default_avatar: string;
+  upload_avatar: string;
   favList: IProduct[];
   couponList: ICoupon[];
   cartList: IProduct[];
@@ -57,23 +58,23 @@ export interface IUserInfoModify {
 }
 
 interface IBaseProductInfo {
-  product_id: string;
+  id: string;
   qty: number;
   size: string;
   cartList: IProduct[];
 }
 
-export interface IAddToFav extends Pick<IBaseProductInfo, "product_id"> {}
-export interface IRemoveFromFav extends Pick<IBaseProductInfo, "product_id"> {}
+export interface IAddToFav extends Pick<IBaseProductInfo, "id"> {}
+export interface IRemoveFromFav extends Pick<IBaseProductInfo, "id"> {}
 
 export interface IRemoveFromCart
-  extends Pick<IBaseProductInfo, "product_id" | "size"> {}
+  extends Pick<IBaseProductInfo, "id" | "size"> {}
 export interface IUpdateQty
-  extends Pick<IBaseProductInfo, "product_id" | "qty" | "size"> {
+  extends Pick<IBaseProductInfo, "id" | "qty" | "size"> {
   operation_type: string;
 }
 export interface IAddToCart
-  extends Pick<IBaseProductInfo, "product_id" | "qty" | "size"> {}
+  extends Pick<IBaseProductInfo, "id" | "qty" | "size"> {}
 
 export interface IGetPopulatedList {
   type: "order" | "review";

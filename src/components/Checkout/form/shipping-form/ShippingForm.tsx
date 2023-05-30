@@ -19,8 +19,8 @@ import { cartActions } from "../../../../store/slice/Cart.slice";
 import { checkoutActions } from "../../../../store/slice/Checkout.slice";
 
 interface FormValue {
-  firstName: string;
-  lastName: string;
+  first_name: string;
+  last_name: string;
   address: string;
   state: string;
   zip: number;
@@ -30,7 +30,7 @@ const ShippingForm = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { cartList } = useAppSelector((state) => state.cart || {});
-  const { total, shipping, discountTotal, discount, discountCode } =
+  const { total, shipping, discount_total, discount, discount_code } =
     useAppSelector((state) => state.checkout || {});
   const { locale } = useAppSelector((state) => state.user || {});
   const [userLocale, setUserLocale] = useState("");
@@ -44,13 +44,13 @@ const ShippingForm = () => {
       // dispatch(commonActions.setLoading(true));
       await createOrder({
         orderItem: cartList,
-        receiverName: `${info.firstName} ${info.lastName}`,
-        deliveryAddress: `${info.zip} ${selectedCountry} ${info.state} ${info.address}`,
+        receiver_name: `${info.first_name} ${info.last_name}`,
+        delivery_address: `${info.zip} ${selectedCountry} ${info.state} ${info.address}`,
         shipping,
         total, //就是subtotal
-        discountTotal, //打完折的總價
+        discount_total, //打完折的總價
         discount,
-        discountCode,
+        discount_code,
       });
       dispatch(cartActions.resetCartLength());
       dispatch(checkoutActions.clearInfo());
@@ -105,27 +105,27 @@ const ShippingForm = () => {
         <SC.FormContainer onSubmit={handleSubmit(onSubmit)}>
           <SC.RowFlexBox>
             <SC.LeftInputBox>
-              <SC.Label error={errors.firstName}>First Name</SC.Label>
+              <SC.Label error={errors.first_name}>First Name</SC.Label>
               <SC.Input
-                error={errors.firstName}
+                error={errors.first_name}
                 {...register(
-                  "firstName",
+                  "first_name",
                   getValidationData(["maxLength", "required", "alphabetical"])
                 )}
               />
-              <FieldErr errors={errors} field="firstName" />
+              <FieldErr errors={errors} field="first_name" />
             </SC.LeftInputBox>
 
             <SC.RightInputBox>
-              <SC.Label error={errors.lastName}>Last Name</SC.Label>
+              <SC.Label error={errors.last_name}>Last Name</SC.Label>
               <SC.Input
-                error={errors.lastName}
+                error={errors.last_name}
                 {...register(
-                  "lastName",
+                  "last_name",
                   getValidationData(["required", "alphabetical"])
                 )}
               />
-              <FieldErr errors={errors} field="lastName" />
+              <FieldErr errors={errors} field="last_name" />
             </SC.RightInputBox>
           </SC.RowFlexBox>
 

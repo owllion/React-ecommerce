@@ -20,7 +20,7 @@ const ReviewSection = () => {
             <Lottie jsonName="noData" text="Be the first one to comment!" />
           ) : (
             reviews.map((review) => (
-              <SingleReviewContainer key={review.reviewId}>
+              <SingleReviewContainer key={review.id}>
                 <LeftPartContainer>
                   <LeftAvatarBox>
                     {isLoading ? (
@@ -28,8 +28,8 @@ const ReviewSection = () => {
                     ) : (
                       <img
                         src={
-                          review.user?.avatarUpload ||
-                          review.user?.avatarDefault
+                          review.user?.upload_avatar ||
+                          review.user?.default_avatar
                         }
                         alt="avatar"
                       />
@@ -42,8 +42,8 @@ const ReviewSection = () => {
                   ) : (
                     <SingleReviewHeader>
                       <Author>
-                        {review.user?.firstName
-                          ? `${review.user.firstName} ${review.user.lastName}`
+                        {review.user?.first_name
+                          ? `${review.user.first_name} ${review.user.last_name}`
                           : `${review.user?.fullName}`}
                       </Author>
                       <Date>

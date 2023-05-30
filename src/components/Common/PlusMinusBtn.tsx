@@ -29,9 +29,9 @@ const PlusMinusBtn = ({ cartItemQty, size, productId }: IProps) => {
     try {
       setLocalLoading(true);
       await updateQty({
-        type,
+        operation_type: type,
         qty: cartItemQty,
-        productId: productId,
+        id: productId,
         size: size,
       });
 
@@ -52,7 +52,7 @@ const PlusMinusBtn = ({ cartItemQty, size, productId }: IProps) => {
         cartActions.updateCartListItemQty({
           type,
           size,
-          productId: productId!,
+          id: productId!,
         })
       );
       await updateQtyHandler(type, cartItemQty, productId!, size); //api

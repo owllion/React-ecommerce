@@ -14,7 +14,7 @@ export interface ICreateReview {
 
 export interface IReview {
   rating: number;
-  reviewId?: string;
+  id?: string;
   comment: string;
   user: IUser;
   createdAt: number | Date;

@@ -29,13 +29,13 @@ const SingleProduct = ({ item }: { item: IProduct | undefined }) => {
         <Wrapper>
           <Image src={item?.thumbnail} alt="product" />
           <Info>
-            <Icon onClick={() => handleNavigate(item?.productId!)}>
+            <Icon onClick={() => handleNavigate(item?.id!)}>
               <FiSearch />
             </Icon>
             <Icon
               onClick={() => {
                 handleShowPopup();
-                dispatch(commonActions.setCurrentProductId(item?._id!));
+                dispatch(commonActions.setCurrentProductId(item?.id!));
               }}
             >
               <IoMdCart />
@@ -44,7 +44,7 @@ const SingleProduct = ({ item }: { item: IProduct | undefined }) => {
           </Info>
         </Wrapper>
         <ItemInfo>
-          <Name>{item?.productName}</Name>
+          <Name>{item?.product_name}</Name>
           <Price>${item?.price}</Price>
         </ItemInfo>
       </Container>

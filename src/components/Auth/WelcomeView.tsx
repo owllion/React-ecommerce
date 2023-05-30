@@ -16,9 +16,6 @@ import AuthFormTemplate from "./AuthFormTemplate";
 import { useUpdateEffect } from "../../hooks/useUpdateEffect";
 import { githubLoginApi } from "../../api/auth.api";
 
-type Data = {
-  url: string;
-};
 const WelcomeView = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -36,11 +33,8 @@ const WelcomeView = () => {
     },
   });
   const loginWithGithub = async () => {
-    const {
-      data: { url },
-    }: { data: Data } = await githubLoginApi();
-
-    window.location.href = url;
+    const { data } = await githubLoginApi();
+    window.location.href = data;
   };
 
   return (

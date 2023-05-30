@@ -26,10 +26,9 @@ const ProductCarousel = () => {
 
   const getBestSeller = async () => {
     try {
-      const {
-        data: { list },
-      } = await getBestSellerApi();
-      setBestSellerList(list);
+      const { data } = await getBestSellerApi();
+      console.log(data, "這赤data");
+      setBestSellerList(data);
     } catch (error) {
       const err = error as AxiosError;
       const msg = (err.response?.data as { msg: string }).msg;
@@ -72,7 +71,7 @@ const ProductCarousel = () => {
         navigation={true}
       >
         {bestSellerList.map((item) => (
-          <SwiperSlide key={item.productId}>
+          <SwiperSlide key={item.id}>
             <SingleProduct item={item} />
           </SwiperSlide>
         ))}

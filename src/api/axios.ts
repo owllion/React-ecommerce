@@ -44,7 +44,7 @@ instance.interceptors.response.use(
         try {
           const {
             data: { token: newToken, refreshToken: reToken },
-          } = await getRefreshToken({ refresh: getToken().refreshToken });
+          } = await getRefreshToken({ token: getToken().refreshToken });
 
           localStorage.setItem("token", newToken);
           localStorage.setItem("refreshToken", reToken);

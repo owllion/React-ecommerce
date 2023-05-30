@@ -20,7 +20,7 @@ const Heart = ({ item }: { item: IProduct | undefined }) => {
 
   const getToken = () => localStorage.getItem("token");
   const isInList = () => {
-    return favList?.find((fav) => fav?.productId === item?.productId);
+    return favList?.find((fav) => fav?.id === item?.id);
   };
   const toggleFav = async () => {
     if (!getToken()) return toast.error("You need to login");
@@ -29,7 +29,7 @@ const Heart = ({ item }: { item: IProduct | undefined }) => {
       const {
         data: { msg },
       }: { data: { msg: string } } = await toggleFavApi({
-        product_id: item?.productId!,
+        id: item?.id!,
       });
 
       // dispatch(userActions.addToFav(item!));

@@ -12,7 +12,7 @@ import { Info as Backdrop } from "../../Product/SingleProduct";
 import { commonActions } from "../../../store/slice/Common.slice";
 
 const AvatarSection = () => {
-  const { avatarDefault, avatarUpload } = useAppSelector(
+  const { default_avatar, upload_avatar } = useAppSelector(
     (state) => state.user || {}
   );
   const { uploadImgLoading } = useAppSelector((state) => state.common || {});
@@ -80,7 +80,7 @@ const AvatarSection = () => {
       <DropAvatarBox>
         <Avatar
           referrerPolicy="no-referrer"
-          src={avatarUpload || avatarDefault}
+          src={upload_avatar || default_avatar}
           alt="avatar"
         />
         <CameraIconBox>

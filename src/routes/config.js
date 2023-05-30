@@ -13,9 +13,7 @@ const SendLinkNotification = lazy(() =>
   import("../components/Auth/SendLinkNotification")
 );
 const VerifyEmail = lazy(() => import("../components/Auth/verify/VerifyEmail"));
-const FbLoginCallback = lazy(() =>
-  import("../components/Auth/FbLoginCallback")
-);
+
 const GithubLoginCallback = lazy(() =>
   import("../components/Auth/GithubLoginCallback")
 );
@@ -101,10 +99,7 @@ export const RouteConfig = () => {
           path: "verify-email/:token",
           element: <VerifyEmail />,
         },
-        {
-          path: "fb-login/callback",
-          element: <FbLoginCallback />,
-        },
+
         {
           path: "github-login/callback",
           element: <GithubLoginCallback />,

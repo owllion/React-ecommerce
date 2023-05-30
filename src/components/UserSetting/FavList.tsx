@@ -7,12 +7,13 @@ import toast from "react-hot-toast";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import SingleProduct from "../Product/SingleProduct";
 import SectionTitle from "./SectionTitle";
-import { getNormalList } from "../../api/user.api";
+
 import { IProduct } from "../../interface/product.interface";
 import { commonActions } from "../../store/slice/Common.slice";
 import { userActions } from "../../store/slice/User.slice";
 import { Spacer } from "../../pages/ProductList";
 import NoResult from "./NoResult";
+import { getFavListApi } from "../../api/user.api";
 
 const FavList = () => {
   const dispatch = useAppDispatch();
@@ -23,7 +24,7 @@ const FavList = () => {
       dispatch(commonActions.setLoading(true));
       const {
         data: { favList },
-      } = await getNormalList({ type: "favList" });
+      } = await getFavListApi();
       batch(() => {
         dispatch(userActions.setFavList(favList));
         dispatch(commonActions.setLoading(false));
@@ -46,7 +47,7 @@ const FavList = () => {
         {favList && (
           <>
             {favList.map((item) => (
-              <SingleBox key={item.productId}>
+              <SingleBox key={item.id}>
                 {Object.keys(item).length > 0 ? (
                   <SingleProduct item={item as IProduct} />
                 ) : (

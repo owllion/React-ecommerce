@@ -17,14 +17,14 @@ import { commonActions } from "../../../store/slice/Common.slice";
 import AvatarSection from "./AvatarSection";
 
 interface FormValue {
-  firstName: string;
-  lastName: string;
+  first_name: string;
+  last_name: string;
   fullName: string;
   phone: string | null;
 }
 
 const Account = () => {
-  const { email, firstName, lastName, fullName, phone } = useAppSelector(
+  const { email, first_name, last_name, fullName, phone } = useAppSelector(
     (state) => state.user || {}
   );
   const dispatch = useAppDispatch();
@@ -37,8 +37,8 @@ const Account = () => {
     formState: { errors },
   } = useForm<FormValue>({
     defaultValues: {
-      firstName,
-      lastName,
+      first_name,
+      last_name,
       fullName,
       phone,
     },
@@ -74,23 +74,23 @@ const Account = () => {
           {loginType === "email" ? (
             <>
               <SingleInputBox>
-                <Label error={errors.firstName}>First Name</Label>
+                <Label error={errors.first_name}>First Name</Label>
                 <Input
-                  error={errors.firstName}
+                  error={errors.first_name}
                   {...register(
-                    "firstName",
+                    "first_name",
                     getValidationData(["required", "maxLength"])
                   )}
                 />
-                <FieldErr errors={errors} field="firstName" />
+                <FieldErr errors={errors} field="first_name" />
               </SingleInputBox>
               <SingleInputBox>
-                <Label error={errors.lastName}>Last Name</Label>
+                <Label error={errors.last_name}>Last Name</Label>
                 <Input
-                  error={errors.lastName}
-                  {...register("lastName", getValidationData(["required"]))}
+                  error={errors.last_name}
+                  {...register("last_name", getValidationData(["required"]))}
                 />
-                <FieldErr errors={errors} field="lastName" />
+                <FieldErr errors={errors} field="last_name" />
               </SingleInputBox>
             </>
           ) : (

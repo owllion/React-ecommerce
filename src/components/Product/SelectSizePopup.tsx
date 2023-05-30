@@ -29,7 +29,7 @@ const Popup = () => {
     try {
       await dispatch(
         addToCart({
-          productId: currentProductId,
+          id: currentProductId,
           addOne: true,
           size: sizeList[selectedSizeIndex],
         }) as unknown as AnyAction
