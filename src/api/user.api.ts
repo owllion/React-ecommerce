@@ -45,6 +45,9 @@ export const createReview = (data: ICreateReview) =>
 //ok
 export const createOrder = (data: ICreateOrder) =>
   instance.post("/order", data);
+//line-pay
+export const payWithLinePay = (data: ICreateOrder) =>
+  instance.post("/line-pay/request-payment", data);
 
 //ok
 export const applyCoupon = (data: IApplyCoupon) =>
