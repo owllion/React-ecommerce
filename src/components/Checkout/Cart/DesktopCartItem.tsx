@@ -11,7 +11,7 @@ import removeFromCart, {
   IRemoveFromCartAction,
 } from "../../../store/actions/product/removeFromCart.action";
 
-type ICartItem = {
+export type ICartItem = {
   product: {
     price: number;
     product_name: string;

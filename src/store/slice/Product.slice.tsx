@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IReview } from "../../interface/review.interface";
+import { IReview, IUserReview } from "../../interface/review.interface";
 import { IProduct } from "../../interface/product.interface";
 export interface ProductState {
   productId: string;
@@ -18,6 +18,7 @@ const initialState = {
   productId: "",
   productList: [],
   reviews: [],
+
   selectedCategory: [],
   selectedBrand: [],
   selectedPrice: "",

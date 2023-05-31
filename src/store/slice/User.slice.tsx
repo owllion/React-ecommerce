@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IProduct } from "../../interface/product.interface";
-import { IReview } from "../../interface/review.interface";
+import { IReview, IUserReview } from "../../interface/review.interface";
 import { IUser } from "../../interface/user.interface";
 import { IUserInfo } from "src/interface/user.interface";
 
@@ -15,6 +15,7 @@ const initialState: Partial<IUser> = {
   phone: "",
   favorites: [],
   reviewList: [],
+  userReviews: [],
   locale: "",
 };
 
@@ -44,7 +45,8 @@ const userSlice = createSlice({
         locale,
       } = payload;
       state.id = id;
-      state.fullName = fullName;
+      state.first_name = payload.first_name;
+      state.last_name = payload.last_name;
       state.email = email;
       state.phone = phone;
       state.default_avatar = default_avatar;
@@ -56,7 +58,9 @@ const userSlice = createSlice({
       state.id = payload.id;
       state.default_avatar = payload.default_avatar;
       state.upload_avatar = payload.upload_avatar;
-      state.fullName = payload.first_name + payload.last_name;
+      state.first_name = payload.first_name;
+      state.last_name = payload.last_name;
+      state.phone = payload.phone;
       console.log(payload.favorites, "這是favss!");
       // state.favorites = payload.favorites;
     },
@@ -64,7 +68,6 @@ const userSlice = createSlice({
       state.phone = payload.phone;
       state.first_name = payload.first_name;
       state.last_name = payload.last_name;
-      state.fullName = payload.fullName;
     },
     addToFav(state, { payload }: PayloadAction<IProduct>) {
       state.favorites?.push(payload);
@@ -80,11 +83,14 @@ const userSlice = createSlice({
     setReviewList(state, { payload }: PayloadAction<IReview[]>) {
       state.reviewList = payload;
     },
+    setUserReviewList(state, { payload }: PayloadAction<IUserReview[]>) {
+      state.userReviews = payload;
+    },
     updateReview(
       state,
       { payload }: PayloadAction<{ id: string; comment: string }>
     ) {
-      state.reviewList = state.reviewList?.map((review) =>
+      state.userReviews = state.userReviews?.map((review) =>
         review.id === payload.id
           ? { ...review, comment: payload.comment }
           : review

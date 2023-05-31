@@ -18,13 +18,13 @@ import FieldErr from "src/components/error/FieldErr";
 import { getValidationData } from "src/components/Checkout/form/shipping-form/getValidationData";
 import { userActions } from "src/store/slice/User.slice";
 import { modifyReview } from "src/api/user.api";
-import { IReview } from "src/interface/review.interface";
+import { IReview, IUserReview } from "src/interface/review.interface";
 
 interface FormValue {
   comment: string;
   reviewId: string;
 }
-const Review = ({ review }: { review: IReview }) => {
+const Review = ({ review }: { review: IUserReview }) => {
   const dispatch = useAppDispatch();
   const [count, setCount] = useState(0);
   const [comment, setComment] = useState("");
@@ -58,9 +58,7 @@ const Review = ({ review }: { review: IReview }) => {
         id,
         comment,
       };
-      await modifyReview({
-        reviewItem: params,
-      });
+      await modifyReview(params);
       dispatch(userActions.updateReview(params));
       setIsEditable(false);
       toast.success("modify successfully");
@@ -156,9 +154,7 @@ const Review = ({ review }: { review: IReview }) => {
                       </>
                     ) : (
                       <Link to={`/product-detail/${review.product.id}`}>
-                        <SC.ReviewItemImg
-                          src={review.product.images?.[0].url}
-                        />
+                        <SC.ReviewItemImg src={review.product.thumbnail} />
                       </Link>
                     )}
                   </SC.ReviewItemImgBox>

@@ -48,7 +48,7 @@ const Account = () => {
       dispatch(commonActions.setLoading(true));
       const params = {
         first_name: data.first_name,
-        last_name,
+        last_name: data.last_name,
         phone: data.phone && data.phone,
       };
 

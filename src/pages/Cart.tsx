@@ -25,10 +25,10 @@ type ICartItem = {
 const Cart = () => {
   const [total, setTotal] = useState(0);
   const dispatch = useAppDispatch();
-  const [cartList, setCartList] = useState<ICartItem[]>();
+  const { cartList } = useAppSelector((state) => state.cart);
   const getTotal = () => {
     const res = cartList?.reduce(
-      (total: any, cur: any) => total + cur.qty! * cur.price,
+      (total: any, cur: any) => total + cur.qty! * cur.product.price,
       0
     );
     setTotal(res);
@@ -38,8 +38,6 @@ const Cart = () => {
       dispatch(commonActions.setLoading(true));
 
       const { data } = await getCartListApi();
-      setCartList(data);
-      console.log(data, "this is cartlist");
 
       dispatch(cartActions.setCartList(data));
       dispatch(commonActions.setLoading(false));

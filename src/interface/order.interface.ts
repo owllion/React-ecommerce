@@ -1,20 +1,21 @@
+import { ICartItem } from "../components/Checkout/Cart/DesktopCartItem";
 import { IProduct } from "./product.interface";
 
 export interface IOrder {
-  orderId: string;
-  orderStatus: number;
-  receiverName: string;
-  orderItem: IProduct[];
-  deliveryAddress: string;
+  id: string;
+  order_status: number;
+  receiver_name: string;
+  order_items: ICartItem[]; //可能會改，因為長得不太依樣
+  delivery_address: string;
   total: number;
-  discountTotal: number;
+  discount_total: number;
   shipping: number;
-  createdAt: number;
+  created_at: number;
   discount: number;
-  discountCode: string;
+  discount_code: string;
 }
 export interface ICreateOrder {
-  orderItem: IProduct[];
+  order_items: ICartItem[];
   total: number;
   discount_total: number;
   shipping: number;
@@ -29,9 +30,7 @@ export interface IGetOrderDetail {
 }
 
 export interface IUpdateOrder {
-  orderItem: {
-    orderId: string;
-    deliveryAddress?: string;
-    orderStatus?: number;
-  };
+  order_Id: string;
+  delivery_address?: string;
+  order_status?: number;
 }

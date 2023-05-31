@@ -43,7 +43,7 @@ const ShippingForm = () => {
     try {
       // dispatch(commonActions.setLoading(true));
       await createOrder({
-        orderItem: cartList,
+        order_items: cartList,
         receiver_name: `${info.first_name} ${info.last_name}`,
         delivery_address: `${info.zip} ${selectedCountry} ${info.state} ${info.address}`,
         shipping,

@@ -20,3 +20,15 @@ export interface IReview {
   createdAt: number | Date;
   product: IProduct;
 }
+export interface IUserReview {
+  rating: number;
+  id: string;
+  comment: string;
+  user: IUser;
+  createdAt: number | Date;
+  product: {
+    id: string;
+    thumbnail: string;
+    product_name: string;
+  };
+}

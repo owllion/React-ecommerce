@@ -59,7 +59,7 @@ const ProductDetail = () => {
       setMainImg(data.images[0].url);
 
       dispatch(productActions.setProductReviews(data.reviews));
-      dispatch(productActions.setProductId(data._id));
+      dispatch(productActions.setProductId(data.id));
       dispatch(commonActions.setLoading(false));
     } catch (error) {
       dispatch(commonActions.setLoading(false));

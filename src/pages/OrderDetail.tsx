@@ -13,7 +13,6 @@ import OrderDetailSummary from "../components/UserSetting/OrderDetailSummary";
 import { SectionTitle } from "../components/Checkout/form/payment-form/PaymentForm.style";
 import { getOrderDetail } from "../api/user.api";
 import { IOrder } from "../interface/order.interface";
-import { useUpdateEffect } from "../hooks/useUpdateEffect";
 import { commonActions } from "../store/slice/Common.slice";
 import { useAppDispatch } from "../store/hooks";
 
@@ -50,15 +49,15 @@ const OrderDetail = () => {
             <TopDetailBox>
               <TopLeft>
                 <span className="id">OrderID</span>
-                <span>{detail?.orderId.substring(0, 7).toUpperCase()}</span>
+                <span>{detail?.id.substring(0, 7).toUpperCase()}</span>
               </TopLeft>
               <TopRight>
                 <OrderPlacedDate>
-                  {dayjs(detail?.createdAt).format("YYYY MMMM DD")}
+                  {dayjs(detail?.created_at).format("YYYY MMMM DD")}
                 </OrderPlacedDate>
                 <OrderStatus>
                   <Chip>
-                    {detail?.orderStatus === 0 ? "Completed" : "Canceled"}
+                    {detail?.order_status === 0 ? "Completed" : "Canceled"}
                   </Chip>
                 </OrderStatus>
               </TopRight>
@@ -73,19 +72,19 @@ const OrderDetail = () => {
                 <Title>Shipping Address</Title>
                 <NameBox>
                   <FirstName>
-                    {detail?.receiverName.substring(
+                    {detail?.receiver_name.substring(
                       0,
-                      detail?.receiverName.indexOf(" ")
+                      detail?.receiver_name.indexOf(" ")
                     )}
                   </FirstName>
                   <LastName>
-                    {detail?.receiverName.substring(
-                      detail?.receiverName.indexOf(" ") + 1
+                    {detail?.receiver_name.substring(
+                      detail?.receiver_name.indexOf(" ") + 1
                     )}
                   </LastName>
                 </NameBox>
                 <AddressDetailBox>
-                  <Address>{detail?.deliveryAddress}</Address>
+                  <Address>{detail?.delivery_address}</Address>
                 </AddressDetailBox>
               </Left>
               <Right>
@@ -104,11 +103,11 @@ const OrderDetail = () => {
           </AddressAndPayment>
           <OrderDetailSummary
             needContainer={true}
-            itemList={detail?.orderItem!}
+            itemList={detail?.order_items!}
             shipping={detail?.shipping!}
             discount={detail?.discount!}
             total={detail?.total!}
-            discountTotal={detail?.discountTotal!}
+            discountTotal={detail?.discount_total!}
           />
         </Main>
       </Wrapper>

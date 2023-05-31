@@ -1,6 +1,6 @@
 import { IProduct } from "./product.interface";
 import { ICoupon } from "./coupon.interface";
-import { IReview } from "./review.interface";
+import { IReview, IUserReview } from "./review.interface";
 export interface Data {
   result: {
     token: string;
@@ -26,6 +26,7 @@ export interface IUser {
   default_avatar: string;
   upload_avatar: string;
   favorites: IProduct[];
+  userReviews: IUserReview[];
   couponList: ICoupon[];
   cartList: IProduct[];
   reviewList: IReview[];
@@ -82,10 +83,8 @@ export interface IAddToCart extends Pick<IBaseProductInfo, "qty" | "size"> {
   product_id: string;
 }
 export interface IModifyReview {
-  reviewItem: {
-    id: string;
-    comment: string;
-  };
+  id: string;
+  comment: string;
 }
 
 export interface IUserId {

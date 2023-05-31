@@ -11,9 +11,10 @@ import {
   ItemInfoSize,
 } from "../Checkout/Cart/TabletCartItem";
 import { IProduct } from "../../interface/product.interface";
+import { ICartItem } from "../Checkout/Cart/DesktopCartItem";
 interface IProps {
   needContainer: boolean;
-  itemList: IProduct[];
+  itemList: ICartItem[];
   total: number;
   shipping: number;
   discount: number;
@@ -52,13 +53,13 @@ const OrderDetailSummary = (props: IProps) => {
             <ItemInfoBox>
               <ItemWrapper>
                 <ItemInfoImgBox>
-                  <Link to={`/product-detail/${item.id}`}>
-                    <ItemImg src={item.images?.[0].url} />
+                  <Link to={`/product-detail/${item.product_id}`}>
+                    <ItemImg src={item.product.thumbnail} />
                   </Link>
                 </ItemInfoImgBox>
 
                 <TextBox>
-                  <h3>{item.product_name}</h3>
+                  <h3>{item.product.product_name}</h3>
                   <SizeAndColorBox>
                     <div>
                       <ItemInfoColor>Black</ItemInfoColor>
@@ -70,7 +71,7 @@ const OrderDetailSummary = (props: IProps) => {
                 <ItemNumber>
                   <span>x{item.qty}</span>
                 </ItemNumber>
-                <ItemSubTotal>${item.qty! * item.price}</ItemSubTotal>
+                <ItemSubTotal>${item.qty! * item.product.price}</ItemSubTotal>
               </ItemWrapper>
             </ItemInfoBox>
           ))}

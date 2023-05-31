@@ -66,24 +66,25 @@ const OrderList = () => {
                     <ID>
                       <Link
                         style={{ color: `${cl.lightBlue}` }}
-                        to={`/order/detail/${item.orderId}`}
+                        to={`/order/detail/${item.id}`}
                       >
-                        {item.orderId.substring(0, 7).toUpperCase()}
+                        {item.id.substring(0, 7).toUpperCase()}
                       </Link>
                     </ID>
 
                     <Total>
                       $
-                      {(item.discountTotal ? item.discountTotal : item.total) +
-                        item.shipping}
+                      {(item.discount_total
+                        ? item.discount_total
+                        : item.total) + item.shipping}
                     </Total>
                     <Status>
                       <Chip>
-                        {item.orderStatus === 0 ? "completed" : "canceled"}
+                        {item.order_status === 0 ? "completed" : "canceled"}
                       </Chip>
                     </Status>
                     <Date smaller>
-                      {dayjs(item.createdAt).format("YYYY MMMM DD")}
+                      {dayjs(item.created_at).format("YYYY MMMM DD")}
                     </Date>
                   </OrderItem>
                 ))}
