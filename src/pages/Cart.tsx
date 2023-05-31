@@ -12,17 +12,23 @@ import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { commonActions } from "../store/slice/Common.slice";
 import Lottie from "../components/Common/Lottie";
 
-interface IResult {
-  data: { cartList: IProduct[] };
-}
-
+type ICartItem = {
+  product: {
+    price: number;
+    product_name: string;
+    thumbnail: string;
+  };
+  product_id: string;
+  qty: number;
+  size: string;
+};
 const Cart = () => {
   const [total, setTotal] = useState(0);
   const dispatch = useAppDispatch();
-  const { cartList } = useAppSelector((state) => state.cart || {});
+  const [cartList, setCartList] = useState<ICartItem[]>();
   const getTotal = () => {
-    const res = cartList.reduce(
-      (total, cur) => total + cur.qty! * cur.price,
+    const res = cartList?.reduce(
+      (total: any, cur: any) => total + cur.qty! * cur.price,
       0
     );
     setTotal(res);
@@ -30,10 +36,12 @@ const Cart = () => {
   const getCartList = async () => {
     try {
       dispatch(commonActions.setLoading(true));
-      const {
-        data: { cartList },
-      }: IResult = await getCartListApi();
-      dispatch(cartActions.setCartList(cartList));
+
+      const { data } = await getCartListApi();
+      setCartList(data);
+      console.log(data, "this is cartlist");
+
+      dispatch(cartActions.setCartList(data));
       dispatch(commonActions.setLoading(false));
     } catch (error) {
       dispatch(commonActions.setLoading(false));
@@ -51,7 +59,7 @@ const Cart = () => {
       <Wrapper>
         <CartContent>
           <Title>Cart</Title>
-          {cartList.length > 0 && (
+          {cartList && cartList?.length > 0 && (
             <>
               <CartTableContainer>
                 <CartTableHeader>
@@ -90,7 +98,7 @@ const Cart = () => {
               </BtnSetBox>
             </>
           )}
-          {cartList.length === 0 && (
+          {cartList?.length === 0 && (
             <Lottie jsonName={"sleepingAnt"} text="Your cart is empty" />
           )}
         </CartContent>

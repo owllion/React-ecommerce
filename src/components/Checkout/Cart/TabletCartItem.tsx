@@ -37,19 +37,21 @@ const TabletCartItem = ({ cartList }: IProps) => {
       {cartList.map((item, index) => (
         <>
           <ItemInfo key={index}>
-            <ItemInfoBox onClick={() => navigate(`/product-detail/${item.id}`)}>
+            <ItemInfoBox
+              onClick={() => navigate(`/product-detail/${item.product_id}`)}
+            >
               <ItemInfoImgBox>
-                <ItemImg src={item.images?.[0].url} />
+                <ItemImg src={item.product.thumbnail} />
               </ItemInfoImgBox>
               <ItemInfoTextBox>
-                <h3>{item.product_name}</h3>
+                <h3>{item.product.product_name}</h3>
               </ItemInfoTextBox>
             </ItemInfoBox>
             <ItemDeleteBox>
               <IoMdTrash
                 onClick={() =>
                   removeFromCartHandler({
-                    id: item.id,
+                    id: item.product_id,
                     qty: item.qty!,
                     size: item.size,
                   })
@@ -63,17 +65,19 @@ const TabletCartItem = ({ cartList }: IProps) => {
           </ItemInfoTextBox>
 
           <ItemInfoPriceBox>
-            <ItemInfoPrice>${item.price}</ItemInfoPrice>
+            <ItemInfoPrice>${item.product.price}</ItemInfoPrice>
             <CounterAndSubtotalBox>
               <ItemInfoCounterBox>
                 <PlusMinusBtn
                   cartItemQty={item.qty!}
-                  productId={item.id}
+                  productId={item.product_id}
                   size={item.size}
                 />
               </ItemInfoCounterBox>
               <ItemInfoSubTotalBox>
-                <ItemInfoSubTotal>${item.price * item.qty!}</ItemInfoSubTotal>
+                <ItemInfoSubTotal>
+                  ${item.product.price * item.qty!}
+                </ItemInfoSubTotal>
               </ItemInfoSubTotalBox>
             </CounterAndSubtotalBox>
           </ItemInfoPriceBox>

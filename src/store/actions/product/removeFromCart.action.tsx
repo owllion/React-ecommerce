@@ -12,6 +12,7 @@ export interface IRemoveFromCartAction {
 }
 const removeFromCart = ({ qty, id, size }: IRemoveFromCartAction): AppThunk => {
   return async (dispatch) => {
+    console.log(qty, id, size, "全部印出");
     try {
       await removeFromCartApi({ product_id: id, size });
       dispatch(cartActions.removeFromCart({ id, size }));

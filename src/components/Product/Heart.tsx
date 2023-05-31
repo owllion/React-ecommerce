@@ -31,8 +31,8 @@ const Heart = ({ item }: { item: IProduct | undefined }) => {
       }: { data: { msg: string } } = await toggleFavApi({
         product_id: item?.id!,
       });
-
-      // dispatch(userActions.addToFav(item!));
+      if (msg.includes("add")) dispatch(userActions.addToFav(item!));
+      else dispatch(userActions.removeFromFav(item!));
       toast.success(msg);
 
       dispatch(commonActions.setFavLoading(false));

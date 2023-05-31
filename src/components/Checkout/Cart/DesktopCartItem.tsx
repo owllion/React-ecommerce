@@ -11,8 +11,18 @@ import removeFromCart, {
   IRemoveFromCartAction,
 } from "../../../store/actions/product/removeFromCart.action";
 
+type ICartItem = {
+  product: {
+    price: number;
+    product_name: string;
+    thumbnail: string;
+  };
+  product_id: string;
+  qty: number;
+  size: string;
+};
 export interface IProps {
-  cartList: IProduct[];
+  cartList: ICartItem[];
 }
 
 const DesktopCartItem = ({ cartList }: IProps) => {
@@ -40,14 +50,14 @@ const DesktopCartItem = ({ cartList }: IProps) => {
       {cartList.map((item, index) => (
         <Fragment key={index}>
           <ItemInfoContainer
-            onClick={() => navigate(`/product-detail/${item.id}`)}
+            onClick={() => navigate(`/product-detail/${item.product_id}`)}
           >
             <ItemInfo>
               <ItemInfoImgBox>
-                <ItemImg src={item.images?.[0].url} />
+                <ItemImg src={item.product.thumbnail} />
               </ItemInfoImgBox>
               <ItemInfoTextBox>
-                <h3>{item.product_name}</h3>
+                <h3>{item.product.product_name}</h3>
                 <ItemInfoColor>Black</ItemInfoColor>
                 <ItemInfoSize>{item.size}</ItemInfoSize>
               </ItemInfoTextBox>
@@ -55,23 +65,25 @@ const DesktopCartItem = ({ cartList }: IProps) => {
           </ItemInfoContainer>
 
           <ItemInfoPriceBox>
-            <ItemInfoPrice>${item.price}</ItemInfoPrice>
+            <ItemInfoPrice>${item.product.price}</ItemInfoPrice>
           </ItemInfoPriceBox>
           <ItemInfoCounterBox>
             <PlusMinusBtn
               cartItemQty={item.qty!}
-              productId={item.id}
+              productId={item.product_id}
               size={item.size}
             />
           </ItemInfoCounterBox>
           <ItemInfoSubTotalBox>
-            <ItemInfoSubTotal>${item.price * item.qty!}</ItemInfoSubTotal>
+            <ItemInfoSubTotal>
+              ${item.product.price * item.qty!}
+            </ItemInfoSubTotal>
           </ItemInfoSubTotalBox>
           <ItemDeleteBox>
             <IoMdTrash
               onClick={() =>
                 removeFromCartHandler({
-                  id: item.id,
+                  id: item.product_id,
                   qty: item.qty!,
                   size: item.size,
                 })
