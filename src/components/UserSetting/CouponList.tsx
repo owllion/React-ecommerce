@@ -12,14 +12,10 @@ import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { commonActions } from "../../store/slice/Common.slice";
 import { getCouponListApi } from "../../api/user.api";
 
-interface IGetCouponList {
-  data: {
-    couponList: ICoupon[];
-  };
-}
 const isExpired = (expiryDate: Date) => {
   const now = Date.now() / 1000;
   const expire = Math.floor(new Date(expiryDate).valueOf() / 1000);
+  console.log(expire - now < 0, "有沒有過期??");
 
   return expire - now < 0;
 };
@@ -38,11 +34,6 @@ const CouponList = () => {
       dispatch(commonActions.setLoading(true));
       const { data } = await getCouponListApi({ userId: id! });
       setCouponList(data);
-      setFilteredList(
-        couponList?.filter(
-          (item) => !item.is_used && !isExpired(item.expiry_date)
-        )
-      );
       dispatch(commonActions.setLoading(false));
     } catch (error) {
       dispatch(commonActions.setLoading(false));
@@ -62,7 +53,7 @@ const CouponList = () => {
       else return isExpired(item.expiry_date);
     });
     setFilteredList(list);
-  }, [selected]);
+  }, [couponList, selected]);
   return (
     <Container>
       <SectionTitle title="CouponList" />

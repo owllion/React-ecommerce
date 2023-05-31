@@ -25,7 +25,7 @@ export interface IUser {
   phone: string | null;
   default_avatar: string;
   upload_avatar: string;
-  favList: IProduct[];
+  favorites: IProduct[];
   couponList: ICoupon[];
   cartList: IProduct[];
   reviewList: IReview[];

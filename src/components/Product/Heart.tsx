@@ -15,12 +15,12 @@ import { commonActions } from "../../store/slice/Common.slice";
 
 const Heart = ({ item }: { item: IProduct | undefined }) => {
   const dispatch = useAppDispatch();
-  const { favList } = useAppSelector((state) => state.user || {});
+  const { favorites } = useAppSelector((state) => state.user || {});
   const { favLoading } = useAppSelector((state) => state.common || {});
 
   const getToken = () => localStorage.getItem("token");
   const isInList = () => {
-    return favList?.find((fav) => fav?.id === item?.id);
+    return favorites?.find((fav) => fav?.id === item?.id);
   };
   const toggleFav = async () => {
     if (!getToken()) return toast.error("You need to login");

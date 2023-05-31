@@ -66,4 +66,4 @@ export const getCartListApi = () => instance.get("user/cart");
 export const getOrderListApi = (data: UserInterface.IUserId) =>
   instance.get(`orders/user/${data.userId}`);
 export const getReviewListApi = (data: UserInterface.IUserId) =>
-  instance.get(`coupons/user/${data.userId}`);
+  instance.get(`reviews/user/${data.userId}`);

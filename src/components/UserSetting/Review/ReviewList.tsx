@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { AxiosError } from "axios";
 import toast from "react-hot-toast";
@@ -11,24 +11,19 @@ import NoResult from "src/components/UserSetting/NoResult";
 import { userActions } from "../../../store/slice/User.slice";
 import Review from "./Review";
 import { getReviewListApi } from "../../../api/user.api";
-interface IGetReviewList {
-  data: {
-    reviewList: IReview[];
-  };
-}
 
 const ReviewList = () => {
   const dispatch = useAppDispatch();
-  const { reviewList, id } = useAppSelector((state) => state.user || {});
+  const { id } = useAppSelector((state) => state.user || {});
   const { isLoading } = useAppSelector((state) => state.common || {});
+  const [reviewList, setReviewList] = useState<IReview[]>();
 
   const getReviewList = async () => {
     try {
       dispatch(commonActions.setLoading(true));
-      const {
-        data: { reviewList },
-      }: IGetReviewList = await getReviewListApi({ userId: id! });
-      dispatch(userActions.setReviewList(reviewList));
+      const { data } = await getReviewListApi({ userId: id! });
+      setReviewList(data);
+      dispatch(userActions.setReviewList(data));
       dispatch(commonActions.setLoading(false));
     } catch (error) {
       dispatch(commonActions.setLoading(false));

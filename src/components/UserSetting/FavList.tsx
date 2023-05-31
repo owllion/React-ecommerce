@@ -17,16 +17,14 @@ import { getFavListApi } from "../../api/user.api";
 
 const FavList = () => {
   const dispatch = useAppDispatch();
-  const { favList } = useAppSelector((state) => state.user || {});
+  const { favorites } = useAppSelector((state) => state.user || {});
   const { isLoading } = useAppSelector((state) => state.common || {});
   const getFavListHandler = async () => {
     try {
       dispatch(commonActions.setLoading(true));
-      const {
-        data: { favList },
-      } = await getFavListApi();
+      const { data } = await getFavListApi();
       batch(() => {
-        dispatch(userActions.setFavList(favList));
+        dispatch(userActions.setFavorites(data));
         dispatch(commonActions.setLoading(false));
       });
     } catch (error) {
@@ -44,9 +42,9 @@ const FavList = () => {
     <Container>
       <SectionTitle title="Favorite" />
       <Wrapper>
-        {favList && (
+        {favorites && (
           <>
-            {favList.map((item) => (
+            {favorites.map((item) => (
               <SingleBox key={item.id}>
                 {Object.keys(item).length > 0 ? (
                   <SingleProduct item={item as IProduct} />
@@ -58,7 +56,7 @@ const FavList = () => {
           </>
         )}
       </Wrapper>
-      {favList?.length === 0 && !isLoading && (
+      {favorites?.length === 0 && !isLoading && (
         <Flex>
           <NoResult
             imgText={"NOTHING HERE"}
