@@ -40,22 +40,24 @@ const CheckoutItemList = () => {
   };
   interface IApplyCoupon {
     data: {
-      discountTotal: number;
-      discount: number;
+      // discount_total: number;
+      // discount: number;
+      discounted_amount: number;
+      final_price_after_discount: number;
     };
   }
   const applyCouponHandler = async () => {
     try {
       dispatch(commonActions.setApplyCouponLoading(true));
       const {
-        data: { discountTotal, discount },
+        data: { discounted_amount, final_price_after_discount },
       }: IApplyCoupon = await applyCoupon({ code, total_price: total });
-      console.log({ discount, discountTotal });
+      console.log({ discounted_amount, final_price_after_discount });
       dispatch(
         checkoutActions.setDiscountInfo({
-          discount,
+          discount: discounted_amount,
           discount_code: code,
-          discount_total,
+          discount_total: final_price_after_discount,
         })
       );
 
@@ -102,7 +104,7 @@ const CheckoutItemList = () => {
             placeholder={
               haveUsedCoupon()
                 ? "Only one coupon can be used per order"
-                : "Code for initial order: new123"
+                : "Check your couponList!"
             }
             onChange={(e) => setCodeHandler(e)}
             hasError={errorMsg}

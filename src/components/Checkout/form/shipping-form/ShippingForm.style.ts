@@ -2,7 +2,7 @@ import { baseInput, baseLabel } from "src/components/Product/Review/ReviewForm";
 import styled, { css } from "styled-components";
 import { FieldError } from "react-hook-form";
 import cl from "src/constants/color/color";
-
+import linepay from "src/assets/order/linepay.png";
 export const ShippingContainer = styled.div``;
 export const FormContainer = styled.form``;
 export const Label = styled.label<{ error?: FieldError }>`
@@ -40,4 +40,20 @@ export const RightInputBox = styled.div`
 export const SingleInputBox = styled.div`
   width: 100%;
   margin-top: 1.2rem;
+`;
+
+export const LinePayBtn = styled.button`
+  background: url(${linepay}) no-repeat center;
+  background-size: cover;
+  color: ${cl.white};
+  padding: 2rem 0.2rem;
+  width: 100%;
+  border-radius: 5px;
+  display: block;
+  margin-top: 2rem;
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
+  cursor: pointer;
+  &:not([disabled]):active {
+    transform: translate(2px, 2px);
+  }
 `;

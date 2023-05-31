@@ -10,6 +10,7 @@ export interface IAuthResult {
   token: string;
   refresh_token: string;
   user: IUserInfo;
+  cart_length: number;
 }
 
 interface IProps extends Record<string, string> {}
@@ -22,7 +23,7 @@ const signInOrSignUp = (data: IProps): AppThunk => {
     dispatch(commonActions.setLoading(true));
     try {
       const {
-        data: { token, refresh_token, user },
+        data: { token, refresh_token, user, cart_length },
       }: {
         data: IAuthResult;
       } = isLogin(data)
@@ -43,7 +44,7 @@ const signInOrSignUp = (data: IProps): AppThunk => {
             user,
             token,
             refreshToken: refresh_token,
-            cartLength: user.cartLength,
+            cartLength: cart_length,
             type: "email",
           })
         );

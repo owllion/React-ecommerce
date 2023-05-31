@@ -128,7 +128,6 @@ const ShippingForm = () => {
               <FieldErr errors={errors} field="last_name" />
             </SC.RightInputBox>
           </SC.RowFlexBox>
-
           <SC.SingleInputBox>
             <SC.Label>Country</SC.Label>
             <Select
@@ -141,7 +140,6 @@ const ShippingForm = () => {
               active={active}
             />
           </SC.SingleInputBox>
-
           <SC.SingleInputBox>
             <SC.Label>Address</SC.Label>
             <SC.Input
@@ -150,7 +148,6 @@ const ShippingForm = () => {
             />
             <FieldErr errors={errors} field="address" />
           </SC.SingleInputBox>
-
           <SC.RowFlexBox>
             <SC.LeftInputBox>
               <SC.Label error={errors.state}>State/County</SC.Label>
@@ -173,11 +170,10 @@ const ShippingForm = () => {
               <FieldErr errors={errors} field="zip" />
             </SC.RightInputBox>
           </SC.RowFlexBox>
-
           <SectionTitle>Payment Info</SectionTitle>
           <PaymentForm />
-
-          <PayBtn>Pay</PayBtn>
+          <PayBtn>Pay with credit card</PayBtn>
+          <SC.LinePayBtn />
         </SC.FormContainer>
       </SC.ShippingContainer>
     </FormProvider>
