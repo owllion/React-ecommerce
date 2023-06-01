@@ -15,13 +15,13 @@ import { ICartItem } from "../Checkout/Cart/DesktopCartItem";
 import { IOrderItem } from "../../interface/order.interface";
 interface IProps {
   needContainer: boolean;
-  itemList: ICartItem[];
+  itemList: IOrderItem[];
   total: number;
   shipping: number;
   discount: number;
   discountTotal: number;
 }
-const OrderDetailSummary = (props: IProps) => {
+const OrderItemsInDetailPage = (props: IProps) => {
   const { needContainer, itemList, total, shipping, discountTotal, discount } =
     props;
   const { isLoading } = useAppSelector((state) => state.common || {});
@@ -55,12 +55,12 @@ const OrderDetailSummary = (props: IProps) => {
               <ItemWrapper>
                 <ItemInfoImgBox>
                   <Link to={`/product-detail/${item.product_id}`}>
-                    <ItemImg src={item.product.thumbnail} />
+                    <ItemImg src={item.product_info.thumbnail} />
                   </Link>
                 </ItemInfoImgBox>
 
                 <TextBox>
-                  <h3>{item.product.product_name}</h3>
+                  <h3>{item.product_info.product_name}</h3>
                   <SizeAndColorBox>
                     <div>
                       <ItemInfoColor>Black</ItemInfoColor>
@@ -72,7 +72,9 @@ const OrderDetailSummary = (props: IProps) => {
                 <ItemNumber>
                   <span>x{item.qty}</span>
                 </ItemNumber>
-                <ItemSubTotal>${item.qty! * item.product.price}</ItemSubTotal>
+                <ItemSubTotal>
+                  ${item.qty! * item.product_info.price}
+                </ItemSubTotal>
               </ItemWrapper>
             </ItemInfoBox>
           ))}
@@ -179,4 +181,4 @@ export const ApplyBtn = styled.button`
   flex: 1;
   cursor: pointer;
 `;
-export default OrderDetailSummary;
+export default OrderItemsInDetailPage;

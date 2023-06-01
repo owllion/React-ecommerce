@@ -14,6 +14,18 @@ import { IProduct } from "./product.interface";
 //   discount: number;
 //   discount_code: string;
 // }
+export interface IOrderItem {
+  product_id: string;
+  qty: number;
+  size: string;
+  order_id: string;
+  product_info: {
+    thumbnail: string;
+    product_name: string;
+    price: number;
+    id: string;
+  };
+}
 
 interface PaymentUrl {
   url: string;
@@ -31,7 +43,7 @@ export interface IOrder {
   payment_method: string;
   payment_status: number;
   id: string;
-  order_items: ICartItem[];
+  order_items: IOrderItem[];
   payment_url: PaymentUrl;
   created_at: string;
   updated_at: string;

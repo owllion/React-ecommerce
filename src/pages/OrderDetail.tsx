@@ -16,6 +16,7 @@ import { IOrder } from "../interface/order.interface";
 import { commonActions } from "../store/slice/Common.slice";
 import { useAppDispatch } from "../store/hooks";
 import linepay from "src/assets/order/linepay_png.png";
+import OrderItemsInDetailPage from "../components/UserSetting/OrderItemsInDetailPage";
 const OrderDetail = () => {
   const dispatch = useAppDispatch();
   const { id } = useParams();
@@ -23,10 +24,9 @@ const OrderDetail = () => {
   const getOrderDetailHandler = async () => {
     try {
       dispatch(commonActions.setLoading(true));
-      const {
-        data: { detail },
-      } = await getOrderDetail({ orderId: id! });
-      setDetail(detail);
+      const { data }: { data: IOrder } = await getOrderDetail({ orderId: id! });
+      setDetail(data);
+
       dispatch(commonActions.setLoading(false));
     } catch (error) {
       dispatch(commonActions.setLoading(false));
@@ -107,7 +107,7 @@ const OrderDetail = () => {
               <AddressDivider></AddressDivider>
             </AddressDividerBox>
           </AddressAndPayment>
-          <OrderDetailSummary
+          <OrderItemsInDetailPage
             needContainer={true}
             itemList={detail?.order_items!}
             shipping={detail?.shipping!}

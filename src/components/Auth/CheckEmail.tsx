@@ -35,10 +35,10 @@ const CheckEmail = () => {
   const onSubmit: SubmitHandler<FormValue> = async (email) => {
     try {
       const {
-        data: { hasAccount },
+        data: { has_account },
       } = await checkIfAccountExists(email);
 
-      hasAccount
+      has_account
         ? navigate("/auth/user-login", {
             state: { email: email.email },
             replace: true,

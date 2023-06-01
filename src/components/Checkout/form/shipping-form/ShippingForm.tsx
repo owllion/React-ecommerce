@@ -200,7 +200,6 @@ const ShippingForm = () => {
           <PayBtn
             name="card"
             onClick={() => {
-              console.log("cardddddd");
               setCurBtnName("card");
             }}
           >
@@ -216,7 +215,6 @@ const ShippingForm = () => {
           )}
         </SC.FormContainer>
       </FormProvider>
-      {!haveUsedCoupon() && <SC.LinePayBtn name="linepay" />}
     </SC.ShippingContainer>
   );
 };

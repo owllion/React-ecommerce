@@ -68,7 +68,8 @@ const CheckoutItemList = () => {
       dispatch(commonActions.setApplyCouponLoading(false));
     } catch (error) {
       dispatch(commonActions.setApplyCouponLoading(false));
-      const err = ((error as AxiosError).response?.data as { msg: string }).msg;
+      const err = ((error as AxiosError).response?.data as { detail: string })
+        .detail;
       dispatch(commonActions.setError(err));
       toast.error(err);
     }
@@ -121,6 +122,9 @@ const CheckoutItemList = () => {
           APPLY
         </ApplyBtn>
       </PromoCodeContainer>
+      <ApiErrorBox>
+        <ApiError />
+      </ApiErrorBox>
       <Caution>
         <RiErrorWarningFill />
         <span>
@@ -128,10 +132,6 @@ const CheckoutItemList = () => {
           Linepay.
         </span>
       </Caution>
-
-      <ApiErrorBox>
-        <ApiError />
-      </ApiErrorBox>
     </Container>
   );
 };
@@ -170,7 +170,7 @@ export const ApiErrorBox = styled.div`
 `;
 
 const Caution = styled.div`
-  padding: 1.5rem 0;
+  padding: 1rem 0;
 
   span {
     margin-left: 0.8rem;
