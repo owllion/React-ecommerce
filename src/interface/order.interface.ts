@@ -1,18 +1,40 @@
 import { ICartItem } from "../components/Checkout/Cart/DesktopCartItem";
 import { IProduct } from "./product.interface";
 
+// export interface IOrder {
+//   id: string;
+//   order_status: number;
+//   receiver_name: string;
+//   order_items: ICartItem[]; //可能會改，因為長得不太依樣
+//   delivery_address: string;
+//   total: number;
+//   discount_total: number;
+//   shipping: number;
+//   created_at: number;
+//   discount: number;
+//   discount_code: string;
+// }
+
+interface PaymentUrl {
+  url: string;
+}
+
 export interface IOrder {
-  id: string;
   order_status: number;
-  receiver_name: string;
-  order_items: ICartItem[]; //可能會改，因為長得不太依樣
   delivery_address: string;
+  discount: number;
+  discount_code: string;
   total: number;
   discount_total: number;
   shipping: number;
-  created_at: number;
-  discount: number;
-  discount_code: string;
+  receiver_name: string;
+  payment_method: string;
+  payment_status: number;
+  id: string;
+  order_items: ICartItem[];
+  payment_url: PaymentUrl;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface IOrderInList {

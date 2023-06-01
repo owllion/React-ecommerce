@@ -15,7 +15,7 @@ import { getOrderDetail } from "../api/user.api";
 import { IOrder } from "../interface/order.interface";
 import { commonActions } from "../store/slice/Common.slice";
 import { useAppDispatch } from "../store/hooks";
-
+import linepay from "src/assets/order/linepay_png.png";
 const OrderDetail = () => {
   const dispatch = useAppDispatch();
   const { id } = useParams();
@@ -89,12 +89,18 @@ const OrderDetail = () => {
               </Left>
               <Right>
                 <Title>Payment Method</Title>
-                <FlexBox>
-                  <ImgBox>
-                    <Img src={visa} alt="visa" />
-                  </ImgBox>
-                  <CardNumber>**** 4242</CardNumber>
-                </FlexBox>
+                {detail?.payment_method === "credit_card" ? (
+                  <FlexBox>
+                    <ImgBox>
+                      <Img src={visa} alt="visa" />
+                    </ImgBox>
+                    <CardNumber>**** 4242</CardNumber>
+                  </FlexBox>
+                ) : (
+                  <FlexBox>
+                    <LinePayImg src={linepay} />
+                  </FlexBox>
+                )}
               </Right>
             </ContentBox>
             <AddressDividerBox>
@@ -257,5 +263,10 @@ const AddressDivider = styled.div`
     transparent 0,
     transparent 82px
   );
+`;
+const LinePayImg = styled.img`
+  width: 20%;
+  height: 20%;
+  object-fit: contain;
 `;
 export default OrderDetail;
