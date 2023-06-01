@@ -23,6 +23,8 @@ export interface ICreateOrder {
   receiver_name: string;
   discount: number;
   discount_code: string;
+  owner_id: string;
+  cart_id: string;
 }
 
 export interface IGetOrderDetail {

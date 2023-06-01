@@ -22,6 +22,11 @@ type ICartItem = {
   qty: number;
   size: string;
 };
+
+type ICartItems = {
+  cart_id: string;
+  cart_items: ICartItem[];
+};
 const Cart = () => {
   const [total, setTotal] = useState(0);
   const dispatch = useAppDispatch();
@@ -37,9 +42,11 @@ const Cart = () => {
     try {
       dispatch(commonActions.setLoading(true));
 
-      const { data } = await getCartListApi();
+      const { data }: { data: ICartItems } = await getCartListApi();
 
-      dispatch(cartActions.setCartList(data));
+      dispatch(cartActions.setCartList(data.cart_items));
+      dispatch(cartActions.setCartId(data.cart_id));
+
       dispatch(commonActions.setLoading(false));
     } catch (error) {
       dispatch(commonActions.setLoading(false));

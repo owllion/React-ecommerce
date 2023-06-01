@@ -12,7 +12,7 @@ import FieldErr from "src/components/error/FieldErr";
 import * as SC from "./ShippingForm.style";
 import PaymentForm from "../PaymentForm";
 import { PayBtn } from "../payment-form/PaymentForm.style";
-import { createOrder } from "src/api/user.api";
+import { payWithCreditCard, payWithLinePay } from "src/api/user.api";
 import toast from "react-hot-toast";
 import { commonActions } from "../../../../store/slice/Common.slice";
 import { cartActions } from "../../../../store/slice/Cart.slice";
@@ -29,35 +29,56 @@ interface FormValue {
 const ShippingForm = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { cartList } = useAppSelector((state) => state.cart || {});
+  const { cartList, cartId } = useAppSelector((state) => state.cart || {});
   const { total, shipping, discount_total, discount, discount_code } =
     useAppSelector((state) => state.checkout || {});
-  const { locale } = useAppSelector((state) => state.user || {});
+  const { locale, id } = useAppSelector((state) => state.user || {});
   const [userLocale, setUserLocale] = useState("");
   const [selectedCountry, setSelectedCountry] = useState<string | undefined>(
     userLocale || "Taiwan"
   );
   const [active, setActive] = useState(false);
 
-  const createOrderHandler = async (info: FormValue) => {
+  const createOrderHandler = async (info: FormValue, type: string) => {
     try {
       // dispatch(commonActions.setLoading(true));
-      await createOrder({
-        order_items: cartList,
-        receiver_name: `${info.first_name} ${info.last_name}`,
-        delivery_address: `${info.zip} ${selectedCountry} ${info.state} ${info.address}`,
-        shipping,
-        total, //就是subtotal
-        discount_total, //打完折的總價
-        discount,
-        discount_code,
-      });
-      dispatch(cartActions.resetCartLength());
-      dispatch(checkoutActions.clearInfo());
-      dispatch(commonActions.setLoading(false));
-      navigate("/checkout/order-complete", {
-        replace: true,
-      });
+      if (type === "linepay") {
+        const {
+          data: { url },
+        }: { data: { url: string } } = await payWithLinePay({
+          cart_id: cartId,
+          owner_id: id!,
+          order_items: cartList,
+          receiver_name: `${info.first_name} ${info.last_name}`,
+          delivery_address: `${info.zip} ${selectedCountry} ${info.state} ${info.address}`,
+          shipping,
+          total,
+          discount_total,
+          discount,
+          discount_code,
+        });
+        //導向付款葉面，但如果是creadit card就要導向完成頁面
+        // dispatch(commonActions.setLoading(false));
+        window.location.href = url;
+      } else {
+        await payWithCreditCard({
+          cart_id: cartId,
+          owner_id: id!,
+          order_items: cartList,
+          receiver_name: `${info.first_name} ${info.last_name}`,
+          delivery_address: `${info.zip} ${selectedCountry} ${info.state} ${info.address}`,
+          shipping,
+          total, //就是subtotal
+          discount_total, //打完折的總價
+          discount,
+          discount_code,
+        });
+        dispatch(cartActions.resetCartLength());
+        dispatch(checkoutActions.clearInfo());
+        navigate("/checkout/order-complete", {
+          replace: true,
+        });
+      }
     } catch (error) {
       // dispatch(commonActions.setLoading(false));
 
@@ -81,9 +102,13 @@ const ShippingForm = () => {
     handleSubmit,
     formState: { errors },
   } = methods;
-  const onSubmit: SubmitHandler<FormValue> = async (data) =>
-    await createOrderHandler(data);
-  console.log(errors);
+  const onSubmit: SubmitHandler<FormValue> = async (data, event) => {
+    const formElement = event?.target as HTMLFormElement;
+    const btnName = formElement.getElementsByTagName("button")[1].name;
+
+    await createOrderHandler(data, btnName);
+    console.log(errors);
+  };
 
   useEffect(() => {
     dispatch(checkoutActions.setDiscount(0));
@@ -172,8 +197,8 @@ const ShippingForm = () => {
           </SC.RowFlexBox>
           <SectionTitle>Payment Info</SectionTitle>
           <PaymentForm />
-          <PayBtn>Pay with credit card</PayBtn>
-          <SC.LinePayBtn />
+          <PayBtn name="card">Pay with credit card</PayBtn>
+          <SC.LinePayBtn name="linepay" />
         </SC.FormContainer>
       </SC.ShippingContainer>
     </FormProvider>

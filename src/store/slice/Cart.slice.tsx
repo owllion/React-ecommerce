@@ -2,10 +2,12 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IProduct } from "src/interface/product.interface";
 import { IRemoveFromCartAction } from "../actions/product/removeFromCart.action";
 import { ICartItem } from "../../components/Checkout/Cart/DesktopCartItem";
+import { string } from "prop-types";
 
 interface IState {
   cartLength: number | null;
   cartList: ICartItem[];
+  cartId: string;
 }
 interface IUpdateCartListItemQty {
   type: string;
@@ -16,6 +18,7 @@ interface IUpdateCartListItemQty {
 const initialState: IState = {
   cartLength: null,
   cartList: [],
+  cartId: "",
 };
 
 const cartSlice = createSlice({
@@ -31,6 +34,10 @@ const cartSlice = createSlice({
     setCartList(state, { payload }: PayloadAction<ICartItem[]>) {
       state.cartList = payload;
     },
+    setCartId(state, { payload }: PayloadAction<string>) {
+      state.cartId = payload;
+    },
+
     removeFromCart(
       state,
       { payload }: PayloadAction<Omit<IRemoveFromCartAction, "qty">>

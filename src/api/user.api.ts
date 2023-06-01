@@ -43,7 +43,7 @@ export const createReview = (data: ICreateReview) =>
   instance.post("/review", data);
 
 //ok
-export const createOrder = (data: ICreateOrder) =>
+export const payWithCreditCard = (data: ICreateOrder) =>
   instance.post("/order", data);
 //line-pay
 export const payWithLinePay = (data: ICreateOrder) =>
