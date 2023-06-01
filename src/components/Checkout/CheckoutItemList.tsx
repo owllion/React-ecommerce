@@ -50,10 +50,11 @@ const CheckoutItemList = () => {
   const applyCouponHandler = async () => {
     try {
       dispatch(commonActions.setApplyCouponLoading(true));
+
       const {
         data: { discounted_amount, final_price_after_discount },
       }: IApplyCoupon = await applyCoupon({ code, total_price: total });
-      console.log({ discounted_amount, final_price_after_discount });
+
       dispatch(
         checkoutActions.setDiscountInfo({
           discount: discounted_amount,

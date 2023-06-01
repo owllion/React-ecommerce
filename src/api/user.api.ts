@@ -55,7 +55,7 @@ export const applyCoupon = (data: IApplyCoupon) =>
 
 //ok
 export const getOrderDetail = (data: IGetOrderDetail) =>
-  instance.post(`/order/${data.orderId}`);
+  instance.get(`/order/${data.orderId}`);
 
 //ok
 export const modifyReview = (data: UserInterface.IModifyReview) =>

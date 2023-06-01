@@ -8,7 +8,7 @@ import cl from "../../constants/color/color";
 import SectionTitle from "./SectionTitle";
 import { AxiosError } from "axios";
 import toast from "react-hot-toast";
-import { IOrder } from "../../interface/order.interface";
+import { IOrder, IOrderInList } from "../../interface/order.interface";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { commonActions } from "../../store/slice/Common.slice";
 import NoResult from "./NoResult";
@@ -24,7 +24,7 @@ const OrderList = () => {
   const navigate = useNavigate();
   const { isLoading } = useAppSelector((state) => state.common || {});
   const { id } = useAppSelector((state) => state.user);
-  const [orderList, setOrderList] = useState<IOrder[]>([]);
+  const [orderList, setOrderList] = useState<IOrderInList[]>([]);
   const getOrderList = async () => {
     try {
       dispatch(commonActions.setLoading(true));
@@ -72,12 +72,7 @@ const OrderList = () => {
                       </Link>
                     </ID>
 
-                    <Total>
-                      $
-                      {(item.discount_total
-                        ? item.discount_total
-                        : item.total) + item.shipping}
-                    </Total>
+                    <Total>${item.total}</Total>
                     <Status>
                       <Chip>
                         {item.order_status === 0 ? "completed" : "canceled"}

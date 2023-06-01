@@ -31,9 +31,10 @@ const ShippingForm = () => {
   const dispatch = useAppDispatch();
   const { cartList, cartId } = useAppSelector((state) => state.cart || {});
   const { total, shipping, discount_total, discount, discount_code } =
-    useAppSelector((state) => state.checkout || {});
+    useAppSelector((state) => state.checkout);
   const { locale, id } = useAppSelector((state) => state.user || {});
   const [userLocale, setUserLocale] = useState("");
+  const [curBtnName, setCurBtnName] = useState("");
   const [selectedCountry, setSelectedCountry] = useState<string | undefined>(
     userLocale || "Taiwan"
   );
@@ -57,7 +58,6 @@ const ShippingForm = () => {
           discount,
           discount_code,
         });
-        //導向付款葉面，但如果是creadit card就要導向完成頁面
         // dispatch(commonActions.setLoading(false));
         window.location.href = url;
       } else {
@@ -104,9 +104,9 @@ const ShippingForm = () => {
   } = methods;
   const onSubmit: SubmitHandler<FormValue> = async (data, event) => {
     const formElement = event?.target as HTMLFormElement;
-    const btnName = formElement.getElementsByTagName("button")[1].name;
-
-    await createOrderHandler(data, btnName);
+    // const btnName = formElement.getElementsByTagName("button")[1].name;
+    console.log(curBtnName, "當前名稱");
+    await createOrderHandler(data, curBtnName);
     console.log(errors);
   };
 
@@ -124,8 +124,8 @@ const ShippingForm = () => {
   }, [locale]);
 
   return (
-    <FormProvider {...methods}>
-      <SC.ShippingContainer>
+    <SC.ShippingContainer>
+      <FormProvider {...methods}>
         <SectionTitle>SHIPPING ADDRESS</SectionTitle>
         <SC.FormContainer onSubmit={handleSubmit(onSubmit)}>
           <SC.RowFlexBox>
@@ -197,11 +197,27 @@ const ShippingForm = () => {
           </SC.RowFlexBox>
           <SectionTitle>Payment Info</SectionTitle>
           <PaymentForm />
-          <PayBtn name="card">Pay with credit card</PayBtn>
-          {!haveUsedCoupon() && <SC.LinePayBtn name="linepay" />}
+          <PayBtn
+            name="card"
+            onClick={() => {
+              console.log("cardddddd");
+              setCurBtnName("card");
+            }}
+          >
+            Pay with credit card
+          </PayBtn>
+          {!haveUsedCoupon() && (
+            <SC.LinePayBtn
+              name="linepay"
+              onClick={() => {
+                setCurBtnName("linepay");
+              }}
+            />
+          )}
         </SC.FormContainer>
-      </SC.ShippingContainer>
-    </FormProvider>
+      </FormProvider>
+      {!haveUsedCoupon() && <SC.LinePayBtn name="linepay" />}
+    </SC.ShippingContainer>
   );
 };
 

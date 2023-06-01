@@ -14,6 +14,13 @@ export interface IOrder {
   discount: number;
   discount_code: string;
 }
+
+export interface IOrderInList {
+  total: number;
+  created_at: Date;
+  id: string;
+  order_status: number;
+}
 export interface ICreateOrder {
   order_items: ICartItem[];
   total: number;
