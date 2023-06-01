@@ -38,7 +38,7 @@ const ShippingForm = () => {
     userLocale || "Taiwan"
   );
   const [active, setActive] = useState(false);
-
+  const haveUsedCoupon = () => discount !== 0;
   const createOrderHandler = async (info: FormValue, type: string) => {
     try {
       // dispatch(commonActions.setLoading(true));
@@ -198,7 +198,7 @@ const ShippingForm = () => {
           <SectionTitle>Payment Info</SectionTitle>
           <PaymentForm />
           <PayBtn name="card">Pay with credit card</PayBtn>
-          <SC.LinePayBtn name="linepay" />
+          {!haveUsedCoupon() && <SC.LinePayBtn name="linepay" />}
         </SC.FormContainer>
       </SC.ShippingContainer>
     </FormProvider>

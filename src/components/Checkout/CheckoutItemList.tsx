@@ -17,6 +17,7 @@ import { useAppDispatch } from "../../store/hooks";
 import { commonActions } from "../../store/slice/Common.slice";
 import { checkoutActions } from "../../store/slice/Checkout.slice";
 import OrderDetailSummary from "../UserSetting/OrderDetailSummary";
+import { RiErrorWarningFill } from "react-icons/ri";
 
 const CheckoutItemList = () => {
   const dispatch = useAppDispatch();
@@ -119,6 +120,13 @@ const CheckoutItemList = () => {
           APPLY
         </ApplyBtn>
       </PromoCodeContainer>
+      <Caution>
+        <RiErrorWarningFill />
+        <span>
+          Please be aware that if you apply a coupon, you won't be able to use
+          Linepay.
+        </span>
+      </Caution>
 
       <ApiErrorBox>
         <ApiError />
@@ -158,5 +166,13 @@ export const ApplyBtn = styled.button`
 `;
 export const ApiErrorBox = styled.div`
   padding: 0.5rem 0;
+`;
+
+const Caution = styled.div`
+  padding: 1.5rem 0;
+
+  span {
+    margin-left: 0.8rem;
+  }
 `;
 export default CheckoutItemList;
