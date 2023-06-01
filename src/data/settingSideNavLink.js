@@ -31,3 +31,27 @@ export const sideNavLinks = [
     link: "/settings/review-list",
   },
 ];
+//for 3rd party login
+export const sideNavLinksWithoutResetPwd = [
+  {
+    icon: <IoPersonSharp />,
+    link: "/settings/account",
+  },
+
+  {
+    icon: <IoIosHeart />,
+    link: "/settings/fav-list",
+  },
+  {
+    icon: <FaClipboardList />,
+    link: "/settings/order-list",
+  },
+  {
+    icon: <TbDiscount2 />,
+    link: "/settings/coupon-list",
+  },
+  {
+    icon: <AiFillStar />,
+    link: "/settings/review-list",
+  },
+];
