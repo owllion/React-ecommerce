@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useForm, SubmitHandler, FormProvider } from "react-hook-form";
 import { AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
-
+import { LinePayImg } from "../../../../pages/OrderDetail";
 import { useAppSelector, useAppDispatch } from "../../../../store/hooks";
 import { SectionTitle } from "../payment-form/PaymentForm.style";
 import { countries } from "src/data/countries";
@@ -17,6 +17,7 @@ import toast from "react-hot-toast";
 import { commonActions } from "../../../../store/slice/Common.slice";
 import { cartActions } from "../../../../store/slice/Cart.slice";
 import { checkoutActions } from "../../../../store/slice/Checkout.slice";
+import linepay from "src/assets/order/linepay_png.png";
 
 interface FormValue {
   first_name: string;
@@ -211,7 +212,9 @@ const ShippingForm = () => {
               onClick={() => {
                 setCurBtnName("linepay");
               }}
-            />
+            >
+              <LinePayImg src={linepay} />
+            </SC.LinePayBtn>
           )}
         </SC.FormContainer>
       </FormProvider>

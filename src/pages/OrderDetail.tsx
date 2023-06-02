@@ -264,7 +264,7 @@ const AddressDivider = styled.div`
     transparent 82px
   );
 `;
-const LinePayImg = styled.img`
+export const LinePayImg = styled.img`
   width: 20%;
   height: 20%;
   object-fit: contain;

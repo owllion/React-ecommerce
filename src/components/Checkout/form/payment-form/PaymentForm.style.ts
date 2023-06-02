@@ -31,7 +31,7 @@ export const FormContainer = styled.form`
 export const PayBtn = styled.button`
   background: ${cl.dark};
   color: ${cl.white};
-  padding: 1.5rem 0.2rem;
+  padding: 1rem;
   width: 100%;
   border-radius: 5px;
   display: block;
