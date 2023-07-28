@@ -1,6 +1,7 @@
 {
   "name": "react_ecommerce",
   "proxy": "https://ec-server-ver2.vercel.app/api",
+  "homepage": ".",
   "version": "0.1.0",
   "engines": {
     "npm": "8.x",
