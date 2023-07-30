@@ -48,6 +48,7 @@ const SendLinkNotification = () => {
   };
 
   const verifyUser = async () => {
+    console.log("驗證user!!!");
     try {
       dispatch(commonActions.setLoading(true));
       const {
@@ -57,6 +58,7 @@ const SendLinkNotification = () => {
       }: {
         data: IAuthResult;
       } = await verifyUserApi({ token });
+      console.log("setIsverified前");
       setIsVerified(true);
       dispatch(
         authRelatedAction({
@@ -68,6 +70,7 @@ const SendLinkNotification = () => {
         }) as unknown as AnyAction
       );
       dispatch(commonActions.setLoading(false));
+      console.log("try最底部");
     } catch (error) {
       dispatch(commonActions.setLoading(false));
       setIsVerified(false);

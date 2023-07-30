@@ -46,9 +46,9 @@ const Registration = () => {
     handleSubmit,
     formState: { errors },
   } = methods;
-  const onSubmit: SubmitHandler<FormValue> = (data) => {
+  const onSubmit: SubmitHandler<FormValue> = async (data) => {
     try {
-      dispatch(
+      await dispatch(
         signInOrSignUp({
           ...data,
           email: emailParam,
