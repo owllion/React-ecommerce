@@ -3,20 +3,19 @@ import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import styled, { css } from "styled-components";
 
-import { getNormalList } from "../../api/user.api";
+import { getNormalList, getPopulatedList } from "../../api/user.api";
 import cl from "../../constants/color/color";
-import { ICoupon } from "../../interface/coupon.interface";
+import {
+  ICoupon,
+  ICouponList,
+  IUserCoupon,
+} from "../../interface/coupon.interface";
 import Coupon from "./Coupon";
 import SectionTitle from "./SectionTitle";
 import NoResult from "./NoResult";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { commonActions } from "../../store/slice/Common.slice";
 
-interface IGetCouponList {
-  data: {
-    couponList: ICoupon[];
-  };
-}
 const isExpired = (expiryDate: Date) => {
   const now = Date.now() / 1000;
   const expire = Math.floor(new Date(expiryDate).valueOf() / 1000);
@@ -28,19 +27,19 @@ const CouponList = () => {
   const dispatch = useAppDispatch();
 
   const [selected, setSelected] = useState("unused");
-  const [filteredList, setFilteredList] = useState<ICoupon[]>();
-  const [couponList, setCouponList] = useState<ICoupon[]>();
+  const [filteredList, setFilteredList] = useState<IUserCoupon[]>();
+  const [couponList, setCouponList] = useState<IUserCoupon[]>();
 
   const getCouponList = async () => {
     try {
       dispatch(commonActions.setLoading(true));
       const {
         data: { couponList },
-      }: IGetCouponList = await getNormalList({ type: "couponList" });
+      }: ICouponList = await getPopulatedList({ type: "coupon" });
       setCouponList(couponList);
       setFilteredList(
         couponList?.filter(
-          (item) => !item.isUsed && !isExpired(item.expiryDate)
+          (item) => !item.isUsed && !isExpired(item.coupon.expiryDate)
         )
       );
       dispatch(commonActions.setLoading(false));
@@ -57,9 +56,9 @@ const CouponList = () => {
   useEffect(() => {
     const list = couponList?.filter((item) => {
       if (selected === "unused")
-        return !isExpired(item.expiryDate) && !item.isUsed;
+        return !isExpired(item.coupon.expiryDate) && !item.isUsed;
       if (selected === "used") return item.isUsed;
-      else return isExpired(item.expiryDate);
+      else return isExpired(item.coupon.expiryDate);
     });
     setFilteredList(list);
   }, [selected]);
@@ -103,8 +102,8 @@ const CouponList = () => {
           </StateBar>
           <Wrapper>
             {filteredList?.map((item) => (
-              <SingleBox key={item.code}>
-                <Coupon {...item} />
+              <SingleBox key={item.coupon.code}>
+                <Coupon {...item.coupon} />
               </SingleBox>
             ))}
           </Wrapper>

@@ -102,7 +102,7 @@ const CheckoutItemList = () => {
             placeholder={
               haveUsedCoupon()
                 ? "Only one coupon can be used per order"
-                : "Code for initial order: new123"
+                : "Check your couponList!"
             }
             onChange={(e) => setCodeHandler(e)}
             hasError={errorMsg}

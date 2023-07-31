@@ -43,9 +43,9 @@ const Coupon = (props: ICoupon) => {
     <CouponContainer>
       <CouponWrapper>
         <CouponValue isExpired={isExpired(expiryDate)} isUsed={isUsed}>
-          {discountType === "rebate" && "$"}
+          {discountType === "Fixed Amount" && "$"}
           {amount}
-          {discountType === "percentage" && "%"}
+          {discountType === "Percentage" && "%"}
         </CouponValue>
         <CouponInfo>
           <InfoList>

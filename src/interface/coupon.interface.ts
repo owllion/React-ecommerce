@@ -11,3 +11,14 @@ export interface IApplyCoupon {
   code: string;
   totalPrice: number;
 }
+
+export interface IUserCoupon {
+  coupon: ICoupon; //coupon info(related)
+  isUsed: boolean;
+}
+
+export interface ICouponList {
+  data: {
+    couponList: IUserCoupon[];
+  };
+}

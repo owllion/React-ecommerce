@@ -75,7 +75,7 @@ export interface IAddToCart
   extends Pick<IBaseProductInfo, "productId" | "qty" | "size"> {}
 
 export interface IGetPopulatedList {
-  type: "order" | "review";
+  type: "order" | "review" | "coupon";
 }
 export interface IGetNormalList {
   type: "cartList" | "favList" | "couponList";
