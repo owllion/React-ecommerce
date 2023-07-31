@@ -40,22 +40,22 @@ const CheckoutItemList = () => {
   };
   interface IApplyCoupon {
     data: {
-      discountTotal: number;
-      discount: number;
+      priceAfterDiscount: number;
+      discountedAmount: number;
     };
   }
   const applyCouponHandler = async () => {
     try {
       dispatch(commonActions.setApplyCouponLoading(true));
       const {
-        data: { discountTotal, discount },
+        data: { priceAfterDiscount, discountedAmount },
       }: IApplyCoupon = await applyCoupon({ code, totalPrice: total });
-      console.log({ discount, discountTotal });
+
       dispatch(
         checkoutActions.setDiscountInfo({
-          discount,
+          discount: discountedAmount,
           discountCode: code,
-          discountTotal,
+          discountTotal: priceAfterDiscount,
         })
       );
 

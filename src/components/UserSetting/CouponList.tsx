@@ -55,13 +55,14 @@ const CouponList = () => {
 
   useEffect(() => {
     const list = couponList?.filter((item) => {
+      console.log(item, "這是單個usercoupon");
       if (selected === "unused")
         return !isExpired(item.coupon.expiryDate) && !item.isUsed;
       if (selected === "used") return item.isUsed;
       else return isExpired(item.coupon.expiryDate);
     });
     setFilteredList(list);
-  }, [selected]);
+  }, [couponList, selected]);
   return (
     <Container>
       <SectionTitle title="CouponList" />
